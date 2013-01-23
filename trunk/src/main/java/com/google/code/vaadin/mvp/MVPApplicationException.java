@@ -25,20 +25,22 @@ package com.google.code.vaadin.mvp;
  * @since 23.01.13
  */
 public class MVPApplicationException extends RuntimeException {
-/*===========================================[ STATIC VARIABLES ]=============*/
-/*===========================================[ INSTANCE VARIABLES ]===========*/
-/*===========================================[ CONSTRUCTORS ]=================*/
-/*===========================================[ CLASS METHODS ]================*/
+
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final long serialVersionUID = 1869219413924442768L;
+
+	/*===========================================[ CONSTRUCTORS ]=================*/
 
     public MVPApplicationException(String message) {
         super(message);
     }
 
-    public MVPApplicationException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
     public MVPApplicationException(Throwable cause) {
         super(cause);
+    }
+
+    public MVPApplicationException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

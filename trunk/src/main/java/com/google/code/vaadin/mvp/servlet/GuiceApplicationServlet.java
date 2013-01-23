@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp.guice;
+package com.google.code.vaadin.mvp.servlet;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -36,12 +36,22 @@ import javax.servlet.http.HttpServletRequest;
 @Singleton
 public class GuiceApplicationServlet extends AbstractApplicationServlet {
 
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final long serialVersionUID = -999641550877695877L;
+
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
+
     protected final Provider<Application> applicationProvider;
+
+	/*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
     public GuiceApplicationServlet(Provider<Application> applicationProvider) {
         this.applicationProvider = applicationProvider;
     }
+
+	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected Class getApplicationClass() throws ClassNotFoundException {

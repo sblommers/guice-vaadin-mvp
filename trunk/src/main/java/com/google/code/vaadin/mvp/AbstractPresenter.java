@@ -32,15 +32,23 @@ import java.util.logging.Logger;
  * @since 23.01.13
  */
 public abstract class AbstractPresenter<T extends View> implements Serializable {
+
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    public static final String VIEW_OPEN = "AbstractPresenter_vo";
+    private static final long serialVersionUID = -690166254266524606L;
+
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
+
     @Inject
     protected transient Logger logger;
+
+    protected T view;
 
     @Inject
     private Injector injector;
 
-    protected T view;
-
-    public static final String VIEW_OPEN = "AbstractPresenter_vo";
+	/*===========================================[ CLASS METHODS ]================*/
 
     @SuppressWarnings("unchecked")
     @PostConstruct

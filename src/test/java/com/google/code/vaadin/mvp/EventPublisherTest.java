@@ -7,7 +7,7 @@ package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.mvp.event.EventPublisher;
 import com.google.code.vaadin.mvp.event.Observes;
-import com.google.code.vaadin.mvp.guice.EventPublisherModule;
+import com.google.code.vaadin.mvp.guice.event.EventPublisherModule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nnsoft.guice.junice.JUniceRunner;

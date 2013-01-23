@@ -19,6 +19,8 @@
 package com.google.code.vaadin.mvp.servlet;
 
 import com.google.code.vaadin.mvp.MVPApplicationException;
+import com.google.code.vaadin.mvp.guice.EventPublisherModule;
+import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.servlet.GuiceServletContextListener;
@@ -38,6 +40,10 @@ import java.util.List;
  */
 public abstract class AbstractMVPApplicationContextListener extends GuiceServletContextListener {
 
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    public static final String P_APPLICATION = "application";
+
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private Class<? extends Application> applicationClass;
@@ -48,7 +54,7 @@ public abstract class AbstractMVPApplicationContextListener extends GuiceServlet
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
-            applicationClass = (Class<? extends Application>) Class.forName(servletContextEvent.getServletContext().getInitParameter("mvp-application-class"));
+            applicationClass = (Class<? extends Application>) Class.forName(servletContextEvent.getServletContext().getInitParameter(P_APPLICATION));
         } catch (Exception e) {
             throw new MVPApplicationException("ERROR: Unable to instantiate com.vaadin.Application class. " +
                     "Please check your webapp deployment descriptor.", e);
@@ -84,6 +90,12 @@ public abstract class AbstractMVPApplicationContextListener extends GuiceServlet
     protected abstract Collection<? extends Module> getModules();
 
     protected Module createDefaultModule() {
-        return new MVPServletModule(applicationClass);
+        return new AbstractModule() {
+            @Override
+            protected void configure() {
+                install(new MVPApplicationServletModule(applicationClass));
+                install(new EventPublisherModule());
+            }
+        };
     }
 }

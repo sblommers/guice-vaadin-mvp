@@ -24,6 +24,7 @@ import com.google.inject.Singleton;
 import com.vaadin.Application;
 import com.vaadin.terminal.gwt.server.AbstractApplicationServlet;
 
+import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,20 +43,23 @@ public class GuiceApplicationServlet extends AbstractApplicationServlet {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    protected final Provider<Application> applicationProvider;
+    protected Provider<Application> applicationProvider;
+    private Class applicationClass;
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
-    public GuiceApplicationServlet(Provider<Application> applicationProvider) {
+    public void init(Provider<Application> applicationProvider,
+                     @Named(AbstractMVPApplicationContextListener.P_APPLICATION) Class applicationClass) {
         this.applicationProvider = applicationProvider;
+        this.applicationClass = applicationClass;
     }
 
 	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected Class getApplicationClass() throws ClassNotFoundException {
-        return Application.class;
+        return applicationClass;
     }
 
     @Override

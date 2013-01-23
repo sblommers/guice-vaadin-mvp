@@ -5,17 +5,18 @@
 
 package com.google.code.vaadin.mvp.servlet;
 
+import com.google.inject.name.Names;
 import com.google.inject.servlet.ServletModule;
 import com.google.inject.servlet.ServletScopes;
 import com.vaadin.Application;
 
 /**
-* MVPServletModule - TODO: description
-*
-* @author Alexey Krylov (AleX)
-* @since 24.01.13
-*/
-public class MVPServletModule extends ServletModule {
+ * MVPServletModule - TODO: description
+ *
+ * @author Alexey Krylov (AleX)
+ * @since 24.01.13
+ */
+public class MVPApplicationServletModule extends ServletModule {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -23,7 +24,7 @@ public class MVPServletModule extends ServletModule {
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    public MVPServletModule(Class<? extends Application> applicationClass) {
+    public MVPApplicationServletModule(Class<? extends Application> applicationClass) {
         this.applicationClass = applicationClass;
     }
 
@@ -32,6 +33,7 @@ public class MVPServletModule extends ServletModule {
     @Override
     protected void configureServlets() {
         serve("/*").with(GuiceApplicationServlet.class);
+        bind(Class.class).annotatedWith(Names.named(AbstractMVPApplicationContextListener.P_APPLICATION)).toInstance(applicationClass);
         bind(Application.class).to(applicationClass).in(ServletScopes.SESSION);
     }
 }

@@ -34,7 +34,7 @@ import java.util.logging.Logger;
  * @author Alexey Krylov (AleX)
  * @since 23.01.13
  */
-public class ViewComponent extends CustomComponent {
+public abstract class ViewComponent extends CustomComponent {
 
 	/*===========================================[ STATIC VARIABLES ]=============*/
 

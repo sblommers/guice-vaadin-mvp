@@ -19,7 +19,7 @@
 package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.mvp.application.AbstractMVPApplication;
-import com.google.code.vaadin.mvp.application.RequestData;
+import com.google.code.vaadin.mvp.application.RequestContext;
 import com.google.code.vaadin.mvp.event.EventPublisher;
 import com.google.common.base.Preconditions;
 import com.vaadin.ui.CustomComponent;
@@ -36,6 +36,12 @@ import java.util.logging.Logger;
  */
 public class ViewComponent extends CustomComponent {
 
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final long serialVersionUID = 1527463270559690859L;
+
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
+
     @Inject
     protected transient Logger logger;
 
@@ -46,8 +52,9 @@ public class ViewComponent extends CustomComponent {
     private TextBundle textBundle;
 
     @Inject
-    private RequestData requestData;
+    private RequestContext requestContext;
 
+	/*===========================================[ CLASS METHODS ]================*/
 
     protected String getText(String key, Object... params) {
 
@@ -69,7 +76,7 @@ public class ViewComponent extends CustomComponent {
      * @return
      */
     protected Window getContextWindow() {
-        Window window = requestData.getWindow();
+        Window window = requestContext.getWindow();
         if (window == null) {
             window = getContextApplication().getMainWindow();
         }
@@ -82,6 +89,6 @@ public class ViewComponent extends CustomComponent {
      * @return
      */
     protected AbstractMVPApplication getContextApplication() {
-        return requestData.getApplication();
+        return requestContext.getApplication();
     }
 }

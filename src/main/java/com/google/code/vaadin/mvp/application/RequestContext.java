@@ -28,7 +28,7 @@ import com.vaadin.ui.Window;
  * @since 23.01.13
  */
 @RequestScoped
-public class RequestData {
+public class RequestContext {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 

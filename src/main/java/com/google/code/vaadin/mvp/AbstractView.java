@@ -27,9 +27,17 @@ import com.google.code.vaadin.mvp.event.ViewOpenedEvent;
  * @since 23.01.13
  */
 public abstract class AbstractView extends ViewComponent implements View {
-    private boolean initialized;
+
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final long serialVersionUID = -5555438854419301023L;
+
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
     protected Class<? extends View> viewInterface;
+    private boolean initialized;
+
+	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     public void openView() {

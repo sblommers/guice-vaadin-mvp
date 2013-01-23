@@ -25,7 +25,9 @@ package com.google.code.vaadin.mvp;
  * @since 23.01.13
  */
 public interface View {
-/*===========================================[ INTERFACE METHODS ]==============*/
+
+    /*===========================================[ INTERFACE METHODS ]==============*/
+
     /**
      * Called (by the application logic) whenever the view is opened/accessed.
      */

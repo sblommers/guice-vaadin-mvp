@@ -38,12 +38,19 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class AbstractMVPApplication extends Application implements
         HttpServletRequestListener {
 
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final long serialVersionUID = -9162640299567428524L;
+
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
+
     @Inject
-    private RequestData requestData;
+    private RequestContext requestContext;
 
     @Inject
     private LifecycleManager lifecycleManager;
 
+	/*===========================================[ CONSTRUCTORS ]=================*/
 
     @Override
     public void init() {
@@ -52,8 +59,11 @@ public abstract class AbstractMVPApplication extends Application implements
         } catch (Exception e) {
             throw new MVPApplicationException(e);
         }
+
         initApplication();
     }
+
+	/*===========================================[ CLASS METHODS ]================*/
 
     protected abstract void initApplication();
 
@@ -62,18 +72,6 @@ public abstract class AbstractMVPApplication extends Application implements
         super.close();
         // support for @PostConstruct
         lifecycleManager.close();
-    }
-
-    @Override
-    public void onRequestStart(HttpServletRequest request,
-                               HttpServletResponse response) {
-        requestData.setApplication(this);
-    }
-
-    @Override
-    public void onRequestEnd(HttpServletRequest request,
-                             HttpServletResponse response) {
-        // NOP
     }
 
     /**
@@ -93,12 +91,12 @@ public abstract class AbstractMVPApplication extends Application implements
                 }
                 window.setName(name);
                 addWindow(window);
-                requestData.setWindow(window);
+                requestContext.setWindow(window);
                 buildNewWindow(window);
                 window.open(new ExternalResource(window.getURL()));
             }
         }
-        requestData.setWindow(window);
+        requestContext.setWindow(window);
         return window;
     }
 
@@ -129,6 +127,20 @@ public abstract class AbstractMVPApplication extends Application implements
      * @param newWindow
      */
     protected void buildNewWindow(Window newWindow) {
+        // NOP
+    }
+
+	/*===========================================[ INTERFACE METHODS ]============*/
+
+    @Override
+    public void onRequestStart(HttpServletRequest request,
+                               HttpServletResponse response) {
+        requestContext.setApplication(this);
+    }
+
+    @Override
+    public void onRequestEnd(HttpServletRequest request,
+                             HttpServletResponse response) {
         // NOP
     }
 }

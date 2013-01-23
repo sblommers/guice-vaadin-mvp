@@ -18,8 +18,6 @@
 
 package com.google.code.vaadin.mvp.event;
 
-import javax.annotation.Nonnull;
-
 /**
  * EventPublisher - TODO: description
  *
@@ -30,5 +28,5 @@ public interface EventPublisher {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
-    void publish(@Nonnull Object event);
+    void publish(Object event);
 }

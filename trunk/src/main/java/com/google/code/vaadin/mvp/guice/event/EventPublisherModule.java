@@ -3,10 +3,9 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.mvp.guice;
+package com.google.code.vaadin.mvp.guice.event;
 
 import com.google.code.vaadin.mvp.event.EventPublisher;
-import com.google.code.vaadin.mvp.event.Observes;
 import com.google.common.base.Preconditions;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
@@ -17,10 +16,6 @@ import com.google.inject.spi.TypeListener;
 import net.engio.mbassy.BusConfiguration;
 import net.engio.mbassy.IMessageBus;
 import net.engio.mbassy.MBassador;
-import net.engio.mbassy.listener.*;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 
 /**
  * EventPublisherModule - TODO: description
@@ -77,46 +72,8 @@ public class EventPublisherModule extends AbstractModule {
     }
 
     protected BusConfiguration mapAnnotations(BusConfiguration busConfiguration) {
-        busConfiguration.setMetadataReader(new MetadataReader() {
-            @Override
-            public MessageHandlerMetadata getHandlerMetadata(Method messageHandler) {
-                Listener listenerAnnotation = messageHandler.getAnnotation(Listener.class);
-                if (listenerAnnotation == null) {
-                    Observes observesAnnotation = messageHandler.getAnnotation(Observes.class);
-                    if (observesAnnotation != null) {
-                        listenerAnnotation = new MappedListener();
-                    }
-                }
-                return new MessageHandlerMetadata(messageHandler, new IMessageFilter[0], listenerAnnotation);
-            }
-        });
+        busConfiguration.setMetadataReader(new CompositeMetadataReader());
         return busConfiguration;
     }
 
-    private static class MappedListener implements Listener {
-        @Override
-        public Filter[] filters() {
-            return new Filter[0];
-        }
-
-        @Override
-        public Mode dispatch() {
-            return Mode.Synchronous;
-        }
-
-        @Override
-        public int priority() {
-            return 0;
-        }
-
-        @Override
-        public boolean rejectSubtypes() {
-            return false;
-        }
-
-        @Override
-        public Class<? extends Annotation> annotationType() {
-            return Listener.class;
-        }
-    }
 }

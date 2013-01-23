@@ -1,12 +1,25 @@
 /*
- * Copyright (c) 2013, i-Free. All Rights Reserved.
- * Use is subject to license terms.
+ * Copyright (C) 2013 the original author or authors.
+ * See the notice.md file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.google.code.vaadin.mvp.application;
 
-import com.google.code.vaadin.mvp.GuiceVaadinMVPException;
-import com.google.inject.Injector;
+import com.google.code.vaadin.mvp.MVPApplicationException;
+import com.netflix.governator.lifecycle.LifecycleManager;
 import com.vaadin.Application;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
@@ -22,33 +35,39 @@ import javax.servlet.http.HttpServletResponse;
  * @author Alexey Krylov (AleX)
  * @since 23.01.13
  */
-public class AbstractMVPApplication extends Application implements
+public abstract class AbstractMVPApplication extends Application implements
         HttpServletRequestListener {
-
-    @Inject
-    private BeanManager beanManager;
 
     @Inject
     private RequestData requestData;
 
+    @Inject
+    private LifecycleManager lifecycleManager;
+
+
+    @Override
+    public void init() {
+        try {
+            lifecycleManager.start();
+        } catch (Exception e) {
+            throw new MVPApplicationException(e);
+        }
+        initApplication();
+    }
+
+    protected abstract void initApplication();
 
     @Override
     public void close() {
         super.close();
-        //beanStore.dereferenceAllBeanInstances();
+        // support for @PostConstruct
+        lifecycleManager.close();
     }
 
     @Override
     public void onRequestStart(HttpServletRequest request,
                                HttpServletResponse response) {
         requestData.setApplication(this);
-    }
-
-    Injector getInjector() {
-        if (beanStore == null) {
-            beanStore = new ApplicationBeanStore(beanManager);
-        }
-        return beanStore;
     }
 
     @Override
@@ -67,7 +86,7 @@ public class AbstractMVPApplication extends Application implements
             window = instantiateNewWindowIfNeeded(name);
             if (window != null) {
                 if (window.getContent().getComponentIterator().hasNext()) {
-                    throw new GuiceVaadinMVPException(
+                    throw new MVPApplicationException(
                             "instantiateNewWindowIfNeeded() should only be used "
                                     + "for instantiating new Windows. Populate the Window"
                                     + "in buildNewWindow(Window)");
@@ -112,5 +131,4 @@ public class AbstractMVPApplication extends Application implements
     protected void buildNewWindow(Window newWindow) {
         // NOP
     }
-
 }

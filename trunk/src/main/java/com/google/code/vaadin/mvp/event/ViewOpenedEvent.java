@@ -16,40 +16,37 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp.application;
+package com.google.code.vaadin.mvp.event;
 
-import com.google.inject.servlet.RequestScoped;
-import com.vaadin.ui.Window;
+import com.google.code.vaadin.mvp.View;
 
 /**
- * RequestData - TODO: description
+ * ViewOpenedEvent - TODO: description
  *
  * @author Alexey Krylov (AleX)
- * @since 23.01.13
+ * @since 24.01.13
  */
-@RequestScoped
-public class RequestData {
+public class ViewOpenedEvent {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private AbstractMVPApplication application;
-    private Window window;
+    private final View view;
+    private final Class<? extends View> viewInterface;
+
+	/*===========================================[ CONSTRUCTORS ]=================*/
+
+    public ViewOpenedEvent(Class<? extends View> viewInterface, View view) {
+        this.viewInterface = viewInterface;
+        this.view = view;
+    }
 
 	/*===========================================[ GETTER/SETTER ]================*/
 
-    public AbstractMVPApplication getApplication() {
-        return application;
+    public View getView() {
+        return view;
     }
 
-    public void setApplication(AbstractMVPApplication application) {
-        this.application = application;
-    }
-
-    public Window getWindow() {
-        return window;
-    }
-
-    public void setWindow(Window window) {
-        this.window = window;
+    public Class<? extends View> getViewInterface() {
+        return viewInterface;
     }
 }

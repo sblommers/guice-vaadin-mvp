@@ -16,18 +16,18 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin.mvp.event;
+
+import java.lang.annotation.*;
 
 /**
- * Interface for a bundle implementation used for obtaining (localized) texts.
- * If implemented, can be used by CDI Utils.
+ * Observes - TODO: description
  *
  * @author Alexey Krylov (AleX)
  * @since 23.01.13
  */
-public interface TextBundle {
-
-    /*===========================================[ INTERFACE METHODS ]==============*/
-
-    String getText(String key, Object... params);
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+public @interface Observes {
 }

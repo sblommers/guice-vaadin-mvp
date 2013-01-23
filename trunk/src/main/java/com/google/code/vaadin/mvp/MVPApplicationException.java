@@ -19,15 +19,26 @@
 package com.google.code.vaadin.mvp;
 
 /**
- * Interface for a bundle implementation used for obtaining (localized) texts.
- * If implemented, can be used by CDI Utils.
+ * GuiceVaadinMVPException - TODO: description
  *
  * @author Alexey Krylov (AleX)
  * @since 23.01.13
  */
-public interface TextBundle {
+public class MVPApplicationException extends RuntimeException {
+/*===========================================[ STATIC VARIABLES ]=============*/
+/*===========================================[ INSTANCE VARIABLES ]===========*/
+/*===========================================[ CONSTRUCTORS ]=================*/
+/*===========================================[ CLASS METHODS ]================*/
 
-    /*===========================================[ INTERFACE METHODS ]==============*/
+    public MVPApplicationException(String message) {
+        super(message);
+    }
 
-    String getText(String key, Object... params);
+    public MVPApplicationException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public MVPApplicationException(Throwable cause) {
+        super(cause);
+    }
 }

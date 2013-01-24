@@ -6,14 +6,19 @@
 package com.google.code.vaadin.mvp;
 
 /**
- * SampleEvent - TODO: description
+ * TestView - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov (lexx)
  * @since 24.01.13
  */
-public class SampleEvent {
+public class TestView extends AbstractView {
 /*===========================================[ STATIC VARIABLES ]=============*/
 /*===========================================[ INSTANCE VARIABLES ]===========*/
 /*===========================================[ CONSTRUCTORS ]=================*/
 /*===========================================[ CLASS METHODS ]================*/
+
+    @Override
+    protected void initView() {
+
+    }
 }

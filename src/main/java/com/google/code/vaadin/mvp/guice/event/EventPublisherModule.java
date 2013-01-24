@@ -25,22 +25,22 @@ import net.engio.mbassy.MBassador;
  */
 public class EventPublisherModule extends AbstractModule {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private BusConfiguration busConfiguration;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     public EventPublisherModule() {
         busConfiguration = BusConfiguration.Default();
     }
 
     public EventPublisherModule(BusConfiguration busConfiguration) {
-        Preconditions.checkNotNull("BusConfiguration can't be null", busConfiguration);
+        Preconditions.checkArgument(busConfiguration != null, "BusConfiguration can't be null", busConfiguration);
         this.busConfiguration = busConfiguration;
     }
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void configure() {

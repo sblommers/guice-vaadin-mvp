@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.code.vaadin.mvp.event.ViewOpenedEvent;
+import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
 
 /**
  * Abstract implementation of CDI Utils MVP-pattern view.

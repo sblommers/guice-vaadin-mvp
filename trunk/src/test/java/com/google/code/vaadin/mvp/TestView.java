@@ -8,7 +8,7 @@ package com.google.code.vaadin.mvp;
 /**
  * TestView - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 24.01.13
  */
 public class TestView extends AbstractView {

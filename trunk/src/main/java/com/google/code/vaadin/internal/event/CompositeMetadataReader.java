@@ -14,14 +14,21 @@ import net.engio.mbassy.subscription.MessageEnvelope;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
-* CompositeMetadataReader - TODO: description
-*
-* @author Alexey Krylov (AleX)
-* @since 24.01.13
-*/
+ * CompositeMetadataReader - TODO: description
+ *
+ * @author Alexey Krylov
+ * @since 24.01.13
+ */
 class CompositeMetadataReader extends MetadataReader {
+
+    /*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final Logger logger = Logger.getLogger(CompositeMetadataReader.class.getName());
+
     private static final IPredicate<Method> AllMessageHandlers = new IPredicate<Method>() {
         @Override
         public boolean apply(Method target) {
@@ -29,6 +36,43 @@ class CompositeMetadataReader extends MetadataReader {
         }
     };
 
+    /*===========================================[ CLASS METHODS ]================*/
+
+    @Override
+    public List<MessageHandlerMetadata> getMessageHandlers(Class<?> target) {
+        // get all handlers (this will include overridden handlers)
+        List<Method> allMethods = ReflectionUtils.getMethods(AllMessageHandlers, target);
+        List<MessageHandlerMetadata> handlers = new LinkedList<MessageHandlerMetadata>();
+        for (Method handler : allMethods) {
+            Method overriddenHandler = ReflectionUtils.getOverridingMethod(handler, target);
+            if (overriddenHandler == null && isValidHandler(handler)) {
+                // add the handler only if it has not been overridden because
+                // either the override in the subclass deactivates the handler (by not specifying the @Listener)
+                // or the handler defined in the subclass is part of the list and will be processed itself
+                handlers.add(getHandlerMetadata(handler));
+            }
+        }
+        return handlers;
+    }
+
+    private static boolean isValidHandler(Method handler) {
+        if (handler.getParameterTypes().length != 1) {
+            // a messageHandler only defines one parameter (the message)
+            logger.log(Level.WARNING, "Found no or more than one parameter in messageHandler [" + handler.getName()
+                    + "]. A messageHandler must define exactly one parameter");
+            return false;
+        }
+        Enveloped envelope = handler.getAnnotation(Enveloped.class);
+        if (envelope != null && !MessageEnvelope.class.isAssignableFrom(handler.getParameterTypes()[0])) {
+            logger.log(Level.WARNING, "Message envelope configured but no subclass of MessageEnvelope found as parameter");
+            return false;
+        }
+        if (envelope != null && envelope.messages().length == 0) {
+            logger.log(Level.WARNING, "Message envelope configured but message types defined for handler");
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public MessageHandlerMetadata getHandlerMetadata(Method messageHandler) {
@@ -40,41 +84,5 @@ class CompositeMetadataReader extends MetadataReader {
             }
         }
         return new MessageHandlerMetadata(messageHandler, new IMessageFilter[0], listenerAnnotation);
-    }
-
-    @Override
-    public List<MessageHandlerMetadata> getMessageHandlers(Class<?> target) {
-        // get all handlers (this will include overridden handlers)
-        List<Method> allMethods = ReflectionUtils.getMethods(AllMessageHandlers, target);
-        List<MessageHandlerMetadata>  handlers = new LinkedList<MessageHandlerMetadata>();
-        for(Method handler : allMethods){
-            Method overriddenHandler = ReflectionUtils.getOverridingMethod(handler, target);
-            if(overriddenHandler == null && isValidMessageHandler(handler)){
-                // add the handler only if it has not been overridden because
-                // either the override in the subclass deactivates the handler (by not specifying the @Listener)
-                // or the handler defined in the subclass is part of the list and will be processed itself
-                handlers.add(getHandlerMetadata(handler));
-            }
-        }
-        return handlers;
-    }
-
-    private boolean isValidMessageHandler(Method handler) {
-        if (handler.getParameterTypes().length != 1) {
-            // a messageHandler only defines one parameter (the message)
-            System.out.println("Found no or more than one parameter in messageHandler [" + handler.getName()
-                    + "]. A messageHandler must define exactly one parameter");
-            return false;
-        }
-        Enveloped envelope = handler.getAnnotation(Enveloped.class);
-        if(envelope != null && !MessageEnvelope.class.isAssignableFrom(handler.getParameterTypes()[0])){
-            System.out.println("Message envelope configured but no subclass of MessageEnvelope found as parameter");
-            return false;
-        }
-        if(envelope != null && envelope.messages().length == 0){
-            System.out.println("Message envelope configured but message types defined for handler");
-            return false;
-        }
-        return true;
     }
 }

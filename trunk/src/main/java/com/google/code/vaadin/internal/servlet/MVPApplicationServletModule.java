@@ -5,8 +5,8 @@
 
 package com.google.code.vaadin.internal.servlet;
 
-import com.google.code.vaadin.mvp.RequestContext;
 import com.google.code.vaadin.guice.MVPApplicationContextListener;
+import com.google.code.vaadin.mvp.RequestContext;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;
@@ -16,22 +16,22 @@ import com.vaadin.Application;
 /**
  * MVPServletModule - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 24.01.13
  */
 public class MVPApplicationServletModule extends ServletModule {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private Class<? extends Application> applicationClass;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     public MVPApplicationServletModule(Class<? extends Application> applicationClass) {
         this.applicationClass = applicationClass;
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Override
     protected void configureServlets() {

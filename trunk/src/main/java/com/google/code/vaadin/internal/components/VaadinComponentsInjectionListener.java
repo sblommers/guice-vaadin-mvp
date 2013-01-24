@@ -16,19 +16,20 @@ import com.vaadin.ui.Component;
 import java.lang.reflect.Field;
 
 /**
- * VaadinControlsInjectionListener - TODO: description
+ * Listens for fields of type {@link Component} and marked with {@link Preconfigured} annotation.
+ * For this kind of fields {@link VaadinComponentsInjector} will be registered.
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 24.01.13
  */
 public class VaadinComponentsInjectionListener implements TypeListener {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject(optional = true)
     private TextBundle textBundle;
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     public <T> void hear(TypeLiteral<T> typeLiteral, TypeEncounter<T> typeEncounter) {
@@ -36,7 +37,7 @@ public class VaadinComponentsInjectionListener implements TypeListener {
             if (Component.class.isAssignableFrom(field.getType())
                     && field.isAnnotationPresent(Preconfigured.class)) {
                 Preconfigured preconfigured = field.getAnnotation(Preconfigured.class);
-                typeEncounter.register(new VaddinComponentsInjector<T>(field, preconfigured, textBundle));
+                typeEncounter.register(new VaadinComponentsInjector<T>(field, preconfigured, textBundle));
             }
         }
     }

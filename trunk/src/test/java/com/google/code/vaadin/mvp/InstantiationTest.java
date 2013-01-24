@@ -17,19 +17,19 @@ import javax.inject.Inject;
 /**
  * ClassMateTest - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 24.01.13
  */
 @RunWith(JUniceRunner.class)
 @GuiceModules(modules = EventPublisherModule.class)
 public class InstantiationTest {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
     private TestPresenter testPresenter;
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Test
     public void testClassMate() {

@@ -22,7 +22,7 @@ package com.google.code.vaadin;
  * Interface for a bundle implementation used for obtaining (localized) texts.
  * If implemented, can be used by CDI Utils.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 public interface TextBundle {

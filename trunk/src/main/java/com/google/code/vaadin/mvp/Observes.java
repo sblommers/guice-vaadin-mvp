@@ -23,7 +23,7 @@ import java.lang.annotation.*;
 /**
  * Observes - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 @Target(ElementType.METHOD)

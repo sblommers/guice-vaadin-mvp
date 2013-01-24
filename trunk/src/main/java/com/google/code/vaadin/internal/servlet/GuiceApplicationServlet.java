@@ -32,22 +32,22 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Provider constructs a new Application instance for each user.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 @Singleton
 public class GuiceApplicationServlet extends AbstractApplicationServlet {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final long serialVersionUID = -999641550877695877L;
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     protected Provider<Application> applicationProvider;
     private Class applicationClass;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
     public void init(Provider<Application> applicationProvider,
@@ -56,7 +56,7 @@ public class GuiceApplicationServlet extends AbstractApplicationServlet {
         this.applicationClass = applicationClass;
     }
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected Class getApplicationClass() throws ClassNotFoundException {

@@ -24,17 +24,18 @@ import com.vaadin.ui.Window;
 /**
  * RequestData - TODO: description
  * Actual scope binding done in {@link MVPApplicationServletModule}.
- * @author Alexey Krylov (AleX)
+ *
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 public class RequestContext {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private AbstractMVPApplication application;
     private Window window;
 
-	/*===========================================[ GETTER/SETTER ]================*/
+    /*===========================================[ GETTER/SETTER ]================*/
 
     public AbstractMVPApplication getApplication() {
         return application;

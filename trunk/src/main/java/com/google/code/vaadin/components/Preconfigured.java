@@ -25,14 +25,14 @@ import javax.inject.Scope;
 import java.lang.annotation.*;
 
 /**
- * Preconfigured - TODO: description
+ * Qualifier that can be used for declaratively defining Vaadin components configuration at Guice injection points.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 @Scope
 @Documented
-@Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD })
+@Target({ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Preconfigured {
     /**

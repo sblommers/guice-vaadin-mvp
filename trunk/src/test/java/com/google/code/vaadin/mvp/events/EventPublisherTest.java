@@ -21,14 +21,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * EventPublisherTest - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 24.01.13
  */
 @RunWith(JUniceRunner.class)
 @GuiceModules(modules = EventPublisherModule.class)
 public class EventPublisherTest {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
     private EventPublisher eventPublisher;
@@ -36,7 +36,7 @@ public class EventPublisherTest {
 
     private boolean eventNotified;
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Observes
     public void when(SampleEvent viewEvent) {

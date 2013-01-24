@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 /**
  * Superclass for views and their subcomponents.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 public abstract class ViewComponent extends CustomComponent {

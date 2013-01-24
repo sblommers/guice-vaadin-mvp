@@ -12,12 +12,15 @@ import net.engio.mbassy.listener.Mode;
 import java.lang.annotation.Annotation;
 
 /**
-* MappedListener - TODO: description
-*
-* @author Alexey Krylov (AleX)
-* @since 24.01.13
-*/
+ * MappedListener - TODO: description
+ *
+ * @author Alexey Krylov
+ * @since 24.01.13
+ */
 class MappedListener implements Listener {
+
+    /*===========================================[ INTERFACE METHODS ]============*/
+
     @Override
     public Filter[] filters() {
         return new Filter[0];

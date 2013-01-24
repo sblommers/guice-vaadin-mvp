@@ -21,23 +21,23 @@ package com.google.code.vaadin.mvp;
 import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
 
 /**
- * Abstract implementation of CDI Utils MVP-pattern view.
+ * Abstract implementation of MVP-pattern View.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 public abstract class AbstractView extends ViewComponent implements View {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final long serialVersionUID = -5555438854419301023L;
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     protected Class<? extends View> viewInterface;
     private boolean initialized;
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     public void openView() {

@@ -21,26 +21,24 @@ package com.google.code.vaadin.mvp.events;
 import com.google.code.vaadin.mvp.View;
 
 /**
- * ViewOpenedEvent - TODO: description
- *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 24.01.13
  */
 public class ViewOpenedEvent {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private final View view;
     private final Class<? extends View> viewInterface;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     public ViewOpenedEvent(Class<? extends View> viewInterface, View view) {
         this.viewInterface = viewInterface;
         this.view = view;
     }
 
-	/*===========================================[ GETTER/SETTER ]================*/
+    /*===========================================[ GETTER/SETTER ]================*/
 
     public View getView() {
         return view;

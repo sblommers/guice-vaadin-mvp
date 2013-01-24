@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin;
 
 /**
  * Interface for a bundle implementation used for obtaining (localized) texts.

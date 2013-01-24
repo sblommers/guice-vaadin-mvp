@@ -18,16 +18,15 @@
 
 package com.google.code.vaadin.mvp.application;
 
-import com.google.inject.servlet.RequestScoped;
+import com.google.code.vaadin.mvp.servlet.MVPApplicationServletModule;
 import com.vaadin.ui.Window;
 
 /**
  * RequestData - TODO: description
- *
+ * Actual scope binding done in {@link MVPApplicationServletModule}.
  * @author Alexey Krylov (AleX)
  * @since 23.01.13
  */
-@RequestScoped
 public class RequestContext {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/

@@ -3,8 +3,9 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin.mvp.event;
 
+import com.google.code.vaadin.mvp.event.SampleEvent;
 import com.google.code.vaadin.mvp.event.EventPublisher;
 import com.google.code.vaadin.mvp.event.Observes;
 import com.google.code.vaadin.mvp.guice.event.EventPublisherModule;
@@ -28,12 +29,15 @@ import static org.junit.Assert.assertTrue;
 @GuiceModules(modules = EventPublisherModule.class)
 public class EventPublisherTest {
 
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
+
     @Inject
     private EventPublisher eventPublisher;
 
 
     private boolean eventNotified;
 
+	/*===========================================[ CLASS METHODS ]================*/
 
     @Observes
     public void when(SampleEvent viewEvent) {

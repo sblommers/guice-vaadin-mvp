@@ -66,7 +66,7 @@ public abstract class ViewComponent extends CustomComponent {
     }
 
     protected void fireViewEvent(Object event) {
-        Preconditions.checkNotNull(event, "Event can't be null");
+        Preconditions.checkArgument(event!=null, "Event can't be null");
         eventPublisher.publish(event);
     }
 

@@ -18,11 +18,9 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.inject.Injector;
-
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -33,35 +31,23 @@ import java.util.logging.Logger;
  */
 public abstract class AbstractPresenter<T extends View> implements Serializable {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
-    public static final String VIEW_OPEN = "AbstractPresenter_vo";
     private static final long serialVersionUID = -690166254266524606L;
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    @Inject
     protected transient Logger logger;
-
     protected T view;
 
+    /*===========================================[ CLASS METHODS ]================*/
+
     @Inject
-    private Injector injector;
-
-	/*===========================================[ CLASS METHODS ]================*/
-
-    @SuppressWarnings("unchecked")
-    @PostConstruct
-    protected void postConstruct() {
-        // ViewInterface must be defined
-        //todo detect via reflection
-        //view = (T) viewInstance.select(viewInterface).get();
-        //TypeResolver typeResolver = new TypeResolver();
-//listType =>List<Object>
-        //ResolvedType listType = typeResolver.resolve(List.class);
-
+    protected void init(T view, Logger logger) {
+        this.logger = logger;
+        this.view = view;
         initPresenter();
-        logger.info("Presenter initialized: " + getClass());
+        logger.log(Level.FINE, String.format("Presenter initialized: [%s], view class: [%s]", getClass().getName(), view.getClass().getName()));
     }
 
     /**

@@ -5,7 +5,9 @@
 
 package com.google.code.vaadin.mvp.servlet;
 
+import com.google.code.vaadin.mvp.application.RequestContext;
 import com.google.inject.name.Names;
+import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;
 import com.google.inject.servlet.ServletScopes;
 import com.vaadin.Application;
@@ -33,6 +35,7 @@ public class MVPApplicationServletModule extends ServletModule {
     @Override
     protected void configureServlets() {
         serve("/*").with(GuiceApplicationServlet.class);
+        bind(RequestContext.class).in(RequestScoped.class);
         bind(Class.class).annotatedWith(Names.named(AbstractMVPApplicationContextListener.P_APPLICATION)).toInstance(applicationClass);
         bind(Application.class).to(applicationClass).in(ServletScopes.SESSION);
     }

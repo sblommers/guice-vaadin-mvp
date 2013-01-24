@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.mvp.util;
+package com.google.code.vaadin.util;
 
 import com.google.common.base.Preconditions;
 import net.jcip.annotations.ThreadSafe;

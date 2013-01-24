@@ -29,7 +29,7 @@ public class PreconfiguredInjectionTest {
 
     @Inject
     @Preconfigured(nullSelectionAllowed = true, immediate = true)
-    public  Table table;
+    private Table table;
 
 	/*===========================================[ CLASS METHODS ]================*/
 

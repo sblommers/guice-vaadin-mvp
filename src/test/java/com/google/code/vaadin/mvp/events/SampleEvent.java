@@ -8,7 +8,7 @@ package com.google.code.vaadin.mvp.events;
 /**
  * SampleEvent - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 24.01.13
  */
 public class SampleEvent {

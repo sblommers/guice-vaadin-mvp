@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  * declared for each extended AbstractPresenter using
  * ViewInterface} annotation.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 public abstract class AbstractPresenter<T extends View> implements Serializable {

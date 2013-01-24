@@ -14,12 +14,12 @@ import com.vaadin.ui.*;
 import java.lang.reflect.Field;
 
 /**
- * VaddinControlsInjector - TODO: description
+ * Injects configured Vaadin control into the Field marked with {@link Preconfigured} annotation.
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 24.01.13
  */
-public class VaddinComponentsInjector<T> implements MembersInjector<T> {
+public class VaadinComponentsInjector<T> implements MembersInjector<T> {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -29,7 +29,7 @@ public class VaddinComponentsInjector<T> implements MembersInjector<T> {
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    public VaddinComponentsInjector(Field field, Preconfigured preconfigured, TextBundle textBundle) {
+    public VaadinComponentsInjector(Field field, Preconfigured preconfigured, TextBundle textBundle) {
         this.field = field;
         this.textBundle = textBundle;
         this.preconfigured = preconfigured;

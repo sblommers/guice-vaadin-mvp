@@ -39,7 +39,7 @@ import java.util.List;
  * A Guice specific listener class is required to configure the Modules, i.e., the Servlet class, the Application
  * implementation, and all other Guice-managed entities.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 public class MVPApplicationContextListener extends GuiceServletContextListener {
@@ -64,15 +64,15 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
         try {
             applicationClass = (Class<? extends Application>) Class.forName(servletContext.getInitParameter(P_APPLICATION));
         } catch (Exception e) {
-            throw new MVPApplicationException("ERROR: Unable to instantiate com.vaadin.Application class. " +
-                    "Please check your webapp deployment descriptor.", e);
+            throw new MVPApplicationException(String.format("ERROR: Unable to instantiate class of [%s]. " +
+                    "Please check your webapp deployment descriptor.", Application.class.getName()), e);
         }
 
         try {
             mvpApplicationModuleClass = (Class<? extends AbstractMVPApplicationModule>) Class.forName(servletContext.getInitParameter(P_APPLICATION_MODULE));
         } catch (Exception e) {
-            throw new MVPApplicationException("ERROR: Unable to instantiate com.vaadin.Application class. " +
-                    "Please check your webapp deployment descriptor.", e);
+            throw new MVPApplicationException(String.format("ERROR: Unable to instantiate class of [%s]. " +
+                    "Please check your webapp deployment descriptor.", AbstractMVPApplicationModule.class.getName()), e);
         }
 
         super.contextInitialized(servletContextEvent);

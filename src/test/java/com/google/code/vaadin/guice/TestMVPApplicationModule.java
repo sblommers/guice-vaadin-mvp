@@ -12,7 +12,7 @@ import com.google.code.vaadin.internal.event.EventPublisherModule;
 /**
  * TestMVPApplicationModule - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 24.01.13
  */
 public class TestMVPApplicationModule extends AbstractMVPApplicationModule {

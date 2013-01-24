@@ -18,7 +18,6 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.netflix.governator.lifecycle.LifecycleManager;
 import com.vaadin.Application;
 import com.vaadin.terminal.ExternalResource;
@@ -32,17 +31,17 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * AbstractMVPApplication - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 public abstract class AbstractMVPApplication extends Application implements
         HttpServletRequestListener {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final long serialVersionUID = -9162640299567428524L;
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
     private RequestContext requestContext;
@@ -50,7 +49,7 @@ public abstract class AbstractMVPApplication extends Application implements
     @Inject
     private LifecycleManager lifecycleManager;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     @Override
     public void init() {
@@ -63,7 +62,7 @@ public abstract class AbstractMVPApplication extends Application implements
         initApplication();
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     protected abstract void initApplication();
 
@@ -130,7 +129,7 @@ public abstract class AbstractMVPApplication extends Application implements
         // NOP
     }
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     public void onRequestStart(HttpServletRequest request,
                                HttpServletResponse response) {

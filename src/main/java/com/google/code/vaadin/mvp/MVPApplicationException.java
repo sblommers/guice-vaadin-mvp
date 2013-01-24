@@ -21,16 +21,16 @@ package com.google.code.vaadin.mvp;
 /**
  * GuiceVaadinMVPException - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 public class MVPApplicationException extends RuntimeException {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final long serialVersionUID = 1869219413924442768L;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     public MVPApplicationException(String message) {
         super(message);

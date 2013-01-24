@@ -13,22 +13,22 @@ import javax.servlet.ServletContext;
 /**
  * AbstractMVPApplicationModule - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 24.01.13
  */
 public abstract class AbstractMVPApplicationModule extends AbstractModule {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     protected ServletContext servletContext;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     protected AbstractMVPApplicationModule(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void configure() {

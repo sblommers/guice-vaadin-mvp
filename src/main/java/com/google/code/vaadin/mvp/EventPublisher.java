@@ -21,7 +21,7 @@ package com.google.code.vaadin.mvp;
 /**
  * EventPublisher - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 public interface EventPublisher {

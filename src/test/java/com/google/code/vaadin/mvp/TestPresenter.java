@@ -8,16 +8,16 @@ package com.google.code.vaadin.mvp;
 /**
  * TestPresenter - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 24.01.13
  */
 public class TestPresenter extends AbstractPresenter<TestView> {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final long serialVersionUID = -6223121159195154865L;
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void initPresenter() {

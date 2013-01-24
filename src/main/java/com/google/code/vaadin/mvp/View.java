@@ -21,7 +21,7 @@ package com.google.code.vaadin.mvp;
 /**
  * Superinterface of each CDI Utils MVP-pattern View interface.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 23.01.13
  */
 public interface View {

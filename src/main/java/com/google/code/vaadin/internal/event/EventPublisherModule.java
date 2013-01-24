@@ -20,7 +20,7 @@ import net.engio.mbassy.MBassador;
 /**
  * EventPublisherModule - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 24.01.13
  */
 public class EventPublisherModule extends AbstractModule {
@@ -75,5 +75,4 @@ public class EventPublisherModule extends AbstractModule {
         busConfiguration.setMetadataReader(new CompositeMetadataReader());
         return busConfiguration;
     }
-
 }

@@ -62,7 +62,6 @@ public class EventPublisherModule extends AbstractModule {
 
         bind(IMessageBus.class).toInstance(eventBus);
         bind(MBassador.class).toInstance(eventBus);
-
         bind(EventPublisher.class).toInstance(new EventPublisher() {
             @Override
             public void publish(Object event) {

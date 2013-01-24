@@ -5,7 +5,7 @@
 
 package com.google.code.vaadin.mvp.servlet;
 
-import com.google.code.vaadin.mvp.application.RequestContext;
+import com.google.code.vaadin.application.RequestContext;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;

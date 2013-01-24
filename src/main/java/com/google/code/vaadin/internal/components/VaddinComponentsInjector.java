@@ -41,6 +41,7 @@ public class VaddinComponentsInjector<T> implements MembersInjector<T> {
     public void injectMembers(T instance) {
         try {
             Component component = (Component) field.getType().newInstance();
+            field.setAccessible(true);
             field.set(instance, configureComponent(component));
         } catch (Exception e) {
             throw new MVPApplicationException(e);

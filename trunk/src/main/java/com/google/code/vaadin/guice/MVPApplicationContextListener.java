@@ -16,12 +16,11 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.servlet;
+package com.google.code.vaadin.guice;
 
-import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
-import com.google.code.vaadin.internal.servlet.MVPApplicationServletModule;
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventPublisherModule;
+import com.google.code.vaadin.internal.servlet.MVPApplicationServletModule;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;

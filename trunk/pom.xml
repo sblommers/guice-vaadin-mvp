@@ -64,6 +64,10 @@
         <version.governator>1.0.4</version.governator>
         <version.google-guava>13.0.1</version.google-guava>
 
+        <!-- Common -->
+
+        <version.validation-api>1.0.0.GA</version.validation-api>
+
         <!-- Servlet API-->
 
         <version.servlet-api>2.5</version.servlet-api>
@@ -157,6 +161,14 @@
                     <groupId>javax.inject</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- Common -->
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${version.validation-api}</version>
         </dependency>
 
         <!-- Servlet API-->

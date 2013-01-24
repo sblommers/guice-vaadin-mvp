@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.mvp.guice.event;
+package com.google.code.vaadin.guice.event;
 
 import com.google.code.vaadin.mvp.event.Observes;
 import net.engio.mbassy.common.IPredicate;

@@ -19,7 +19,7 @@
 package com.google.code.vaadin.mvp.servlet;
 
 import com.google.code.vaadin.mvp.MVPApplicationException;
-import com.google.code.vaadin.mvp.guice.event.EventPublisherModule;
+import com.google.code.vaadin.guice.event.EventPublisherModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.Module;

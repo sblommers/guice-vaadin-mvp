@@ -18,8 +18,9 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.code.vaadin.mvp.application.AbstractMVPApplication;
-import com.google.code.vaadin.mvp.application.RequestContext;
+import com.google.code.vaadin.TextBundle;
+import com.google.code.vaadin.application.AbstractMVPApplication;
+import com.google.code.vaadin.application.RequestContext;
 import com.google.code.vaadin.mvp.event.EventPublisher;
 import com.google.common.base.Preconditions;
 import com.vaadin.ui.CustomComponent;
@@ -66,7 +67,7 @@ public abstract class ViewComponent extends CustomComponent {
     }
 
     protected void fireViewEvent(Object event) {
-        Preconditions.checkArgument(event!=null, "Event can't be null");
+        Preconditions.checkArgument(event != null, "Event can't be null");
         eventPublisher.publish(event);
     }
 

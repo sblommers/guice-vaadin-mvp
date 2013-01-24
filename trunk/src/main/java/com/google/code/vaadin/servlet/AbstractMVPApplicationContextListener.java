@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp.servlet;
+package com.google.code.vaadin.servlet;
 
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.code.vaadin.guice.event.EventPublisherModule;

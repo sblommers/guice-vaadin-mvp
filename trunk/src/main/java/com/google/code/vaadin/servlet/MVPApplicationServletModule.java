@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.mvp.servlet;
+package com.google.code.vaadin.servlet;
 
 import com.google.code.vaadin.application.RequestContext;
 import com.google.inject.name.Names;

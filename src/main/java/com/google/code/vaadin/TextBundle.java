@@ -18,6 +18,8 @@
 
 package com.google.code.vaadin;
 
+import javax.inject.Singleton;
+
 /**
  * Interface for a bundle implementation used for obtaining (localized) texts.
  * If implemented, can be used by CDI Utils.
@@ -25,6 +27,7 @@ package com.google.code.vaadin;
  * @author Alexey Krylov (AleX)
  * @since 23.01.13
  */
+@Singleton
 public interface TextBundle {
 
     /*===========================================[ INTERFACE METHODS ]==============*/

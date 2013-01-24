@@ -21,7 +21,7 @@ package com.google.code.vaadin.mvp;
 import com.google.code.vaadin.mvp.event.ViewOpenedEvent;
 
 /**
- * AbstractView - TODO: description
+ * Abstract implementation of CDI Utils MVP-pattern view.
  *
  * @author Alexey Krylov (AleX)
  * @since 23.01.13

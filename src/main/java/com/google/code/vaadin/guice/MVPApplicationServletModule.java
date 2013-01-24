@@ -3,9 +3,11 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.servlet;
+package com.google.code.vaadin.guice;
 
 import com.google.code.vaadin.application.RequestContext;
+import com.google.code.vaadin.servlet.GuiceApplicationServlet;
+import com.google.code.vaadin.servlet.MVPApplicationContextListener;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;
@@ -36,7 +38,7 @@ public class MVPApplicationServletModule extends ServletModule {
     protected void configureServlets() {
         serve("/*").with(GuiceApplicationServlet.class);
         bind(RequestContext.class).in(RequestScoped.class);
-        bind(Class.class).annotatedWith(Names.named(AbstractMVPApplicationContextListener.P_APPLICATION)).toInstance(applicationClass);
+        bind(Class.class).annotatedWith(Names.named(MVPApplicationContextListener.P_APPLICATION)).toInstance(applicationClass);
         bind(Application.class).to(applicationClass).in(ServletScopes.SESSION);
     }
 }

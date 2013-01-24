@@ -18,8 +18,9 @@
 
 package com.google.code.vaadin.servlet;
 
-import com.google.code.vaadin.mvp.MVPApplicationException;
+import com.google.code.vaadin.guice.MVPApplicationServletModule;
 import com.google.code.vaadin.guice.event.EventPublisherModule;
+import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.Module;
@@ -27,50 +28,47 @@ import com.google.inject.servlet.GuiceServletContextListener;
 import com.netflix.governator.guice.LifecycleInjector;
 import com.vaadin.Application;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
- * AbstractMVPApplicationConfig - TODO: description
+ * A Guice specific listener class is required to configure the Modules, i.e., the Servlet class, the Application
+ * implementation, and all other Guice-managed entities.
  *
  * @author Alexey Krylov (AleX)
  * @since 23.01.13
  */
-public abstract class AbstractMVPApplicationContextListener extends GuiceServletContextListener {
+public class MVPApplicationContextListener extends GuiceServletContextListener {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     public static final String P_APPLICATION = "application";
+    //todo
+    public static final String P_APPLICATION = "application-module";
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private Class<? extends Application> applicationClass;
     private Injector injector;
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
-            applicationClass = (Class<? extends Application>) Class.forName(servletContextEvent.getServletContext().getInitParameter(P_APPLICATION));
+            ServletContext servletContext = servletContextEvent.getServletContext();
+            applicationClass = (Class<? extends Application>) Class.forName(servletContext.getInitParameter(P_APPLICATION));
         } catch (Exception e) {
             throw new MVPApplicationException("ERROR: Unable to instantiate com.vaadin.Application class. " +
                     "Please check your webapp deployment descriptor.", e);
         }
 
         super.contextInitialized(servletContextEvent);
-/*
-//todo check correctness of LifecycleManager start/stop in the Application
-        try {
-            injector.getInstance(LifecycleManager.class).start();
-        } catch (Exception e) {
-            throw new MVPApplicationException("ERROR: Unable to start LifecycleManager", e);
-        }*/
     }
 
-	/*===========================================[ GETTER/SETTER ]================*/
+    /*===========================================[ GETTER/SETTER ]================*/
 
     @Override
     protected Injector getInjector() {
@@ -83,11 +81,10 @@ public abstract class AbstractMVPApplicationContextListener extends GuiceServlet
 
     protected Injector createInjector() {
         List<Module> modules = new ArrayList<Module>(getModules());
+        // default module is always first
         modules.add(0, createDefaultModule());
         return LifecycleInjector.builder().withModules(modules).createInjector();
     }
-
-    protected abstract Collection<? extends Module> getModules();
 
     protected Module createDefaultModule() {
         return new AbstractModule() {

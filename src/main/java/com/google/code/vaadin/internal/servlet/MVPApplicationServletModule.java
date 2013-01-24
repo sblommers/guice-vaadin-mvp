@@ -6,7 +6,7 @@
 package com.google.code.vaadin.internal.servlet;
 
 import com.google.code.vaadin.mvp.RequestContext;
-import com.google.code.vaadin.servlet.MVPApplicationContextListener;
+import com.google.code.vaadin.guice.MVPApplicationContextListener;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;

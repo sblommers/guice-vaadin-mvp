@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp.servlet;
+package com.google.code.vaadin.servlet;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;

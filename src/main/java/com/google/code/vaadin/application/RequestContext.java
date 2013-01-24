@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.application;
 
-import com.google.code.vaadin.mvp.servlet.MVPApplicationServletModule;
+import com.google.code.vaadin.servlet.MVPApplicationServletModule;
 import com.vaadin.ui.Window;
 
 /**

@@ -47,7 +47,6 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
     /*===========================================[ STATIC VARIABLES ]=============*/
 
     public static final String P_APPLICATION = "application";
-    //todo
     public static final String P_APPLICATION_MODULE = "application-module";
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
@@ -96,7 +95,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
             // default module is always first
             modules.add(createDefaultModule());
             modules.add(createApplicationModule());
-            // support for @Preconfigured last because it depends on TextBundle bindings
+            // support for @Preconfigured last because it depends on TextBundle bindings in Application Module
             modules.add(new VaadinComponentPreconfigurationModule());
             return LifecycleInjector.builder().withModules(modules).createInjector();
         } catch (Exception e) {

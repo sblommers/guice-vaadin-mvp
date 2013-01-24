@@ -5,7 +5,7 @@
 
 package com.google.code.vaadin.guice;
 
-import com.google.code.vaadin.components.VaadinComponentsInjectionListener;
+import com.google.code.vaadin.spi.VaadinComponentsInjectionListener;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 

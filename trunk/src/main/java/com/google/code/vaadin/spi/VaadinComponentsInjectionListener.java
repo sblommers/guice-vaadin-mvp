@@ -3,9 +3,10 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.components;
+package com.google.code.vaadin.spi;
 
 import com.google.code.vaadin.TextBundle;
+import com.google.code.vaadin.components.Preconfigured;
 import com.google.inject.Inject;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;

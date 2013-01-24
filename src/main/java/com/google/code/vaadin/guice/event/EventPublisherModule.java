@@ -5,7 +5,7 @@
 
 package com.google.code.vaadin.guice.event;
 
-import com.google.code.vaadin.mvp.event.EventPublisher;
+import com.google.code.vaadin.mvp.EventPublisher;
 import com.google.common.base.Preconditions;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;

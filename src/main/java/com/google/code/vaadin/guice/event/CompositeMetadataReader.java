@@ -5,7 +5,7 @@
 
 package com.google.code.vaadin.guice.event;
 
-import com.google.code.vaadin.mvp.event.Observes;
+import com.google.code.vaadin.mvp.Observes;
 import net.engio.mbassy.common.IPredicate;
 import net.engio.mbassy.common.ReflectionUtils;
 import net.engio.mbassy.listener.*;

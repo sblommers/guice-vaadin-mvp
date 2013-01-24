@@ -19,9 +19,9 @@
 package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.TextBundle;
-import com.google.code.vaadin.mvp.application.AbstractMVPApplication;
-import com.google.code.vaadin.mvp.application.RequestContext;
-import com.google.code.vaadin.mvp.event.EventPublisher;
+import com.google.code.vaadin.mvp.AbstractMVPApplication;
+import com.google.code.vaadin.mvp.RequestContext;
+import com.google.code.vaadin.mvp.EventPublisher;
 import com.google.common.base.Preconditions;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Window;

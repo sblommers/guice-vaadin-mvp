@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp.application;
+package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.netflix.governator.lifecycle.LifecycleManager;

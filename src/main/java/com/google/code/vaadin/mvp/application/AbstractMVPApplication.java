@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.application;
+package com.google.code.vaadin.mvp.application;
 
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.netflix.governator.lifecycle.LifecycleManager;
@@ -132,13 +132,11 @@ public abstract class AbstractMVPApplication extends Application implements
 
 	/*===========================================[ INTERFACE METHODS ]============*/
 
-    @Override
     public void onRequestStart(HttpServletRequest request,
                                HttpServletResponse response) {
         requestContext.setApplication(this);
     }
 
-    @Override
     public void onRequestEnd(HttpServletRequest request,
                              HttpServletResponse response) {
         // NOP

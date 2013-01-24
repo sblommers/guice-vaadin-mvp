@@ -21,13 +21,13 @@ import java.lang.reflect.Field;
  */
 public class VaddinComponentsInjector<T> implements MembersInjector<T> {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private Field field;
     private Preconfigured preconfigured;
     private TextBundle textBundle;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     public VaddinComponentsInjector(Field field, Preconfigured preconfigured, TextBundle textBundle) {
         this.field = field;
@@ -35,13 +35,13 @@ public class VaddinComponentsInjector<T> implements MembersInjector<T> {
         this.preconfigured = preconfigured;
     }
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public void injectMembers(T t) {
+    public void injectMembers(T instance) {
         try {
             Component component = (Component) field.getType().newInstance();
-            field.set(t, configureComponent(component));
+            field.set(instance, configureComponent(component));
         } catch (Exception e) {
             throw new MVPApplicationException(e);
         }
@@ -128,7 +128,11 @@ public class VaddinComponentsInjector<T> implements MembersInjector<T> {
         if (caption.isEmpty()) {
             String captionKey = preconfigured.captionKey();
             if (!captionKey.isEmpty()) {
-                component.setCaption(textBundle.getText(captionKey));
+                if (textBundle != null) {
+                    component.setCaption(textBundle.getText(captionKey));
+                } else {
+                    component.setCaption(String.format("%s: No TextBundle implementation found!", captionKey));
+                }
             }
         } else {
             component.setCaption(caption);
@@ -137,7 +141,12 @@ public class VaddinComponentsInjector<T> implements MembersInjector<T> {
         if (component instanceof Label) {
             String labelValueKey = preconfigured.labelValueKey();
             if (!labelValueKey.isEmpty()) {
-                ((Label) component).setValue(textBundle.getText(labelValueKey));
+                Label label = (Label) component;
+                if (textBundle != null) {
+                    label.setValue(textBundle.getText(labelValueKey));
+                } else {
+                    label.setValue(String.format("%s: No TextBundle implementation found!", labelValueKey));
+                }
             }
         }
 

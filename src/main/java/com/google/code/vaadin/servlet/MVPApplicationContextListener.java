@@ -18,7 +18,9 @@
 
 package com.google.code.vaadin.servlet;
 
+import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
 import com.google.code.vaadin.guice.MVPApplicationServletModule;
+import com.google.code.vaadin.guice.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.guice.event.EventPublisherModule;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.AbstractModule;
@@ -30,6 +32,7 @@ import com.vaadin.Application;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,20 +49,29 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
 
     public static final String P_APPLICATION = "application";
     //todo
-    public static final String P_APPLICATION = "application-module";
+    public static final String P_APPLICATION_MODULE = "application-module";
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private Class<? extends Application> applicationClass;
+    private Class<? extends AbstractMVPApplicationModule> mvpApplicationModuleClass;
     private Injector injector;
+    private ServletContext servletContext;
 
     /*===========================================[ CLASS METHODS ]================*/
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
+        servletContext = servletContextEvent.getServletContext();
         try {
-            ServletContext servletContext = servletContextEvent.getServletContext();
             applicationClass = (Class<? extends Application>) Class.forName(servletContext.getInitParameter(P_APPLICATION));
+        } catch (Exception e) {
+            throw new MVPApplicationException("ERROR: Unable to instantiate com.vaadin.Application class. " +
+                    "Please check your webapp deployment descriptor.", e);
+        }
+
+        try {
+            mvpApplicationModuleClass = (Class<? extends AbstractMVPApplicationModule>) Class.forName(servletContext.getInitParameter(P_APPLICATION_MODULE));
         } catch (Exception e) {
             throw new MVPApplicationException("ERROR: Unable to instantiate com.vaadin.Application class. " +
                     "Please check your webapp deployment descriptor.", e);
@@ -80,10 +92,17 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
     }
 
     protected Injector createInjector() {
-        List<Module> modules = new ArrayList<Module>(getModules());
-        // default module is always first
-        modules.add(0, createDefaultModule());
-        return LifecycleInjector.builder().withModules(modules).createInjector();
+        try {
+            List<Module> modules = new ArrayList<Module>();
+            // default module is always first
+            modules.add(createDefaultModule());
+            modules.add(createApplicationModule());
+            // support for @Preconfigured last because it depends on TextBundle bindings
+            modules.add(new VaadinComponentPreconfigurationModule());
+            return LifecycleInjector.builder().withModules(modules).createInjector();
+        } catch (Exception e) {
+            throw new MVPApplicationException("Unable to instantiate Injector", e);
+        }
     }
 
     protected Module createDefaultModule() {
@@ -94,5 +113,10 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
                 install(new EventPublisherModule());
             }
         };
+    }
+
+    protected AbstractMVPApplicationModule createApplicationModule() throws Exception {
+        Constructor<? extends AbstractMVPApplicationModule> constructor = mvpApplicationModuleClass.getConstructor(ServletContext.class);
+        return constructor.newInstance(servletContext);
     }
 }

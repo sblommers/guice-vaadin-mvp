@@ -30,40 +30,36 @@ import javax.inject.Inject;
 import java.util.logging.Logger;
 
 /**
- * ViewComponent - TODO: description
+ * Superclass for views and their subcomponents.
  *
  * @author Alexey Krylov (AleX)
  * @since 23.01.13
  */
 public abstract class ViewComponent extends CustomComponent {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final long serialVersionUID = 1527463270559690859L;
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    @Inject
     protected transient Logger logger;
-
-    @Inject
     private EventPublisher eventPublisher;
-
-    @com.google.inject.Inject(optional = true)
     private TextBundle textBundle;
-
-    @Inject
     private RequestContext requestContext;
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
+
+    @Inject
+    protected void init(Logger logger, EventPublisher eventPublisher, TextBundle textBundle, RequestContext requestContext) {
+        this.logger = logger;
+        this.eventPublisher = eventPublisher;
+        this.textBundle = textBundle;
+        this.requestContext = requestContext;
+    }
 
     protected String getText(String key, Object... params) {
-
-        if (textBundle != null) {
-            return textBundle.getText(key, params);
-        } else {
-            return "No TextBundle implementation found!";
-        }
+        return textBundle.getText(key, params);
     }
 
     protected void fireViewEvent(Object event) {

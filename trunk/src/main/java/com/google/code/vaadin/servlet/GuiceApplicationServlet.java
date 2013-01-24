@@ -29,7 +29,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * GuiceApplicationServlet - TODO: description
+ * Provider constructs a new Application instance for each user.
  *
  * @author Alexey Krylov (AleX)
  * @since 23.01.13
@@ -50,7 +50,7 @@ public class GuiceApplicationServlet extends AbstractApplicationServlet {
 
     @Inject
     public void init(Provider<Application> applicationProvider,
-                     @Named(AbstractMVPApplicationContextListener.P_APPLICATION) Class applicationClass) {
+                     @Named(MVPApplicationContextListener.P_APPLICATION) Class applicationClass) {
         this.applicationProvider = applicationProvider;
         this.applicationClass = applicationClass;
     }

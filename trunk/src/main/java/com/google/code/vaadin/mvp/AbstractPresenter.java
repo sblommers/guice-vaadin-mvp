@@ -24,7 +24,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * AbstractPresenter - TODO: description
+ * Abstract implementation of CDI Utils MVP-pattern presenter. Associated
+ * {@link View} interface extension is
+ * declared for each extended AbstractPresenter using
+ * ViewInterface} annotation.
  *
  * @author Alexey Krylov (AleX)
  * @since 23.01.13

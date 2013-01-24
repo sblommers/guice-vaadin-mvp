@@ -19,7 +19,7 @@
 package com.google.code.vaadin.mvp;
 
 /**
- * View - TODO: description
+ * Superinterface of each CDI Utils MVP-pattern View interface.
  *
  * @author Alexey Krylov (AleX)
  * @since 23.01.13

@@ -21,10 +21,8 @@ package com.google.code.vaadin.components;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.ui.Component;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import javax.inject.Scope;
+import java.lang.annotation.*;
 
 /**
  * Preconfigured - TODO: description
@@ -32,6 +30,8 @@ import java.lang.annotation.Target;
  * @author Alexey Krylov (AleX)
  * @since 23.01.13
  */
+@Scope
+@Documented
 @Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Preconfigured {

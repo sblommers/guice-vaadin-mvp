@@ -5,7 +5,7 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.code.vaadin.guice.event.EventPublisherModule;
+import com.google.code.vaadin.internal.event.EventPublisherModule;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

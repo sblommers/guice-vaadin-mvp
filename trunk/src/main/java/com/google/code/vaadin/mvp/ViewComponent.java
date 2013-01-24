@@ -19,9 +19,6 @@
 package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.TextBundle;
-import com.google.code.vaadin.mvp.AbstractMVPApplication;
-import com.google.code.vaadin.mvp.RequestContext;
-import com.google.code.vaadin.mvp.EventPublisher;
 import com.google.common.base.Preconditions;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Window;
@@ -45,21 +42,26 @@ public abstract class ViewComponent extends CustomComponent {
 
     protected transient Logger logger;
     private EventPublisher eventPublisher;
+
+    @com.google.inject.Inject(optional = true)
     private TextBundle textBundle;
     private RequestContext requestContext;
 
     /*===========================================[ CLASS METHODS ]================*/
 
     @Inject
-    protected void init(Logger logger, EventPublisher eventPublisher, TextBundle textBundle, RequestContext requestContext) {
+    protected void init(Logger logger, EventPublisher eventPublisher, RequestContext requestContext) {
         this.logger = logger;
         this.eventPublisher = eventPublisher;
-        this.textBundle = textBundle;
         this.requestContext = requestContext;
     }
 
     protected String getText(String key, Object... params) {
-        return textBundle.getText(key, params);
+        if (textBundle != null) {
+            return textBundle.getText(key, params);
+        } else {
+            return String.format("%s: No TextBundle implementation found!", key);
+        }
     }
 
     protected void fireViewEvent(Object event) {

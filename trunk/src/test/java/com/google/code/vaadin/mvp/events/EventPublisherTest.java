@@ -3,9 +3,11 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.mvp.event;
+package com.google.code.vaadin.mvp.events;
 
-import com.google.code.vaadin.guice.event.EventPublisherModule;
+import com.google.code.vaadin.internal.event.EventPublisherModule;
+import com.google.code.vaadin.mvp.EventPublisher;
+import com.google.code.vaadin.mvp.Observes;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nnsoft.guice.junice.JUniceRunner;

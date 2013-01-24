@@ -33,7 +33,7 @@ public class VaadinComponentsInjectionListener implements TypeListener {
     @Override
     public <T> void hear(TypeLiteral<T> typeLiteral, TypeEncounter<T> typeEncounter) {
         for (Field field : typeLiteral.getRawType().getDeclaredFields()) {
-            if (field.getType().isAssignableFrom(Component.class)
+            if (Component.class.isAssignableFrom(field.getType())
                     && field.isAnnotationPresent(Preconfigured.class)) {
                 Preconfigured preconfigured = field.getAnnotation(Preconfigured.class);
                 typeEncounter.register(new VaddinComponentsInjector<T>(field, preconfigured, textBundle));

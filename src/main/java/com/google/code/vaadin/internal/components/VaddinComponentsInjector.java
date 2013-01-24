@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.spi;
+package com.google.code.vaadin.internal.components;
 
 import com.google.code.vaadin.TextBundle;
 import com.google.code.vaadin.components.Preconfigured;

@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.guice.event;
+package com.google.code.vaadin.internal.event;
 
 import net.engio.mbassy.listener.Filter;
 import net.engio.mbassy.listener.Listener;

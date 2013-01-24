@@ -3,10 +3,9 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.guice;
+package com.google.code.vaadin.internal.servlet;
 
 import com.google.code.vaadin.mvp.RequestContext;
-import com.google.code.vaadin.servlet.GuiceApplicationServlet;
 import com.google.code.vaadin.servlet.MVPApplicationContextListener;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.RequestScoped;

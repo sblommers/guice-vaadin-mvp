@@ -6,9 +6,7 @@
 package com.google.code.vaadin.guice;
 
 import com.google.code.vaadin.TextBundle;
-import com.google.code.vaadin.components.VaadinComponentsInjectionListener;
 import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
 
 import javax.servlet.ServletContext;
 
@@ -32,12 +30,9 @@ public abstract class AbstractMVPApplicationModule extends AbstractModule {
 
 	/*===========================================[ INTERFACE METHODS ]============*/
 
-    //TODO:
     @Override
     protected void configure() {
         bindTextBundle(TextBundle.class);
-        // support for @Preconfigured
-        bindListener(Matchers.any(), new VaadinComponentsInjectionListener());
     }
 
     protected abstract void bindTextBundle(Class<TextBundle> textBundleClass);

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.application;
+package com.google.code.vaadin.mvp.application;
 
 import com.google.code.vaadin.guice.MVPApplicationServletModule;
 import com.vaadin.ui.Window;

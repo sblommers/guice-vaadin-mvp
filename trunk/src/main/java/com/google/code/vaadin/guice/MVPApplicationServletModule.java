@@ -5,7 +5,7 @@
 
 package com.google.code.vaadin.guice;
 
-import com.google.code.vaadin.application.RequestContext;
+import com.google.code.vaadin.mvp.application.RequestContext;
 import com.google.code.vaadin.servlet.GuiceApplicationServlet;
 import com.google.code.vaadin.servlet.MVPApplicationContextListener;
 import com.google.inject.name.Names;

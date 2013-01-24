@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.guice.event;
+package com.google.code.vaadin.internal.event;
 
 import com.google.code.vaadin.mvp.EventPublisher;
 import com.google.common.base.Preconditions;

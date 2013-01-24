@@ -19,9 +19,9 @@
 package com.google.code.vaadin.servlet;
 
 import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
-import com.google.code.vaadin.guice.MVPApplicationServletModule;
-import com.google.code.vaadin.guice.VaadinComponentPreconfigurationModule;
-import com.google.code.vaadin.guice.event.EventPublisherModule;
+import com.google.code.vaadin.internal.servlet.MVPApplicationServletModule;
+import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
+import com.google.code.vaadin.internal.event.EventPublisherModule;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;

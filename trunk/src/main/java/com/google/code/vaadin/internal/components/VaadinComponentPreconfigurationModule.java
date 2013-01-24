@@ -3,9 +3,8 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.guice;
+package com.google.code.vaadin.internal.components;
 
-import com.google.code.vaadin.spi.VaadinComponentsInjectionListener;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 

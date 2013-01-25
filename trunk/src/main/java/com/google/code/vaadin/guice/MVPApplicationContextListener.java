@@ -22,7 +22,7 @@ import com.google.code.vaadin.internal.components.VaadinComponentPreconfiguratio
 import com.google.code.vaadin.internal.event.EventPublisherModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
-import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
+import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -33,6 +33,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionActivationListener;
+import javax.servlet.http.HttpSessionEvent;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,15 +67,8 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
 
         servletContext = servletContextEvent.getServletContext();
 
-        try {
-            mvpApplicationModuleClass = (Class<? extends AbstractMVPApplicationModule>) Class.forName(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_MODULE));
-        } catch (Exception e) {
-            throw new MVPApplicationException(String.format("ERROR: Unable to instantiate class of [%s]. " +
-                    "Please check your webapp deployment descriptor.", AbstractMVPApplicationModule.class.getName()), e);
-        }
-
+        mvpApplicationModuleClass = ApplicationClassProvider.getApplicationClass(servletContext);
         super.contextInitialized(servletContextEvent);
-        //todo presenter никогда не инжектится и поэтому не может зарегистрироваться в подписках
     }
 
     @Override
@@ -105,6 +101,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
             modules.add(new VaadinComponentPreconfigurationModule());
 
             Injector injector = Guice.createInjector(modules);
+
             logger.info("Injector successfully created");
             return injector;
         } catch (Exception e) {
@@ -121,7 +118,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
     }
 
     protected PresenterMapperModule createPresenterMapperModule() {
-        return new PresenterMapperModule();
+        return new PresenterMapperModule(servletContext);
     }
 
     protected AbstractMVPApplicationModule createApplicationModule() throws Exception {

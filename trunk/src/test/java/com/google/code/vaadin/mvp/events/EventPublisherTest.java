@@ -6,7 +6,8 @@
 package com.google.code.vaadin.mvp.events;
 
 import com.google.code.vaadin.internal.event.EventPublisherModule;
-import com.google.code.vaadin.mvp.ViewEventPublisher;
+import com.google.code.vaadin.mvp.EventPublisher;
+import com.google.code.vaadin.mvp.EventPublisher;
 import com.google.code.vaadin.mvp.Observes;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +32,7 @@ public class EventPublisherTest {
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
-    private ViewEventPublisher viewEventPublisher;
+    private EventPublisher eventPublisher;
 
 
     private boolean eventNotified;
@@ -45,12 +46,12 @@ public class EventPublisherTest {
 
     @Test
     public void eventPublisherNotNull() {
-        assertNotNull("Event publisher is null", viewEventPublisher);
+        assertNotNull("Event publisher is null", eventPublisher);
     }
 
     @Test
     public void eventNotified() {
-        viewEventPublisher.publish(new SampleEvent());
+        eventPublisher.publish(new SampleEvent());
         assertTrue("Event was not received", eventNotified);
     }
 }

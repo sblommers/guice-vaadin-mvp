@@ -20,7 +20,8 @@ package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.mvp.events.ViewInitializedEvent;
 import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
-import com.google.inject.servlet.SessionScoped;
+
+import javax.inject.Inject;
 
 /**
  * Abstract implementation of MVP-pattern View.
@@ -28,7 +29,7 @@ import com.google.inject.servlet.SessionScoped;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-@SessionScoped
+//@SessionScoped
 public abstract class AbstractView extends ViewComponent implements View {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
@@ -42,8 +43,8 @@ public abstract class AbstractView extends ViewComponent implements View {
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
-    @Override
-    public void openView() {
+    @Inject
+    protected void init() {
         if (viewInterface == null) {
             // Determine the view interface
             for (Class<?> clazz : getClass().getInterfaces()) {
@@ -53,13 +54,14 @@ public abstract class AbstractView extends ViewComponent implements View {
                 }
             }
         }
+    }
+
+    @Override
+    public void openView() {
         if (!initialized) {
             initView();
             initialized = true;
             fireViewEvent(new ViewInitializedEvent(viewInterface, this));
-
-            //todo: context map - ViewInterface -> PresenterClass based on reflections scan
-            //todo call Presenter.viewOpened on this view event - mediator notification
             logger.debug("View initialized: " + viewInterface + ", hashCode: " + hashCode());
         }
 
@@ -71,4 +73,8 @@ public abstract class AbstractView extends ViewComponent implements View {
      * Initialize the view
      */
     protected abstract void initView();
+
+    public Class<? extends View> getViewInterface() {
+        return viewInterface;
+    }
 }

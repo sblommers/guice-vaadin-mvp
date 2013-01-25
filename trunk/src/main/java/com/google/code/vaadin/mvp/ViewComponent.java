@@ -42,7 +42,7 @@ public abstract class ViewComponent extends CustomComponent {
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     protected transient Logger logger;
-    private ViewEventPublisher viewEventPublisher;
+    private EventPublisher eventPublisher;
 
     @com.google.inject.Inject(optional = true)
     private TextBundle textBundle;
@@ -51,9 +51,9 @@ public abstract class ViewComponent extends CustomComponent {
     /*===========================================[ CLASS METHODS ]================*/
 
     @Inject
-    protected void init(ViewEventPublisher viewEventPublisher, RequestContext requestContext) {
+    protected void init(EventPublisher eventPublisher, RequestContext requestContext) {
         logger = LoggerFactory.getLogger(getClass());
-        this.viewEventPublisher = viewEventPublisher;
+        this.eventPublisher = eventPublisher;
         this.requestContext = requestContext;
     }
 
@@ -66,7 +66,7 @@ public abstract class ViewComponent extends CustomComponent {
     }
 
     protected void fireViewEvent(@NotNull Object event) {
-        viewEventPublisher.publish(event);
+        eventPublisher.publish(event);
     }
 
     /**

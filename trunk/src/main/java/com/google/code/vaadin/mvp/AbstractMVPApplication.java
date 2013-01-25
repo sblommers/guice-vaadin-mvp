@@ -53,11 +53,13 @@ public abstract class AbstractMVPApplication extends Application implements
 
     @Override
     public void init() {
+/*
         try {
             lifecycleManager.start();
         } catch (Exception e) {
             throw new MVPApplicationException(e);
         }
+*/
 
         initApplication();
     }
@@ -69,8 +71,10 @@ public abstract class AbstractMVPApplication extends Application implements
     @Override
     public void close() {
         super.close();
+/*
         // support for @PostConstruct
         lifecycleManager.close();
+*/
     }
 
     /**

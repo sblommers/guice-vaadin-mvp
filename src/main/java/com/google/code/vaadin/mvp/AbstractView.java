@@ -18,7 +18,9 @@
 
 package com.google.code.vaadin.mvp;
 
+import com.google.code.vaadin.mvp.events.ViewInitializedEvent;
 import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
+import com.google.inject.servlet.SessionScoped;
 
 /**
  * Abstract implementation of MVP-pattern View.
@@ -26,6 +28,7 @@ import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
  * @author Alexey Krylov
  * @since 23.01.13
  */
+@SessionScoped
 public abstract class AbstractView extends ViewComponent implements View {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
@@ -53,6 +56,10 @@ public abstract class AbstractView extends ViewComponent implements View {
         if (!initialized) {
             initView();
             initialized = true;
+            fireViewEvent(new ViewInitializedEvent(viewInterface, this));
+
+            //todo: context map - ViewInterface -> PresenterClass based on reflections scan
+            //todo call Presenter.viewOpened on this view event - mediator notification
             logger.debug("View initialized: " + viewInterface + ", hashCode: " + hashCode());
         }
 

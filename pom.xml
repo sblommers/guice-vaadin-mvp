@@ -75,6 +75,10 @@
 
         <version.slf4j>1.7.2</version.slf4j>
 
+        <!-- Class Utils -->
+
+        <version.reflections>0.9.8</version.reflections>
+
         <!-- Testing stuff -->
 
         <version.junit>4.10</version.junit>
@@ -147,13 +151,20 @@
             <scope>provided</scope>
         </dependency>
 
-
         <!-- Logging -->
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${version.slf4j}</version>
+        </dependency>
+
+        <!-- Class Utils -->
+
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>${version.reflections}</version>
         </dependency>
 
         <!-- Testing stuff -->

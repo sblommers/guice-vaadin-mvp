@@ -18,7 +18,6 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.netflix.governator.lifecycle.LifecycleManager;
 import com.vaadin.Application;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
@@ -46,36 +45,7 @@ public abstract class AbstractMVPApplication extends Application implements
     @Inject
     private RequestContext requestContext;
 
-    @Inject
-    private LifecycleManager lifecycleManager;
-
-    /*===========================================[ CONSTRUCTORS ]=================*/
-
-    @Override
-    public void init() {
-/*
-        try {
-            lifecycleManager.start();
-        } catch (Exception e) {
-            throw new MVPApplicationException(e);
-        }
-*/
-
-        initApplication();
-    }
-
     /*===========================================[ CLASS METHODS ]================*/
-
-    protected abstract void initApplication();
-
-    @Override
-    public void close() {
-        super.close();
-/*
-        // support for @PostConstruct
-        lifecycleManager.close();
-*/
-    }
 
     /**
      * Do not override unless you know what you are doing!
@@ -135,11 +105,13 @@ public abstract class AbstractMVPApplication extends Application implements
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
+    @Override
     public void onRequestStart(HttpServletRequest request,
                                HttpServletResponse response) {
         requestContext.setApplication(this);
     }
 
+    @Override
     public void onRequestEnd(HttpServletRequest request,
                              HttpServletResponse response) {
         // NOP

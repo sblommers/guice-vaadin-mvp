@@ -101,15 +101,6 @@ public class PresenterMapperModule extends AbstractModule {
                 .setScanners(new SubTypesScanner());
     }
 
-    /* @Observes
-    public void viewInitialized(ViewInitializedEvent event) {
-        Class<? extends View> viewInterface = event.getViewInterface();
-        Class<? extends AbstractPresenter> presenterClass = viewPresenterMap.get(viewInterface);
-        //4. Instantiate appropriate Presenter for View interface from event. Appropriate earlier created View will be injected - it's because SessionScope.
-        injector.getInstance(presenterClass);
-    }*/
-
-
 
     //TODO SessionScoped bean с маппингами
      //TODO проблемы с открытием параллельной сессии

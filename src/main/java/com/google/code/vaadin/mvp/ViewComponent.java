@@ -19,12 +19,13 @@
 package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.TextBundle;
-import com.google.common.base.Preconditions;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Window;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import java.util.logging.Logger;
+import javax.validation.constraints.NotNull;
 
 /**
  * Superclass for views and their subcomponents.
@@ -50,8 +51,8 @@ public abstract class ViewComponent extends CustomComponent {
     /*===========================================[ CLASS METHODS ]================*/
 
     @Inject
-    protected void init(Logger logger, EventPublisher eventPublisher, RequestContext requestContext) {
-        this.logger = logger;
+    protected void init(EventPublisher eventPublisher, RequestContext requestContext) {
+        logger = LoggerFactory.getLogger(getClass());
         this.eventPublisher = eventPublisher;
         this.requestContext = requestContext;
     }
@@ -64,8 +65,7 @@ public abstract class ViewComponent extends CustomComponent {
         }
     }
 
-    protected void fireViewEvent(Object event) {
-        Preconditions.checkArgument(event != null, "Event can't be null");
+    protected void fireViewEvent(@NotNull Object event) {
         eventPublisher.publish(event);
     }
 

@@ -16,7 +16,7 @@
     <packaging>jar</packaging>
 
     <name>Guice Vaadin MVP</name>
-    <description>MVP pattern support for Vaadin based on Google Guice IoC</description>
+    <description>Vaadin MVP pattern framework based on Google Guice</description>
 
     <url>http://code.google.com/p/guice-vaadin-mvp</url>
 
@@ -72,11 +72,15 @@
 
         <version.servlet-api>2.5</version.servlet-api>
 
+        <!-- Logging -->
+
+        <version.slf4j>1.7.2</version.slf4j>
+
         <!-- Testing stuff -->
 
-        <version.logback>1.0.0</version.logback>
         <version.junit>4.10</version.junit>
         <version.junice>1.3</version.junice>
+        <version.logback>1.0.9</version.logback>
 
         <!-- Plugins -->
 
@@ -180,12 +184,28 @@
             <scope>provided</scope>
         </dependency>
 
+
+        <!-- Logging -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${version.slf4j}</version>
+        </dependency>
+
         <!-- Testing stuff -->
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${version.junit}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${version.logback}</version>
             <scope>test</scope>
         </dependency>
 

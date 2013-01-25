@@ -20,6 +20,7 @@ package com.google.code.vaadin.guice;
 
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventPublisherModule;
+import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.code.vaadin.internal.servlet.MVPApplicationServletModule;
 import com.google.code.vaadin.mvp.MVPApplicationException;
@@ -28,6 +29,8 @@ import com.google.inject.Module;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.netflix.governator.guice.LifecycleInjector;
 import com.netflix.governator.lifecycle.LifecycleManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -44,6 +47,10 @@ import java.util.List;
  */
 public class MVPApplicationContextListener extends GuiceServletContextListener {
 
+    /*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final Logger logger = LoggerFactory.getLogger(MVPApplicationContextListener.class);
+
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private Class<? extends AbstractMVPApplicationModule> mvpApplicationModuleClass;
@@ -54,6 +61,8 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
+        logger.info("Initializing Guice-Vaadin-MVP context...");
+
         servletContext = servletContextEvent.getServletContext();
 
         try {
@@ -67,9 +76,20 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
 
         try {
             injector.getInstance(LifecycleManager.class).start();
+            logger.info("Context successfully initialized");
         } catch (Exception e) {
             throw new MVPApplicationException("ERROR: Unable to start LifecycleManager", e);
         }
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent servletContextEvent) {
+        logger.info("Destroying Guice-Vaadin-MVP context...");
+        super.contextDestroyed(servletContextEvent);
+
+        // @PreDestroy & etc
+        injector.getInstance(LifecycleManager.class).close();
+        logger.info("Context successfully destroyed");
     }
 
     /*===========================================[ GETTER/SETTER ]================*/
@@ -85,17 +105,25 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
 
     protected Injector createInjector() {
         try {
+            logger.info("Creating Injector...");
             List<Module> modules = new ArrayList<Module>();
-            // default module is always first
+            modules.add(createLoggerModule());
             modules.add(createServletModule(servletContext));
             modules.add(createEventPublisherModule());
             modules.add(createApplicationModule());
-            // support for @Preconfigured last because it depends on TextBundle bindings in Application Module
+            // support for @Preconfigured last because it depends on TextBundle bindings in ApplicationModule
             modules.add(new VaadinComponentPreconfigurationModule());
-            return LifecycleInjector.builder().withModules(modules).createInjector();
+
+            Injector injector = LifecycleInjector.builder().withModules(modules).createInjector();
+            logger.info("Injector successfully created");
+            return injector;
         } catch (Exception e) {
             throw new MVPApplicationException("Unable to instantiate Injector", e);
         }
+    }
+
+    protected LoggerModule createLoggerModule() {
+        return new LoggerModule();
     }
 
     protected MVPApplicationServletModule createServletModule(ServletContext servletContext) {
@@ -109,11 +137,5 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
     protected AbstractMVPApplicationModule createApplicationModule() throws Exception {
         Constructor<? extends AbstractMVPApplicationModule> constructor = mvpApplicationModuleClass.getConstructor(ServletContext.class);
         return constructor.newInstance(servletContext);
-    }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        super.contextDestroyed(servletContextEvent);
-        injector.getInstance(LifecycleManager.class).close();
     }
 }

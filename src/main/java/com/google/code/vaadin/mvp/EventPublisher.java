@@ -18,6 +18,8 @@
 
 package com.google.code.vaadin.mvp;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * EventPublisher - TODO: description
  *
@@ -28,5 +30,5 @@ public interface EventPublisher {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
-    void publish(Object event);
+    void publish(@NotNull Object event);
 }

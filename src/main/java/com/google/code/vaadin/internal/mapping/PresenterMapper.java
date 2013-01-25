@@ -64,7 +64,7 @@ public class PresenterMapper {
             // Presenter should be always SessionScoped
             Binding<? extends AbstractPresenter> presenterBinding = injector.getBinding(presenterClass);
             if (!isSessionScoped(presenterBinding)){
-                logger.error(String.format("Presenter [%s] is not Session-scoped", presenterClass.getName()));
+                logger.error(String.format("Presenter [%s] is not Session-scoped. Please add @SessionScoped annotation or bind presenter to this scope explicitly", presenterClass.getName()));
             }
         }
 

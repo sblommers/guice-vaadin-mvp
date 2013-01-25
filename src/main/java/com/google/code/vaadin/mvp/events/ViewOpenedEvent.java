@@ -47,4 +47,15 @@ public class ViewOpenedEvent {
     public Class<? extends View> getViewInterface() {
         return viewInterface;
     }
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ViewOpenedEvent");
+        sb.append("{view=").append(view.hashCode());
+        sb.append(", viewInterface=").append(viewInterface);
+        sb.append('}');
+        return sb.toString();
+    }
 }

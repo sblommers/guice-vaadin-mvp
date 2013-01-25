@@ -48,7 +48,7 @@ public abstract class AbstractPresenter<T extends View> implements Serializable 
     /*===========================================[ CLASS METHODS ]================*/
 
     @Inject
-    protected void init(){
+    protected void init() {
         logger = LoggerFactory.getLogger(getClass());
     }
 
@@ -57,7 +57,7 @@ public abstract class AbstractPresenter<T extends View> implements Serializable 
     public void setView(T view) {
         this.view = view;
         initPresenter();
-        logger.debug(String.format("Presenter initialized: [%s], view class: [%s]", getClass().getName(), view.getClass().getName()));
+        logger.debug(String.format("Presenter initialized: [%s#%d], view class: [%s#%d]", getClass().getName(), hashCode(), view.getClass().getName(), view.hashCode()));
     }
 
     /**

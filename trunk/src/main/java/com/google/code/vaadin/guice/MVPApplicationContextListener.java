@@ -21,6 +21,7 @@ package com.google.code.vaadin.guice;
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventPublisherModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
+import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.Guice;
@@ -99,6 +100,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
             modules.add(createLoggerModule());
             modules.add(createEventPublisherModule());
             modules.add(createApplicationModule());
+            modules.add(createPresenterMapperModule());
             // support for @Preconfigured last because it depends on TextBundle bindings in ApplicationModule
             modules.add(new VaadinComponentPreconfigurationModule());
 
@@ -116,6 +118,10 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
 
     protected EventPublisherModule createEventPublisherModule() {
         return new EventPublisherModule();
+    }
+
+    protected PresenterMapperModule createPresenterMapperModule() {
+        return new PresenterMapperModule();
     }
 
     protected AbstractMVPApplicationModule createApplicationModule() throws Exception {

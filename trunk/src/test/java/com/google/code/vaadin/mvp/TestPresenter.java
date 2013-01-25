@@ -5,12 +5,15 @@
 
 package com.google.code.vaadin.mvp;
 
+import com.google.inject.servlet.SessionScoped;
+
 /**
  * TestPresenter - TODO: description
  *
  * @author Alexey Krylov
  * @since 24.01.13
  */
+@SessionScoped
 public class TestPresenter extends AbstractPresenter<TestView> {
 
     /*===========================================[ STATIC VARIABLES ]=============*/

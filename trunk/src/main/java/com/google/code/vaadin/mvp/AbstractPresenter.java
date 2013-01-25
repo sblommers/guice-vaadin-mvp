@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.mvp;
 
+import com.google.inject.servlet.SessionScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +34,7 @@ import java.io.Serializable;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-//TODO VaadinScoped!!!!!
+@SessionScoped
 public abstract class AbstractPresenter<T extends View> implements Serializable {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
@@ -46,7 +47,7 @@ public abstract class AbstractPresenter<T extends View> implements Serializable 
     protected T view;
 
     /*===========================================[ CLASS METHODS ]================*/
-
+    //TODO postconstruct?? notify viewopened
     @Inject
     protected void init(T view) {
         logger = LoggerFactory.getLogger(getClass());

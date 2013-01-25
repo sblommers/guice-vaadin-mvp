@@ -18,12 +18,12 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.code.vaadin.internal.servlet.MVPApplicationServletModule;
+import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
 import com.vaadin.ui.Window;
 
 /**
  * RequestData - TODO: description
- * Actual scope binding done in {@link MVPApplicationServletModule}.
+ * Actual scope binding done in {@link AbstractMVPApplicationModule}.
  *
  * @author Alexey Krylov
  * @since 23.01.13

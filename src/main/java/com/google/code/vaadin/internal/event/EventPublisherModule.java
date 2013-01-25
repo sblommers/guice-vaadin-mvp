@@ -5,7 +5,7 @@
 
 package com.google.code.vaadin.internal.event;
 
-import com.google.code.vaadin.mvp.ViewEventPublisher;
+import com.google.code.vaadin.mvp.EventPublisher;
 import com.google.common.base.Preconditions;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
@@ -54,6 +54,7 @@ public class EventPublisherModule extends AbstractModule {
                 typeEncounter.register(new InjectionListener<I>() {
                     @Override
                     public void afterInjection(I injectee) {
+                        //TODO do not subscribe classes without observes
                         viewEventBus.subscribe(injectee);
                     }
                 });
@@ -62,14 +63,14 @@ public class EventPublisherModule extends AbstractModule {
 
         bind(IMessageBus.class).toInstance(viewEventBus);
         bind(MBassador.class).toInstance(viewEventBus);
-        bind(ViewEventPublisher.class).toInstance(new ViewEventPublisher() {
+        bind(EventPublisher.class).toInstance(new EventPublisher() {
             @Override
             public void publish(Object event) {
                 Preconditions.checkArgument(event != null, "Published Event can't be null");
                 viewEventBus.publish(event);
             }
         });
-        //bindInterceptor(Matchers.any(), Matchers.annotatedWith(Observes.class).or(Matchers.annotatedWith(Listener.class)), new ViewEventPublisherRegistrar(viewEventBus));
+
         //TODO: bind modeleventpublisher separately
     }
 

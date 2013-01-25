@@ -18,7 +18,6 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.inject.servlet.SessionScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +33,7 @@ import java.io.Serializable;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-@SessionScoped
+//@SessionScoped
 public abstract class AbstractPresenter<T extends View> implements Serializable {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
@@ -47,10 +46,15 @@ public abstract class AbstractPresenter<T extends View> implements Serializable 
     protected T view;
 
     /*===========================================[ CLASS METHODS ]================*/
-    //TODO postconstruct?? notify viewopened
+
     @Inject
-    protected void init(T view) {
+    protected void init(){
         logger = LoggerFactory.getLogger(getClass());
+    }
+
+    //TODO идея - упростить схему с viewInitialized через InjectionListener'ов -  в hear инициализировать presenter
+    //TODO postconstruct?? notify viewopened
+    public void setView(T view) {
         this.view = view;
         initPresenter();
         logger.debug(String.format("Presenter initialized: [%s], view class: [%s]", getClass().getName(), view.getClass().getName()));

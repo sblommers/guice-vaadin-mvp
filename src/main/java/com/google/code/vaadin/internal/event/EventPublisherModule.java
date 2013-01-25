@@ -46,7 +46,7 @@ public class EventPublisherModule extends AbstractModule {
     protected void configure() {
         busConfiguration = mapAnnotations(busConfiguration);
         final MBassador viewEventBus = new MBassador(busConfiguration);
-
+        //TODO session scope for eventbus
         // Registers all injectees as EventBus subscribers because we can't definitely say who is listening
         bindListener(Matchers.any(), new TypeListener() {
             @Override

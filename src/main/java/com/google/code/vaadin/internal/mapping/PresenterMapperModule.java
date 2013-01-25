@@ -103,7 +103,7 @@ public class PresenterMapperModule extends AbstractModule {
 
 
     //TODO SessionScoped bean с маппингами
-     //TODO проблемы с открытием параллельной сессии
+    //TODO проблемы с открытием параллельной сессии
     private class ViewTypeListener implements TypeListener {
         @Override
         public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
@@ -121,10 +121,11 @@ public class PresenterMapperModule extends AbstractModule {
                         //4. Instantiate appropriate Presenter for View interface from event. Appropriate earlier created View will be injected - it's because SessionScope.
                         Class<? extends AbstractPresenter> presenterClass = viewPresenterMap.get(viewInterface);
                         Injector injector = (Injector) servletContext.getAttribute(Injector.class.getName());
-
                         AbstractPresenter presenter = injector.getInstance(presenterClass);
                         presenter.setView(view);
-                        injector.getInstance(MappingContext.class).addMapping(view, presenter);
+                        MappingContext mappingContext = injector.getInstance(MappingContext.class);
+                        logger.info("Mapping context: " + mappingContext);
+                        mappingContext.addMapping(view, presenter);
                     }
                 }
             });

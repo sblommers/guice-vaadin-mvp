@@ -53,4 +53,14 @@ public class MappingContext {
         //5. Call viewOpened if appropriate event received from view
         abstractPresenter.viewOpened();
     }
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("MappingContext");
+        sb.append("{activeMappings=").append(activeMappings);
+        sb.append('}');
+        return sb.toString();
+    }
 }

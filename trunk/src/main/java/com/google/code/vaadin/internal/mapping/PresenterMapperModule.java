@@ -9,9 +9,7 @@ import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.AbstractView;
-import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.View;
-import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
 import com.google.inject.*;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.servlet.ServletScopes;
@@ -30,7 +28,6 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.ServletContext;
 import java.util.Map;
 import java.util.Set;
-import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -112,18 +109,10 @@ public class PresenterMapperModule extends AbstractModule {
         injector.getInstance(presenterClass);
     }*/
 
-    @Observes
-    public void viewOpened(ViewOpenedEvent event) {
-        Class<? extends View> viewInterface = event.getViewInterface();
-        Class<? extends AbstractPresenter> presenterClass = viewPresenterMap.get(viewInterface);
-        View view = event.getView();
-        //todo
-        //5. Call viewOpened if appropriate event received from view
-        injector.getInstance(presenterClass).viewOpened();
-    }
+
 
     //TODO SessionScoped bean с маппингами
-
+     //TODO проблемы с открытием параллельной сессии
     private class ViewTypeListener implements TypeListener {
         @Override
         public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
@@ -142,15 +131,9 @@ public class PresenterMapperModule extends AbstractModule {
                         Class<? extends AbstractPresenter> presenterClass = viewPresenterMap.get(viewInterface);
                         Injector injector = (Injector) servletContext.getAttribute(Injector.class.getName());
 
-                        AbstractPresenter presenterInstance = injector.getInstance(presenterClass);
-                        presenterInstance.setView((View) injectee);
-
-                        // call presenterInstance.viewOpened. Map ViewInstance -> PresenterInstance
-                        //TODO fire view opened
-                        WeakHashMap weakHashMap = new WeakHashMap();
-                        //WeakReference
-                        //SoftR
-                        //todo weakhashmap with entries
+                        AbstractPresenter presenter = injector.getInstance(presenterClass);
+                        presenter.setView(view);
+                        injector.getInstance(MappingContext.class).addMapping(view, presenter);
                     }
                 }
             });

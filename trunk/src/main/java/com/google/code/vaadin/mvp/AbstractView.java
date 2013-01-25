@@ -18,7 +18,6 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.code.vaadin.mvp.events.ViewInitializedEvent;
 import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
 
 import javax.inject.Inject;
@@ -61,8 +60,7 @@ public abstract class AbstractView extends ViewComponent implements View {
         if (!initialized) {
             initView();
             initialized = true;
-            fireViewEvent(new ViewInitializedEvent(viewInterface, this));
-            logger.debug("View initialized: " + viewInterface + ", hashCode: " + hashCode());
+            logger.debug(String.format("View initialized: %s#%d", viewInterface.getName(), hashCode()));
         }
 
         fireViewEvent(new ViewOpenedEvent(viewInterface, this));

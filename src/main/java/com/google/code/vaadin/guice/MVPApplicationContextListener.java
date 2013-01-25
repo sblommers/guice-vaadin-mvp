@@ -27,6 +27,7 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.netflix.governator.guice.LifecycleInjector;
+import com.netflix.governator.lifecycle.LifecycleManager;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -63,6 +64,12 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
         }
 
         super.contextInitialized(servletContextEvent);
+
+        try {
+            injector.getInstance(LifecycleManager.class).start();
+        } catch (Exception e) {
+            throw new MVPApplicationException("ERROR: Unable to start LifecycleManager", e);
+        }
     }
 
     /*===========================================[ GETTER/SETTER ]================*/
@@ -102,5 +109,11 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
     protected AbstractMVPApplicationModule createApplicationModule() throws Exception {
         Constructor<? extends AbstractMVPApplicationModule> constructor = mvpApplicationModuleClass.getConstructor(ServletContext.class);
         return constructor.newInstance(servletContext);
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent servletContextEvent) {
+        super.contextDestroyed(servletContextEvent);
+        injector.getInstance(LifecycleManager.class).close();
     }
 }

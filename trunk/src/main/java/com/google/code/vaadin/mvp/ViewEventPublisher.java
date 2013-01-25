@@ -18,20 +18,17 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.vaadin.ui.ComponentContainer;
+import javax.validation.constraints.NotNull;
 
 /**
- * Superinterface of each CDI Utils MVP-pattern View interface.
+ * EventPublisher - TODO: description
  *
  * @author Alexey Krylov
  * @since 23.01.13
  */
-public interface View extends ComponentContainer{
+public interface ViewEventPublisher {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
-    /**
-     * Called (by the application logic) whenever the view is opened/accessed.
-     */
-    void openView();
+    void publish(@NotNull Object event);
 }

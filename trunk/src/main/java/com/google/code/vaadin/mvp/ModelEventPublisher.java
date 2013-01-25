@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-public interface EventPublisher {
+public interface ModelEventPublisher {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 

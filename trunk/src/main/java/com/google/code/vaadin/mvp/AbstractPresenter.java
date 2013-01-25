@@ -33,6 +33,7 @@ import java.io.Serializable;
  * @author Alexey Krylov
  * @since 23.01.13
  */
+//TODO VaadinScoped!!!!!
 public abstract class AbstractPresenter<T extends View> implements Serializable {
 
     /*===========================================[ STATIC VARIABLES ]=============*/

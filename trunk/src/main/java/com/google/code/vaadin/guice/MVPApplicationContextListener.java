@@ -22,13 +22,11 @@ import com.google.code.vaadin.internal.components.VaadinComponentPreconfiguratio
 import com.google.code.vaadin.internal.event.EventPublisherModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
-import com.google.code.vaadin.internal.servlet.MVPApplicationServletModule;
 import com.google.code.vaadin.mvp.MVPApplicationException;
+import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.servlet.GuiceServletContextListener;
-import com.netflix.governator.guice.LifecycleInjector;
-import com.netflix.governator.lifecycle.LifecycleManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,22 +71,13 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
         }
 
         super.contextInitialized(servletContextEvent);
-
-        try {
-            injector.getInstance(LifecycleManager.class).start();
-            logger.info("Context successfully initialized");
-        } catch (Exception e) {
-            throw new MVPApplicationException("ERROR: Unable to start LifecycleManager", e);
-        }
+        //todo presenter никогда не инжектится и поэтому не может зарегистрироваться в подписках
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         logger.info("Destroying Guice-Vaadin-MVP context...");
         super.contextDestroyed(servletContextEvent);
-
-        // @PreDestroy & etc
-        injector.getInstance(LifecycleManager.class).close();
         logger.info("Context successfully destroyed");
     }
 
@@ -108,13 +97,12 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
             logger.info("Creating Injector...");
             List<Module> modules = new ArrayList<Module>();
             modules.add(createLoggerModule());
-            modules.add(createServletModule(servletContext));
             modules.add(createEventPublisherModule());
             modules.add(createApplicationModule());
             // support for @Preconfigured last because it depends on TextBundle bindings in ApplicationModule
             modules.add(new VaadinComponentPreconfigurationModule());
 
-            Injector injector = LifecycleInjector.builder().withModules(modules).createInjector();
+            Injector injector = Guice.createInjector(modules);
             logger.info("Injector successfully created");
             return injector;
         } catch (Exception e) {
@@ -124,10 +112,6 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
 
     protected LoggerModule createLoggerModule() {
         return new LoggerModule();
-    }
-
-    protected MVPApplicationServletModule createServletModule(ServletContext servletContext) {
-        return new MVPApplicationServletModule(servletContext);
     }
 
     protected EventPublisherModule createEventPublisherModule() {

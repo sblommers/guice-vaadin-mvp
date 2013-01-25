@@ -16,6 +16,8 @@ import com.google.inject.spi.TypeListener;
 import net.engio.mbassy.BusConfiguration;
 import net.engio.mbassy.IMessageBus;
 import net.engio.mbassy.MBassador;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * EventPublisherModule - TODO: description
@@ -65,6 +67,7 @@ public class EventPublisherModule extends AbstractModule {
         bind(EventPublisher.class).toInstance(new EventPublisher() {
             @Override
             public void publish(Object event) {
+                Preconditions.checkArgument(event != null, "Published Event can't be null");
                 eventBus.publish(event);
             }
         });

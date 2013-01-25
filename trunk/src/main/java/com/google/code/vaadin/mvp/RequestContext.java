@@ -41,7 +41,7 @@ public class RequestContext {
         return application;
     }
 
-    public void setApplication(AbstractMVPApplication application) {
+    protected void setApplication(AbstractMVPApplication application) {
         this.application = application;
     }
 
@@ -49,7 +49,7 @@ public class RequestContext {
         return window;
     }
 
-    public void setWindow(Window window) {
+    protected void setWindow(Window window) {
         this.window = window;
     }
 }

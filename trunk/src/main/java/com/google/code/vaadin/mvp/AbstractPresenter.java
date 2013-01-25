@@ -18,10 +18,11 @@
 
 package com.google.code.vaadin.mvp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Abstract implementation of CDI Utils MVP-pattern presenter. Associated
@@ -46,11 +47,11 @@ public abstract class AbstractPresenter<T extends View> implements Serializable 
     /*===========================================[ CLASS METHODS ]================*/
 
     @Inject
-    protected void init(T view, Logger logger) {
-        this.logger = logger;
+    protected void init(T view) {
+        logger = LoggerFactory.getLogger(getClass());
         this.view = view;
         initPresenter();
-        logger.log(Level.FINE, String.format("Presenter initialized: [%s], view class: [%s]", getClass().getName(), view.getClass().getName()));
+        logger.debug(String.format("Presenter initialized: [%s], view class: [%s]", getClass().getName(), view.getClass().getName()));
     }
 
     /**

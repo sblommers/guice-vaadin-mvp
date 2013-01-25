@@ -8,6 +8,7 @@ package com.google.code.vaadin.guice;
 import com.google.code.vaadin.TextBundle;
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventPublisherModule;
+import com.google.code.vaadin.internal.logging.LoggerModule;
 
 /**
  * TestMVPApplicationModule - TODO: description
@@ -28,6 +29,7 @@ public class TestMVPApplicationModule extends AbstractMVPApplicationModule {
     @Override
     protected void configure() {
         super.configure();
+        install(new LoggerModule());
         install(new EventPublisherModule());
         install(new VaadinComponentPreconfigurationModule());
     }

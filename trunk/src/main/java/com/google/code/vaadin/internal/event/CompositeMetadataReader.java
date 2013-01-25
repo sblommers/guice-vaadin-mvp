@@ -10,12 +10,12 @@ import net.engio.mbassy.common.IPredicate;
 import net.engio.mbassy.common.ReflectionUtils;
 import net.engio.mbassy.listener.*;
 import net.engio.mbassy.subscription.MessageEnvelope;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * CompositeMetadataReader - TODO: description
@@ -27,7 +27,7 @@ class CompositeMetadataReader extends MetadataReader {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
 
-    private static final Logger logger = Logger.getLogger(CompositeMetadataReader.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(CompositeMetadataReader.class.getName());
 
     private static final IPredicate<Method> AllMessageHandlers = new IPredicate<Method>() {
         @Override
@@ -58,17 +58,17 @@ class CompositeMetadataReader extends MetadataReader {
     private static boolean isValidHandler(Method handler) {
         if (handler.getParameterTypes().length != 1) {
             // a messageHandler only defines one parameter (the message)
-            logger.log(Level.WARNING, "Found no or more than one parameter in messageHandler [" + handler.getName()
+            logger.warn("Found no or more than one parameter in messageHandler [" + handler.getName()
                     + "]. A messageHandler must define exactly one parameter");
             return false;
         }
         Enveloped envelope = handler.getAnnotation(Enveloped.class);
         if (envelope != null && !MessageEnvelope.class.isAssignableFrom(handler.getParameterTypes()[0])) {
-            logger.log(Level.WARNING, "Message envelope configured but no subclass of MessageEnvelope found as parameter");
+            logger.warn("Message envelope configured but no subclass of MessageEnvelope found as parameter");
             return false;
         }
         if (envelope != null && envelope.messages().length == 0) {
-            logger.log(Level.WARNING, "Message envelope configured but message types defined for handler");
+            logger.warn("Message envelope configured but message types defined for handler");
             return false;
         }
         return true;

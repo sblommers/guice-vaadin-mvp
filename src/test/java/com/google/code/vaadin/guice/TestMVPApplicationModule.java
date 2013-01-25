@@ -27,16 +27,15 @@ public class TestMVPApplicationModule extends AbstractMVPApplicationModule {
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    protected void configure() {
-        super.configure();
+    protected void bindComponents() {
         install(new LoggerModule());
         install(new EventPublisherModule());
         install(new VaadinComponentPreconfigurationModule());
     }
 
     @Override
-    protected void bindTextBundle(Class<TextBundle> textBundleClass) {
-        bind(textBundleClass).toInstance(new TextBundle() {
+    protected void bindTextBundle() {
+        bind(TextBundle.class).toInstance(new TextBundle() {
             @Override
             public String getText(String key, Object... params) {
                 return String.format(key, params);

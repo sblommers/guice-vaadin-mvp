@@ -20,14 +20,13 @@ package com.google.code.vaadin.guice;
 
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventPublisherModule;
+import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.code.vaadin.internal.servlet.MVPApplicationServletModule;
 import com.google.code.vaadin.mvp.MVPApplicationException;
-import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.netflix.governator.guice.LifecycleInjector;
-import com.vaadin.Application;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -44,14 +43,8 @@ import java.util.List;
  */
 public class MVPApplicationContextListener extends GuiceServletContextListener {
 
-    /*===========================================[ STATIC VARIABLES ]=============*/
-
-    public static final String P_APPLICATION = "application";
-    public static final String P_APPLICATION_MODULE = "application-module";
-
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private Class<? extends Application> applicationClass;
     private Class<? extends AbstractMVPApplicationModule> mvpApplicationModuleClass;
     private Injector injector;
     private ServletContext servletContext;
@@ -61,15 +54,9 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         servletContext = servletContextEvent.getServletContext();
-        try {
-            applicationClass = (Class<? extends Application>) Class.forName(servletContext.getInitParameter(P_APPLICATION));
-        } catch (Exception e) {
-            throw new MVPApplicationException(String.format("ERROR: Unable to instantiate class of [%s]. " +
-                    "Please check your webapp deployment descriptor.", Application.class.getName()), e);
-        }
 
         try {
-            mvpApplicationModuleClass = (Class<? extends AbstractMVPApplicationModule>) Class.forName(servletContext.getInitParameter(P_APPLICATION_MODULE));
+            mvpApplicationModuleClass = (Class<? extends AbstractMVPApplicationModule>) Class.forName(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_MODULE));
         } catch (Exception e) {
             throw new MVPApplicationException(String.format("ERROR: Unable to instantiate class of [%s]. " +
                     "Please check your webapp deployment descriptor.", AbstractMVPApplicationModule.class.getName()), e);
@@ -93,7 +80,8 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
         try {
             List<Module> modules = new ArrayList<Module>();
             // default module is always first
-            modules.add(createDefaultModule());
+            modules.add(createServletModule(servletContext));
+            modules.add(createEventPublisherModule());
             modules.add(createApplicationModule());
             // support for @Preconfigured last because it depends on TextBundle bindings in Application Module
             modules.add(new VaadinComponentPreconfigurationModule());
@@ -103,14 +91,12 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
         }
     }
 
-    protected Module createDefaultModule() {
-        return new AbstractModule() {
-            @Override
-            protected void configure() {
-                install(new MVPApplicationServletModule(applicationClass));
-                install(new EventPublisherModule());
-            }
-        };
+    protected MVPApplicationServletModule createServletModule(ServletContext servletContext) {
+        return new MVPApplicationServletModule(servletContext);
+    }
+
+    protected EventPublisherModule createEventPublisherModule() {
+        return new EventPublisherModule();
     }
 
     protected AbstractMVPApplicationModule createApplicationModule() throws Exception {

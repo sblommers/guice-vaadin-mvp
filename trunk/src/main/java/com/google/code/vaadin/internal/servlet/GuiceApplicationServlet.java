@@ -18,7 +18,6 @@
 
 package com.google.code.vaadin.internal.servlet;
 
-import com.google.code.vaadin.guice.MVPApplicationContextListener;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -51,7 +50,7 @@ public class GuiceApplicationServlet extends AbstractApplicationServlet {
 
     @Inject
     public void init(Provider<Application> applicationProvider,
-                     @Named(MVPApplicationContextListener.P_APPLICATION) Class applicationClass) {
+                     @Named(MVPApplicationInitParameters.P_APPLICATION) Class applicationClass) {
         this.applicationProvider = applicationProvider;
         this.applicationClass = applicationClass;
     }

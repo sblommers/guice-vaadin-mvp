@@ -7,10 +7,12 @@ package com.google.code.vaadin.internal.components;
 
 import com.google.code.vaadin.TextBundle;
 import com.google.code.vaadin.components.Preconfigured;
+import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.MembersInjector;
 import com.vaadin.ui.*;
 
+import javax.servlet.ServletContext;
 import java.lang.reflect.Field;
 
 /**
@@ -25,14 +27,14 @@ public class VaadinComponentsInjector<T> implements MembersInjector<T> {
 
     private Field field;
     private Preconfigured preconfigured;
-    private TextBundle textBundle;
+    private ServletContext servletContext;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    public VaadinComponentsInjector(Field field, Preconfigured preconfigured, TextBundle textBundle) {
+    public VaadinComponentsInjector(Field field, Preconfigured preconfigured, ServletContext servletContext) {
         this.field = field;
-        this.textBundle = textBundle;
         this.preconfigured = preconfigured;
+        this.servletContext = servletContext;
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
@@ -117,6 +119,7 @@ public class VaadinComponentsInjector<T> implements MembersInjector<T> {
         component.setEnabled(preconfigured.enabled());
         component.setVisible(preconfigured.visible());
         component.setReadOnly(preconfigured.readOnly());
+        TextBundle textBundle = InjectorProvider.getInjector(servletContext).getInstance(TextBundle.class);
 
         String[] styleName = preconfigured.styleName();
         if (styleName.length > 0) {

@@ -5,17 +5,20 @@
 
 package com.google.code.vaadin.internal.event;
 
-import com.google.code.vaadin.mvp.EventPublisher;
-import com.google.common.base.Preconditions;
+import com.google.code.vaadin.mvp.ModelEventPublisher;
+import com.google.code.vaadin.mvp.ViewEventPublisher;
 import com.google.inject.AbstractModule;
+import com.google.inject.BindingAnnotation;
+import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.Matchers;
-import com.google.inject.spi.InjectionListener;
+import com.google.inject.servlet.ServletScopes;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
-import net.engio.mbassy.BusConfiguration;
 import net.engio.mbassy.IMessageBus;
-import net.engio.mbassy.MBassador;
+
+import javax.servlet.ServletContext;
+import java.lang.annotation.*;
 
 /**
  * EventPublisherModule - TODO: description
@@ -27,55 +30,69 @@ public class EventPublisherModule extends AbstractModule {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private BusConfiguration busConfiguration;
+    private ServletContext servletContext;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    public EventPublisherModule() {
-        busConfiguration = BusConfiguration.Default();
-    }
-
-    public EventPublisherModule(BusConfiguration busConfiguration) {
-        Preconditions.checkArgument(busConfiguration != null, "BusConfiguration can't be null", busConfiguration);
-        this.busConfiguration = busConfiguration;
+    public EventPublisherModule(ServletContext servletContext) {
+        this.servletContext = servletContext;
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void configure() {
-        busConfiguration = mapAnnotations(busConfiguration);
-        final MBassador viewEventBus = new MBassador(busConfiguration);
-        //TODO session scope for eventbus
         // Registers all injectees as EventBus subscribers because we can't definitely say who is listening
         bindListener(Matchers.any(), new TypeListener() {
             @Override
             public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
-                typeEncounter.register(new InjectionListener<I>() {
+/*
+                for (Field field : typeLiteral.getRawType().getDeclaredFields()) {
+                    if (Component.class.isAssignableFrom(field.getType())
+                            && field.isAnnotationPresent(Preconfigured.class)) {
+                        typeEncounter.register(new EventPublisherInjector(servletContext));
+
+                        typeEncounter.register(new VaadinComponentsInjector<T>(field, preconfigured, servletContext));
+                    }
+                }
+                typeEncounter.register(new VaadinComponentsInjector<T>(field, preconfigured, servletContext));
+*/
+                typeEncounter.register(new EventPublisherInjector<I>(servletContext));
+               /* typeEncounter.register(new InjectionListener<I>() {
                     @Override
                     public void afterInjection(I injectee) {
-                        //TODO do not subscribe classes without observes
+                        Injector injector = InjectorProvider.getInjector(servletContext);
+                        IMessageBus viewEventBus = injector.getInstance(Key.get(IMessageBus.class, ViewEventBus.class));
+                        IMessageBus modelEventBus = injector.getInstance(Key.get(IMessageBus.class, ModelEventBus.class));
+                        //TODO do not subscribe classes without Observes methods
+                        //TODO EP should be removed by GC, but needs to be checked. It will contain links on different scoped components, but only session scoped will have links to this EP.
                         viewEventBus.subscribe(injectee);
+                        modelEventBus.subscribe(injectee);
                     }
-                });
+                });*/
             }
         });
 
-        bind(IMessageBus.class).toInstance(viewEventBus);
-        bind(MBassador.class).toInstance(viewEventBus);
-        bind(EventPublisher.class).toInstance(new EventPublisher() {
-            @Override
-            public void publish(Object event) {
-                Preconditions.checkArgument(event != null, "Published Event can't be null");
-                viewEventBus.publish(event);
-            }
-        });
+        bind(IMessageBus.class).annotatedWith(ViewEventBus.class).toProvider(ViewEventBusProvider.class).in(ServletScopes.SESSION);
+        bind(ViewEventPublisher.class).toProvider(ViewEventPublisherProvider.class).in(ServletScopes.SESSION);
 
-        //TODO: bind modeleventpublisher separately
+        bind(IMessageBus.class).annotatedWith(ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(Scopes.SINGLETON);
+        bind(ModelEventPublisher.class).toProvider(ModelEventPublisherProvider.class).in(Scopes.SINGLETON);
     }
 
-    protected BusConfiguration mapAnnotations(BusConfiguration busConfiguration) {
-        busConfiguration.setMetadataReader(new CompositeMetadataReader());
-        return busConfiguration;
+    @BindingAnnotation
+    @Documented
+    @Target(ElementType.FIELD)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface ViewEventBus {
+
+    }
+
+    @BindingAnnotation
+    @Documented
+    @Target(ElementType.FIELD)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface ModelEventBus {
+
     }
 }

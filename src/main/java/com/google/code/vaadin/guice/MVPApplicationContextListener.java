@@ -33,9 +33,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionActivationListener;
 import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +46,7 @@ import java.util.List;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-public class MVPApplicationContextListener extends GuiceServletContextListener {
+public class MVPApplicationContextListener extends GuiceServletContextListener implements HttpSessionListener {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
 
@@ -78,6 +77,20 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
         logger.info("Context successfully destroyed");
     }
 
+    @Override
+    public void sessionCreated(HttpSessionEvent se) {
+        logger.info("Session created");
+        //todo create instance of eventbus
+
+    }
+
+    @Override
+    public void sessionDestroyed(HttpSessionEvent se) {
+        logger.info("Session destroyed");
+        //todo unregister all subscribers of SessionScoped ViewEventBus from ModelEventBus
+        //todo unregister session-scoped elements from the ModelEventPublisher
+    }
+
     /*===========================================[ GETTER/SETTER ]================*/
 
     @Override
@@ -98,7 +111,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
             modules.add(createApplicationModule());
             modules.add(createPresenterMapperModule());
             // support for @Preconfigured last because it depends on TextBundle bindings in ApplicationModule
-            modules.add(new VaadinComponentPreconfigurationModule());
+            modules.add(createComponentPreconfigurationModule());
 
             Injector injector = Guice.createInjector(modules);
 
@@ -114,7 +127,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
     }
 
     protected EventPublisherModule createEventPublisherModule() {
-        return new EventPublisherModule();
+        return new EventPublisherModule(servletContext);
     }
 
     protected PresenterMapperModule createPresenterMapperModule() {
@@ -124,5 +137,9 @@ public class MVPApplicationContextListener extends GuiceServletContextListener {
     protected AbstractMVPApplicationModule createApplicationModule() throws Exception {
         Constructor<? extends AbstractMVPApplicationModule> constructor = mvpApplicationModuleClass.getConstructor(ServletContext.class);
         return constructor.newInstance(servletContext);
+    }
+
+    protected VaadinComponentPreconfigurationModule createComponentPreconfigurationModule() {
+        return new VaadinComponentPreconfigurationModule(servletContext);
     }
 }

@@ -10,10 +10,10 @@ import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.AbstractView;
 import com.google.code.vaadin.mvp.View;
-import com.google.inject.*;
+import com.google.inject.AbstractModule;
+import com.google.inject.Injector;
+import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.Matchers;
-import com.google.inject.servlet.ServletScopes;
-import com.google.inject.spi.DefaultBindingScopingVisitor;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
@@ -70,27 +70,10 @@ public class PresenterMapperModule extends AbstractModule {
             }*/
         }
 
-
         //3. Add listener for all ViewInitialized event - see viewInitialized method
         //bind(PresenterMapper.class).asEagerSingleton();
 
         bindListener(Matchers.any(), new ViewTypeListener());
-    }
-
-    /*===========================================[ CONSTRUCTORS ]=================*/
-
-    private boolean isSessionScoped(Binding<? extends AbstractPresenter> presenterBinding) {
-        final boolean[] sessionScoped = {false};
-        presenterBinding.acceptScopingVisitor(new DefaultBindingScopingVisitor<Object>() {
-            @Override
-            public Object visitScope(Scope scope) {
-                if (scope.equals(ServletScopes.SESSION)) {
-                    sessionScoped[0] = true;
-                }
-                return super.visitScope(scope);
-            }
-        });
-        return sessionScoped[0];
     }
 
     /*===========================================[ CLASS METHODS ]================*/

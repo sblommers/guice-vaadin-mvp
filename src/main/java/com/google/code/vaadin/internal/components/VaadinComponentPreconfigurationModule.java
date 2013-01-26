@@ -9,6 +9,8 @@ import com.google.code.vaadin.components.Preconfigured;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 
+import javax.servlet.ServletContext;
+
 /**
  * Adds support for {@link Preconfigured} annotation.
  *
@@ -17,11 +19,16 @@ import com.google.inject.matcher.Matchers;
  */
 public class VaadinComponentPreconfigurationModule extends AbstractModule {
 
-    /*===========================================[ INTERFACE METHODS ]============*/
+    private final ServletContext servletContext;
+
+    public VaadinComponentPreconfigurationModule(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
+/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void configure() {
         // support for @Preconfigured
-        bindListener(Matchers.any(), new VaadinComponentsInjectionListener());
+        bindListener(Matchers.any(), new VaadinComponentsInjectionListener(servletContext));
     }
 }

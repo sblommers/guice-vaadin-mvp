@@ -29,7 +29,7 @@ public class ViewOpenEventRedirector {
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
-    public void init(Logger logger, MappingContext mappingContext){
+    public void init(Logger logger, MappingContext mappingContext) {
         this.logger = logger;
         this.mappingContext = mappingContext;
     }

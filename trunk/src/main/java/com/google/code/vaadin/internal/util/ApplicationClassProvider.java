@@ -26,12 +26,12 @@ public class ApplicationClassProvider {
 
 	/*===========================================[ CLASS METHODS ]================*/
 
-    public static Class<? extends AbstractMVPApplicationModule> getApplicationClass(ServletContext context){
+    public static Class<? extends AbstractMVPApplicationModule> getApplicationClass(ServletContext context) {
         try {
             return (Class<? extends AbstractMVPApplicationModule>) Class.forName(context.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_MODULE));
         } catch (Exception e) {
             throw new MVPApplicationException(String.format("ERROR: Unable to instantiate class of [%s]. " +
                     "Please check your webapp deployment descriptor.", AbstractMVPApplicationModule.class.getName()), e);
-        }        
+        }
     }
 }

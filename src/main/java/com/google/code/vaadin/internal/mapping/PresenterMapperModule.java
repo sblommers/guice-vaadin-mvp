@@ -7,6 +7,7 @@ package com.google.code.vaadin.internal.mapping;
 
 import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
+import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.AbstractView;
 import com.google.code.vaadin.mvp.View;
@@ -14,6 +15,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.Matchers;
+import com.google.inject.servlet.ServletScopes;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
@@ -72,7 +74,8 @@ public class PresenterMapperModule extends AbstractModule {
 
         //3. Add listener for all ViewInitialized event - see viewInitialized method
         //bind(PresenterMapper.class).asEagerSingleton();
-
+        bind(MappingContext.class).in(ServletScopes.SESSION);
+        bind(ViewOpenEventRedirector.class).in(ServletScopes.SESSION);
         bindListener(Matchers.any(), new ViewTypeListener());
     }
 
@@ -103,12 +106,15 @@ public class PresenterMapperModule extends AbstractModule {
 
                         //4. Instantiate appropriate Presenter for View interface from event. Appropriate earlier created View will be injected - it's because SessionScope.
                         Class<? extends AbstractPresenter> presenterClass = viewPresenterMap.get(viewInterface);
-                        Injector injector = (Injector) servletContext.getAttribute(Injector.class.getName());
+
+                        Injector injector = InjectorProvider.getInjector(servletContext);
                         AbstractPresenter presenter = injector.getInstance(presenterClass);
                         presenter.setView(view);
                         MappingContext mappingContext = injector.getInstance(MappingContext.class);
                         logger.info("Mapping context: " + mappingContext);
                         mappingContext.addMapping(view, presenter);
+                        // Instantiate support for Presenter.viewOpened
+                        injector.getInstance(ViewOpenEventRedirector.class);
                     }
                 }
             });

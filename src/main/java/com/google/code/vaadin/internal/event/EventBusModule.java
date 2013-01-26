@@ -46,6 +46,19 @@ public class EventBusModule extends AbstractModule {
         bindListener(Matchers.any(), new TypeListener() {
             @Override
             public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
+
+               /* typeEncounter.register(new InjectionListener<I>() {
+                    @Override
+                    public void afterInjection(I injectee) {
+                        Injector injector = InjectorProvider.getInjector(servletContext);
+                        IMessageBus viewEventBus = injector.getInstance(Key.get(IMessageBus.class, ViewEventBus.class));
+                        IMessageBus modelEventBus = injector.getInstance(Key.get(IMessageBus.class, ModelEventBus.class));
+                        //todo do not subscribe classes without Observes methods
+                        //todo EP should be removed by GC, but needs to be checked. It will contain links on different scoped components, but only session scoped will have links to this EP.
+                        viewEventBus.subscribe(injectee);
+                        modelEventBus.subscribe(injectee);
+                    }
+                });*/
 /*
                 for (Field field : typeLiteral.getRawType().getDeclaredFields()) {
                     if (Component.class.isAssignableFrom(field.getType())
@@ -58,22 +71,10 @@ public class EventBusModule extends AbstractModule {
                 typeEncounter.register(new VaadinComponentsInjector<T>(field, preconfigured, servletContext));
 */
                 typeEncounter.register(new EventPublisherInjector<I>(servletContext));
-               /* typeEncounter.register(new InjectionListener<I>() {
-                    @Override
-                    public void afterInjection(I injectee) {
-                        Injector injector = InjectorProvider.getInjector(servletContext);
-                        IMessageBus viewEventBus = injector.getInstance(Key.get(IMessageBus.class, ViewEventBus.class));
-                        IMessageBus modelEventBus = injector.getInstance(Key.get(IMessageBus.class, ModelEventBus.class));
-                        //TODO do not subscribe classes without Observes methods
-                        //TODO EP should be removed by GC, but needs to be checked. It will contain links on different scoped components, but only session scoped will have links to this EP.
-                        viewEventBus.subscribe(injectee);
-                        modelEventBus.subscribe(injectee);
-                    }
-                });*/
             }
         });
 
-        //todo bind of IMEssageBus
+        //todo bind of IMessageBus
         bind(EventBus.class).annotatedWith(ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(Scopes.SINGLETON);
         bind(ModelEventPublisher.class).toProvider(ModelEventPublisherProvider.class).in(Scopes.SINGLETON);
 

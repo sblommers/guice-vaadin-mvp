@@ -23,8 +23,6 @@ import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import java.util.Map;
@@ -39,19 +37,21 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class PresenterMapperModule extends AbstractModule {
 
-    private static final Logger logger = LoggerFactory.getLogger(PresenterMapperModule.class);
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
     protected Map<Class<? extends View>, Class<? extends AbstractPresenter>> viewPresenterMap;
     protected Injector injector;
     protected Class<? extends AbstractMVPApplicationModule> applicationClass;
     protected ServletContext servletContext;
 
+	/*===========================================[ CONSTRUCTORS ]=================*/
+
     public PresenterMapperModule(ServletContext servletContext) {
         this.servletContext = servletContext;
         applicationClass = ApplicationClassProvider.getApplicationClass(servletContext);
     }
 
-    /*===========================================[ INTERFACE METHODS ]============*/
+	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void configure() {
@@ -64,11 +64,6 @@ public class PresenterMapperModule extends AbstractModule {
         for (Class<? extends AbstractPresenter> presenterClass : subTypesOf) {
             Class<View> viewClass = TypeUtil.getTypeParameterClass(presenterClass, View.class);
             viewPresenterMap.put(viewClass, presenterClass);
-            // Presenter should be always SessionScoped
-            /* Binding<? extends AbstractPresenter> presenterBinding = injector.getBinding(presenterClass);
-            if (!isSessionScoped(presenterBinding)) {
-                logger.error(String.format("Presenter [%s] is not Session-scoped. Please add @SessionScoped annotation or bind presenter to this scope explicitly!", presenterClass.getName()));
-            }*/
         }
 
         //3. Add listener for all ViewInitialized event - see viewInitialized method
@@ -84,9 +79,8 @@ public class PresenterMapperModule extends AbstractModule {
                 .setScanners(new SubTypesScanner());
     }
 
+	/*===========================================[ INNER CLASSES ]================*/
 
-    //TODO SessionScoped bean с маппингами
-    //TODO проблемы с открытием параллельной сессии
     private class ViewTypeListener implements TypeListener {
         @Override
         public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
@@ -108,7 +102,6 @@ public class PresenterMapperModule extends AbstractModule {
                         AbstractPresenter presenter = injector.getInstance(presenterClass);
                         presenter.setView(view);
                         MappingContext mappingContext = injector.getInstance(MappingContext.class);
-                        logger.info("Mapping context: " + mappingContext);
                         mappingContext.addMapping(view, presenter);
                         // Instantiate support for Presenter.viewOpened
                         injector.getInstance(ViewOpenEventRedirector.class);

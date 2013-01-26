@@ -8,7 +8,6 @@ package com.google.code.vaadin.internal.event.publisher;
 import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
-import com.google.common.base.Preconditions;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -40,7 +39,6 @@ public class ViewEventPublisherProvider implements Provider<ViewEventPublisher> 
         return new ViewEventPublisher() {
             @Override
             public void publish(Object event) {
-                Preconditions.checkArgument(event != null, "Published Event can't be null");
                 viewMessageBus.publish(event);
                 globalViewMessageBus.publish(event);
             }

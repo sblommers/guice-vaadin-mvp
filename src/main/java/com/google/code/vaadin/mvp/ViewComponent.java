@@ -66,7 +66,6 @@ public abstract class ViewComponent extends CustomComponent {
     }
 
     protected void fireViewEvent(@NotNull Object event) {
-        logger.info("firing to EP#" + viewEventPublisher.hashCode());
         viewEventPublisher.publish(event);
     }
 

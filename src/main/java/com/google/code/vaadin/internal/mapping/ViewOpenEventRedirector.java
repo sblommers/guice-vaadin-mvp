@@ -8,6 +8,7 @@ package com.google.code.vaadin.internal.mapping;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
+import com.google.inject.servlet.SessionScoped;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;
@@ -18,7 +19,7 @@ import javax.inject.Inject;
  * @author Alexey Krylov (lexx)
  * @since 25.01.13
  */
-
+@SessionScoped
 public class ViewOpenEventRedirector {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/

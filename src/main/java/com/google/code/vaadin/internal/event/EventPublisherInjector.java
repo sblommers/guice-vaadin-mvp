@@ -5,6 +5,7 @@
 
 package com.google.code.vaadin.internal.event;
 
+import com.google.code.vaadin.internal.servlet.MVPApplicationContext;
 import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.mvp.EventBus;
 import com.google.inject.Injector;
@@ -21,7 +22,7 @@ import javax.servlet.ServletContext;
  * @author Alexey Krylov (AleX)
  * @since 26.01.13
  */
-public class EventPublisherInjector<T> implements MembersInjector<T> {
+class EventPublisherInjector<T> implements MembersInjector<T> {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -29,11 +30,12 @@ public class EventPublisherInjector<T> implements MembersInjector<T> {
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    public EventPublisherInjector(ServletContext servletContext) {
+    EventPublisherInjector(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
+
     @Override
     public void injectMembers(T instance) {
         Injector injector = InjectorProvider.getInjector(servletContext);
@@ -44,11 +46,10 @@ public class EventPublisherInjector<T> implements MembersInjector<T> {
             // Do not allowed to register Singleton as Session-scoped EventBus subscriber. This case only possible for not eager singletons that is injected by Session-scoped components
             if (!Scopes.isSingleton(injector.getBinding(instanceClass))) {
                 EventBus viewEventBus = injector.getInstance(Key.get(EventBus.class, EventBusModule.ViewEventBus.class));
+                injector.getInstance(MVPApplicationContext.class).registerSessionScopedSubscriber(instance);
                 viewEventBus.subscribe(instance);
             }
             EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBusModule.ModelEventBus.class));
-            //TODO EP should be removed by GC, but needs to be checked. It will contain links on different scoped components, but only session scoped will have links to this EP.
-            //TODO: model eventbus will hold references to all...
             modelEventBus.subscribe(instance);
         }
     }

@@ -54,7 +54,7 @@ public class ViewOpenedEvent {
         StringBuilder sb = new StringBuilder();
         sb.append("ViewOpenedEvent");
         sb.append("{view=").append(view.hashCode());
-        sb.append(", viewInterface=").append(viewInterface);
+        sb.append(", viewInterface=").append(viewInterface.getClass());
         sb.append('}');
         return sb.toString();
     }

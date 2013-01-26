@@ -7,7 +7,10 @@ package com.google.code.vaadin.internal.mapping;
 
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
+import com.google.inject.Injector;
+import com.google.inject.servlet.SessionScoped;
 
+import javax.inject.Inject;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -17,11 +20,15 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Alexey Krylov (lexx)
  * @since 25.01.13
  */
+@SessionScoped
 public class MappingContext {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private Map<View, AbstractPresenter> activeMappings;
+
+    @Inject
+    private Injector injector;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 

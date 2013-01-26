@@ -8,9 +8,7 @@ package com.google.code.vaadin.guice;
 import com.google.code.vaadin.internal.servlet.GuiceApplicationServlet;
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.code.vaadin.mvp.MVPApplicationException;
-import com.google.code.vaadin.mvp.RequestContext;
 import com.google.inject.name.Names;
-import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;
 import com.google.inject.servlet.ServletScopes;
 import com.vaadin.Application;
@@ -59,7 +57,6 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
     protected void configureServlets() {
         if (servletContext != null) {
             serve("/*").with(GuiceApplicationServlet.class, extractInitParams(servletContext));
-            bind(RequestContext.class).in(RequestScoped.class);
             bind(Class.class).annotatedWith(Names.named(MVPApplicationInitParameters.P_APPLICATION)).toInstance(applicationClass);
             bind(Application.class).to(applicationClass).in(ServletScopes.SESSION);
         } else {

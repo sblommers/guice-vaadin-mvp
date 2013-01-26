@@ -9,7 +9,6 @@ import com.google.code.vaadin.mvp.EventBus;
 import net.engio.mbassy.IMessageBus;
 
 import javax.inject.Provider;
-import javax.validation.constraints.NotNull;
 
 /**
  * AbstractEventBusProvider - TODO: description
@@ -23,24 +22,9 @@ public abstract class AbstractEventBusProvider implements Provider<EventBus> {
 
     @Override
     public EventBus get() {
-        final IMessageBus bus = getMessageBus();
-        return new EventBus() {
-            @Override
-            public void subscribe(@NotNull Object subscriber) {
-                bus.subscribe(subscriber);
-            }
-
-            @Override
-            public void unsubscribe(@NotNull Object subscriber) {
-                bus.unsubscribe(subscriber);
-            }
-
-            @Override
-            public void publish(@NotNull Object event) {
-                bus.post(event).now();
-            }
-        };
+        return new DefaultEventBus(getMessageBus());
     }
 
     public abstract IMessageBus getMessageBus();
+
 }

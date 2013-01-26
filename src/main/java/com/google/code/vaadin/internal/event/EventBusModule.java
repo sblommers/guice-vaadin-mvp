@@ -16,10 +16,7 @@ import com.google.code.vaadin.internal.event.publisher.ViewEventPublisherProvide
 import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.ModelEventPublisher;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
-import com.google.inject.AbstractModule;
-import com.google.inject.BindingAnnotation;
-import com.google.inject.Scopes;
-import com.google.inject.TypeLiteral;
+import com.google.inject.*;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.servlet.ServletScopes;
 import com.google.inject.spi.TypeEncounter;

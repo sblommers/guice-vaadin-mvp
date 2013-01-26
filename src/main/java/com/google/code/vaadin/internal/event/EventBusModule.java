@@ -5,6 +5,7 @@
 
 package com.google.code.vaadin.internal.event;
 
+import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.ModelEventPublisher;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
 import com.google.inject.AbstractModule;
@@ -15,7 +16,6 @@ import com.google.inject.matcher.Matchers;
 import com.google.inject.servlet.ServletScopes;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
-import net.engio.mbassy.IMessageBus;
 
 import javax.servlet.ServletContext;
 import java.lang.annotation.*;
@@ -26,7 +26,7 @@ import java.lang.annotation.*;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-public class EventPublisherModule extends AbstractModule {
+public class EventBusModule extends AbstractModule {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -34,7 +34,7 @@ public class EventPublisherModule extends AbstractModule {
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    public EventPublisherModule(ServletContext servletContext) {
+    public EventBusModule(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
 
@@ -72,27 +72,37 @@ public class EventPublisherModule extends AbstractModule {
                 });*/
             }
         });
-         //todo bind global event bus for views
-        bind(IMessageBus.class).annotatedWith(ViewEventBus.class).toProvider(ViewEventBusProvider.class).in(ServletScopes.SESSION);
-        bind(ViewEventPublisher.class).toProvider(ViewEventPublisherProvider.class).in(ServletScopes.SESSION);
 
-        bind(IMessageBus.class).annotatedWith(ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(Scopes.SINGLETON);
+        //todo bind of IMEssageBus
+        bind(EventBus.class).annotatedWith(ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(Scopes.SINGLETON);
         bind(ModelEventPublisher.class).toProvider(ModelEventPublisherProvider.class).in(Scopes.SINGLETON);
+
+        // Global Event Bus
+        bind(EventBus.class).annotatedWith(GlobalViewEventBus.class).toProvider(GlobalViewEventBusProvider.class).in(Scopes.SINGLETON);
+
+        //todo bind global event bus for views
+        bind(EventBus.class).annotatedWith(ViewEventBus.class).toProvider(ViewEventBusProvider.class).in(ServletScopes.SESSION);
+        bind(ViewEventPublisher.class).toProvider(ViewEventPublisherProvider.class).in(ServletScopes.SESSION);
     }
 
     @BindingAnnotation
     @Documented
-    @Target(ElementType.FIELD)
+    @Target({ElementType.FIELD, ElementType.PARAMETER})
     @Retention(RetentionPolicy.RUNTIME)
     public @interface ViewEventBus {
-
     }
 
     @BindingAnnotation
     @Documented
-    @Target(ElementType.FIELD)
+    @Target({ElementType.FIELD, ElementType.PARAMETER})
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface GlobalViewEventBus {
+    }
+
+    @BindingAnnotation
+    @Documented
+    @Target({ElementType.FIELD, ElementType.PARAMETER})
     @Retention(RetentionPolicy.RUNTIME)
     public @interface ModelEventBus {
-
     }
 }

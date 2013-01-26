@@ -5,7 +5,7 @@
 
 package com.google.code.vaadin.mvp.events;
 
-import com.google.code.vaadin.internal.event.EventPublisherModule;
+import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
 import com.google.code.vaadin.mvp.Observes;
 import org.junit.Test;
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
  * @since 24.01.13
  */
 @RunWith(JUniceRunner.class)
-@GuiceModules(modules = EventPublisherModule.class)
+@GuiceModules(modules = EventBusModule.class)
 public class EventPublisherTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

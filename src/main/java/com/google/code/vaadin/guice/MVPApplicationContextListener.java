@@ -19,7 +19,7 @@
 package com.google.code.vaadin.guice;
 
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
-import com.google.code.vaadin.internal.event.EventPublisherModule;
+import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
@@ -126,8 +126,8 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
         return new LoggerModule();
     }
 
-    protected EventPublisherModule createEventPublisherModule() {
-        return new EventPublisherModule(servletContext);
+    protected EventBusModule createEventPublisherModule() {
+        return new EventBusModule(servletContext);
     }
 
     protected PresenterMapperModule createPresenterMapperModule() {

@@ -5,9 +5,9 @@
 
 package com.google.code.vaadin.internal.event;
 
+import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.ModelEventPublisher;
 import com.google.common.base.Preconditions;
-import net.engio.mbassy.IMessageBus;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -23,8 +23,8 @@ public class ModelEventPublisherProvider implements Provider<ModelEventPublisher
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
-    @EventPublisherModule.ModelEventBus
-    private IMessageBus modelMessageBus;
+    @EventBusModule.ModelEventBus
+    private EventBus modelMessageBus;
 
 	/*===========================================[ INTERFACE METHODS ]============*/
 
@@ -34,7 +34,7 @@ public class ModelEventPublisherProvider implements Provider<ModelEventPublisher
             @Override
             public void publish(Object event) {
                 Preconditions.checkArgument(event != null, "Published Event can't be null");
-                modelMessageBus.post(event).now();
+                modelMessageBus.publish(event);
             }
         };
     }

@@ -9,17 +9,17 @@ import com.google.inject.Inject;
 import net.engio.mbassy.BusConfiguration;
 
 /**
- * ViewEventBusProvider - TODO: description
+ * GlobalViewEventBusProvider - TODO: description
  *
  * @author Alexey Krylov (AleX)
  * @since 26.01.13
  */
-public class ViewEventBusProvider extends AbstractEventBusProvider {
+public class GlobalViewEventBusProvider extends AbstractEventBusProvider {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject(optional = true)
-    @EventBusModule.ViewEventBus
+    @EventBusModule.GlobalViewEventBus
     private BusConfiguration busConfiguration;
 
 	/*===========================================[ INTERFACE METHODS ]============*/

@@ -9,7 +9,6 @@ import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
 import com.google.inject.servlet.SessionScoped;
-import org.slf4j.Logger;
 
 import javax.inject.Inject;
 
@@ -24,23 +23,13 @@ public class ViewOpenEventRedirector {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private Logger logger;
-    private MappingContext mappingContext;
-
-	/*===========================================[ CONSTRUCTORS ]=================*/
-
     @Inject
-    public void init(Logger logger, MappingContext mappingContext) {
-        this.logger = logger;
-        this.mappingContext = mappingContext;
-    }
+    private MappingContext mappingContext;
 
 	/*===========================================[ CLASS METHODS ]================*/
 
     @Observes
     public void viewOpened(ViewOpenedEvent event) {
-        logger.info("ViewOpenedEvent: " + event);
-
         AbstractPresenter abstractPresenter = mappingContext.getPresenterForView(event.getView());
         //5. Call viewOpened if appropriate event received from view
         abstractPresenter.viewOpened();

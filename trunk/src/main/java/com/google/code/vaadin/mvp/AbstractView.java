@@ -60,11 +60,11 @@ public abstract class AbstractView extends ViewComponent implements View {
         if (!initialized) {
             initView();
             initialized = true;
-            logger.debug(String.format("View initialized: %s#%d", viewInterface.getName(), hashCode()));
+            logger.debug(String.format("View initialized: [%s#%d]", viewInterface.getName(), hashCode()));
         }
 
         fireViewEvent(new ViewOpenedEvent(viewInterface, this));
-        logger.debug(String.format("View opened: %s#%d", viewInterface.getName(), hashCode()));
+        logger.debug(String.format("View opened: [%s#%d]", viewInterface.getName(), hashCode()));
     }
 
     /**

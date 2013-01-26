@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.internal.mapping;
+package com.google.code.vaadin.internal.util;
 
 
 import com.google.common.base.Preconditions;

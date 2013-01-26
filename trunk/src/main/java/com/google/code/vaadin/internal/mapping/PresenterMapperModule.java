@@ -8,6 +8,7 @@ package com.google.code.vaadin.internal.mapping;
 import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.internal.util.InjectorProvider;
+import com.google.code.vaadin.internal.util.TypeUtil;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.AbstractView;
 import com.google.code.vaadin.mvp.View;

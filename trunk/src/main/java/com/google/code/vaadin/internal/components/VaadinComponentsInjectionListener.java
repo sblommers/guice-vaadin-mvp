@@ -21,7 +21,7 @@ import java.lang.reflect.Field;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-public class VaadinComponentsInjectionListener implements TypeListener {
+class VaadinComponentsInjectionListener implements TypeListener {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -29,7 +29,7 @@ public class VaadinComponentsInjectionListener implements TypeListener {
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    public VaadinComponentsInjectionListener(ServletContext servletContext) {
+    VaadinComponentsInjectionListener(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
 

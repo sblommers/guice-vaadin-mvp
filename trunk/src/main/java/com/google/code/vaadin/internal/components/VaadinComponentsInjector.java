@@ -21,7 +21,7 @@ import java.lang.reflect.Field;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-public class VaadinComponentsInjector<T> implements MembersInjector<T> {
+class VaadinComponentsInjector<T> implements MembersInjector<T> {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -31,7 +31,7 @@ public class VaadinComponentsInjector<T> implements MembersInjector<T> {
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    public VaadinComponentsInjector(Field field, Preconfigured preconfigured, ServletContext servletContext) {
+    VaadinComponentsInjector(Field field, Preconfigured preconfigured, ServletContext servletContext) {
         this.field = field;
         this.preconfigured = preconfigured;
         this.servletContext = servletContext;

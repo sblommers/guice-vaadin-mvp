@@ -13,6 +13,7 @@ import net.engio.mbassy.subscription.MessageEnvelope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
@@ -85,4 +86,35 @@ class CompositeMetadataReader extends MetadataReader {
         }
         return new MessageHandlerMetadata(messageHandler, new IMessageFilter[0], listenerAnnotation);
     }
+
+    class MappedListener implements Listener {
+
+    /*===========================================[ INTERFACE METHODS ]============*/
+
+        @Override
+        public Filter[] filters() {
+            return new Filter[0];
+        }
+
+        @Override
+        public Mode dispatch() {
+            return Mode.Synchronous;
+        }
+
+        @Override
+        public int priority() {
+            return 0;
+        }
+
+        @Override
+        public boolean rejectSubtypes() {
+            return false;
+        }
+
+        @Override
+        public Class<? extends Annotation> annotationType() {
+            return Listener.class;
+        }
+    }
+
 }

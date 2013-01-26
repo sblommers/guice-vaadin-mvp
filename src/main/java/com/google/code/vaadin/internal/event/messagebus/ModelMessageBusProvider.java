@@ -3,23 +3,25 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.internal.event;
+package com.google.code.vaadin.internal.event.messagebus;
 
+import com.google.code.vaadin.internal.event.AbstractMessageBusProvider;
+import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.inject.Inject;
 import net.engio.mbassy.BusConfiguration;
 
 /**
- * GlobalViewEventBusProvider - TODO: description
+ * MessageBusProvider - TODO: description
  *
  * @author Alexey Krylov (AleX)
  * @since 26.01.13
  */
-public class GlobalViewEventBusProvider extends AbstractEventBusProvider {
+public class ModelMessageBusProvider extends AbstractMessageBusProvider {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject(optional = true)
-    @EventBusModule.GlobalViewEventBus
+    @EventBusModule.ModelEventBus
     private BusConfiguration busConfiguration;
 
 	/*===========================================[ INTERFACE METHODS ]============*/

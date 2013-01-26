@@ -3,8 +3,9 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.internal.event;
+package com.google.code.vaadin.internal.event.publisher;
 
+import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.ModelEventPublisher;
 import com.google.common.base.Preconditions;

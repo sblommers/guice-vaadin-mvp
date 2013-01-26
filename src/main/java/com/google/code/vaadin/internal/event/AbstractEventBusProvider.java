@@ -6,8 +6,7 @@
 package com.google.code.vaadin.internal.event;
 
 import com.google.code.vaadin.mvp.EventBus;
-import net.engio.mbassy.BusConfiguration;
-import net.engio.mbassy.MBassador;
+import net.engio.mbassy.IMessageBus;
 
 import javax.inject.Provider;
 import javax.validation.constraints.NotNull;
@@ -24,35 +23,24 @@ public abstract class AbstractEventBusProvider implements Provider<EventBus> {
 
     @Override
     public EventBus get() {
-        BusConfiguration busConfiguration = getConfiguration();
-        if (busConfiguration == null) {
-            busConfiguration = BusConfiguration.Default();
-        }
-
-        busConfiguration = mapAnnotations(busConfiguration);
-        final MBassador mBassador = new MBassador(busConfiguration);
+        final IMessageBus bus = getMessageBus();
         return new EventBus() {
             @Override
             public void subscribe(@NotNull Object subscriber) {
-                mBassador.subscribe(subscriber);
+                bus.subscribe(subscriber);
             }
 
             @Override
             public void unsubscribe(@NotNull Object subscriber) {
-                mBassador.unsubscribe(subscriber);
+                bus.unsubscribe(subscriber);
             }
 
             @Override
             public void publish(@NotNull Object event) {
-                mBassador.publish(event);
+                bus.post(event).now();
             }
         };
     }
 
-    protected abstract BusConfiguration getConfiguration();
-
-    protected BusConfiguration mapAnnotations(BusConfiguration busConfiguration) {
-        busConfiguration.setMetadataReader(new CompositeMetadataReader());
-        return busConfiguration;
-    }
+    public abstract IMessageBus getMessageBus();
 }

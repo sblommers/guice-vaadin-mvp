@@ -35,7 +35,7 @@ public class GuiceHelper {
             @Override
             public Object visitScope(Scope scope) {
                 for (Scope s : scopes) {
-                    if (scope.equals(s)){
+                    if (scope.equals(s)) {
                         validScoped[0] = true;
                         break;
                     }

@@ -35,7 +35,6 @@ public class EventPublisherInjector<T> implements MembersInjector<T> {
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
-    //TODO!!!!!!!! sessionscope not allows to get instance randomly
     @Override
     public void injectMembers(T instance) {
         Injector injector = InjectorProvider.getInjector(servletContext);

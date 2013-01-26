@@ -29,7 +29,7 @@ class CompositeMetadataReader extends MetadataReader {
 
     private static final Logger logger = LoggerFactory.getLogger(CompositeMetadataReader.class.getName());
 
-    private static final IPredicate<Method> AllMessageHandlers = new IPredicate<Method>() {
+    public static final IPredicate<Method> AllMessageHandlers = new IPredicate<Method>() {
         @Override
         public boolean apply(Method target) {
             return target.getAnnotation(Listener.class) != null || target.getAnnotation(Observes.class) != null;

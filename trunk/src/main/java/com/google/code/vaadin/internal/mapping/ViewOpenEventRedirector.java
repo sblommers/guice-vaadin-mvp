@@ -20,6 +20,7 @@ import java.util.Map;
  * @author Alexey Krylov (lexx)
  * @since 25.01.13
  */
+
 public class ViewOpenEventRedirector {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

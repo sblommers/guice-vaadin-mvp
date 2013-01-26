@@ -21,7 +21,6 @@ package com.google.code.vaadin.components;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.ui.Component;
 
-import javax.inject.Scope;
 import java.lang.annotation.*;
 
 /**
@@ -30,7 +29,7 @@ import java.lang.annotation.*;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-@Scope
+//todo test injection of preconfigured into params
 @Documented
 @Target({ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

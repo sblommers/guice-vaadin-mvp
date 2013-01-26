@@ -29,8 +29,8 @@ public class TestMVPApplicationModule extends AbstractMVPApplicationModule {
     @Override
     protected void bindComponents() {
         install(new LoggerModule());
-        install(new EventPublisherModule());
-        install(new VaadinComponentPreconfigurationModule());
+        install(new EventPublisherModule(null));
+        install(new VaadinComponentPreconfigurationModule(null));
     }
 
     @Override

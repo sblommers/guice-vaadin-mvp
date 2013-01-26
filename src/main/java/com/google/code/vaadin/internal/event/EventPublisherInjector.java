@@ -10,7 +10,6 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.MembersInjector;
 import com.google.inject.Scopes;
-import com.google.inject.servlet.ServletScopes;
 import net.engio.mbassy.IMessageBus;
 import net.engio.mbassy.common.ReflectionUtils;
 

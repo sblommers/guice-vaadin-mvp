@@ -72,7 +72,7 @@ public class EventPublisherModule extends AbstractModule {
                 });*/
             }
         });
-
+         //todo bind global event bus for views
         bind(IMessageBus.class).annotatedWith(ViewEventBus.class).toProvider(ViewEventBusProvider.class).in(ServletScopes.SESSION);
         bind(ViewEventPublisher.class).toProvider(ViewEventPublisherProvider.class).in(ServletScopes.SESSION);
 

@@ -105,7 +105,7 @@ public class PresenterMapperModule extends AbstractModule {
                         MappingContext mappingContext = injector.getInstance(MappingContext.class);
                         mappingContext.addMapping(view, presenter);
                         // Instantiate support for Presenter.viewOpened
-                        injector.getInstance(ViewOpenEventRedirector.class);
+                        injector.getInstance(ViewOpenedEventRedirector.class);
                     }
                 }
             });

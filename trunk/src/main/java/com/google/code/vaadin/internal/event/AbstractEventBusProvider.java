@@ -5,11 +5,12 @@
 
 package com.google.code.vaadin.internal.event;
 
+import com.google.code.vaadin.mvp.EventBus;
 import net.engio.mbassy.BusConfiguration;
-import net.engio.mbassy.IMessageBus;
 import net.engio.mbassy.MBassador;
 
 import javax.inject.Provider;
+import javax.validation.constraints.NotNull;
 
 /**
  * AbstractEventBusProvider - TODO: description
@@ -17,19 +18,35 @@ import javax.inject.Provider;
  * @author Alexey Krylov (AleX)
  * @since 26.01.13
  */
-public abstract class AbstractEventBusProvider implements Provider<IMessageBus> {
+public abstract class AbstractEventBusProvider implements Provider<EventBus> {
 
 	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public IMessageBus get() {
+    public EventBus get() {
         BusConfiguration busConfiguration = getConfiguration();
         if (busConfiguration == null) {
             busConfiguration = BusConfiguration.Default();
         }
 
         busConfiguration = mapAnnotations(busConfiguration);
-        return new MBassador(busConfiguration);
+        final MBassador mBassador = new MBassador(busConfiguration);
+        return new EventBus() {
+            @Override
+            public void subscribe(@NotNull Object subscriber) {
+                mBassador.subscribe(subscriber);
+            }
+
+            @Override
+            public void unsubscribe(@NotNull Object subscriber) {
+                mBassador.unsubscribe(subscriber);
+            }
+
+            @Override
+            public void publish(@NotNull Object event) {
+                mBassador.publish(event);
+            }
+        };
     }
 
     protected abstract BusConfiguration getConfiguration();

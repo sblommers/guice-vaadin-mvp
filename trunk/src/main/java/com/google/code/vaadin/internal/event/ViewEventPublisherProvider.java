@@ -5,9 +5,9 @@
 
 package com.google.code.vaadin.internal.event;
 
+import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
 import com.google.common.base.Preconditions;
-import net.engio.mbassy.IMessageBus;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -22,11 +22,17 @@ public class ViewEventPublisherProvider implements Provider<ViewEventPublisher> 
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    @Inject
-    @EventPublisherModule.ViewEventBus
-    private IMessageBus viewMessageBus;
+    private EventBus viewMessageBus;
+    private EventBus globalViewMessageBus;
 
 	/*===========================================[ INTERFACE METHODS ]============*/
+
+    @Inject
+    public void init(@EventBusModule.ViewEventBus EventBus viewMessageBus,
+                     @EventBusModule.GlobalViewEventBus EventBus globalViewMessageBus) {
+        this.viewMessageBus = viewMessageBus;
+        this.globalViewMessageBus = globalViewMessageBus;
+    }
 
     @Override
     public ViewEventPublisher get() {
@@ -34,7 +40,8 @@ public class ViewEventPublisherProvider implements Provider<ViewEventPublisher> 
             @Override
             public void publish(Object event) {
                 Preconditions.checkArgument(event != null, "Published Event can't be null");
-                viewMessageBus.post(event).now();
+                viewMessageBus.publish(event);
+                globalViewMessageBus.publish(event);
             }
         };
     }

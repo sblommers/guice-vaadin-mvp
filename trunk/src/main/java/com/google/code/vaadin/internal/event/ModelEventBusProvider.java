@@ -19,7 +19,7 @@ public class ModelEventBusProvider extends AbstractEventBusProvider {
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject(optional = true)
-    @EventPublisherModule.ModelEventBus
+    @EventBusModule.ModelEventBus
     private BusConfiguration busConfiguration;
 
 	/*===========================================[ INTERFACE METHODS ]============*/

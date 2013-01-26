@@ -25,10 +25,6 @@ public class GuiceHelper {
 
 	/*===========================================[ CLASS METHODS ]================*/
 
-    public static boolean isSessionScoped(Binding presenterBinding) {
-        return isScopedWith(presenterBinding, ServletScopes.SESSION);
-    }
-
     public static boolean isScopedWith(Binding presenterBinding, final Scope... scopes) {
         final boolean[] validScoped = {false};
         presenterBinding.acceptScopingVisitor(new DefaultBindingScopingVisitor<Object>() {

@@ -15,7 +15,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.Matchers;
-import com.google.inject.servlet.ServletScopes;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
@@ -74,8 +73,6 @@ public class PresenterMapperModule extends AbstractModule {
 
         //3. Add listener for all ViewInitialized event - see viewInitialized method
         //bind(PresenterMapper.class).asEagerSingleton();
-        bind(MappingContext.class).in(ServletScopes.SESSION);
-        bind(ViewOpenEventRedirector.class).in(ServletScopes.SESSION);
         bindListener(Matchers.any(), new ViewTypeListener());
     }
 

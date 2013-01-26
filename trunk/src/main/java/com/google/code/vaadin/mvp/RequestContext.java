@@ -19,6 +19,8 @@
 package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
+import com.google.code.vaadin.mvp.AbstractMVPApplication;
+import com.google.inject.servlet.RequestScoped;
 import com.vaadin.ui.Window;
 
 /**
@@ -28,7 +30,8 @@ import com.vaadin.ui.Window;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-public class RequestContext {
+@RequestScoped
+class RequestContext {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

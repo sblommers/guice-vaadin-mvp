@@ -22,6 +22,7 @@ import com.google.code.vaadin.internal.components.VaadinComponentPreconfiguratio
 import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
+import com.google.code.vaadin.internal.servlet.MVPApplicationContext;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.Guice;
@@ -33,6 +34,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
+import javax.servlet.http.HttpSessionActivationListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.lang.reflect.Constructor;
@@ -46,7 +48,8 @@ import java.util.List;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-public class MVPApplicationContextListener extends GuiceServletContextListener implements HttpSessionListener {
+public class MVPApplicationContextListener extends GuiceServletContextListener implements HttpSessionListener,
+        HttpSessionActivationListener {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
 
@@ -81,14 +84,24 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
     public void sessionCreated(HttpSessionEvent se) {
         logger.info("Session created");
         //todo create instance of eventbus
+    }
+
+    @Override
+    public void sessionWillPassivate(HttpSessionEvent se) {
+        logger.info("Will passivate");
+
+    }
+
+    @Override
+    public void sessionDidActivate(HttpSessionEvent se) {
+        logger.info("Activate session");
 
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        logger.info("Session destroyed");
-        //todo unregister all subscribers of SessionScoped ViewEventBus from ModelEventBus
-        //todo unregister session-scoped elements from the ModelEventPublisher
+        String sessionID = se.getSession().getId();
+        injector.getInstance(MVPApplicationContext.class).destroySession(sessionID);
     }
 
     /*===========================================[ GETTER/SETTER ]================*/

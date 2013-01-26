@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.internal.servlet;
+package com.google.code.vaadin.internal.mapping;
 
 import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.mvp.EventBus;

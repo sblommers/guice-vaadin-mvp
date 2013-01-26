@@ -19,7 +19,7 @@ import javax.inject.Inject;
  * @since 25.01.13
  */
 @SessionScoped
-public class ViewOpenEventRedirector {
+class ViewOpenEventRedirector {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 

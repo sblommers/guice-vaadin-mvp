@@ -5,7 +5,7 @@
 
 package com.google.code.vaadin.internal.event;
 
-import com.google.code.vaadin.internal.servlet.MVPApplicationContext;
+import com.google.code.vaadin.internal.mapping.MVPApplicationContext;
 import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.mvp.EventBus;
 import com.google.inject.Injector;

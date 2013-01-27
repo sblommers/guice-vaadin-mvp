@@ -34,7 +34,6 @@ public class ViewEventPublisherTest {
     @Inject
     private ViewEventPublisher viewEventPublisher;
 
-
     private boolean eventNotified;
 
     /*===========================================[ CLASS METHODS ]================*/

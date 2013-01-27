@@ -53,7 +53,7 @@ public class MVPTestRunner extends JUniceRunner {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private Injector injector;
+    private static Injector injector;
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
@@ -108,7 +108,7 @@ public class MVPTestRunner extends JUniceRunner {
         return filterConfig;
     }
 
-    protected Injector getInjector() {
+    public static Injector getInjector() {
         return injector;
     }
 }

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.servlet;
+package com.google.code.vaadin.util;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;

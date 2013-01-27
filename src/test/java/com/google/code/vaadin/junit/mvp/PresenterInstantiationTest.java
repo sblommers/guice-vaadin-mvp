@@ -3,12 +3,12 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin;
+package com.google.code.vaadin.junit.mvp;
 
-import com.google.code.vaadin.guice.TestMVPApplicationModule;
+import com.google.code.vaadin.junit.MVPApplicationTestModule;
 import com.google.code.vaadin.mvp.TestPresenter;
 import com.google.inject.Injector;
-import com.google.inject.servlet.MVPTestRunner;
+import com.google.code.vaadin.junit.MVPTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,8 +24,8 @@ import javax.inject.Inject;
  */
 //@RunWith(JUniceRunner.class)
 @RunWith(MVPTestRunner.class)
-@GuiceModules(modules = TestMVPApplicationModule.class)
-public class InstantiationTest {
+@GuiceModules(modules = MVPApplicationTestModule.class)
+public class PresenterInstantiationTest {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 

@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 25.01.13
  */
 @SessionScoped
-class MappingContext {
+public class ViewPresenterMappingContext {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -27,26 +27,17 @@ class MappingContext {
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    MappingContext() {
+    ViewPresenterMappingContext() {
         activeMappings = new ConcurrentHashMap<View, AbstractPresenter>();
     }
 
     /*===========================================[ CLASS METHODS ]================*/
 
-    protected void addMapping(View view, AbstractPresenter presenter) {
+    protected <V extends View, P extends AbstractPresenter<V>> void addMapping(V view, P presenter) {
         activeMappings.put(view, presenter);
     }
 
-    public AbstractPresenter getPresenterForView(View view) {
-        return activeMappings.get(view);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("MappingContext");
-        sb.append("{activeMappings=").append(activeMappings);
-        sb.append('}');
-        return sb.toString();
+    public <P extends AbstractPresenter<V>, V extends View> P getPresenterForView(V view) {
+        return (P) activeMappings.get(view);
     }
 }

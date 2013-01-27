@@ -5,10 +5,10 @@
 
 package com.google.code.vaadin.junit.mvp;
 
-import com.google.code.vaadin.junit.MVPApplicationTestModule;
+import com.google.code.vaadin.MVPApplicationTestModule;
+import com.google.code.vaadin.junit.MVPTestRunner;
 import com.google.code.vaadin.mvp.TestPresenter;
 import com.google.inject.Injector;
-import com.google.code.vaadin.junit.MVPTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

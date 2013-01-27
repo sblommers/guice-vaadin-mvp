@@ -16,20 +16,22 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin;
 
-import com.google.inject.ImplementedBy;
+import com.vaadin.Application;
 
 /**
- * ITestView - TODO: description
+ * MVPTestApplication - TODO: description
  *
  * @author Alexey Krylov (AleX)
  * @since 28.01.13
  */
-@ImplementedBy(TestViewImpl.class)
-public interface TestView extends View {
+public class MVPTestApplication extends Application {
 
-    /*===========================================[ INTERFACE METHODS ]==============*/
+	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    void openContract();
+    @Override
+    public void init() {
+
+    }
 }

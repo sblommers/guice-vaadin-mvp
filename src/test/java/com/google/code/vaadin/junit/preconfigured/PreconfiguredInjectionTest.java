@@ -5,8 +5,8 @@
 
 package com.google.code.vaadin.junit.preconfigured;
 
+import com.google.code.vaadin.MVPApplicationTestModule;
 import com.google.code.vaadin.components.Preconfigured;
-import com.google.code.vaadin.junit.MVPApplicationTestModule;
 import com.google.code.vaadin.junit.MVPTestRunner;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Table;

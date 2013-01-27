@@ -28,7 +28,6 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-//@SessionScoped
 public abstract class AbstractView extends ViewComponent implements View {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
@@ -44,14 +43,17 @@ public abstract class AbstractView extends ViewComponent implements View {
 
     @Inject
     protected void init() {
-        if (viewInterface == null) {
-            // Determine the view interface
-            for (Class<?> clazz : getClass().getInterfaces()) {
-                if (!clazz.equals(View.class)
-                        && View.class.isAssignableFrom(clazz)) {
-                    viewInterface = (Class<? extends View>) clazz;
-                }
+        // Determine the view interface
+        for (Class<?> clazz : getClass().getInterfaces()) {
+            if (!clazz.equals(View.class)
+                    && View.class.isAssignableFrom(clazz)) {
+                viewInterface = (Class<? extends View>) clazz;
             }
+        }
+
+        //todo error!!!
+        if (viewInterface==null){
+            throw new MVPApplicationException("");
         }
     }
 

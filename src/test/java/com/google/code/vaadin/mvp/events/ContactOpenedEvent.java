@@ -16,20 +16,17 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
-
-import com.google.inject.ImplementedBy;
+package com.google.code.vaadin.mvp.events;
 
 /**
- * ITestView - TODO: description
+ * ButtonClickedEvent - TODO: description
  *
  * @author Alexey Krylov (AleX)
  * @since 28.01.13
  */
-@ImplementedBy(TestViewImpl.class)
-public interface TestView extends View {
-
-    /*===========================================[ INTERFACE METHODS ]==============*/
-
-    void openContract();
+public class ContactOpenedEvent {
+/*===========================================[ STATIC VARIABLES ]=============*/
+/*===========================================[ INSTANCE VARIABLES ]===========*/
+/*===========================================[ CONSTRUCTORS ]=================*/
+/*===========================================[ CLASS METHODS ]================*/
 }

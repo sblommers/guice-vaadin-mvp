@@ -16,20 +16,33 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin;
 
-import com.google.inject.ImplementedBy;
+import com.google.code.vaadin.junit.AbstractMVPApplicationTestModule;
 
 /**
- * ITestView - TODO: description
+ * MVPApplicationTestModule - TODO: description
  *
  * @author Alexey Krylov (AleX)
  * @since 28.01.13
  */
-@ImplementedBy(TestViewImpl.class)
-public interface TestView extends View {
+public class MVPApplicationTestModule extends AbstractMVPApplicationTestModule {
 
-    /*===========================================[ INTERFACE METHODS ]==============*/
+	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    void openContract();
+    public MVPApplicationTestModule() {
+        super(MVPTestApplication.class);
+    }
+
+    /*===========================================[ INTERFACE METHODS ]============*/
+
+    @Override
+    protected void bindTextBundle() {
+        bind(TextBundle.class).toInstance(new TextBundle() {
+            @Override
+            public String getText(String key, Object... params) {
+                return String.format(key, params);
+            }
+        });
+    }
 }

@@ -5,7 +5,7 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.inject.servlet.SessionScoped;
+import com.google.code.vaadin.mvp.events.ContactOpenedEvent;
 
 /**
  * TestPresenter - TODO: description
@@ -13,12 +13,23 @@ import com.google.inject.servlet.SessionScoped;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-@SessionScoped
 public class TestPresenter extends AbstractPresenter<TestView> {
 
-    /*===========================================[ STATIC VARIABLES ]=============*/
+	/*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final long serialVersionUID = -6223121159195154865L;
+
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
+
+    private boolean contactOpened;
+    private boolean viewOpened;
+
+	/*===========================================[ CLASS METHODS ]================*/
+
+    @Observes
+    private void buttonClicked(ContactOpenedEvent contactOpenedEvent) {
+        contactOpened = true;
+    }
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
@@ -29,6 +40,16 @@ public class TestPresenter extends AbstractPresenter<TestView> {
 
     @Override
     public void viewOpened() {
+        viewOpened = true;
+    }
 
+	/*===========================================[ GETTER/SETTER ]================*/
+
+    public boolean isContactOpened() {
+        return contactOpened;
+    }
+
+    public boolean isViewOpened() {
+        return viewOpened;
     }
 }

@@ -34,7 +34,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
-import javax.servlet.http.HttpSessionActivationListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.lang.reflect.Constructor;
@@ -48,8 +47,7 @@ import java.util.List;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-public class MVPApplicationContextListener extends GuiceServletContextListener implements HttpSessionListener,
-        HttpSessionActivationListener {
+public class MVPApplicationContextListener extends GuiceServletContextListener implements HttpSessionListener {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
 
@@ -82,25 +80,13 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-        logger.info("Session created");
-        //todo create instance of eventbus
-    }
-
-    @Override
-    public void sessionWillPassivate(HttpSessionEvent se) {
-        logger.info("Will passivate");
-
-    }
-
-    @Override
-    public void sessionDidActivate(HttpSessionEvent se) {
-        logger.info("Activate session");
-
+        logger.debug(String.format("Created session: [%s]", se.getSession().getId()));
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         String sessionID = se.getSession().getId();
+        logger.debug(String.format("Destroying data of session: [%s]", sessionID));
         injector.getInstance(MVPApplicationContext.class).destroySession(sessionID);
     }
 
@@ -120,7 +106,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
             logger.info("Creating Injector...");
             List<Module> modules = new ArrayList<Module>();
             modules.add(createLoggerModule());
-            modules.add(createEventPublisherModule());
+            modules.add(createEventBusModule());
             modules.add(createApplicationModule());
             modules.add(createPresenterMapperModule());
             // support for @Preconfigured last because it depends on TextBundle bindings in ApplicationModule
@@ -139,7 +125,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
         return new LoggerModule();
     }
 
-    protected EventBusModule createEventPublisherModule() {
+    protected EventBusModule createEventBusModule() {
         return new EventBusModule(servletContext);
     }
 

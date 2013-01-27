@@ -24,7 +24,7 @@ class ViewOpenedEventRedirector {
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
-    private MappingContext mappingContext;
+    private ViewPresenterMappingContext mappingContext;
 
 	/*===========================================[ CLASS METHODS ]================*/
 

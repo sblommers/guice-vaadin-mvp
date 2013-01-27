@@ -5,10 +5,10 @@
 
 package com.google.code.vaadin.internal.mapping;
 
-import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.internal.util.TypeUtil;
+import com.google.code.vaadin.mvp.AbstractMVPApplication;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.AbstractView;
 import com.google.code.vaadin.mvp.View;
@@ -42,7 +42,7 @@ public class PresenterMapperModule extends AbstractModule {
 
     protected Map<Class<? extends View>, Class<? extends AbstractPresenter>> viewPresenterMap;
     protected Injector injector;
-    protected Class<? extends AbstractMVPApplicationModule> applicationClass;
+    protected Class<? extends AbstractMVPApplication> applicationClass;
     protected ServletContext servletContext;
 
 	/*===========================================[ CONSTRUCTORS ]=================*/

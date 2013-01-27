@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.util;
+package com.google.code.vaadin.junit.util;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -42,15 +42,13 @@ import java.util.UUID;
  * @since 27.01.13
  */
 public class ServletTestUtils {
+
+	/*===========================================[ CONSTRUCTORS ]=================*/
+
     private ServletTestUtils() {
     }
 
-    private static class ThrowingInvocationHandler implements InvocationHandler {
-        @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            throw new UnsupportedOperationException("No methods are supported on this object");
-        }
-    }
+	/*===========================================[ CLASS METHODS ]================*/
 
     /**
      * Returns a FilterChain that does nothing.
@@ -133,6 +131,14 @@ public class ServletTestUtils {
     }
 
     /**
+     * Returns a fake, serializable HttpSession which stores attributes in a HashMap.
+     */
+    public static HttpSession newFakeHttpSession() {
+        return (HttpSession) Proxy.newProxyInstance(HttpSession.class.getClassLoader(),
+                new Class[]{HttpSession.class}, new FakeHttpSessionHandler());
+    }
+
+    /**
      * Returns a fake, HttpServletResponse which throws an exception if any of its
      * methods are called.
      */
@@ -140,6 +146,15 @@ public class ServletTestUtils {
         return (HttpServletResponse) Proxy.newProxyInstance(
                 HttpServletResponse.class.getClassLoader(),
                 new Class[]{HttpServletResponse.class}, new ThrowingInvocationHandler());
+    }
+
+	/*===========================================[ INNER CLASSES ]================*/
+
+    private static class ThrowingInvocationHandler implements InvocationHandler {
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            throw new UnsupportedOperationException("No methods are supported on this object");
+        }
     }
 
     private static class FakeHttpSessionHandler implements InvocationHandler, Serializable {
@@ -166,13 +181,4 @@ public class ServletTestUtils {
             }
         }
     }
-
-    /**
-     * Returns a fake, serializable HttpSession which stores attributes in a HashMap.
-     */
-    public static HttpSession newFakeHttpSession() {
-        return (HttpSession) Proxy.newProxyInstance(HttpSession.class.getClassLoader(),
-                new Class[]{HttpSession.class}, new FakeHttpSessionHandler());
-    }
-
 }

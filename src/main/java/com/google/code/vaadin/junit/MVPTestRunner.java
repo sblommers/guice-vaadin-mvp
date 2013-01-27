@@ -19,7 +19,8 @@
 package com.google.code.vaadin.junit;
 
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
-import com.google.code.vaadin.util.ServletTestUtils;
+import com.google.code.vaadin.mvp.MVPApplicationException;
+import com.google.code.vaadin.junit.util.ServletTestUtils;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.servlet.GuiceFilter;
@@ -35,8 +36,6 @@ import javax.servlet.*;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -72,22 +71,18 @@ public class MVPTestRunner extends JUniceRunner {
             GuiceFilter filter = new GuiceFilter();
             filter.init(getFilterConfig());
 
-            final CountDownLatch countDownLatch = new CountDownLatch(1);
             FilterChain filterChain = new FilterChain() {
                 @Override
                 public void doFilter(ServletRequest servletRequest,
                                      ServletResponse servletResponse) {
                     MVPTestRunner.super.runChild(method, notifier);
-                    countDownLatch.countDown();
                 }
             };
 
-            //todo doFilter has not been invoked
             filter.doFilter(ServletTestUtils.newFakeHttpServletRequest(), ServletTestUtils.newFakeHttpServletResponse(), filterChain);
-            countDownLatch.await(1, TimeUnit.SECONDS);
         } catch (Exception e) {
             logger.error("Error", e);
-            throw new RuntimeException(e);
+            throw new MVPApplicationException(e);
         }
     }
 

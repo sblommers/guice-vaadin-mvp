@@ -3,15 +3,15 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.guice;
+package com.google.code.vaadin.junit;
 
 import com.google.code.vaadin.TextBundle;
+import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.inject.Injector;
-import com.google.inject.servlet.MVPTestRunner;
 
 import javax.servlet.ServletContext;
 import java.lang.reflect.InvocationHandler;
@@ -30,17 +30,17 @@ import static org.mockito.Mockito.when;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-public class TestMVPApplicationModule extends AbstractMVPApplicationModule {
+public class MVPApplicationTestModule extends AbstractMVPApplicationModule {
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    public TestMVPApplicationModule() {
+    public MVPApplicationTestModule() {
         super(createMockedServletContext());
     }
 
     protected static ServletContext createMockedServletContext() {
         ServletContext servletContext = mock(ServletContext.class);
-        when(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION)).thenReturn(TestMVPApplicationModule.class.getName());
+        when(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION)).thenReturn(MVPApplicationTestModule.class.getName());
         when(servletContext.getInitParameterNames()).thenReturn(Collections.enumeration(new HashSet()));
 
         Injector injectorMock = mock(Injector.class);
@@ -52,7 +52,7 @@ public class TestMVPApplicationModule extends AbstractMVPApplicationModule {
         });
 
         Injector delegate = (Injector) Proxy.newProxyInstance(
-                TestMVPApplicationModule.class.getClassLoader(),
+                MVPApplicationTestModule.class.getClassLoader(),
                 new Class[]{Injector.class}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

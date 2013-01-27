@@ -3,12 +3,13 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.mvp.events;
+package com.google.code.vaadin.junit.mvp;
 
-import com.google.code.vaadin.guice.TestMVPApplicationModule;
+import com.google.code.vaadin.junit.MVPApplicationTestModule;
 import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
-import com.google.inject.servlet.MVPTestRunner;
+import com.google.code.vaadin.junit.MVPTestRunner;
+import com.google.code.vaadin.mvp.events.SampleEvent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nnsoft.guice.junice.annotation.GuiceModules;
@@ -25,8 +26,8 @@ import static org.junit.Assert.assertTrue;
  * @since 24.01.13
  */
 @RunWith(MVPTestRunner.class)
-@GuiceModules(modules = TestMVPApplicationModule.class)
-public class EventPublisherTest {
+@GuiceModules(modules = MVPApplicationTestModule.class)
+public class ViewEventPublisherTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

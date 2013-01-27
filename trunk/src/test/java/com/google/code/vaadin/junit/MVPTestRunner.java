@@ -16,12 +16,14 @@
  * limitations under the License.
  */
 
-package com.google.inject.servlet;
+package com.google.code.vaadin.junit;
 
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
-import com.google.code.vaadin.servlet.ServletTestUtils;
+import com.google.code.vaadin.util.ServletTestUtils;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import com.google.inject.servlet.GuiceFilter;
+import com.google.inject.servlet.GuiceFilterResetter;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
@@ -66,7 +68,7 @@ public class MVPTestRunner extends JUniceRunner {
     @Override
     protected void runChild(final FrameworkMethod method, final RunNotifier notifier) {
         try {
-            GuiceFilter.reset();
+            GuiceFilterResetter.reset();
             GuiceFilter filter = new GuiceFilter();
             filter.init(getFilterConfig());
 

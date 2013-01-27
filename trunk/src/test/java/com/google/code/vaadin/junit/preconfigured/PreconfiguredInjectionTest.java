@@ -3,10 +3,11 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.components;
+package com.google.code.vaadin.junit.preconfigured;
 
-import com.google.code.vaadin.guice.TestMVPApplicationModule;
-import com.google.inject.servlet.MVPTestRunner;
+import com.google.code.vaadin.components.Preconfigured;
+import com.google.code.vaadin.junit.MVPApplicationTestModule;
+import com.google.code.vaadin.junit.MVPTestRunner;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Table;
 import org.junit.Assert;
@@ -23,7 +24,7 @@ import javax.inject.Inject;
  * @since 24.01.13
  */
 @RunWith(MVPTestRunner.class)
-@GuiceModules(modules = TestMVPApplicationModule.class)
+@GuiceModules(modules = MVPApplicationTestModule.class)
 public class PreconfiguredInjectionTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

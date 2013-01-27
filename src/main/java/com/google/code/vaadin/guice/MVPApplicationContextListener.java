@@ -23,7 +23,7 @@ import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.MVPApplicationContext;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
-import com.google.code.vaadin.internal.util.ApplicationClassProvider;
+import com.google.code.vaadin.internal.util.ApplicationModuleClassProvider;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -67,7 +67,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
 
         servletContext = servletContextEvent.getServletContext();
 
-        mvpApplicationModuleClass = ApplicationClassProvider.getApplicationClass(servletContext);
+        mvpApplicationModuleClass = ApplicationModuleClassProvider.getApplicationModuleClass(servletContext);
         super.contextInitialized(servletContextEvent);
     }
 

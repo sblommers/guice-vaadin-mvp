@@ -11,8 +11,13 @@ import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.inject.Injector;
+import com.google.inject.servlet.MVPTestRunner;
 
 import javax.servlet.ServletContext;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -46,7 +51,26 @@ public class TestMVPApplicationModule extends AbstractMVPApplicationModule {
             }
         });
 
-        when(servletContext.getAttribute(Injector.class.getName())).thenReturn(injectorMock);
+        Injector delegate = (Injector) Proxy.newProxyInstance(
+                TestMVPApplicationModule.class.getClassLoader(),
+                new Class[]{Injector.class}, new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                try {
+                    return method.invoke(MVPTestRunner.getInjector(), args);
+                } catch (InvocationTargetException e) {
+                    Throwable t = e.getCause();
+                    if (t != null) {
+                        throw t;
+                    } else {
+                        throw e;
+                    }
+                }
+            }
+        });
+
+
+        when(servletContext.getAttribute(Injector.class.getName())).thenReturn(delegate);
         return servletContext;
     }
 

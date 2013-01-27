@@ -33,6 +33,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * ServletTestUtils - TODO: description
@@ -41,9 +42,11 @@ import java.util.Map;
  * @since 27.01.13
  */
 public class ServletTestUtils {
-    private ServletTestUtils() {}
+    private ServletTestUtils() {
+    }
 
     private static class ThrowingInvocationHandler implements InvocationHandler {
+        @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             throw new UnsupportedOperationException("No methods are supported on this object");
         }
@@ -54,6 +57,7 @@ public class ServletTestUtils {
      */
     public static FilterChain newNoOpFilterChain() {
         return new FilterChain() {
+            @Override
             public void doFilter(ServletRequest request, ServletResponse response) {
             }
         };
@@ -65,33 +69,39 @@ public class ServletTestUtils {
     public static HttpServletRequest newFakeHttpServletRequest() {
         HttpServletRequest delegate = (HttpServletRequest) Proxy.newProxyInstance(
                 HttpServletRequest.class.getClassLoader(),
-                new Class[] { HttpServletRequest.class }, new ThrowingInvocationHandler());
+                new Class[]{HttpServletRequest.class}, new ThrowingInvocationHandler());
 
         return new HttpServletRequestWrapper(delegate) {
             final Map<String, Object> attributes = Maps.newHashMap();
             final HttpSession session = newFakeHttpSession();
 
-            @Override public String getMethod() {
+            @Override
+            public String getMethod() {
                 return "GET";
             }
 
-            @Override public Object getAttribute(String name) {
+            @Override
+            public Object getAttribute(String name) {
                 return attributes.get(name);
             }
 
-            @Override public void setAttribute(String name, Object value) {
+            @Override
+            public void setAttribute(String name, Object value) {
                 attributes.put(name, value);
             }
 
-            @Override public Map getParameterMap() {
+            @Override
+            public Map getParameterMap() {
                 return ImmutableMap.of();
             }
 
-            @Override public String getRequestURI() {
+            @Override
+            public String getRequestURI() {
                 return "/";
             }
 
-            @Override public String getContextPath() {
+            @Override
+            public String getContextPath() {
                 return "";
             }
 
@@ -110,7 +120,8 @@ public class ServletTestUtils {
                 return "/";
             }
 
-            @Override public HttpSession getSession() {
+            @Override
+            public HttpSession getSession() {
                 return session;
             }
 
@@ -132,8 +143,15 @@ public class ServletTestUtils {
     }
 
     private static class FakeHttpSessionHandler implements InvocationHandler, Serializable {
-        final Map<String, Object> attributes = Maps.newHashMap();
+        private static final long serialVersionUID = 5193608683408142848L;
+        private final Map<String, Object> attributes = Maps.newHashMap();
+        private String id;
 
+        private FakeHttpSessionHandler() {
+            id = UUID.randomUUID().toString();
+        }
+
+        @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             String name = method.getName();
             if ("setAttribute".equals(name)) {
@@ -141,6 +159,8 @@ public class ServletTestUtils {
                 return null;
             } else if ("getAttribute".equals(name)) {
                 return attributes.get(args[0]);
+            } else if ("getId".equals(name)) {
+                return id;
             } else {
                 throw new UnsupportedOperationException();
             }
@@ -152,7 +172,7 @@ public class ServletTestUtils {
      */
     public static HttpSession newFakeHttpSession() {
         return (HttpSession) Proxy.newProxyInstance(HttpSession.class.getClassLoader(),
-                new Class[] { HttpSession.class }, new FakeHttpSessionHandler());
+                new Class[]{HttpSession.class}, new FakeHttpSessionHandler());
     }
 
 }

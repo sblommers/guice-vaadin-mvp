@@ -82,6 +82,7 @@
         <!-- Testing stuff -->
 
         <version.junit>4.10</version.junit>
+        <version.mockito>1.9.5</version.mockito>
         <version.junice>1.3</version.junice>
         <version.logback>1.0.9</version.logback>
 
@@ -177,9 +178,9 @@
         </dependency>
 
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${version.logback}</version>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${version.mockito}</version>
             <scope>test</scope>
         </dependency>
 
@@ -187,6 +188,13 @@
             <groupId>org.99soft.guice</groupId>
             <artifactId>junice</artifactId>
             <version>${version.junice}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${version.logback}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -5,12 +5,12 @@
 
 package com.google.code.vaadin.mvp.events;
 
-import com.google.code.vaadin.internal.event.EventBusModule;
-import com.google.code.vaadin.mvp.ViewEventPublisher;
+import com.google.code.vaadin.guice.TestMVPApplicationModule;
 import com.google.code.vaadin.mvp.Observes;
+import com.google.code.vaadin.mvp.ViewEventPublisher;
+import com.google.inject.servlet.MVPTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nnsoft.guice.junice.JUniceRunner;
 import org.nnsoft.guice.junice.annotation.GuiceModules;
 
 import javax.inject.Inject;
@@ -24,8 +24,8 @@ import static org.junit.Assert.assertTrue;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-@RunWith(JUniceRunner.class)
-@GuiceModules(modules = EventBusModule.class)
+@RunWith(MVPTestRunner.class)
+@GuiceModules(modules = TestMVPApplicationModule.class)
 public class EventPublisherTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

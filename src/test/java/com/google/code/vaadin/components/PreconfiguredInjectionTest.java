@@ -6,12 +6,12 @@
 package com.google.code.vaadin.components;
 
 import com.google.code.vaadin.guice.TestMVPApplicationModule;
+import com.google.inject.servlet.MVPTestRunner;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Table;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nnsoft.guice.junice.JUniceRunner;
 import org.nnsoft.guice.junice.annotation.GuiceModules;
 
 import javax.inject.Inject;
@@ -22,7 +22,7 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-@RunWith(JUniceRunner.class)
+@RunWith(MVPTestRunner.class)
 @GuiceModules(modules = TestMVPApplicationModule.class)
 public class PreconfiguredInjectionTest {
 

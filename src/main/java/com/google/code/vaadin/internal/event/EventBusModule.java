@@ -16,7 +16,10 @@ import com.google.code.vaadin.internal.event.publisher.ViewEventPublisherProvide
 import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.ModelEventPublisher;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
-import com.google.inject.*;
+import com.google.inject.AbstractModule;
+import com.google.inject.BindingAnnotation;
+import com.google.inject.Scopes;
+import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.servlet.ServletScopes;
 import com.google.inject.spi.TypeEncounter;
@@ -34,17 +37,17 @@ import java.lang.annotation.*;
  */
 public class EventBusModule extends AbstractModule {
 
-    /*===========================================[ INSTANCE VARIABLES ]===========*/
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private ServletContext servletContext;
 
-    /*===========================================[ CONSTRUCTORS ]=================*/
+	/*===========================================[ CONSTRUCTORS ]=================*/
 
     public EventBusModule(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
 
-    /*===========================================[ INTERFACE METHODS ]============*/
+	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void configure() {
@@ -52,48 +55,36 @@ public class EventBusModule extends AbstractModule {
         bindListener(Matchers.any(), new TypeListener() {
             @Override
             public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
-
-               /* typeEncounter.register(new InjectionListener<I>() {
-                    @Override
-                    public void afterInjection(I injectee) {
-                        Injector injector = InjectorProvider.getInjector(servletContext);
-                        IMessageBus viewEventBus = injector.getInstance(Key.get(IMessageBus.class, ViewEventBus.class));
-                        IMessageBus modelEventBus = injector.getInstance(Key.get(IMessageBus.class, ModelEventBus.class));
-                        //todo do not subscribe classes without Observes methods
-                        //todo EP should be removed by GC, but needs to be checked. It will contain links on different scoped components, but only session scoped will have links to this EP.
-                        viewEventBus.subscribe(injectee);
-                        modelEventBus.subscribe(injectee);
-                    }
-                });*/
-/*
-                for (Field field : typeLiteral.getRawType().getDeclaredFields()) {
-                    if (Component.class.isAssignableFrom(field.getType())
-                            && field.isAnnotationPresent(Preconfigured.class)) {
-                        typeEncounter.register(new EventPublisherInjector(servletContext));
-
-                        typeEncounter.register(new VaadinComponentsInjector<T>(field, preconfigured, servletContext));
-                    }
-                }
-                typeEncounter.register(new VaadinComponentsInjector<T>(field, preconfigured, servletContext));
-*/
                 typeEncounter.register(new EventPublisherInjector<I>(servletContext));
             }
         });
 
         // MessageBus
+        bindMessageBus();
+        // EventBus
+        bindEventBus();
+        // EventPublishers
+        bindEventPublishers();
+    }
+
+    private void bindMessageBus() {
         bind(IMessageBus.class).annotatedWith(ModelEventBus.class).toProvider(ModelMessageBusProvider.class).in(Scopes.SINGLETON);
         bind(IMessageBus.class).annotatedWith(ViewEventBus.class).toProvider(ViewMessageBusProvider.class).in(ServletScopes.SESSION);
         bind(IMessageBus.class).annotatedWith(GlobalViewEventBus.class).toProvider(GlobalViewMessageBusProvider.class).in(Scopes.SINGLETON);
+    }
 
-        // EventBus
+    private void bindEventBus() {
         bind(EventBus.class).annotatedWith(ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(Scopes.SINGLETON);
         bind(EventBus.class).annotatedWith(ViewEventBus.class).toProvider(ViewEventBusProvider.class).in(ServletScopes.SESSION);
         bind(EventBus.class).annotatedWith(GlobalViewEventBus.class).toProvider(GlobalViewEventBusProvider.class).in(Scopes.SINGLETON);
+    }
 
-        // EventPublishers
+    private void bindEventPublishers() {
         bind(ModelEventPublisher.class).toProvider(ModelEventPublisherProvider.class).in(Scopes.SINGLETON);
         bind(ViewEventPublisher.class).toProvider(ViewEventPublisherProvider.class).in(ServletScopes.SESSION);
     }
+
+	/*===========================================[ INNER CLASSES ]================*/
 
     @BindingAnnotation
     @Documented

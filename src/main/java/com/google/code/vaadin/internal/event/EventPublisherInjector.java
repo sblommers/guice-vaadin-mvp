@@ -41,14 +41,18 @@ class EventPublisherInjector<T> implements MembersInjector<T> {
         Injector injector = InjectorProvider.getInjector(servletContext);
         Class<?> instanceClass = instance.getClass();
 
-        // Do not subscribe classes without @Observes/@Listener methods
+        // Subscribe only if @Observes/@Listener methods present
         if (injector != null && !ReflectionUtils.getMethods(CompositeMetadataReader.AllMessageHandlers, instanceClass).isEmpty()) {
-            // Do not allowed to register Singleton as Session-scoped EventBus subscriber. This case only possible for not eager singletons that is injected by Session-scoped components
+            /**
+             * Do not allowed to register Singleton-scoped instances as Session-scoped ViewEventBus subscriber.
+             * This case only possible for not eager singletons that is injected by Session-scoped components.
+             */
             if (!Scopes.isSingleton(injector.getBinding(instanceClass))) {
                 EventBus viewEventBus = injector.getInstance(Key.get(EventBus.class, EventBusModule.ViewEventBus.class));
                 injector.getInstance(MVPApplicationContext.class).registerSessionScopedSubscriber(instance);
                 viewEventBus.subscribe(instance);
             }
+
             EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBusModule.ModelEventBus.class));
             modelEventBus.subscribe(instance);
         }

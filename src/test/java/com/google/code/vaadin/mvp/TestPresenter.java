@@ -6,6 +6,9 @@
 package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.mvp.events.ContactOpenedEvent;
+import com.google.code.vaadin.mvp.events.DomainEvent;
+
+import javax.inject.Inject;
 
 /**
  * TestPresenter - TODO: description
@@ -22,13 +25,23 @@ public class TestPresenter extends AbstractPresenter<TestView> {
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private boolean contactOpened;
+    private boolean domainEventReceived;
     private boolean viewOpened;
+
+    @Inject
+    private TestDomainService domainService;
 
     /*===========================================[ CLASS METHODS ]================*/
 
     @Observes
     private void buttonClicked(ContactOpenedEvent contactOpenedEvent) {
+        domainService.doSomething();
         contactOpened = true;
+    }
+
+    @Observes
+    private void domainEventReceived(DomainEvent domainEvent) {
+        domainEventReceived = true;
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
@@ -51,5 +64,9 @@ public class TestPresenter extends AbstractPresenter<TestView> {
 
     public boolean isViewOpened() {
         return viewOpened;
+    }
+
+    public boolean isDomainEventReceived() {
+        return domainEventReceived;
     }
 }

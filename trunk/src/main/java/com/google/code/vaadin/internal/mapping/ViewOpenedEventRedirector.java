@@ -6,6 +6,7 @@
 package com.google.code.vaadin.internal.mapping;
 
 import com.google.code.vaadin.mvp.AbstractPresenter;
+import com.google.code.vaadin.mvp.ViewPresenterMappingContext;
 import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
 import com.google.inject.servlet.SessionScoped;

@@ -21,7 +21,7 @@ package com.google.code.vaadin;
 /**
  * Interface for a bundle implementation used for obtaining (localized) texts.
  * If implemented, can be used by CDI Utils.
- *
+ * //TODO add support for autolocalization
  * @author Alexey Krylov
  * @since 23.01.13
  */

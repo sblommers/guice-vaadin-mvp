@@ -20,7 +20,7 @@ package com.google.code.vaadin.guice;
 
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventBusModule;
-import com.google.code.vaadin.internal.event.MVPApplicationContext;
+import com.google.code.vaadin.internal.servlet.MVPApplicationContext;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
 import com.google.code.vaadin.internal.util.ApplicationModuleClassProvider;

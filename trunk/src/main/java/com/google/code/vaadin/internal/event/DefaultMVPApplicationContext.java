@@ -5,6 +5,7 @@
 
 package com.google.code.vaadin.internal.event;
 
+import com.google.code.vaadin.internal.servlet.MVPApplicationContext;
 import com.google.common.base.Preconditions;
 
 import javax.inject.Inject;

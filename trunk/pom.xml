@@ -78,6 +78,7 @@
         <!-- Class Utils -->
 
         <version.reflections>0.9.8</version.reflections>
+        <version.javassist>3.15.0-GA</version.javassist>
 
         <!-- Testing stuff -->
 
@@ -177,8 +178,19 @@
                     <artifactId>guava</artifactId>
                     <groupId>com.google.guava</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>javassist</artifactId>
+                    <groupId>javassist</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>${version.javassist}</version>
+        </dependency>
+
 
         <!-- Testing stuff -->
 

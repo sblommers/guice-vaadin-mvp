@@ -5,8 +5,8 @@
 
 package com.google.code.vaadin.internal.event.publisher;
 
-import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.mvp.EventBus;
+import com.google.code.vaadin.mvp.EventBuses;
 import com.google.code.vaadin.mvp.GlobalModelEventPublisher;
 import org.slf4j.Logger;
 
@@ -29,9 +29,9 @@ public class GlobalModelEventPublisherProvider implements Provider<GlobalModelEv
     /*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
-    public void init(Logger logger, @EventBusModule.GlobalModelEventBus EventBus modelMessageBus) {
+    public void init(Logger logger, @EventBuses.GlobalModelEventBus EventBus globalModelEventBus) {
         this.logger = logger;
-        this.globalModelEventBus = modelMessageBus;
+        this.globalModelEventBus = globalModelEventBus;
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/

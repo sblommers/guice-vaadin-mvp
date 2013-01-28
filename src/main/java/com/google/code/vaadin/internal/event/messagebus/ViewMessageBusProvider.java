@@ -6,7 +6,7 @@
 package com.google.code.vaadin.internal.event.messagebus;
 
 import com.google.code.vaadin.internal.event.AbstractMessageBusProvider;
-import com.google.code.vaadin.internal.event.EventBusModule;
+import com.google.code.vaadin.mvp.EventBuses;
 import com.google.inject.Inject;
 import net.engio.mbassy.BusConfiguration;
 
@@ -21,7 +21,7 @@ public class ViewMessageBusProvider extends AbstractMessageBusProvider {
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject(optional = true)
-    @EventBusModule.ViewEventBus
+    @EventBuses.ViewEventBus
     private BusConfiguration busConfiguration;
 
     /*===========================================[ INTERFACE METHODS ]============*/

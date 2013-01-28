@@ -16,12 +16,8 @@ import com.google.code.vaadin.internal.event.messagebus.ViewMessageBusProvider;
 import com.google.code.vaadin.internal.event.publisher.GlobalModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ViewEventPublisherProvider;
-import com.google.code.vaadin.mvp.EventBus;
-import com.google.code.vaadin.mvp.GlobalModelEventPublisher;
-import com.google.code.vaadin.mvp.ModelEventPublisher;
-import com.google.code.vaadin.mvp.ViewEventPublisher;
+import com.google.code.vaadin.mvp.*;
 import com.google.inject.AbstractModule;
-import com.google.inject.BindingAnnotation;
 import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.Matchers;
@@ -31,7 +27,6 @@ import com.google.inject.spi.TypeListener;
 import net.engio.mbassy.IMessageBus;
 
 import javax.servlet.ServletContext;
-import java.lang.annotation.*;
 
 /**
  * EventPublisherModule - TODO: description
@@ -72,52 +67,22 @@ public class EventBusModule extends AbstractModule {
     }
 
     private void bindMessageBus() {
-        bind(IMessageBus.class).annotatedWith(ModelEventBus.class).toProvider(ModelMessageBusProvider.class).in(ServletScopes.SESSION);
-        bind(IMessageBus.class).annotatedWith(ViewEventBus.class).toProvider(ViewMessageBusProvider.class).in(ServletScopes.SESSION);
-        bind(IMessageBus.class).annotatedWith(GlobalModelEventBus.class).toProvider(GlobalModelMessageBusProvider.class).in(Scopes.SINGLETON);
-        bind(IMessageBus.class).annotatedWith(GlobalViewEventBus.class).toProvider(GlobalViewMessageBusProvider.class).in(Scopes.SINGLETON);
+        bind(IMessageBus.class).annotatedWith(EventBuses.ModelEventBus.class).toProvider(ModelMessageBusProvider.class).in(ServletScopes.SESSION);
+        bind(IMessageBus.class).annotatedWith(EventBuses.ViewEventBus.class).toProvider(ViewMessageBusProvider.class).in(ServletScopes.SESSION);
+        bind(IMessageBus.class).annotatedWith(EventBuses.GlobalModelEventBus.class).toProvider(GlobalModelMessageBusProvider.class).in(Scopes.SINGLETON);
+        bind(IMessageBus.class).annotatedWith(EventBuses.GlobalViewEventBus.class).toProvider(GlobalViewMessageBusProvider.class).in(Scopes.SINGLETON);
     }
 
     private void bindEventBus() {
-        bind(EventBus.class).annotatedWith(ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(ServletScopes.SESSION);
-        bind(EventBus.class).annotatedWith(ViewEventBus.class).toProvider(ViewEventBusProvider.class).in(ServletScopes.SESSION);
-        bind(EventBus.class).annotatedWith(GlobalModelEventBus.class).toProvider(GlobalModelEventBusProvider.class).in(Scopes.SINGLETON);
-        bind(EventBus.class).annotatedWith(GlobalViewEventBus.class).toProvider(GlobalViewEventBusProvider.class).in(Scopes.SINGLETON);
+        bind(EventBus.class).annotatedWith(EventBuses.ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(ServletScopes.SESSION);
+        bind(EventBus.class).annotatedWith(EventBuses.ViewEventBus.class).toProvider(ViewEventBusProvider.class).in(ServletScopes.SESSION);
+        bind(EventBus.class).annotatedWith(EventBuses.GlobalModelEventBus.class).toProvider(GlobalModelEventBusProvider.class).in(Scopes.SINGLETON);
+        bind(EventBus.class).annotatedWith(EventBuses.GlobalViewEventBus.class).toProvider(GlobalViewEventBusProvider.class).in(Scopes.SINGLETON);
     }
 
     private void bindEventPublishers() {
         bind(GlobalModelEventPublisher.class).toProvider(GlobalModelEventPublisherProvider.class).in(Scopes.SINGLETON);
         bind(ModelEventPublisher.class).toProvider(ModelEventPublisherProvider.class).in(ServletScopes.SESSION);
         bind(ViewEventPublisher.class).toProvider(ViewEventPublisherProvider.class).in(ServletScopes.SESSION);
-    }
-
-    /*===========================================[ INNER CLASSES ]================*/
-
-    @BindingAnnotation
-    @Documented
-    @Target({ElementType.FIELD, ElementType.PARAMETER})
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface ViewEventBus {
-    }
-
-    @BindingAnnotation
-    @Documented
-    @Target({ElementType.FIELD, ElementType.PARAMETER})
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface GlobalViewEventBus {
-    }
-
-    @BindingAnnotation
-    @Documented
-    @Target({ElementType.FIELD, ElementType.PARAMETER})
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface ModelEventBus {
-    }
-
-    @BindingAnnotation
-    @Documented
-    @Target({ElementType.FIELD, ElementType.PARAMETER})
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface GlobalModelEventBus {
     }
 }

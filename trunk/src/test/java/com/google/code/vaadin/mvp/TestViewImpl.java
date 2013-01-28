@@ -22,7 +22,7 @@ public class TestViewImpl extends AbstractView implements TestView {
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public void openContract() {
+    public void openContact() {
         fireViewEvent(new ContactOpenedEvent());
     }
 

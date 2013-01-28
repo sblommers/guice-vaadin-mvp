@@ -61,9 +61,10 @@ public class ViewPresenterIntercommunicationTest {
         TestPresenter presenter = mappingContext.getPresenterForView(view);
         Assert.assertTrue("ViewOpenedEvent was not received", presenter.isViewOpened());
 
-        view.openContract();
+        view.openContact();
 
         Assert.assertTrue("ContactOpenedEvent was not received", presenter.isContactOpened());
+        Assert.assertTrue("DomainEvent was not received", presenter.isDomainEventReceived());
     }
 
     @Test

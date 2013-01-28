@@ -31,5 +31,5 @@ public interface TestView extends View {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
-    void openContract();
+    void openContact();
 }

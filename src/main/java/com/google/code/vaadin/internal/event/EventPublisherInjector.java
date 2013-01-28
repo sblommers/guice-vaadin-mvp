@@ -24,11 +24,11 @@ import javax.servlet.ServletContext;
  */
 class EventPublisherInjector<T> implements MembersInjector<T> {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private final ServletContext servletContext;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     EventPublisherInjector(ServletContext servletContext) {
         this.servletContext = servletContext;
@@ -49,11 +49,13 @@ class EventPublisherInjector<T> implements MembersInjector<T> {
              */
             if (!Scopes.isSingleton(injector.getBinding(instanceClass))) {
                 EventBus viewEventBus = injector.getInstance(Key.get(EventBus.class, EventBusModule.ViewEventBus.class));
+                EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBusModule.ModelEventBus.class));
                 injector.getInstance(MVPApplicationContext.class).registerSessionScopedSubscriber(instance);
                 viewEventBus.subscribe(instance);
+                modelEventBus.subscribe(instance);
             }
 
-            EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBusModule.ModelEventBus.class));
+            EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBusModule.GlobalModelEventBus.class));
             modelEventBus.subscribe(instance);
         }
     }

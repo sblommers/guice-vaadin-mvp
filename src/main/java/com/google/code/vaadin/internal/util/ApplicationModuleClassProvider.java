@@ -32,12 +32,12 @@ import javax.servlet.ServletContext;
  */
 public class ApplicationModuleClassProvider {
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     private ApplicationModuleClassProvider() {
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     public static Class<? extends AbstractMVPApplicationModule> getApplicationModuleClass(ServletContext context) {
         try {

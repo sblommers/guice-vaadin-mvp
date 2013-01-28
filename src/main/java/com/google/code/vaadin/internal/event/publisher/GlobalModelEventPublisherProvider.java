@@ -7,7 +7,7 @@ package com.google.code.vaadin.internal.event.publisher;
 
 import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.mvp.EventBus;
-import com.google.code.vaadin.mvp.ModelEventPublisher;
+import com.google.code.vaadin.mvp.GlobalModelEventPublisher;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;
@@ -19,33 +19,33 @@ import javax.inject.Provider;
  * @author Alexey Krylov (AleX)
  * @since 26.01.13
  */
-public class ModelEventPublisherProvider implements Provider<ModelEventPublisher> {
+public class GlobalModelEventPublisherProvider implements Provider<GlobalModelEventPublisher> {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private Logger logger;
-    private EventBus modelEventBus;
+    private EventBus globalModelEventBus;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
-    public void init(Logger logger, @EventBusModule.ModelEventBus EventBus modelEventBus) {
+    public void init(Logger logger, @EventBusModule.GlobalModelEventBus EventBus modelMessageBus) {
         this.logger = logger;
-        this.modelEventBus = modelEventBus;
+        this.globalModelEventBus = modelMessageBus;
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public ModelEventPublisher get() {
-        ModelEventPublisher modelEventPublisher = new ModelEventPublisher() {
+    public GlobalModelEventPublisher get() {
+        GlobalModelEventPublisher modelEventPublisher = new GlobalModelEventPublisher() {
             @Override
             public void publish(Object event) {
-                modelEventBus.publish(event);
+                globalModelEventBus.publish(event);
             }
         };
 
-        logger.debug(String.format("ModelEventPublisher created: [%d]", modelEventBus.hashCode()));
+        logger.debug(String.format("GlobalModelEventPublisher created: [%d]", globalModelEventBus.hashCode()));
         return modelEventPublisher;
     }
 }

@@ -28,7 +28,7 @@ import com.vaadin.Application;
  */
 public class MVPTestApplication extends Application {
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     @Override
     public void init() {

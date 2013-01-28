@@ -15,16 +15,16 @@ import com.google.code.vaadin.mvp.events.ContactOpenedEvent;
  */
 public class TestPresenter extends AbstractPresenter<TestView> {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final long serialVersionUID = -6223121159195154865L;
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private boolean contactOpened;
     private boolean viewOpened;
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Observes
     private void buttonClicked(ContactOpenedEvent contactOpenedEvent) {
@@ -43,7 +43,7 @@ public class TestPresenter extends AbstractPresenter<TestView> {
         viewOpened = true;
     }
 
-	/*===========================================[ GETTER/SETTER ]================*/
+    /*===========================================[ GETTER/SETTER ]================*/
 
     public boolean isContactOpened() {
         return contactOpened;

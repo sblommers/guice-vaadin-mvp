@@ -28,7 +28,7 @@ import com.google.code.vaadin.junit.AbstractMVPApplicationTestModule;
  */
 public class MVPApplicationTestModule extends AbstractMVPApplicationTestModule {
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     public MVPApplicationTestModule() {
         super(MVPTestApplication.class);

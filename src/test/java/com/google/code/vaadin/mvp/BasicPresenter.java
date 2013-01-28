@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.code.vaadin.mvp.events.SampleEvent;
+import com.google.code.vaadin.mvp.events.ViewEvent;
 
 /**
  * TestPresenter - TODO: description
@@ -28,19 +28,19 @@ import com.google.code.vaadin.mvp.events.SampleEvent;
  */
 public class BasicPresenter extends AbstractPresenter<BasicView> {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final long serialVersionUID = 4440909913334550221L;
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private boolean eventReceived;
     private boolean viewOpened;
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Observes
-    private void sampleButtonPressed(SampleEvent sampleEvent) {
+    private void sampleButtonPressed(ViewEvent viewEvent) {
         eventReceived = true;
     }
 
@@ -56,7 +56,7 @@ public class BasicPresenter extends AbstractPresenter<BasicView> {
         viewOpened = true;
     }
 
-	/*===========================================[ GETTER/SETTER ]================*/
+    /*===========================================[ GETTER/SETTER ]================*/
 
     public boolean isEventReceived() {
         return eventReceived;

@@ -52,7 +52,7 @@ public abstract class AbstractView extends ViewComponent implements View {
         }
 
         // Source class will be used
-        if (viewInterface == null){
+        if (viewInterface == null) {
             viewInterface = getClass();
         }
     }

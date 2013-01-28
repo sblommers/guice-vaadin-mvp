@@ -9,7 +9,7 @@ import com.google.code.vaadin.MVPApplicationTestModule;
 import com.google.code.vaadin.junit.MVPTestRunner;
 import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
-import com.google.code.vaadin.mvp.events.SampleEvent;
+import com.google.code.vaadin.mvp.events.ViewEvent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nnsoft.guice.junice.annotation.GuiceModules;
@@ -39,7 +39,7 @@ public class ViewEventPublisherTest {
     /*===========================================[ CLASS METHODS ]================*/
 
     @Observes
-    public void when(SampleEvent viewEvent) {
+    public void when(ViewEvent viewEvent) {
         eventNotified = true;
     }
 
@@ -50,7 +50,7 @@ public class ViewEventPublisherTest {
 
     @Test
     public void eventNotified() {
-        viewEventPublisher.publish(new SampleEvent());
+        viewEventPublisher.publish(new ViewEvent());
         assertTrue("Event was not received", eventNotified);
     }
 }

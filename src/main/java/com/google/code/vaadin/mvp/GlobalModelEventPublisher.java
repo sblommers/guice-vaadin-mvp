@@ -18,30 +18,12 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.code.vaadin.mvp.events.ViewEvent;
-
 /**
- * TestView - TODO: description
+ * EventPublisher - TODO: description
  *
  * @author Alexey Krylov
- * @since 24.01.13
+ * @since 23.01.13
  */
-public class BasicView extends AbstractView {
-
-    /*===========================================[ STATIC VARIABLES ]=============*/
-
-    private static final long serialVersionUID = 4317442441310926792L;
-
-    /*===========================================[ INTERFACE METHODS ]============*/
-
-    public void sampleButtonPressed() {
-        fireViewEvent(new ViewEvent());
-    }
-
-    /*===========================================[ CLASS METHODS ]================*/
-
-    @Override
-    protected void initView() {
-
-    }
+public interface GlobalModelEventPublisher extends EventPublisher {
+    /*===========================================[ INTERFACE METHODS ]==============*/
 }

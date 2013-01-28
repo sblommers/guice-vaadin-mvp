@@ -15,14 +15,14 @@ import com.google.code.vaadin.mvp.events.ContactOpenedEvent;
  */
 public class TestViewImpl extends AbstractView implements TestView {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final long serialVersionUID = 4317442441310926792L;
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public void openContract(){
+    public void openContract() {
         fireViewEvent(new ContactOpenedEvent());
     }
 

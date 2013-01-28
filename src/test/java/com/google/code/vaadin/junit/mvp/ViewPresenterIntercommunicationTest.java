@@ -43,7 +43,7 @@ import javax.inject.Inject;
 @GuiceModules(modules = MVPApplicationTestModule.class)
 public class ViewPresenterIntercommunicationTest {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
     private Injector injector;
@@ -51,11 +51,11 @@ public class ViewPresenterIntercommunicationTest {
     @Inject
     private TestView view;
 
-    //@Inject
+    @Inject
     private BasicView basicView;
 
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Test
     public void testIntercommunication() {
@@ -72,7 +72,6 @@ public class ViewPresenterIntercommunicationTest {
 
     @Test
     public void testIntercommunicationWithViewWithoutInterface() {
-        BasicView basicView = injector.getInstance(BasicView.class);
         basicView.openView();
 
         ViewPresenterMappingContext mappingContext = injector.getInstance(ViewPresenterMappingContext.class);

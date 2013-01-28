@@ -19,7 +19,6 @@
 package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
-import com.google.code.vaadin.mvp.AbstractMVPApplication;
 import com.google.inject.servlet.RequestScoped;
 import com.vaadin.ui.Window;
 

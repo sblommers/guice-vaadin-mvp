@@ -6,12 +6,12 @@
 package com.google.code.vaadin.mvp.events;
 
 /**
- * SampleEvent - TODO: description
+ * GlobalModelEvent - TODO: description
  *
- * @author Alexey Krylov
- * @since 24.01.13
+ * @author Alexey Krylov (lexx)
+ * @since 28.01.13
  */
-public class SampleEvent {
+public class GlobalModelEvent {
 /*===========================================[ STATIC VARIABLES ]=============*/
 /*===========================================[ INSTANCE VARIABLES ]===========*/
 /*===========================================[ CONSTRUCTORS ]=================*/

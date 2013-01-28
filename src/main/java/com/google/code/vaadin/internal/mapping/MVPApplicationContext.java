@@ -27,22 +27,22 @@ import java.util.concurrent.ConcurrentHashMap;
 @Singleton
 public class MVPApplicationContext {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private Map<String, Collection> subscribersMap;
-    private EventBus modelEventBus;
+    private EventBus globalModelEventBus;
     private Provider<HttpSession> httpSessionProvider;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
-    public void init(@EventBusModule.ModelEventBus EventBus modelEventBus, Provider<HttpSession> httpSessionProvider) {
+    public void init(@EventBusModule.GlobalModelEventBus EventBus globalModelEventBus, Provider<HttpSession> httpSessionProvider) {
         subscribersMap = new ConcurrentHashMap<String, Collection>();
-        this.modelEventBus = modelEventBus;
+        this.globalModelEventBus = globalModelEventBus;
         this.httpSessionProvider = httpSessionProvider;
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     public void registerSessionScopedSubscriber(Object subscriber) {
         String sessionID = httpSessionProvider.get().getId();
@@ -59,7 +59,7 @@ public class MVPApplicationContext {
         Collection subscribers = subscribersMap.remove(sessionID);
         if (subscribers != null) {
             for (Object subscriber : subscribers) {
-                modelEventBus.unsubscribe(subscriber);
+                globalModelEventBus.unsubscribe(subscriber);
             }
         }
     }

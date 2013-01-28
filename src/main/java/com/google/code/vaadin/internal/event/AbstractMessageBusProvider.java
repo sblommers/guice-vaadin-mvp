@@ -19,7 +19,7 @@ import javax.inject.Provider;
  */
 public abstract class AbstractMessageBusProvider implements Provider<IMessageBus> {
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     public IMessageBus get() {

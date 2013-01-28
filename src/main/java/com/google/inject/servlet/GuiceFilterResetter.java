@@ -26,12 +26,12 @@ package com.google.inject.servlet;
  */
 public class GuiceFilterResetter {
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     private GuiceFilterResetter() {
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     public static void reset() {
         GuiceFilter.reset();

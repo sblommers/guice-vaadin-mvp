@@ -17,12 +17,12 @@ import javax.servlet.ServletContext;
  */
 public class InjectorProvider {
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     private InjectorProvider() {
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     public static Injector getInjector(ServletContext context) {
         return (Injector) context.getAttribute(Injector.class.getName());

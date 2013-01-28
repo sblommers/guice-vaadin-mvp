@@ -21,6 +21,8 @@ package com.google.code.vaadin.junit.mvp;
 import com.google.code.vaadin.MVPApplicationTestModule;
 import com.google.code.vaadin.internal.mapping.ViewPresenterMappingContext;
 import com.google.code.vaadin.junit.MVPTestRunner;
+import com.google.code.vaadin.mvp.BasicPresenter;
+import com.google.code.vaadin.mvp.BasicView;
 import com.google.code.vaadin.mvp.TestPresenter;
 import com.google.code.vaadin.mvp.TestView;
 import com.google.inject.Injector;
@@ -49,6 +51,10 @@ public class ViewPresenterIntercommunicationTest {
     @Inject
     private TestView view;
 
+    //@Inject
+    private BasicView basicView;
+
+
 	/*===========================================[ CLASS METHODS ]================*/
 
     @Test
@@ -62,5 +68,19 @@ public class ViewPresenterIntercommunicationTest {
         view.openContract();
 
         Assert.assertTrue("ContactOpenedEvent was not received", presenter.isContactOpened());
+    }
+
+    @Test
+    public void testIntercommunicationWithViewWithoutInterface() {
+        BasicView basicView = injector.getInstance(BasicView.class);
+        basicView.openView();
+
+        ViewPresenterMappingContext mappingContext = injector.getInstance(ViewPresenterMappingContext.class);
+        BasicPresenter presenter = mappingContext.getPresenterForView(basicView);
+        Assert.assertTrue("ViewOpenedEvent was not received", presenter.isViewOpened());
+
+        basicView.sampleButtonPressed();
+
+        Assert.assertTrue("SampleEvent was not received", presenter.isEventReceived());
     }
 }

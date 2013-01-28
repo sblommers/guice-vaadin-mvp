@@ -51,9 +51,9 @@ public abstract class AbstractView extends ViewComponent implements View {
             }
         }
 
-        //todo error!!!
-        if (viewInterface==null){
-            throw new MVPApplicationException("");
+        // Source class will be used
+        if (viewInterface == null){
+            viewInterface = getClass();
         }
     }
 

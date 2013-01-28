@@ -51,7 +51,7 @@ class DefaultEventBus implements EventBus {
     public void publish(@NotNull Object event) {
         Preconditions.checkArgument(event != null, "Published Event can't be null");
         if (logger.isDebugEnabled()) {
-            logger.debug(String.format("Event: [%s] -> %d", event, hashCode()));
+            logger.debug(String.format("Event: [%s] -> [#%d]", event, hashCode()));
         }
         bus.post(event).now();
     }

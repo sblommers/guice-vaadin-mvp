@@ -16,8 +16,9 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.servlet;
+package com.google.code.vaadin.guice;
 
+import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -35,7 +36,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 23.01.13
  */
 @Singleton
-public class GuiceApplicationServlet extends AbstractApplicationServlet {
+class GuiceApplicationServlet extends AbstractApplicationServlet {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
 

@@ -5,6 +5,7 @@
 
 package com.google.code.vaadin.internal.mapping;
 
+import com.google.code.vaadin.internal.event.MVPApplicationContext;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.internal.util.TypeUtil;
@@ -13,6 +14,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.Matchers;
+import com.google.inject.servlet.ServletScopes;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
@@ -53,13 +55,13 @@ public class PresenterMapperModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(ViewPresenterMappingContext.class).to(DefaultViewPresenterMappingContext.class);
+        bind(ViewPresenterMappingContext.class).to(DefaultViewPresenterMappingContext.class).in(ServletScopes.SESSION);
 
         //1. find all presenters
         Reflections reflections = new Reflections(createReflectionsConfiguration());
         Set<Class<? extends AbstractPresenter>> subTypesOf = reflections.getSubTypesOf(AbstractPresenter.class);
 
-        //2. create context map: Presenter <-> View interface
+        //2. create context map: View interface -> Presenter class
         viewPresenterMap = new ConcurrentHashMap<Class<? extends View>, Class<? extends AbstractPresenter>>();
         for (Class<? extends AbstractPresenter> presenterClass : subTypesOf) {
             Class<View> viewClass = TypeUtil.getTypeParameterClass(presenterClass, View.class);

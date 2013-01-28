@@ -5,7 +5,6 @@
 
 package com.google.code.vaadin.internal.event;
 
-import com.google.code.vaadin.internal.mapping.MVPApplicationContext;
 import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.EventBuses;
@@ -51,7 +50,7 @@ class EventPublisherInjector<T> implements MembersInjector<T> {
             if (!Scopes.isSingleton(injector.getBinding(instanceClass))) {
                 EventBus viewEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.ViewEventBus.class));
                 EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.ModelEventBus.class));
-                injector.getInstance(MVPApplicationContext.class).registerSessionScopedSubscriber(instance);
+                injector.getInstance(DefaultMVPApplicationContext.class).registerSessionScopedSubscriber(instance);
                 viewEventBus.subscribe(instance);
                 modelEventBus.subscribe(instance);
             }

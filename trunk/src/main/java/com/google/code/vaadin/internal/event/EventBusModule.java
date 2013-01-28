@@ -50,6 +50,8 @@ public class EventBusModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(MVPApplicationContext.class).to(DefaultMVPApplicationContext.class).in(Scopes.SINGLETON);
+
         // Registers all injectees as EventBus subscribers because we can't definitely say who is listening
         bindListener(Matchers.any(), new TypeListener() {
             @Override

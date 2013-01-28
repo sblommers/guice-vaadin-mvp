@@ -21,20 +21,20 @@ import javax.inject.Provider;
  */
 public class ViewEventPublisherProvider implements Provider<ViewEventPublisher> {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private Logger logger;
-    private EventBus viewMessageBus;
-    private EventBus globalViewMessageBus;
+    private EventBus viewEventBus;
+    private EventBus globalViewEventBus;
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Inject
-    public void init(Logger logger, @EventBusModule.ViewEventBus EventBus viewMessageBus,
-                     @EventBusModule.GlobalViewEventBus EventBus globalViewMessageBus) {
+    public void init(Logger logger, @EventBusModule.ViewEventBus EventBus viewEventBus,
+                     @EventBusModule.GlobalViewEventBus EventBus globalViewEventBus) {
         this.logger = logger;
-        this.viewMessageBus = viewMessageBus;
-        this.globalViewMessageBus = globalViewMessageBus;
+        this.viewEventBus = viewEventBus;
+        this.globalViewEventBus = globalViewEventBus;
     }
 
     @Override
@@ -42,12 +42,12 @@ public class ViewEventPublisherProvider implements Provider<ViewEventPublisher> 
         ViewEventPublisher viewEventPublisher = new ViewEventPublisher() {
             @Override
             public void publish(Object event) {
-                viewMessageBus.publish(event);
-                globalViewMessageBus.publish(event);
+                viewEventBus.publish(event);
+                globalViewEventBus.publish(event);
             }
         };
 
-        logger.debug(String.format("ViewEventPublisher created: [%d], global: [%d]", viewMessageBus.hashCode(), globalViewMessageBus.hashCode()));
+        logger.debug(String.format("ViewEventPublisher created: [%d], global: [%d]", viewEventBus.hashCode(), globalViewEventBus.hashCode()));
         return viewEventPublisher;
     }
 }

@@ -26,7 +26,7 @@ import java.util.List;
  */
 class CompositeMetadataReader extends MetadataReader {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     public static final IPredicate<Method> AllMessageHandlers = new IPredicate<Method>() {
         @Override
@@ -37,7 +37,7 @@ class CompositeMetadataReader extends MetadataReader {
 
     private static final Logger logger = LoggerFactory.getLogger(CompositeMetadataReader.class.getName());
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Override
     public List<MessageHandlerMetadata> getMessageHandlers(Class<?> target) {
@@ -87,7 +87,7 @@ class CompositeMetadataReader extends MetadataReader {
         return new MessageHandlerMetadata(messageHandler, new IMessageFilter[0], listenerAnnotation);
     }
 
-	/*===========================================[ INNER CLASSES ]================*/
+    /*===========================================[ INNER CLASSES ]================*/
 
     private static class MappedListener implements Listener {
         @Override

@@ -23,11 +23,11 @@ import java.lang.reflect.Field;
  */
 class VaadinComponentsInjectionListener implements TypeListener {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private ServletContext servletContext;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     VaadinComponentsInjectionListener(ServletContext servletContext) {
         this.servletContext = servletContext;
@@ -36,12 +36,12 @@ class VaadinComponentsInjectionListener implements TypeListener {
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public <T> void hear(TypeLiteral<T> typeLiteral, TypeEncounter<T> typeEncounter) {
-        for (Field field : typeLiteral.getRawType().getDeclaredFields()) {
+    public <T> void hear(TypeLiteral<T> type, TypeEncounter<T> encounter) {
+        for (Field field : type.getRawType().getDeclaredFields()) {
             if (Component.class.isAssignableFrom(field.getType())
                     && field.isAnnotationPresent(Preconfigured.class)) {
                 Preconfigured preconfigured = field.getAnnotation(Preconfigured.class);
-                typeEncounter.register(new VaadinComponentsInjector<T>(field, preconfigured, servletContext));
+                encounter.register(new VaadinComponentsInjector<T>(field, preconfigured, servletContext));
             }
         }
     }

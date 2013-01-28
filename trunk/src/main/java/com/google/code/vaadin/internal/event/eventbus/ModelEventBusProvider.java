@@ -24,7 +24,7 @@ public class ModelEventBusProvider extends AbstractEventBusProvider {
     @Inject
     private ModelMessageBusProvider messageBusProvider;
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     public IMessageBus getMessageBus() {

@@ -21,12 +21,12 @@ import javax.inject.Inject;
 @SessionScoped
 class ViewOpenedEventRedirector {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
     private ViewPresenterMappingContext mappingContext;
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Observes
     public void viewOpened(ViewOpenedEvent event) {

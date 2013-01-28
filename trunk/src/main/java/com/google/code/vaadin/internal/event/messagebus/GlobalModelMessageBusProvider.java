@@ -16,12 +16,12 @@ import net.engio.mbassy.BusConfiguration;
  * @author Alexey Krylov (AleX)
  * @since 26.01.13
  */
-public class ModelMessageBusProvider extends AbstractMessageBusProvider {
+public class GlobalModelMessageBusProvider extends AbstractMessageBusProvider {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject(optional = true)
-    @EventBusModule.ModelEventBus
+    @EventBusModule.GlobalModelEventBus
     private BusConfiguration busConfiguration;
 
     /*===========================================[ INTERFACE METHODS ]============*/

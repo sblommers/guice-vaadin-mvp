@@ -5,15 +5,19 @@
 
 package com.google.code.vaadin.internal.event;
 
+import com.google.code.vaadin.internal.event.eventbus.GlobalModelEventBusProvider;
 import com.google.code.vaadin.internal.event.eventbus.GlobalViewEventBusProvider;
 import com.google.code.vaadin.internal.event.eventbus.ModelEventBusProvider;
 import com.google.code.vaadin.internal.event.eventbus.ViewEventBusProvider;
+import com.google.code.vaadin.internal.event.messagebus.GlobalModelMessageBusProvider;
 import com.google.code.vaadin.internal.event.messagebus.GlobalViewMessageBusProvider;
 import com.google.code.vaadin.internal.event.messagebus.ModelMessageBusProvider;
 import com.google.code.vaadin.internal.event.messagebus.ViewMessageBusProvider;
+import com.google.code.vaadin.internal.event.publisher.GlobalModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ViewEventPublisherProvider;
 import com.google.code.vaadin.mvp.EventBus;
+import com.google.code.vaadin.mvp.GlobalModelEventPublisher;
 import com.google.code.vaadin.mvp.ModelEventPublisher;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
 import com.google.inject.AbstractModule;
@@ -37,25 +41,25 @@ import java.lang.annotation.*;
  */
 public class EventBusModule extends AbstractModule {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private ServletContext servletContext;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     public EventBusModule(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void configure() {
         // Registers all injectees as EventBus subscribers because we can't definitely say who is listening
         bindListener(Matchers.any(), new TypeListener() {
             @Override
-            public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
-                typeEncounter.register(new EventPublisherInjector<I>(servletContext));
+            public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
+                encounter.register(new EventPublisherInjector<I>(servletContext));
             }
         });
 
@@ -68,23 +72,26 @@ public class EventBusModule extends AbstractModule {
     }
 
     private void bindMessageBus() {
-        bind(IMessageBus.class).annotatedWith(ModelEventBus.class).toProvider(ModelMessageBusProvider.class).in(Scopes.SINGLETON);
+        bind(IMessageBus.class).annotatedWith(ModelEventBus.class).toProvider(ModelMessageBusProvider.class).in(ServletScopes.SESSION);
         bind(IMessageBus.class).annotatedWith(ViewEventBus.class).toProvider(ViewMessageBusProvider.class).in(ServletScopes.SESSION);
+        bind(IMessageBus.class).annotatedWith(GlobalModelEventBus.class).toProvider(GlobalModelMessageBusProvider.class).in(Scopes.SINGLETON);
         bind(IMessageBus.class).annotatedWith(GlobalViewEventBus.class).toProvider(GlobalViewMessageBusProvider.class).in(Scopes.SINGLETON);
     }
 
     private void bindEventBus() {
-        bind(EventBus.class).annotatedWith(ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(Scopes.SINGLETON);
+        bind(EventBus.class).annotatedWith(ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(ServletScopes.SESSION);
         bind(EventBus.class).annotatedWith(ViewEventBus.class).toProvider(ViewEventBusProvider.class).in(ServletScopes.SESSION);
+        bind(EventBus.class).annotatedWith(GlobalModelEventBus.class).toProvider(GlobalModelEventBusProvider.class).in(Scopes.SINGLETON);
         bind(EventBus.class).annotatedWith(GlobalViewEventBus.class).toProvider(GlobalViewEventBusProvider.class).in(Scopes.SINGLETON);
     }
 
     private void bindEventPublishers() {
-        bind(ModelEventPublisher.class).toProvider(ModelEventPublisherProvider.class).in(Scopes.SINGLETON);
+        bind(GlobalModelEventPublisher.class).toProvider(GlobalModelEventPublisherProvider.class).in(Scopes.SINGLETON);
+        bind(ModelEventPublisher.class).toProvider(ModelEventPublisherProvider.class).in(ServletScopes.SESSION);
         bind(ViewEventPublisher.class).toProvider(ViewEventPublisherProvider.class).in(ServletScopes.SESSION);
     }
 
-	/*===========================================[ INNER CLASSES ]================*/
+    /*===========================================[ INNER CLASSES ]================*/
 
     @BindingAnnotation
     @Documented
@@ -105,5 +112,12 @@ public class EventBusModule extends AbstractModule {
     @Target({ElementType.FIELD, ElementType.PARAMETER})
     @Retention(RetentionPolicy.RUNTIME)
     public @interface ModelEventBus {
+    }
+
+    @BindingAnnotation
+    @Documented
+    @Target({ElementType.FIELD, ElementType.PARAMETER})
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface GlobalModelEventBus {
     }
 }

@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
  */
 class DefaultEventBus implements EventBus {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultEventBus.class);
 
@@ -29,13 +29,13 @@ class DefaultEventBus implements EventBus {
 
     private IMessageBus bus;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     DefaultEventBus(IMessageBus bus) {
         this.bus = bus;
     }
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     public void subscribe(@NotNull Object subscriber) {

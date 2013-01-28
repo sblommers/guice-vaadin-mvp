@@ -18,13 +18,13 @@ import net.engio.mbassy.BusConfiguration;
  */
 public class GlobalViewMessageBusProvider extends AbstractMessageBusProvider {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject(optional = true)
     @EventBusModule.GlobalViewEventBus
     private BusConfiguration busConfiguration;
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected BusConfiguration getConfiguration() {

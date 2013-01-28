@@ -7,7 +7,6 @@ package com.google.code.vaadin.internal.util;
 
 import com.google.inject.Binding;
 import com.google.inject.Scope;
-import com.google.inject.servlet.ServletScopes;
 import com.google.inject.spi.DefaultBindingScopingVisitor;
 
 /**
@@ -18,12 +17,12 @@ import com.google.inject.spi.DefaultBindingScopingVisitor;
  */
 public class GuiceHelper {
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     private GuiceHelper() {
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     public static boolean isScopedWith(Binding presenterBinding, final Scope... scopes) {
         final boolean[] validScoped = {false};

@@ -50,6 +50,7 @@ public abstract class AbstractPresenter<T extends View> implements Serializable 
     protected void init() {
         logger = LoggerFactory.getLogger(getClass());
     }
+
     //TODO simplify?? hide publicity, rename
     //TODO идея - упростить схему с viewInitialized через InjectionListener'ов -  в hear инициализировать presenter
     public void setView(T view) {

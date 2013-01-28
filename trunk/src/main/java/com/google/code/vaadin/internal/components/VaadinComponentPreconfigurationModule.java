@@ -19,17 +19,17 @@ import javax.servlet.ServletContext;
  */
 public class VaadinComponentPreconfigurationModule extends AbstractModule {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private final ServletContext servletContext;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     public VaadinComponentPreconfigurationModule(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void configure() {

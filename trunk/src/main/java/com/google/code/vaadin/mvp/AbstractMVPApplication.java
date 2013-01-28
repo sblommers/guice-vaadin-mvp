@@ -18,7 +18,6 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.code.vaadin.mvp.RequestContext;
 import com.google.inject.servlet.SessionScoped;
 import com.vaadin.Application;
 import com.vaadin.terminal.ExternalResource;

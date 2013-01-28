@@ -26,7 +26,7 @@ import com.vaadin.ui.ComponentContainer;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-public interface View extends ComponentContainer{
+public interface View extends ComponentContainer {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 

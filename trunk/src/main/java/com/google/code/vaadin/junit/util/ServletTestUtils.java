@@ -43,12 +43,12 @@ import java.util.UUID;
  */
 public class ServletTestUtils {
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     private ServletTestUtils() {
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     /**
      * Returns a FilterChain that does nothing.
@@ -148,7 +148,7 @@ public class ServletTestUtils {
                 new Class[]{HttpServletResponse.class}, new ThrowingInvocationHandler());
     }
 
-	/*===========================================[ INNER CLASSES ]================*/
+    /*===========================================[ INNER CLASSES ]================*/
 
     private static class ThrowingInvocationHandler implements InvocationHandler {
         @Override

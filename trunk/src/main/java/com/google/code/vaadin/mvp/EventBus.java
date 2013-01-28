@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
  * @author Alexey Krylov (AleX)
  * @since 26.01.13
  */
-public interface EventBus extends EventPublisher{
+public interface EventBus extends EventPublisher {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 

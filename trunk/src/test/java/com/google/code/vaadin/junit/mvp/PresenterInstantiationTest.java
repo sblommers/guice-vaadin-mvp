@@ -22,17 +22,16 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-//@RunWith(JUniceRunner.class)
 @RunWith(MVPTestRunner.class)
 @GuiceModules(modules = MVPApplicationTestModule.class)
 public class PresenterInstantiationTest {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
     private Injector injector;
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Test
     public void testPresenterInjection() throws Exception {

@@ -38,21 +38,21 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class PresenterMapperModule extends AbstractModule {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     protected Map<Class<? extends View>, Class<? extends AbstractPresenter>> viewPresenterMap;
     protected Injector injector;
     protected Class<? extends AbstractMVPApplication> applicationClass;
     protected ServletContext servletContext;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     public PresenterMapperModule(ServletContext servletContext) {
         this.servletContext = servletContext;
         applicationClass = ApplicationClassProvider.getApplicationClass(servletContext);
     }
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void configure() {
@@ -80,12 +80,12 @@ public class PresenterMapperModule extends AbstractModule {
                 .setScanners(new SubTypesScanner());
     }
 
-	/*===========================================[ INNER CLASSES ]================*/
+    /*===========================================[ INNER CLASSES ]================*/
 
     private class ViewTypeListener implements TypeListener {
         @Override
-        public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
-            typeEncounter.register(new InjectionListener<I>() {
+        public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
+            encounter.register(new InjectionListener<I>() {
                 @Override
                 public void afterInjection(I injectee) {
                     if (injectee instanceof View) {

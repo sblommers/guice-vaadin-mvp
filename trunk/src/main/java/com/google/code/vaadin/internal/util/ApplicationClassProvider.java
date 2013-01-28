@@ -19,12 +19,12 @@ import javax.servlet.ServletContext;
  */
 public class ApplicationClassProvider {
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     private ApplicationClassProvider() {
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     public static Class<? extends AbstractMVPApplication> getApplicationClass(ServletContext context) {
         try {

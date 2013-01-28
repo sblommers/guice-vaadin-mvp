@@ -20,12 +20,12 @@ import javax.inject.Provider;
  */
 public abstract class AbstractEventBusProvider implements Provider<EventBus> {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
     private Logger logger;
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     public EventBus get() {

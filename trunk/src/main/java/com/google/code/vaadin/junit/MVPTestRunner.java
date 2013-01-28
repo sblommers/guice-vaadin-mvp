@@ -19,8 +19,8 @@
 package com.google.code.vaadin.junit;
 
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
-import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.code.vaadin.junit.util.ServletTestUtils;
+import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.servlet.GuiceFilter;
@@ -48,21 +48,21 @@ import static org.mockito.Mockito.when;
  */
 public class MVPTestRunner extends JUniceRunner {
 
-	/*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final Logger logger = LoggerFactory.getLogger(MVPTestRunner.class);
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private static Injector injector;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     public MVPTestRunner(Class<?> klass) throws InitializationError {
         super(klass);
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Override
     protected void runChild(final FrameworkMethod method, final RunNotifier notifier) {
@@ -73,8 +73,8 @@ public class MVPTestRunner extends JUniceRunner {
 
             FilterChain filterChain = new FilterChain() {
                 @Override
-                public void doFilter(ServletRequest servletRequest,
-                                     ServletResponse servletResponse) {
+                public void doFilter(ServletRequest request,
+                                     ServletResponse response) {
                     MVPTestRunner.super.runChild(method, notifier);
                 }
             };
@@ -93,7 +93,7 @@ public class MVPTestRunner extends JUniceRunner {
         return injector;
     }
 
-	/*===========================================[ GETTER/SETTER ]================*/
+    /*===========================================[ GETTER/SETTER ]================*/
 
     private FilterConfig getFilterConfig() {
         FilterConfig filterConfig = mock(FilterConfig.class);

@@ -15,7 +15,10 @@ import com.google.inject.Injector;
 import com.vaadin.Application;
 
 import javax.servlet.ServletContext;
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -30,7 +33,7 @@ import static org.mockito.Mockito.when;
  */
 public abstract class AbstractMVPApplicationTestModule extends AbstractMVPApplicationModule {
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     protected AbstractMVPApplicationTestModule(Class<? extends Application> applicationClass) {
         super(createMockedServletContext(applicationClass));

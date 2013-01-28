@@ -3,14 +3,12 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.internal.mapping;
+package com.google.code.vaadin.internal.event;
 
-import com.google.code.vaadin.mvp.EventBus;
-import com.google.code.vaadin.mvp.EventBuses;
+import com.google.common.base.Preconditions;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
-import javax.inject.Singleton;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,21 +22,18 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Alexey Krylov (AleX)
  * @since 27.01.13
  */
-@Singleton
-public class MVPApplicationContext {
+class DefaultMVPApplicationContext implements MVPApplicationContext {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private Map<String, Collection> subscribersMap;
-    private EventBus globalModelEventBus;
     private Provider<HttpSession> httpSessionProvider;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
-    public void init(@EventBuses.GlobalModelEventBus EventBus globalModelEventBus, Provider<HttpSession> httpSessionProvider) {
+    protected void init(Provider<HttpSession> httpSessionProvider) {
         subscribersMap = new ConcurrentHashMap<String, Collection>();
-        this.globalModelEventBus = globalModelEventBus;
         this.httpSessionProvider = httpSessionProvider;
     }
 
@@ -55,12 +50,15 @@ public class MVPApplicationContext {
         subscribers.add(subscriber);
     }
 
-    public void destroySession(String sessionID) {
-        Collection subscribers = subscribersMap.remove(sessionID);
-        if (subscribers != null) {
-            for (Object subscriber : subscribers) {
-                globalModelEventBus.unsubscribe(subscriber);
-            }
-        }
+    @Override
+    public Collection getAndRemoveSessionScopedSubscribers(String sessionID) {
+        Preconditions.checkArgument(sessionID != null, "SessionID can't be null");
+        return subscribersMap.remove(sessionID);
+    }
+
+    @Override
+    public Collection getSessionScopedSubscribers(String sessionID) {
+        Preconditions.checkArgument(sessionID != null, "SessionID can't be null");
+        return subscribersMap.get(sessionID);
     }
 }

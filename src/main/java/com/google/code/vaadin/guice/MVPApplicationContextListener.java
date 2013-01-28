@@ -20,13 +20,16 @@ package com.google.code.vaadin.guice;
 
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventBusModule;
+import com.google.code.vaadin.internal.event.MVPApplicationContext;
 import com.google.code.vaadin.internal.logging.LoggerModule;
-import com.google.code.vaadin.internal.mapping.MVPApplicationContext;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
 import com.google.code.vaadin.internal.util.ApplicationModuleClassProvider;
+import com.google.code.vaadin.mvp.EventBus;
+import com.google.code.vaadin.mvp.EventBuses;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Key;
 import com.google.inject.Module;
 import com.google.inject.servlet.GuiceServletContextListener;
 import org.slf4j.Logger;
@@ -38,6 +41,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -87,7 +91,17 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
     public void sessionDestroyed(HttpSessionEvent se) {
         String sessionID = se.getSession().getId();
         logger.debug(String.format("Destroying data of session: [%s]", sessionID));
-        injector.getInstance(MVPApplicationContext.class).destroySession(sessionID);
+        unsubscribeSessionScopedSubscribers(sessionID);
+    }
+
+    protected void unsubscribeSessionScopedSubscribers(String sessionID) {
+        Collection sessionScopedSubscribers = injector.getInstance(MVPApplicationContext.class).getAndRemoveSessionScopedSubscribers(sessionID);
+        EventBus globalModelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.GlobalModelEventBus.class));
+        if (sessionScopedSubscribers != null) {
+            for (Object subscriber : sessionScopedSubscribers) {
+                globalModelEventBus.unsubscribe(subscriber);
+            }
+        }
     }
 
     /*===========================================[ GETTER/SETTER ]================*/

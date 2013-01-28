@@ -39,11 +39,17 @@ class DefaultEventBus implements EventBus {
 
     @Override
     public void subscribe(@NotNull Object subscriber) {
+        if (logger.isDebugEnabled()) {
+            logger.debug(String.format("Subscribing: [%s] -> [#%d]", subscriber, hashCode()));
+        }
         bus.subscribe(subscriber);
     }
 
     @Override
     public void unsubscribe(@NotNull Object subscriber) {
+        if (logger.isDebugEnabled()) {
+            logger.debug(String.format("Unsubscribing: [%s] -> [#%d]", subscriber, hashCode()));
+        }
         bus.unsubscribe(subscriber);
     }
 

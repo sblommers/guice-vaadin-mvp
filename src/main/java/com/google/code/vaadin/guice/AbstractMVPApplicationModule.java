@@ -5,7 +5,6 @@
 
 package com.google.code.vaadin.guice;
 
-import com.google.code.vaadin.internal.servlet.GuiceApplicationServlet;
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.name.Names;
@@ -22,7 +21,6 @@ import java.util.Map;
 
 /**
  * AbstractMVPApplicationModule - TODO: description
- * //TODO extends servletmodule
  *
  * @author Alexey Krylov
  * @since 24.01.13

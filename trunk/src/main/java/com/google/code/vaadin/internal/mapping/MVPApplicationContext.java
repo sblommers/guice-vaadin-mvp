@@ -5,8 +5,8 @@
 
 package com.google.code.vaadin.internal.mapping;
 
-import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.mvp.EventBus;
+import com.google.code.vaadin.mvp.EventBuses;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -36,7 +36,7 @@ public class MVPApplicationContext {
     /*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
-    public void init(@EventBusModule.GlobalModelEventBus EventBus globalModelEventBus, Provider<HttpSession> httpSessionProvider) {
+    public void init(@EventBuses.GlobalModelEventBus EventBus globalModelEventBus, Provider<HttpSession> httpSessionProvider) {
         subscribersMap = new ConcurrentHashMap<String, Collection>();
         this.globalModelEventBus = globalModelEventBus;
         this.httpSessionProvider = httpSessionProvider;

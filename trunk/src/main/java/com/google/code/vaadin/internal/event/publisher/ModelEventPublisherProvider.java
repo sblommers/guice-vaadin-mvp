@@ -5,8 +5,8 @@
 
 package com.google.code.vaadin.internal.event.publisher;
 
-import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.mvp.EventBus;
+import com.google.code.vaadin.mvp.EventBuses;
 import com.google.code.vaadin.mvp.ModelEventPublisher;
 import org.slf4j.Logger;
 
@@ -29,7 +29,7 @@ public class ModelEventPublisherProvider implements Provider<ModelEventPublisher
     /*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
-    public void init(Logger logger, @EventBusModule.ModelEventBus EventBus modelEventBus) {
+    public void init(Logger logger, @EventBuses.ModelEventBus EventBus modelEventBus) {
         this.logger = logger;
         this.modelEventBus = modelEventBus;
     }

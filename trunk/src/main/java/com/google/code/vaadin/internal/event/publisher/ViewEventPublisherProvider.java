@@ -5,8 +5,8 @@
 
 package com.google.code.vaadin.internal.event.publisher;
 
-import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.mvp.EventBus;
+import com.google.code.vaadin.mvp.EventBuses;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
 import org.slf4j.Logger;
 
@@ -30,8 +30,8 @@ public class ViewEventPublisherProvider implements Provider<ViewEventPublisher> 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Inject
-    public void init(Logger logger, @EventBusModule.ViewEventBus EventBus viewEventBus,
-                     @EventBusModule.GlobalViewEventBus EventBus globalViewEventBus) {
+    public void init(Logger logger, @EventBuses.ViewEventBus EventBus viewEventBus,
+                     @EventBuses.GlobalViewEventBus EventBus globalViewEventBus) {
         this.logger = logger;
         this.viewEventBus = viewEventBus;
         this.globalViewEventBus = globalViewEventBus;

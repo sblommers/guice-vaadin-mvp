@@ -16,6 +16,7 @@ import com.google.code.vaadin.internal.event.messagebus.ViewMessageBusProvider;
 import com.google.code.vaadin.internal.event.publisher.GlobalModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ViewEventPublisherProvider;
+import com.google.code.vaadin.internal.servlet.MVPApplicationContext;
 import com.google.code.vaadin.mvp.*;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;

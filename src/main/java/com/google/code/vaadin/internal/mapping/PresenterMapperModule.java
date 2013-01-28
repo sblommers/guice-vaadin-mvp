@@ -5,7 +5,6 @@
 
 package com.google.code.vaadin.internal.mapping;
 
-import com.google.code.vaadin.internal.event.MVPApplicationContext;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.internal.util.TypeUtil;

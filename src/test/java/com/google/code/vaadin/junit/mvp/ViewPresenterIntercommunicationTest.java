@@ -19,12 +19,8 @@
 package com.google.code.vaadin.junit.mvp;
 
 import com.google.code.vaadin.MVPApplicationTestModule;
-import com.google.code.vaadin.internal.mapping.ViewPresenterMappingContext;
 import com.google.code.vaadin.junit.MVPTestRunner;
-import com.google.code.vaadin.mvp.BasicPresenter;
-import com.google.code.vaadin.mvp.BasicView;
-import com.google.code.vaadin.mvp.TestPresenter;
-import com.google.code.vaadin.mvp.TestView;
+import com.google.code.vaadin.mvp.*;
 import com.google.inject.Injector;
 import org.junit.Assert;
 import org.junit.Test;

@@ -8,10 +8,7 @@ package com.google.code.vaadin.internal.mapping;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.internal.util.TypeUtil;
-import com.google.code.vaadin.mvp.AbstractMVPApplication;
-import com.google.code.vaadin.mvp.AbstractPresenter;
-import com.google.code.vaadin.mvp.AbstractView;
-import com.google.code.vaadin.mvp.View;
+import com.google.code.vaadin.mvp.*;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
@@ -56,6 +53,8 @@ public class PresenterMapperModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(ViewPresenterMappingContext.class).to(DefaultViewPresenterMappingContext.class);
+
         //1. find all presenters
         Reflections reflections = new Reflections(createReflectionsConfiguration());
         Set<Class<? extends AbstractPresenter>> subTypesOf = reflections.getSubTypesOf(AbstractPresenter.class);
@@ -102,7 +101,7 @@ public class PresenterMapperModule extends AbstractModule {
                         Injector injector = InjectorProvider.getInjector(servletContext);
                         AbstractPresenter presenter = injector.getInstance(presenterClass);
                         presenter.setView(view);
-                        ViewPresenterMappingContext mappingContext = injector.getInstance(ViewPresenterMappingContext.class);
+                        DefaultViewPresenterMappingContext mappingContext = injector.getInstance(DefaultViewPresenterMappingContext.class);
                         mappingContext.addMapping(view, presenter);
                         // Instantiate support for Presenter.viewOpened
                         injector.getInstance(ViewOpenedEventRedirector.class);

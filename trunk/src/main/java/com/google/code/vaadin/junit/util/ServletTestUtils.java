@@ -55,7 +55,6 @@ public class ServletTestUtils {
      */
     public static FilterChain newNoOpFilterChain() {
         return new FilterChain() {
-            @Override
             public void doFilter(ServletRequest request, ServletResponse response) {
             }
         };
@@ -151,7 +150,6 @@ public class ServletTestUtils {
     /*===========================================[ INNER CLASSES ]================*/
 
     private static class ThrowingInvocationHandler implements InvocationHandler {
-        @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             throw new UnsupportedOperationException("No methods are supported on this object");
         }
@@ -166,7 +164,6 @@ public class ServletTestUtils {
             id = UUID.randomUUID().toString();
         }
 
-        @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             String name = method.getName();
             if ("setAttribute".equals(name)) {

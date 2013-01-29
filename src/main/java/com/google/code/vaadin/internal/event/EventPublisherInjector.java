@@ -13,6 +13,8 @@ import com.google.inject.Key;
 import com.google.inject.MembersInjector;
 import com.google.inject.Scopes;
 import net.engio.mbassy.common.ReflectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 
@@ -23,6 +25,10 @@ import javax.servlet.ServletContext;
  * @since 26.01.13
  */
 class EventPublisherInjector<T> implements MembersInjector<T> {
+
+    /*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final Logger logger = LoggerFactory.getLogger(EventPublisherInjector.class);
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -53,10 +59,12 @@ class EventPublisherInjector<T> implements MembersInjector<T> {
                 injector.getInstance(DefaultMVPApplicationContext.class).registerSessionScopedSubscriber(instance);
                 viewEventBus.subscribe(instance);
                 modelEventBus.subscribe(instance);
+                logger.info(String.format("[%s] subscribed to ViewEventBus [#%d] and ModelEventBus [#%d]", instance.toString(), viewEventBus.hashCode(), modelEventBus.hashCode()));
             }
 
             EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.GlobalModelEventBus.class));
             modelEventBus.subscribe(instance);
+            logger.info(String.format("[%s] subscribed to GlobalModelEventBus [#%d]", instance, modelEventBus.hashCode()));
         }
     }
 }

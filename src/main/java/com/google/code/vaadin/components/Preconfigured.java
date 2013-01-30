@@ -105,4 +105,6 @@ public @interface Preconfigured {
     boolean newItemsAllowed() default false;
 
     int itemCaptionMode() default -1;
+
+    boolean localized() default true;
 }

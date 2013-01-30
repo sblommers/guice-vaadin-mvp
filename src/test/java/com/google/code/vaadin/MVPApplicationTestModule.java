@@ -19,6 +19,8 @@
 package com.google.code.vaadin;
 
 import com.google.code.vaadin.junit.AbstractMVPApplicationTestModule;
+import com.google.code.vaadin.mvp.Lang;
+import com.google.inject.servlet.ServletScopes;
 
 /**
  * MVPApplicationTestModule - TODO: description
@@ -38,11 +40,6 @@ public class MVPApplicationTestModule extends AbstractMVPApplicationTestModule {
 
     @Override
     protected void bindTextBundle() {
-        bind(TextBundle.class).toInstance(new TextBundle() {
-            @Override
-            public String getText(String key, Object... params) {
-                return String.format(key, params);
-            }
-        });
+        bind(TextBundle.class).to(Lang.class).in(ServletScopes.SESSION);
     }
 }

@@ -9,6 +9,7 @@ import com.google.code.vaadin.TextBundle;
 import com.google.code.vaadin.components.Preconfigured;
 import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.mvp.MVPApplicationException;
+import com.google.inject.Injector;
 import com.google.inject.MembersInjector;
 import com.vaadin.ui.*;
 
@@ -114,12 +115,10 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
         return component;
     }
 
-    @SuppressWarnings("OverlyComplexMethod")
     private void configureComponentApi(Component component, Preconfigured preconfigured) {
         component.setEnabled(preconfigured.enabled());
         component.setVisible(preconfigured.visible());
         component.setReadOnly(preconfigured.readOnly());
-        TextBundle textBundle = InjectorProvider.getInjector(servletContext).getInstance(TextBundle.class);
 
         String[] styleName = preconfigured.styleName();
         if (styleName.length > 0) {
@@ -128,31 +127,7 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
             }
         }
 
-        String caption = preconfigured.caption();
-        if (caption.isEmpty()) {
-            String captionKey = preconfigured.captionKey();
-            if (!captionKey.isEmpty()) {
-                if (textBundle != null) {
-                    component.setCaption(textBundle.getText(captionKey));
-                } else {
-                    component.setCaption(String.format("%s: No TextBundle implementation found!", captionKey));
-                }
-            }
-        } else {
-            component.setCaption(caption);
-        }
-
-        if (component instanceof Label) {
-            String labelValueKey = preconfigured.labelValueKey();
-            if (!labelValueKey.isEmpty()) {
-                Label label = (Label) component;
-                if (textBundle != null) {
-                    label.setValue(textBundle.getText(labelValueKey));
-                } else {
-                    label.setValue(String.format("%s: No TextBundle implementation found!", labelValueKey));
-                }
-            }
-        }
+        configureLocalization(component, preconfigured);
 
         String debugId = preconfigured.debugId();
         if (!debugId.isEmpty()) {
@@ -173,6 +148,44 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
             if (height > -1.0f) {
                 int heightUnits = preconfigured.heightUnits();
                 component.setHeight(height, heightUnits);
+            }
+        }
+    }
+
+    private void configureLocalization(Component component, Preconfigured preconfigured) {
+        Injector injector = InjectorProvider.getInjector(servletContext);
+        TextBundle textBundle = injector.getInstance(TextBundle.class);
+        LocalizableComponentsContainer componentsContainer = injector.getInstance(LocalizableComponentsContainer.class);
+
+        String caption = preconfigured.caption();
+        if (caption.isEmpty()) {
+            String captionKey = preconfigured.captionKey();
+            if (!captionKey.isEmpty()) {
+                if (textBundle != null) {
+                    component.setCaption(textBundle.getText(captionKey));
+                    if (preconfigured.localized()) {
+                        componentsContainer.addLocalizedCaption(component, captionKey);
+                    }
+                } else {
+                    component.setCaption(String.format("%s: No TextBundle implementation found!", captionKey));
+                }
+            }
+        } else {
+            component.setCaption(caption);
+        }
+
+        if (component instanceof Label) {
+            String labelValueKey = preconfigured.labelValueKey();
+            if (!labelValueKey.isEmpty()) {
+                Label label = (Label) component;
+                if (textBundle != null) {
+                    label.setValue(textBundle.getText(labelValueKey));
+                    if (preconfigured.localized()) {
+                        componentsContainer.addLocalizedLabelValue((Label) component, labelValueKey);
+                    }
+                } else {
+                    label.setValue(String.format("%s: No TextBundle implementation found!", labelValueKey));
+                }
             }
         }
     }

@@ -19,6 +19,7 @@
 package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.TextBundle;
+import com.google.code.vaadin.mvp.events.LocaleChangedEvent;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Window;
 import org.slf4j.Logger;
@@ -89,5 +90,16 @@ public abstract class ViewComponent extends CustomComponent {
      */
     protected AbstractMVPApplication getContextApplication() {
         return requestContext.getApplication();
+    }
+
+    @Observes
+    void localeChanged(LocaleChangedEvent localeChangedEvent) {
+        localize();
+    }
+
+    /**
+     * Override to localize the view. Firing a {@link LocaleChangedEvent} event will eventually invoke this method
+     */
+    protected void localize() {
     }
 }

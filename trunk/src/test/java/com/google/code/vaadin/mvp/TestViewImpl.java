@@ -19,6 +19,17 @@ public class TestViewImpl extends AbstractView implements TestView {
 
     private static final long serialVersionUID = 4317442441310926792L;
 
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
+
+    private boolean localChangedEventReceived;
+
+	/*===========================================[ CLASS METHODS ]================*/
+
+    @Override
+    protected void localize() {
+        localChangedEventReceived = true;
+    }
+
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
@@ -31,5 +42,12 @@ public class TestViewImpl extends AbstractView implements TestView {
     @Override
     protected void initView() {
 
+    }
+
+	/*===========================================[ GETTER/SETTER ]================*/
+
+    @Override
+    public boolean isLocaleChangedEventReceived() {
+        return localChangedEventReceived;
     }
 }

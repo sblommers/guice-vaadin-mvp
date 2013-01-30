@@ -32,4 +32,6 @@ public interface TestView extends View {
     /*===========================================[ INTERFACE METHODS ]==============*/
 
     void openContact();
+
+    boolean isLocaleChangedEventReceived();
 }

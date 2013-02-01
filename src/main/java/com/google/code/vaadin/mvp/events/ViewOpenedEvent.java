@@ -28,8 +28,8 @@ public class ViewOpenedEvent {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private final View view;
-    private final Class<? extends View> viewInterface;
+    private View view;
+    private Class<? extends View> viewInterface;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 

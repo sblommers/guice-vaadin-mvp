@@ -24,7 +24,7 @@ import java.util.Map;
  * @since 31.01.13
  */
 @SessionScoped
-class LocalizableComponentsContainer {
+class LocalizableComponentsRegistry {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 

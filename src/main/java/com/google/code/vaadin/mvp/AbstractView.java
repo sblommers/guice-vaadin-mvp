@@ -69,7 +69,7 @@ public abstract class AbstractView extends ViewComponent implements View {
     }
 
     @Override
-    protected final void initComponent() {
+    protected void initComponent() {
         initView();
     }
 

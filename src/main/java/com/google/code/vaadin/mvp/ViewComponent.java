@@ -53,13 +53,13 @@ public abstract class ViewComponent extends CustomComponent {
     /*===========================================[ CLASS METHODS ]================*/
 
     @Inject
-    protected final void init(ViewEventPublisher viewEventPublisher, RequestContext requestContext) {
+    protected void init(ViewEventPublisher viewEventPublisher, RequestContext requestContext) {
         logger = LoggerFactory.getLogger(getClass());
         this.viewEventPublisher = viewEventPublisher;
         this.requestContext = requestContext;
     }
 
-    public final void init() {
+    public void init() {
         initialized = false;
         initComponent();
         initialized = true;

@@ -11,7 +11,7 @@ package com.google.code.vaadin.mvp;
  * @author Alexey Krylov (lexx)
  * @since 28.01.13
  */
-public interface ViewPresenterMappingContext {
+public interface ViewPresenterMappingRegistry {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 

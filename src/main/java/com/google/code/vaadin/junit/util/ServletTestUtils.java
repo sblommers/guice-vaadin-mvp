@@ -55,6 +55,7 @@ public class ServletTestUtils {
      */
     public static FilterChain newNoOpFilterChain() {
         return new FilterChain() {
+            @Override
             public void doFilter(ServletRequest request, ServletResponse response) {
             }
         };
@@ -68,65 +69,7 @@ public class ServletTestUtils {
                 HttpServletRequest.class.getClassLoader(),
                 new Class[]{HttpServletRequest.class}, new ThrowingInvocationHandler());
 
-        return new HttpServletRequestWrapper(delegate) {
-            final Map<String, Object> attributes = Maps.newHashMap();
-            final HttpSession session = newFakeHttpSession();
-
-            @Override
-            public String getMethod() {
-                return "GET";
-            }
-
-            @Override
-            public Object getAttribute(String name) {
-                return attributes.get(name);
-            }
-
-            @Override
-            public void setAttribute(String name, Object value) {
-                attributes.put(name, value);
-            }
-
-            @Override
-            public Map getParameterMap() {
-                return ImmutableMap.of();
-            }
-
-            @Override
-            public String getRequestURI() {
-                return "/";
-            }
-
-            @Override
-            public String getContextPath() {
-                return "";
-            }
-
-            @Override
-            public String getHeader(String name) {
-                return "";
-            }
-
-            @Override
-            public String getParameter(String name) {
-                return name;
-            }
-
-            @Override
-            public String getServletPath() {
-                return "/";
-            }
-
-            @Override
-            public HttpSession getSession() {
-                return session;
-            }
-
-            @Override
-            public HttpSession getSession(boolean create) {
-                return session;
-            }
-        };
+        return new TestHttpServletRequestWrapper(delegate);
     }
 
     /**
@@ -150,6 +93,7 @@ public class ServletTestUtils {
     /*===========================================[ INNER CLASSES ]================*/
 
     private static class ThrowingInvocationHandler implements InvocationHandler {
+        @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             throw new UnsupportedOperationException("No methods are supported on this object");
         }
@@ -164,6 +108,8 @@ public class ServletTestUtils {
             id = UUID.randomUUID().toString();
         }
 
+        @SuppressWarnings("SuspiciousMethodCalls")
+        @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             String name = method.getName();
             if ("setAttribute".equals(name)) {
@@ -174,8 +120,74 @@ public class ServletTestUtils {
             } else if ("getId".equals(name)) {
                 return id;
             } else {
-                throw new UnsupportedOperationException();
+                throw new UnsupportedOperationException(method.getName());
             }
+        }
+    }
+
+    private static class TestHttpServletRequestWrapper extends HttpServletRequestWrapper {
+        private final Map<String, Object> attributes;
+        private final HttpSession session;
+
+        private TestHttpServletRequestWrapper(HttpServletRequest delegate) {
+            super(delegate);
+            attributes = Maps.newHashMap();
+            session = newFakeHttpSession();
+        }
+
+        @Override
+        public String getMethod() {
+            return "GET";
+        }
+
+        @Override
+        public Object getAttribute(String name) {
+            return attributes.get(name);
+        }
+
+        @Override
+        public void setAttribute(String name, Object value) {
+            attributes.put(name, value);
+        }
+
+        @Override
+        public Map getParameterMap() {
+            return ImmutableMap.of();
+        }
+
+        @Override
+        public String getRequestURI() {
+            return "/";
+        }
+
+        @Override
+        public String getContextPath() {
+            return "";
+        }
+
+        @Override
+        public String getHeader(String name) {
+            return "";
+        }
+
+        @Override
+        public String getParameter(String name) {
+            return name;
+        }
+
+        @Override
+        public String getServletPath() {
+            return "/";
+        }
+
+        @Override
+        public HttpSession getSession() {
+            return session;
+        }
+
+        @Override
+        public HttpSession getSession(boolean create) {
+            return session;
         }
     }
 }

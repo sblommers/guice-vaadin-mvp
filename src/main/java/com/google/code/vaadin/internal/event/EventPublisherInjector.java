@@ -32,7 +32,7 @@ class EventPublisherInjector<T> implements MembersInjector<T> {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private final ServletContext servletContext;
+    private ServletContext servletContext;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 

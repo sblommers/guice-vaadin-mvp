@@ -54,7 +54,7 @@ public class PresenterMapperModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(ViewPresenterMappingContext.class).to(DefaultViewPresenterMappingContext.class).in(ServletScopes.SESSION);
+        bind(ViewPresenterMappingRegistry.class).to(DefaultViewPresenterMappingRegistry.class).in(ServletScopes.SESSION);
 
         //1. find all presenters
         Reflections reflections = new Reflections(createReflectionsConfiguration());
@@ -102,8 +102,8 @@ public class PresenterMapperModule extends AbstractModule {
                         Injector injector = InjectorProvider.getInjector(servletContext);
                         AbstractPresenter presenter = injector.getInstance(presenterClass);
                         presenter.setView(view);
-                        DefaultViewPresenterMappingContext mappingContext = injector.getInstance(DefaultViewPresenterMappingContext.class);
-                        mappingContext.addMapping(view, presenter);
+                        DefaultViewPresenterMappingRegistry mappingRegistry = injector.getInstance(DefaultViewPresenterMappingRegistry.class);
+                        mappingRegistry.registerMapping(view, presenter);
                         // Instantiate support for Presenter.viewOpened
                         injector.getInstance(ViewOpenedEventRedirector.class);
                     }

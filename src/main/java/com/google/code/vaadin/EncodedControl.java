@@ -44,6 +44,7 @@ public class EncodedControl extends ResourceBundle.Control {
         if (!format.equals("java.properties")) {
             return super.newBundle(baseName, locale, format, loader, reload);
         }
+
         String bundleName = toBundleName(baseName, locale);
         ResourceBundle bundle = null;
         final String resourceName = toResourceName(bundleName, "properties");

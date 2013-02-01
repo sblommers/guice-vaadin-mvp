@@ -76,6 +76,7 @@ public class LocaleChangeTest {
 
         Assert.assertFalse("Received unexpected LocaleChangedEvent", view.isLocaleChangedEventReceived());
         lang.setLocale(Lang.EN_US);
+        view.openView();
         viewEventPublisher.publish(new LocaleChangedEvent(Lang.EN_US));
 
         Assert.assertEquals("Invalid label value", "label-" + Lang.EN_US.getLanguage(), label.getValue());

@@ -21,7 +21,7 @@ public class VaadinComponentPreconfigurationModule extends AbstractModule {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private final ServletContext servletContext;
+    private ServletContext servletContext;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 

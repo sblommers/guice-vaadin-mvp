@@ -7,7 +7,7 @@ package com.google.code.vaadin.internal.mapping;
 
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
-import com.google.code.vaadin.mvp.ViewPresenterMappingContext;
+import com.google.code.vaadin.mvp.ViewPresenterMappingRegistry;
 import com.google.inject.servlet.SessionScoped;
 
 import java.util.Map;
@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 25.01.13
  */
 @SessionScoped
-class DefaultViewPresenterMappingContext implements ViewPresenterMappingContext {
+class DefaultViewPresenterMappingRegistry implements ViewPresenterMappingRegistry {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -28,13 +28,13 @@ class DefaultViewPresenterMappingContext implements ViewPresenterMappingContext 
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    DefaultViewPresenterMappingContext() {
+    DefaultViewPresenterMappingRegistry() {
         mappings = new ConcurrentHashMap<View, AbstractPresenter>();
     }
 
     /*===========================================[ CLASS METHODS ]================*/
 
-    protected <V extends View, P extends AbstractPresenter<V>> void addMapping(V view, P presenter) {
+    protected void registerMapping(View view, AbstractPresenter presenter) {
         mappings.put(view, presenter);
     }
 

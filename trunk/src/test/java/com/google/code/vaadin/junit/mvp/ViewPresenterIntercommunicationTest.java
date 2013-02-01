@@ -57,8 +57,8 @@ public class ViewPresenterIntercommunicationTest {
     public void testIntercommunication() {
         view.openView();
 
-        ViewPresenterMappingContext mappingContext = injector.getInstance(ViewPresenterMappingContext.class);
-        TestPresenter presenter = mappingContext.getPresenterForView(view);
+        ViewPresenterMappingRegistry mappingRegistry = injector.getInstance(ViewPresenterMappingRegistry.class);
+        TestPresenter presenter = mappingRegistry.getPresenterForView(view);
         Assert.assertTrue("ViewOpenedEvent was not received", presenter.isViewOpened());
 
         view.openContact();
@@ -71,8 +71,8 @@ public class ViewPresenterIntercommunicationTest {
     public void testIntercommunicationWithViewWithoutInterface() {
         basicView.openView();
 
-        ViewPresenterMappingContext mappingContext = injector.getInstance(ViewPresenterMappingContext.class);
-        BasicPresenter presenter = mappingContext.getPresenterForView(basicView);
+        ViewPresenterMappingRegistry mappingRegistry = injector.getInstance(ViewPresenterMappingRegistry.class);
+        BasicPresenter presenter = mappingRegistry.getPresenterForView(basicView);
         Assert.assertTrue("ViewOpenedEvent was not received", presenter.isViewOpened());
 
         basicView.sampleButtonPressed();

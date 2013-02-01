@@ -6,7 +6,7 @@
 package com.google.code.vaadin.internal.mapping;
 
 import com.google.code.vaadin.mvp.AbstractPresenter;
-import com.google.code.vaadin.mvp.ViewPresenterMappingContext;
+import com.google.code.vaadin.mvp.ViewPresenterMappingRegistry;
 import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
 import com.google.inject.servlet.SessionScoped;
@@ -25,13 +25,13 @@ class ViewOpenedEventRedirector {
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
-    private ViewPresenterMappingContext mappingContext;
+    private ViewPresenterMappingRegistry mappingRegistry;
 
     /*===========================================[ CLASS METHODS ]================*/
 
     @Observes
     public void viewOpened(ViewOpenedEvent event) {
-        AbstractPresenter abstractPresenter = mappingContext.getPresenterForView(event.getView());
+        AbstractPresenter abstractPresenter = mappingRegistry.getPresenterForView(event.getView());
         //5. Call viewOpened if appropriate event received from view
         abstractPresenter.viewOpened();
     }

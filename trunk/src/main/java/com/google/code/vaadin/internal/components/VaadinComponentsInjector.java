@@ -155,7 +155,7 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
     private void configureLocalization(Component component, Preconfigured preconfigured) {
         Injector injector = InjectorProvider.getInjector(servletContext);
         TextBundle textBundle = injector.getInstance(TextBundle.class);
-        LocalizableComponentsContainer componentsContainer = injector.getInstance(LocalizableComponentsContainer.class);
+        LocalizableComponentsRegistry componentsRegistry = injector.getInstance(LocalizableComponentsRegistry.class);
 
         String caption = preconfigured.caption();
         if (caption.isEmpty()) {
@@ -164,7 +164,7 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
                 if (textBundle != null) {
                     component.setCaption(textBundle.getText(captionKey));
                     if (preconfigured.localized()) {
-                        componentsContainer.addLocalizedCaption(component, captionKey);
+                        componentsRegistry.addLocalizedCaption(component, captionKey);
                     }
                 } else {
                     component.setCaption(String.format("%s: No TextBundle implementation found!", captionKey));
@@ -181,7 +181,7 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
                 if (textBundle != null) {
                     label.setValue(textBundle.getText(labelValueKey));
                     if (preconfigured.localized()) {
-                        componentsContainer.addLocalizedLabelValue((Label) component, labelValueKey);
+                        componentsRegistry.addLocalizedLabelValue((Label) component, labelValueKey);
                     }
                 } else {
                     label.setValue(String.format("%s: No TextBundle implementation found!", labelValueKey));

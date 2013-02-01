@@ -59,7 +59,7 @@ public abstract class ViewComponent extends CustomComponent {
         this.requestContext = requestContext;
     }
 
-    protected final void init() {
+    public final void init() {
         initialized = false;
         initComponent();
         initialized = true;

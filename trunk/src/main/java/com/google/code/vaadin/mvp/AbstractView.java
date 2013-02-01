@@ -77,4 +77,17 @@ public abstract class AbstractView extends ViewComponent implements View {
     public Class<? extends View> getViewInterface() {
         return viewInterface;
     }
+
+    protected boolean isInitialized() {
+        return initialized;
+    }
+
+    @Override
+    protected void localize() {
+        if (initialized) {
+            doLocalize();
+        }
+    }
+
+    protected abstract void doLocalize();
 }

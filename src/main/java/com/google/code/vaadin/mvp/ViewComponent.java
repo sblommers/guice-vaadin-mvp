@@ -48,6 +48,7 @@ public abstract class ViewComponent extends CustomComponent {
     @com.google.inject.Inject(optional = true)
     private TextBundle textBundle;
     private RequestContext requestContext;
+    private boolean initialized;
 
     /*===========================================[ CLASS METHODS ]================*/
 
@@ -56,7 +57,12 @@ public abstract class ViewComponent extends CustomComponent {
         logger = LoggerFactory.getLogger(getClass());
         this.viewEventPublisher = viewEventPublisher;
         this.requestContext = requestContext;
+        initialized = false;
+        initComponent();
+        initialized = true;
     }
+
+    protected abstract void initComponent();
 
     protected String getText(String key, Object... params) {
         if (textBundle != null) {
@@ -94,12 +100,18 @@ public abstract class ViewComponent extends CustomComponent {
 
     @Observes
     void localeChanged(LocaleChangedEvent localeChangedEvent) {
-        localize();
+        if (initialized) {
+            localize();
+        }
     }
 
     /**
      * Override to localize the view. Firing a {@link LocaleChangedEvent} event will eventually invoke this method
      */
     protected void localize() {
+    }
+
+    protected boolean isInitialized() {
+        return initialized;
     }
 }

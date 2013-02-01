@@ -85,9 +85,9 @@ public abstract class AbstractView extends ViewComponent implements View {
     @Override
     protected void localize() {
         if (initialized) {
-            doLocalize();
+            localizeView();
         }
     }
 
-    protected abstract void doLocalize();
+    protected abstract void localizeView();
 }

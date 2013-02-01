@@ -20,8 +20,6 @@ package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
 
-import javax.inject.Inject;
-
 /**
  * Abstract implementation of MVP-pattern View.
  *
@@ -37,12 +35,12 @@ public abstract class AbstractView extends ViewComponent implements View {
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     protected Class<? extends View> viewInterface;
-    private boolean initialized;
+    private boolean viewInitialized;
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
-    @Inject
-    protected void init() {
+    @Override
+    protected void initComponent() {
         // Determine the view interface
         for (Class<?> clazz : getClass().getInterfaces()) {
             if (!clazz.equals(View.class)
@@ -59,9 +57,9 @@ public abstract class AbstractView extends ViewComponent implements View {
 
     @Override
     public void openView() {
-        if (!initialized) {
+        if (!viewInitialized) {
             initView();
-            initialized = true;
+            viewInitialized = true;
             logger.debug(String.format("View initialized: [%s#%d]", viewInterface.getName(), hashCode()));
         }
 
@@ -78,13 +76,12 @@ public abstract class AbstractView extends ViewComponent implements View {
         return viewInterface;
     }
 
-    protected boolean isInitialized() {
-        return initialized;
+    protected boolean isViewInitialized() {
+        return viewInitialized;
     }
 
-    @Override
     protected void localize() {
-        if (initialized) {
+        if (viewInitialized) {
             localizeView();
         }
     }

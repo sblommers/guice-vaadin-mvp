@@ -89,5 +89,7 @@ public abstract class AbstractView extends ViewComponent implements View {
         }
     }
 
-    protected abstract void localizeView();
+    protected void localizeView(){
+
+    }
 }

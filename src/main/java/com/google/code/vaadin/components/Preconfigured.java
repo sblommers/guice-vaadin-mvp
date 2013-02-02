@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.components;
 
+import com.google.code.vaadin.TextBundle;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.ui.Component;
 
@@ -29,7 +30,6 @@ import java.lang.annotation.*;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-//todo test injection of preconfigured into params
 @Documented
 @Target({ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
@@ -38,6 +38,8 @@ public @interface Preconfigured {
      * A key used for obtaining (localized) texts from TextBundle (assuming an
      * implementation of it is found). The acquired text is set as the
      * Component's caption.
+     *
+     * @see TextBundle
      */
     String captionKey() default "";
 
@@ -45,6 +47,8 @@ public @interface Preconfigured {
      * A key used for obtaining (localized) texts from TextBundle (assuming an
      * implementation of it is found). The acquired text is set as the Label's
      * value.
+     *
+     * @see TextBundle
      */
     String labelValueKey() default "";
 

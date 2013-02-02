@@ -35,13 +35,14 @@ import com.google.inject.servlet.GuiceServletContextListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
+import javax.servlet.*;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -51,7 +52,8 @@ import java.util.List;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-public class MVPApplicationContextListener extends GuiceServletContextListener implements HttpSessionListener {
+public class MVPApplicationContextListener extends GuiceServletContextListener implements HttpSessionListener,
+        ServletRequestListener {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
 
@@ -92,6 +94,32 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
         String sessionID = se.getSession().getId();
         logger.debug(String.format("Destroying data of session: [%s]", sessionID));
         unsubscribeSessionScopedSubscribers(sessionID);
+
+        //TODO: @PreDestroy for all session-scoped
+        HttpSession session = se.getSession();
+        Enumeration attributeNames = session.getAttributeNames();
+        while (attributeNames.hasMoreElements()) {
+            String name  =  attributeNames.nextElement().toString();
+            logger.info("SESSION: "+session.getAttribute(name));
+        }
+    }
+
+    @Override
+    public void requestInitialized(ServletRequestEvent sre) {
+        //TODO: @PostConstuct for all request-scoped
+        logger.info(sre.toString());
+    }
+
+    @Override
+    public void requestDestroyed(ServletRequestEvent sre) {
+        //TODO: @PreDestroy for all request-scoped
+        ServletRequest servletRequest = sre.getServletRequest();
+        Enumeration attributeNames = servletRequest.getAttributeNames();
+        while (attributeNames.hasMoreElements()) {
+            String name  =  attributeNames.nextElement().toString();
+            logger.info("REQUEST: "+servletRequest.getAttribute(name));
+        }
+        logger.info(sre.toString());
     }
 
     protected void unsubscribeSessionScopedSubscribers(String sessionID) {

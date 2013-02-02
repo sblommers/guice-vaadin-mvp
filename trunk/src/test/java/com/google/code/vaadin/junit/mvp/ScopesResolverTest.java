@@ -19,51 +19,44 @@
 package com.google.code.vaadin.junit.mvp;
 
 import com.google.code.vaadin.MVPApplicationTestModule;
+import com.google.code.vaadin.internal.util.ScopesResolver;
 import com.google.code.vaadin.junit.MVPTestRunner;
-import com.google.code.vaadin.mvp.Observes;
-import com.google.code.vaadin.mvp.ViewEventPublisher;
-import com.google.code.vaadin.mvp.events.ViewEvent;
+import com.google.code.vaadin.mvp.Lang;
+import com.google.inject.Binding;
+import com.google.inject.Injector;
+import com.sun.xml.internal.ws.client.RequestContext;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nnsoft.guice.junice.annotation.GuiceModules;
 
 import javax.inject.Inject;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 /**
- * EventPublisherTest - TODO: description
+ * ViewPresenterIntercommunicationTest - TODO: description
  *
- * @author Alexey Krylov
- * @since 24.01.13
+ * @author Alexey Krylov (AleX)
+ * @since 28.01.13
  */
 @RunWith(MVPTestRunner.class)
 @GuiceModules(modules = MVPApplicationTestModule.class)
-public class ViewEventPublisherTest {
+public class ScopesResolverTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
-    private ViewEventPublisher viewEventPublisher;
-
-    private boolean eventNotified;
+    private Injector injector;
 
     /*===========================================[ CLASS METHODS ]================*/
 
-    @Observes
-    public void when(ViewEvent viewEvent) {
-        eventNotified = true;
-    }
-
     @Test
-    public void eventPublisherNotNull() {
-        assertNotNull("Event publisher is null", viewEventPublisher);
-    }
+    public void testScopesHelper() {
+        //todo detect notscoped components. what if nonscoped component will be injected into the singleton
+        Binding<Lang> langBinding = injector.getBinding(Lang.class);
+        Assert.assertFalse("Lang is RequestScoped", ScopesResolver.isRequestScoped(langBinding));
+        Assert.assertTrue("Lang is not SessionScoped", ScopesResolver.isSessionScoped(langBinding));
 
-    @Test
-    public void eventNotified() {
-        viewEventPublisher.publish(new ViewEvent());
-        assertTrue("Event was not received", eventNotified);
+        RequestContext instance = injector.getInstance(RequestContext.class);
+        instance.toString();
     }
 }

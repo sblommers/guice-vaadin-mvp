@@ -32,8 +32,11 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 /**
- * EncodedControl - TODO: description
- *
+ * Special workaround for {@link ResourceBundle} to work with UTF-8 locales.
+ * Example code:
+ * <pre>
+ *    //todo
+ * </pre>
  * @author Alexey Krylov (lexx)
  * @since 01.02.13
  */

@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.junit.mvp;
 
-import com.google.code.vaadin.MVPApplicationTestModule;
+import com.google.code.vaadin.TextBundleTestModule;
 import com.google.code.vaadin.components.Preconfigured;
 import com.google.code.vaadin.junit.MVPTestRunner;
 import com.google.code.vaadin.mvp.Lang;
@@ -42,7 +42,7 @@ import javax.inject.Inject;
  * @since 28.01.13
  */
 @RunWith(MVPTestRunner.class)
-@GuiceModules(modules = MVPApplicationTestModule.class)
+@GuiceModules(modules = TextBundleTestModule.class)
 public class LocaleChangeTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

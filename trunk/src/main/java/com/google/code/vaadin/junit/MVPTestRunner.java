@@ -25,14 +25,20 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.servlet.GuiceFilter;
 import com.google.inject.servlet.GuiceFilterResetter;
+import com.vaadin.Application;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.nnsoft.guice.junice.JUniceRunner;
+import org.nnsoft.guice.junice.reflection.HandleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -54,7 +60,8 @@ public class MVPTestRunner extends JUniceRunner {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private static Injector injector;
+    private Injector injector;
+    private ServletContext servletContext;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
@@ -67,6 +74,7 @@ public class MVPTestRunner extends JUniceRunner {
     @Override
     protected void runChild(final FrameworkMethod method, final RunNotifier notifier) {
         try {
+            // ideas from guice-servlet JUnit-tests
             GuiceFilterResetter.reset();
             GuiceFilter filter = new GuiceFilter();
             filter.init(getFilterConfig());
@@ -87,25 +95,71 @@ public class MVPTestRunner extends JUniceRunner {
     }
 
     @Override
+    protected List<Module> inizializeInjector(Class<?> clazz) throws HandleException, InstantiationException, IllegalAccessException {
+        List<Module> modules = super.inizializeInjector(clazz);
+        servletContext = createServletContext();
+        modules.add(new BaseMVPApplicationTestModule(servletContext));
+        return modules;
+    }
+
+    protected ServletContext createServletContext() {
+        ServletContext servletContext = mock(ServletContext.class);
+        when(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION)).thenReturn(getApplicationClass().getName());
+        when(servletContext.getInitParameterNames()).thenReturn(Collections.enumeration(new HashSet()));
+
+        Injector delegate = (Injector) Proxy.newProxyInstance(
+                BaseMVPApplicationTestModule.class.getClassLoader(),
+                new Class[]{Injector.class}, new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                try {
+                    return method.invoke(injector, args);
+                } catch (InvocationTargetException e) {
+                    Throwable t = e.getCause();
+                    if (t != null) {
+                        throw t;
+                    } else {
+                        throw e;
+                    }
+                }
+            }
+        });
+
+        when(servletContext.getAttribute(Injector.class.getName())).thenReturn(delegate);
+        return servletContext;
+    }
+
+    protected Class<? extends Application> getApplicationClass() {
+        return MVPTestApplication.class;
+    }
+
+    @Override
     protected Injector createInjector(List<Module> modules) {
         Injector injector = super.createInjector(modules);
         this.injector = injector;
         return injector;
     }
 
-    /*===========================================[ GETTER/SETTER ]================*/
+	/*===========================================[ GETTER/SETTER ]================*/
 
     private FilterConfig getFilterConfig() {
         FilterConfig filterConfig = mock(FilterConfig.class);
-        ServletContext servletContext = mock(ServletContext.class);
-        when(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION)).thenReturn(getClass().getName());
-        when(servletContext.getInitParameterNames()).thenReturn(Collections.enumeration(new HashSet()));
-        when(servletContext.getAttribute(Injector.class.getName())).thenReturn(injector);
         when(filterConfig.getServletContext()).thenReturn(servletContext);
         return filterConfig;
     }
 
-    public static Injector getInjector() {
+    protected Injector getInjector() {
         return injector;
+    }
+
+	/*===========================================[ INNER CLASSES ]================*/
+
+    private static class MVPTestApplication extends Application{
+        private static final long serialVersionUID = 1558300559331144543L;
+
+        @Override
+        public void init() {
+
+        }
     }
 }

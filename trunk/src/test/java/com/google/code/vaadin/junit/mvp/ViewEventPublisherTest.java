@@ -18,14 +18,12 @@
 
 package com.google.code.vaadin.junit.mvp;
 
-import com.google.code.vaadin.MVPApplicationTestModule;
 import com.google.code.vaadin.junit.MVPTestRunner;
 import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
 import com.google.code.vaadin.mvp.events.ViewEvent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nnsoft.guice.junice.annotation.GuiceModules;
 
 import javax.inject.Inject;
 
@@ -39,7 +37,6 @@ import static org.junit.Assert.assertTrue;
  * @since 24.01.13
  */
 @RunWith(MVPTestRunner.class)
-@GuiceModules(modules = MVPApplicationTestModule.class)
 public class ViewEventPublisherTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

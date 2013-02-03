@@ -18,8 +18,8 @@
 
 package com.google.code.vaadin;
 
-import com.google.code.vaadin.junit.AbstractMVPApplicationTestModule;
 import com.google.code.vaadin.mvp.Lang;
+import com.google.inject.AbstractModule;
 import com.google.inject.servlet.ServletScopes;
 
 /**
@@ -28,18 +28,12 @@ import com.google.inject.servlet.ServletScopes;
  * @author Alexey Krylov (AleX)
  * @since 28.01.13
  */
-public class MVPApplicationTestModule extends AbstractMVPApplicationTestModule {
-
-    /*===========================================[ CONSTRUCTORS ]=================*/
-
-    public MVPApplicationTestModule() {
-        super(MVPTestApplication.class);
-    }
+public class TextBundleTestModule extends AbstractModule {
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    protected void bindTextBundle() {
+    protected void configure() {
         bind(TextBundle.class).to(Lang.class).in(ServletScopes.SESSION);
     }
 }

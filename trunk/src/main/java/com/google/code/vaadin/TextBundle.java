@@ -18,10 +18,11 @@
 
 package com.google.code.vaadin;
 
+import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
+
 /**
  * Interface for a bundle implementation used for obtaining (localized) texts.
- * If implemented, can be used by CDI Utils.
- * //TODO add support for autolocalization
+ * @see AbstractMVPApplicationModule#bindTextBundle()
  * @author Alexey Krylov
  * @since 23.01.13
  */

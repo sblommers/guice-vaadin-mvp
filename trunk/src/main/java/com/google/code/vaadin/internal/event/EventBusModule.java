@@ -29,7 +29,6 @@ import com.google.code.vaadin.internal.event.messagebus.ViewMessageBusProvider;
 import com.google.code.vaadin.internal.event.publisher.GlobalModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ViewEventPublisherProvider;
-import com.google.code.vaadin.internal.servlet.MVPApplicationContext;
 import com.google.code.vaadin.mvp.*;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
@@ -64,7 +63,7 @@ public class EventBusModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(MVPApplicationContext.class).to(DefaultMVPApplicationContext.class).in(Scopes.SINGLETON);
+        bind(EventBusSubscribersRegistry.class).to(DefaultEventBusSubscribersRegistry.class).in(Scopes.SINGLETON);
 
         // Registers all injectees as EventBus subscribers because we can't definitely say who is listening
         bindListener(Matchers.any(), new TypeListener() {

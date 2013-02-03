@@ -33,9 +33,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * AbstractMVPApplicationModule - TODO: description
+ * Base module for all guice-vaadin-mvp based applications.
+ * Application module class should be specified in web.xml with {@link MVPApplicationInitParameters#P_APPLICATION_MODULE}
+ * context parameter.
  *
  * @author Alexey Krylov
+ * @see MVPApplicationContextListener
  * @since 24.01.13
  */
 public abstract class AbstractMVPApplicationModule extends ServletModule {

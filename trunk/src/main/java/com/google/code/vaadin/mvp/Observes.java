@@ -21,9 +21,10 @@ package com.google.code.vaadin.mvp;
 import java.lang.annotation.*;
 
 /**
- * Observes - TODO: description
+ * Marks any method of any object as an event handler.
  *
  * @author Alexey Krylov
+ * @see EventBus
  * @since 23.01.13
  */
 @Target(ElementType.METHOD)

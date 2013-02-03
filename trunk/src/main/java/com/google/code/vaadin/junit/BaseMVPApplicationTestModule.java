@@ -23,20 +23,8 @@ import com.google.code.vaadin.internal.components.VaadinComponentPreconfiguratio
 import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
-import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
-import com.google.inject.Injector;
-import com.vaadin.Application;
 
 import javax.servlet.ServletContext;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-import java.util.Collections;
-import java.util.HashSet;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * TestMVPApplicationModule - TODO: description
@@ -44,39 +32,12 @@ import static org.mockito.Mockito.when;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-public abstract class AbstractMVPApplicationTestModule extends AbstractMVPApplicationModule {
+public class BaseMVPApplicationTestModule extends AbstractMVPApplicationModule {
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    protected AbstractMVPApplicationTestModule(Class<? extends Application> applicationClass) {
-        super(createMockedServletContext(applicationClass));
-    }
-
-    protected static ServletContext createMockedServletContext(Class<? extends Application> applicationClass) {
-        ServletContext servletContext = mock(ServletContext.class);
-        when(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION)).thenReturn(applicationClass.getName());
-        when(servletContext.getInitParameterNames()).thenReturn(Collections.enumeration(new HashSet()));
-
-        Injector delegate = (Injector) Proxy.newProxyInstance(
-                AbstractMVPApplicationTestModule.class.getClassLoader(),
-                new Class[]{Injector.class}, new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                try {
-                    return method.invoke(MVPTestRunner.getInjector(), args);
-                } catch (InvocationTargetException e) {
-                    Throwable t = e.getCause();
-                    if (t != null) {
-                        throw t;
-                    } else {
-                        throw e;
-                    }
-                }
-            }
-        });
-
-        when(servletContext.getAttribute(Injector.class.getName())).thenReturn(delegate);
-        return servletContext;
+    protected BaseMVPApplicationTestModule(ServletContext servletContext) {
+        super(servletContext);
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
@@ -87,6 +48,11 @@ public abstract class AbstractMVPApplicationTestModule extends AbstractMVPApplic
         install(createEventBusModule());
         install(createPresenterMapperModule());
         install(createComponentPreconfigurationModule());
+    }
+
+    @Override
+    protected void bindTextBundle() {
+
     }
 
     protected LoggerModule createLoggerModule() {

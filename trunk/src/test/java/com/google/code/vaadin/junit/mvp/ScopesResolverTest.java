@@ -18,7 +18,6 @@
 
 package com.google.code.vaadin.junit.mvp;
 
-import com.google.code.vaadin.MVPApplicationTestModule;
 import com.google.code.vaadin.internal.util.ScopesResolver;
 import com.google.code.vaadin.junit.MVPTestRunner;
 import com.google.code.vaadin.mvp.Lang;
@@ -28,7 +27,6 @@ import com.sun.xml.internal.ws.client.RequestContext;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nnsoft.guice.junice.annotation.GuiceModules;
 
 import javax.inject.Inject;
 
@@ -39,7 +37,6 @@ import javax.inject.Inject;
  * @since 28.01.13
  */
 @RunWith(MVPTestRunner.class)
-@GuiceModules(modules = MVPApplicationTestModule.class)
 public class ScopesResolverTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

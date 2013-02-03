@@ -21,7 +21,8 @@ package com.google.code.vaadin.mvp;
 import com.vaadin.ui.ComponentContainer;
 
 /**
- * Superinterface of each CDI Utils MVP-pattern View interface.
+ * Interface for each MVP-pattern View interface. It extends {@link ComponentContainer} to allow direct interface
+ * injection.
  *
  * @author Alexey Krylov
  * @since 23.01.13

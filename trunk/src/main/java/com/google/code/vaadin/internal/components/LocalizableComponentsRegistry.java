@@ -31,9 +31,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * LocalizableComponentsContainer - TODO: description
+ * Registry of localizable components.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
+ * @see VaadinComponentsInjector
  * @since 31.01.13
  */
 @SessionScoped
@@ -41,8 +42,10 @@ class LocalizableComponentsRegistry {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
+    @Inject
     private Logger logger;
 
+    @com.google.inject.Inject(optional = true)
     private TextBundle textBundle;
 
     private Map<Component, String> localizedCaptions;
@@ -50,10 +53,7 @@ class LocalizableComponentsRegistry {
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    @Inject
-    protected void init(Logger logger, TextBundle textBundle) {
-        this.logger = logger;
-        this.textBundle = textBundle;
+    LocalizableComponentsRegistry() {
         localizedCaptions = new HashMap<Component, String>();
         localizedLabelValues = new HashMap<Label, String>();
     }
@@ -63,7 +63,11 @@ class LocalizableComponentsRegistry {
     @Observes
     void localeChanged(LocaleChangedEvent localeChangedEvent) {
         logger.info("Locale changed to: " + localeChangedEvent.getLocale());
-        localize();
+        if (textBundle != null) {
+            localize();
+        } else {
+            logger.error("ERROR: No TextBundle implementation registered!");
+        }
         logger.debug("Localization finished");
     }
 

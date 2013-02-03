@@ -18,7 +18,6 @@
 
 package com.google.code.vaadin.junit.mvp;
 
-import com.google.code.vaadin.MVPApplicationTestModule;
 import com.google.code.vaadin.junit.MVPTestRunner;
 import com.google.code.vaadin.mvp.GlobalModelEventPublisher;
 import com.google.code.vaadin.mvp.ModelEventPublisher;
@@ -32,7 +31,6 @@ import com.google.inject.Scopes;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nnsoft.guice.junice.annotation.GuiceModules;
 
 import javax.inject.Inject;
 
@@ -46,7 +44,6 @@ import static org.junit.Assert.assertNotNull;
  * @since 24.01.13
  */
 @RunWith(MVPTestRunner.class)
-@GuiceModules(modules = MVPApplicationTestModule.class)
 public class EventBusComplexTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
@@ -114,7 +111,7 @@ public class EventBusComplexTest {
     @Test
     public void modelEventNotified() {
         modelEventPublisher.publish(new ModelEvent());
-        assertEquals("Event was not received", 1,  modelEventReceivedCount);
+        assertEquals("Event was not received", 1, modelEventReceivedCount);
     }
 
     @Test

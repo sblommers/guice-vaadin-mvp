@@ -18,14 +18,12 @@
 
 package com.google.code.vaadin.junit.mvp;
 
-import com.google.code.vaadin.MVPApplicationTestModule;
 import com.google.code.vaadin.junit.MVPTestRunner;
 import com.google.code.vaadin.mvp.TestPresenter;
 import com.google.inject.Injector;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nnsoft.guice.junice.annotation.GuiceModules;
 
 import javax.inject.Inject;
 
@@ -36,7 +34,6 @@ import javax.inject.Inject;
  * @since 24.01.13
  */
 @RunWith(MVPTestRunner.class)
-@GuiceModules(modules = MVPApplicationTestModule.class)
 public class PresenterInstantiationTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

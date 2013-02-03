@@ -27,9 +27,9 @@ import org.slf4j.LoggerFactory;
 import javax.validation.constraints.NotNull;
 
 /**
- * DefaultAccessibleEventBus - TODO: description
+ * Default {@link EventBus} implementation.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 26.01.13
  */
 class DefaultEventBus implements EventBus {
@@ -73,5 +73,11 @@ class DefaultEventBus implements EventBus {
             logger.debug(String.format("Event: [%s] -> [#%d]", event, hashCode()));
         }
         bus.post(event).now();
+    }
+
+
+    @Override
+    public String toString() {
+        return String.format("EventBus [#%d]", hashCode());
     }
 }

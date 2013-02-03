@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 /**
  * EventBus - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 26.01.13
  */
 public interface EventBus extends EventPublisher {

@@ -44,7 +44,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * PresenterMappingModule - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 25.01.13
  */
 public class PresenterMapperModule extends AbstractModule {

@@ -38,7 +38,7 @@ import javax.inject.Inject;
 /**
  * ViewPresenterIntercommunicationTest - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 28.01.13
  */
 @RunWith(MVPTestRunner.class)

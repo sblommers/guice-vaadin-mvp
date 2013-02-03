@@ -25,9 +25,9 @@ import net.engio.mbassy.IMessageBus;
 import javax.inject.Inject;
 
 /**
- * GlobalViewEventBusProvider - TODO: description
+ * Global View EventBus provider.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 26.01.13
  */
 public class GlobalViewEventBusProvider extends AbstractEventBusProvider {

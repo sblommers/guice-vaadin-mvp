@@ -21,7 +21,7 @@ package com.google.code.vaadin.mvp;
 import com.vaadin.ui.ComponentContainer;
 
 /**
- * Interface for each MVP-pattern View interface. It extends {@link ComponentContainer} to allow direct interface
+ * Interface for each View interface. It extends {@link ComponentContainer} to allow direct interface
  * injection.
  *
  * @author Alexey Krylov

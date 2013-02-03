@@ -22,10 +22,12 @@ import com.google.inject.AbstractModule;
 import com.google.inject.internal.Slf4jLoggerProvider;
 import org.slf4j.Logger;
 
+import javax.inject.Inject;
+
 /**
- * LoggerModule - TODO: description
+ * Adds support of Slf4j logger injection via {@link com.google.inject.Inject} and {@link Inject} annotations.
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 25.01.13
  */
 public class LoggerModule extends AbstractModule {

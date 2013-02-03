@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
  * <pre>
  *    //todo
  * </pre>
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 01.02.13
  */
 public class EncodedControl extends ResourceBundle.Control {

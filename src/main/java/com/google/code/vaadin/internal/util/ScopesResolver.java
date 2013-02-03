@@ -35,7 +35,7 @@ import java.util.Collection;
 /**
  * GuiceHelper - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 26.01.13
  */
 public class ScopesResolver {

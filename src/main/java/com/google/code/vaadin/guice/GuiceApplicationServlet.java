@@ -30,7 +30,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Provider constructs a new Application instance for each user.
+ * Constructs a new Application instance for each user.
  *
  * @author Alexey Krylov
  * @since 23.01.13

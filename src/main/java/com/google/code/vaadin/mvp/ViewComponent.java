@@ -29,7 +29,7 @@ import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 
 /**
- * Superclass for views and their subcomponents.
+ * Base class for views and their subcomponents.
  *
  * @author Alexey Krylov
  * @since 23.01.13

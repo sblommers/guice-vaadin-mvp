@@ -18,10 +18,13 @@
 
 package com.google.inject.servlet;
 
+import com.google.code.vaadin.junit.MVPTestRunner;
+
 /**
- * GuiceFilterResetter - TODO: description
+ * Exposed access to {@link GuiceFilter#reset()}. Required by JUnit-tests.
  *
- * @author Alexey Krylov (AleX)
+ * @see MVPTestRunner
+ * @author Alexey Krylov
  * @since 28.01.13
  */
 public class GuiceFilterResetter {

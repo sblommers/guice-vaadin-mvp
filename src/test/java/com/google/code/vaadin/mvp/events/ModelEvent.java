@@ -21,7 +21,7 @@ package com.google.code.vaadin.mvp.events;
 /**
  * ModelEvent - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 28.01.13
  */
 public class ModelEvent {

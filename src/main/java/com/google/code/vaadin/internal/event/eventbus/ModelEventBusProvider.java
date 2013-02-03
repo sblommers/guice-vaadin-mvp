@@ -25,9 +25,9 @@ import net.engio.mbassy.IMessageBus;
 import javax.inject.Inject;
 
 /**
- * ModelEventBusProvider - TODO: description
+ * Session-scoped Model EventBus provider.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 26.01.13
  */
 public class ModelEventBusProvider extends AbstractEventBusProvider {

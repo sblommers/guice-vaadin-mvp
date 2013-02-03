@@ -60,7 +60,6 @@ public abstract class AbstractView extends ViewComponent implements View {
     public void openView() {
         if (!isInitialized()) {
             initComponent();
-            setInitialized(true);
             logger.debug(String.format("View initialized: [%s#%d]", viewInterface.getName(), hashCode()));
         }
 
@@ -71,6 +70,7 @@ public abstract class AbstractView extends ViewComponent implements View {
     @Override
     protected void initComponent() {
         initView();
+        setInitialized(true);
     }
 
     /**

@@ -27,7 +27,7 @@ import javax.servlet.ServletContext;
 /**
  * ApplicationModuleClassProvider - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 25.01.13
  */
 public class ApplicationModuleClassProvider {

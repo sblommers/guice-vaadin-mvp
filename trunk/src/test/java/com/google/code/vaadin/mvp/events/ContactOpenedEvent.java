@@ -21,7 +21,7 @@ package com.google.code.vaadin.mvp.events;
 /**
  * ButtonClickedEvent - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 28.01.13
  */
 public class ContactOpenedEvent {

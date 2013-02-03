@@ -25,9 +25,10 @@ import com.google.code.vaadin.mvp.MVPApplicationException;
 import javax.servlet.ServletContext;
 
 /**
- * ApplicationClassProvider - TODO: description
+ * //todo
+ * Provides application implementation of {@link }MVPApplication
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 25.01.13
  */
 public class ApplicationClassProvider {

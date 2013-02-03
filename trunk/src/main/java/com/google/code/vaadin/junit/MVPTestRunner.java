@@ -49,7 +49,7 @@ import static org.mockito.Mockito.when;
 /**
  * MVPTestRunner - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 28.01.13
  */
 public class MVPTestRunner extends JUniceRunner {

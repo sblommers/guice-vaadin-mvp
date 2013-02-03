@@ -27,9 +27,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * MappingContext - TODO: description
+ * Default implementation of {@link ViewPresenterMappingRegistry}.
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
+ * @see PresenterMapperModule
  * @since 25.01.13
  */
 @SessionScoped

@@ -19,9 +19,9 @@
 package com.google.code.vaadin.internal.servlet;
 
 /**
- * MVPApplicationInitParameters - TODO: description
+ * Mandatory webapp init parameter names.
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 25.01.13
  */
 public interface MVPApplicationInitParameters {

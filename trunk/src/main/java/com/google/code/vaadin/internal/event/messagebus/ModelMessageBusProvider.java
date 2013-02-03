@@ -26,7 +26,7 @@ import net.engio.mbassy.BusConfiguration;
 /**
  * MessageBusProvider - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 26.01.13
  */
 public class ModelMessageBusProvider extends AbstractMessageBusProvider {

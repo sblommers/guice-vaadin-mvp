@@ -33,7 +33,7 @@ import javax.servlet.ServletContext;
 import java.lang.reflect.Field;
 
 /**
- * Injects configured Vaadin control into the Field marked with {@link Preconfigured} annotation.
+ * Injects configured Vaadin control into the {@link Field} marked with {@link Preconfigured} annotation.
  *
  * @author Alexey Krylov
  * @since 24.01.13

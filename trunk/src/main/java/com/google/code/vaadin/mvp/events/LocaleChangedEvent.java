@@ -23,7 +23,7 @@ import java.util.Locale;
 /**
  * LocaleChangedEvent - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 31.01.13
  */
 public class LocaleChangedEvent {

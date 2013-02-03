@@ -25,7 +25,7 @@ import com.google.inject.servlet.ServletScopes;
 /**
  * MVPApplicationTestModule - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 28.01.13
  */
 public class TextBundleTestModule extends AbstractModule {

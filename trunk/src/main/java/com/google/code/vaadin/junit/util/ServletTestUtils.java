@@ -38,7 +38,7 @@ import java.util.UUID;
 /**
  * ServletTestUtils - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 27.01.13
  */
 public class ServletTestUtils {

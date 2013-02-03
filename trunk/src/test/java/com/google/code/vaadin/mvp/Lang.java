@@ -26,7 +26,7 @@ import java.util.Locale;
 /**
  * Lang - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 31.01.13
  */
 @SessionScoped

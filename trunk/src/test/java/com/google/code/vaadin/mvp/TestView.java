@@ -23,7 +23,7 @@ import com.google.inject.ImplementedBy;
 /**
  * ITestView - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 28.01.13
  */
 @ImplementedBy(TestViewImpl.class)

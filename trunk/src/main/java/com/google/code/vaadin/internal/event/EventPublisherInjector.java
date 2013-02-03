@@ -34,7 +34,7 @@ import javax.servlet.ServletContext;
 /**
  * EventPublisherInjector - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 26.01.13
  */
 class EventPublisherInjector<T> implements MembersInjector<T> {

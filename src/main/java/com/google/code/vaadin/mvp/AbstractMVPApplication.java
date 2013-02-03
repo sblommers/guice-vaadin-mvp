@@ -18,7 +18,6 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.inject.servlet.SessionScoped;
 import com.vaadin.Application;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
@@ -34,7 +33,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-@SessionScoped
 public abstract class AbstractMVPApplication extends Application implements
         HttpServletRequestListener {
 

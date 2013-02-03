@@ -16,22 +16,22 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin;
+package com.google.code.vaadin.internal.event;
 
-import com.vaadin.Application;
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 /**
- * MVPTestApplication - TODO: description
+ * IMVPApplicationContext - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov (lexx)
  * @since 28.01.13
  */
-public class MVPTestApplication extends Application {
+public interface EventBusSubscribersRegistry {
 
-    /*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ INTERFACE METHODS ]==============*/
 
-    @Override
-    public void init() {
+    Collection getAndRemoveSessionScopedSubscribers(@NotNull String sessionID);
 
-    }
+    Collection getSessionScopedSubscribers(@NotNull String sessionID);
 }

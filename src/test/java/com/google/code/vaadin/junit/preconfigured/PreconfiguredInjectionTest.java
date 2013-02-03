@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.junit.preconfigured;
 
-import com.google.code.vaadin.MVPApplicationTestModule;
+import com.google.code.vaadin.TextBundleTestModule;
 import com.google.code.vaadin.components.Preconfigured;
 import com.google.code.vaadin.junit.MVPTestRunner;
 import com.vaadin.ui.Button;
@@ -37,7 +37,7 @@ import javax.inject.Inject;
  * @since 24.01.13
  */
 @RunWith(MVPTestRunner.class)
-@GuiceModules(modules = MVPApplicationTestModule.class)
+@GuiceModules(modules = TextBundleTestModule.class)
 public class PreconfiguredInjectionTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

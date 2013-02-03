@@ -69,7 +69,7 @@ class EventPublisherInjector<T> implements MembersInjector<T> {
             if (!Scopes.isSingleton(injector.getBinding(instanceClass))) {
                 EventBus viewEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.ViewEventBus.class));
                 EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.ModelEventBus.class));
-                injector.getInstance(DefaultMVPApplicationContext.class).registerSessionScopedSubscriber(instance);
+                injector.getInstance(DefaultEventBusSubscribersRegistry.class).registerSessionScopedSubscriber(instance);
                 viewEventBus.subscribe(instance);
                 modelEventBus.subscribe(instance);
                 logger.info(String.format("[%s] subscribed to ViewEventBus [#%d] and ModelEventBus [#%d]", instance.toString(), viewEventBus.hashCode(), modelEventBus.hashCode()));

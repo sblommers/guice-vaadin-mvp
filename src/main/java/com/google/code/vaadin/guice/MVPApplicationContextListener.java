@@ -20,9 +20,9 @@ package com.google.code.vaadin.guice;
 
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventBusModule;
-import com.google.code.vaadin.internal.servlet.MVPApplicationContext;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
+import com.google.code.vaadin.internal.event.EventBusSubscribersRegistry;
 import com.google.code.vaadin.internal.util.ApplicationModuleClassProvider;
 import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.EventBuses;
@@ -91,39 +91,41 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        String sessionID = se.getSession().getId();
+        HttpSession session = se.getSession();
+        String sessionID = session.getId();
         logger.debug(String.format("Destroying data of session: [%s]", sessionID));
         unsubscribeSessionScopedSubscribers(sessionID);
-
-        //TODO: @PreDestroy for all session-scoped
-        HttpSession session = se.getSession();
-        Enumeration attributeNames = session.getAttributeNames();
-        while (attributeNames.hasMoreElements()) {
-            String name  =  attributeNames.nextElement().toString();
-            logger.info("SESSION: "+session.getAttribute(name));
+        if (logger.isDebugEnabled()) {
+            Enumeration attributeNames = session.getAttributeNames();
+            while (attributeNames.hasMoreElements()) {
+                String name = attributeNames.nextElement().toString();
+                logger.debug("out <- SESSION: " + session.getAttribute(name));
+            }
         }
     }
 
     @Override
     public void requestInitialized(ServletRequestEvent sre) {
-        //TODO: @PostConstuct for all request-scoped
-        logger.info(sre.toString());
+        if (logger.isDebugEnabled()) {
+            logger.debug(String.format("Request initialized: [%s]", sre.getServletRequest()));
+        }
     }
 
     @Override
     public void requestDestroyed(ServletRequestEvent sre) {
-        //TODO: @PreDestroy for all request-scoped
-        ServletRequest servletRequest = sre.getServletRequest();
-        Enumeration attributeNames = servletRequest.getAttributeNames();
-        while (attributeNames.hasMoreElements()) {
-            String name  =  attributeNames.nextElement().toString();
-            logger.info("REQUEST: "+servletRequest.getAttribute(name));
+        ServletRequest request = sre.getServletRequest();
+        if (logger.isDebugEnabled()) {
+            logger.debug(String.format("Destroying data of request: [%s]", request));
+            Enumeration attributeNames = request.getAttributeNames();
+            while (attributeNames.hasMoreElements()) {
+                String name = attributeNames.nextElement().toString();
+                logger.debug("out <- REQUEST: " + request.getAttribute(name));
+            }
         }
-        logger.info(sre.toString());
     }
 
     protected void unsubscribeSessionScopedSubscribers(String sessionID) {
-        Collection sessionScopedSubscribers = injector.getInstance(MVPApplicationContext.class).getAndRemoveSessionScopedSubscribers(sessionID);
+        Collection sessionScopedSubscribers = injector.getInstance(EventBusSubscribersRegistry.class).getAndRemoveSessionScopedSubscribers(sessionID);
         EventBus globalModelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.GlobalModelEventBus.class));
         if (sessionScopedSubscribers != null) {
             for (Object subscriber : sessionScopedSubscribers) {

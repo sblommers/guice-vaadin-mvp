@@ -18,7 +18,6 @@
 
 package com.google.code.vaadin.internal.event;
 
-import com.google.code.vaadin.internal.servlet.MVPApplicationContext;
 import com.google.common.base.Preconditions;
 
 import javax.inject.Inject;
@@ -36,7 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Alexey Krylov (AleX)
  * @since 27.01.13
  */
-class DefaultMVPApplicationContext implements MVPApplicationContext {
+class DefaultEventBusSubscribersRegistry implements EventBusSubscribersRegistry {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

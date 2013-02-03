@@ -22,9 +22,12 @@ import com.google.code.vaadin.TextBundle;
 import com.google.code.vaadin.components.Preconfigured;
 import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.mvp.MVPApplicationException;
+import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
 import com.google.inject.MembersInjector;
 import com.vaadin.ui.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import java.lang.reflect.Field;
@@ -36,6 +39,10 @@ import java.lang.reflect.Field;
  * @since 24.01.13
  */
 class VaadinComponentsInjector<T> implements MembersInjector<T> {
+
+  	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final Logger logger = LoggerFactory.getLogger(VaadinComponentsInjector.class);
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -167,7 +174,12 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
 
     private void configureLocalization(Component component, Preconfigured preconfigured) {
         Injector injector = InjectorProvider.getInjector(servletContext);
-        TextBundle textBundle = injector.getInstance(TextBundle.class);
+        TextBundle textBundle = null;
+        try {
+            textBundle = injector.getInstance(TextBundle.class);
+        } catch (ConfigurationException e) {
+            logger.error("ERROR: No TextBundle implementation registered!", e);
+        }
         LocalizableComponentsRegistry componentsRegistry = injector.getInstance(LocalizableComponentsRegistry.class);
 
         String caption = preconfigured.caption();

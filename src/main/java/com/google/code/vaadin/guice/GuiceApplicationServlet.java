@@ -18,16 +18,9 @@
 
 package com.google.code.vaadin.guice;
 
-import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.vaadin.Application;
-import com.vaadin.terminal.gwt.server.AbstractApplicationServlet;
-
-import javax.inject.Named;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import com.vaadin.server.*;
 
 /**
  * Constructs a new Application instance for each user.
@@ -36,35 +29,31 @@ import javax.servlet.http.HttpServletRequest;
  * @since 23.01.13
  */
 @Singleton
-class GuiceApplicationServlet extends AbstractApplicationServlet {
+class GuiceApplicationServlet extends VaadinServlet implements SessionInitListener{
 
-    /*===========================================[ STATIC VARIABLES ]=============*/
+	/*===========================================[ STATIC VARIABLES ]=============*/
 
-    private static final long serialVersionUID = -999641550877695877L;
+    private static final long serialVersionUID = 1469564555655570905L;
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    protected Provider<Application> applicationProvider;
-    private Class applicationClass;
-
-    /*===========================================[ CONSTRUCTORS ]=================*/
-
+    /**
+     * Cannot use constructor injection. Container expects servlet to have no-arg public constructor
+     */
     @Inject
-    public void init(Provider<Application> applicationProvider,
-                     @Named(MVPApplicationInitParameters.P_APPLICATION) Class applicationClass) {
-        this.applicationProvider = applicationProvider;
-        this.applicationClass = applicationClass;
-    }
+    private UIProvider basicProvider;
 
-    /*===========================================[ INTERFACE METHODS ]============*/
+	/*===========================================[ CLASS METHODS ]================*/
 
     @Override
-    protected Class getApplicationClass() throws ClassNotFoundException {
-        return applicationClass;
+    protected void servletInitialized() {
+        getService().addSessionInitListener(this);
     }
 
+	/*===========================================[ INTERFACE METHODS ]============*/
+
     @Override
-    protected Application getNewApplication(HttpServletRequest request) throws ServletException {
-        return applicationProvider.get();
+    public void sessionInit(SessionInitEvent event) throws ServiceException {
+        event.getSession().addUIProvider(basicProvider);
     }
 }

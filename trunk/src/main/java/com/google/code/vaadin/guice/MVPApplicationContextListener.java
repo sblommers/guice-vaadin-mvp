@@ -20,9 +20,9 @@ package com.google.code.vaadin.guice;
 
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventBusModule;
+import com.google.code.vaadin.internal.event.EventBusSubscribersRegistry;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
-import com.google.code.vaadin.internal.event.EventBusSubscribersRegistry;
 import com.google.code.vaadin.internal.util.ApplicationModuleClassProvider;
 import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.EventBuses;
@@ -43,7 +43,6 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
-import java.util.List;
 
 /**
  * A Guice specific listener class is required to configure the Modules, i.e., the Servlet class, the Application
@@ -99,7 +98,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
             Enumeration attributeNames = session.getAttributeNames();
             while (attributeNames.hasMoreElements()) {
                 String name = attributeNames.nextElement().toString();
-                logger.debug("out <- SESSION: " + session.getAttribute(name));
+                logger.debug(String.format("SESSION attribute: [%s]", session.getAttribute(name)));
             }
         }
     }
@@ -119,13 +118,13 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
             Enumeration attributeNames = request.getAttributeNames();
             while (attributeNames.hasMoreElements()) {
                 String name = attributeNames.nextElement().toString();
-                logger.debug("out <- REQUEST: " + request.getAttribute(name));
+                logger.debug(String.format("REQUEST attribute: [%s]", request.getAttribute(name)));
             }
         }
     }
 
     protected void unsubscribeSessionScopedSubscribers(String sessionID) {
-        Collection sessionScopedSubscribers = injector.getInstance(EventBusSubscribersRegistry.class).getAndRemoveSessionScopedSubscribers(sessionID);
+        Iterable sessionScopedSubscribers = injector.getInstance(EventBusSubscribersRegistry.class).getAndRemoveSessionScopedSubscribers(sessionID);
         EventBus globalModelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.GlobalModelEventBus.class));
         if (sessionScopedSubscribers != null) {
             for (Object subscriber : sessionScopedSubscribers) {
@@ -148,7 +147,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
     protected Injector createInjector() {
         try {
             logger.info("Creating Injector...");
-            List<Module> modules = new ArrayList<Module>();
+            Collection<Module> modules = new ArrayList<Module>();
             modules.add(createLoggerModule());
             modules.add(createEventBusModule());
             modules.add(createApplicationModule());

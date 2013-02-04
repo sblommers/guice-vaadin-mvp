@@ -18,11 +18,12 @@
 
 package com.google.code.vaadin.components;
 
-import com.google.code.vaadin.TextBundle;
-import com.vaadin.terminal.Sizeable;
+import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.Component;
 
 import java.lang.annotation.*;
+
+import static com.vaadin.server.Sizeable.Unit;
 
 /**
  * Qualifier that can be used for declaratively defining Vaadin components configuration at Guice injection points.
@@ -38,77 +39,98 @@ public @interface Preconfigured {
      * A key used for obtaining (localized) texts from TextBundle (assuming an
      * implementation of it is found). The acquired text is set as the
      * Component's caption.
-     *
-     * @see TextBundle
      */
+
     String captionKey() default "";
 
     /**
      * A key used for obtaining (localized) texts from TextBundle (assuming an
      * implementation of it is found). The acquired text is set as the Label's
      * value.
-     *
-     * @see TextBundle
      */
+
     String labelValueKey() default "";
+
 
     boolean immediate() default false;
 
+
     boolean nullSelectionAllowed() default true;
+
 
     String[] styleName() default {};
 
+
     boolean spacing() default false;
+
 
     boolean[] margin() default false;
 
+
     boolean sizeFull() default false;
+
 
     float height() default -1.0f;
 
-    int heightUnits() default Sizeable.UNITS_PIXELS;
+
+    Unit heightUnits() default Unit.PIXELS;
+
 
     float width() default -1.0f;
 
-    int widthUnits() default Sizeable.UNITS_PIXELS;
+
+    Unit widthUnits() default Unit.PIXELS;
+
 
     Class<? extends Component> implementation() default Component.class;
 
+
     boolean readOnly() default false;
+
 
     boolean enabled() default true;
 
+
     boolean visible() default true;
+
 
     String caption() default "";
 
-    String debugId() default "";
+
+    String id() default "";
+
 
     boolean sizeUndefined() default false;
 
+
     String description() default "";
+
 
     boolean required() default false;
 
+
     String requiredError() default "";
+
 
     boolean invalidAllowed() default true;
 
+
     boolean invalidCommitted() default false;
 
-    boolean readTrough() default true;
-
-    boolean writeTrough() default true;
 
     boolean validationVisible() default true;
 
+
     int tabIndex() default -1;
+
 
     boolean multiSelect() default false;
 
+
     boolean newItemsAllowed() default false;
 
-    int itemCaptionMode() default -1;
+    AbstractSelect.ItemCaptionMode itemCaptionMode() default AbstractSelect.ItemCaptionMode.EXPLICIT_DEFAULTS_ID;
+
 
     boolean localized() default true;
 }

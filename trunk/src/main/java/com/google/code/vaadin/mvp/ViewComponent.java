@@ -21,9 +21,7 @@ package com.google.code.vaadin.mvp;
 import com.google.code.vaadin.TextBundle;
 import com.google.code.vaadin.mvp.events.LocaleChangedEvent;
 import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.Window;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
@@ -42,22 +40,17 @@ public abstract class ViewComponent extends CustomComponent {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
+    @Inject
     protected transient Logger logger;
+
+    @Inject
     private transient ViewEventPublisher viewEventPublisher;
 
     @com.google.inject.Inject(optional = true)
     private TextBundle textBundle;
-    private RequestContext requestContext;
     private boolean initialized;
 
     /*===========================================[ CLASS METHODS ]================*/
-
-    @Inject
-    protected void init(ViewEventPublisher viewEventPublisher, RequestContext requestContext) {
-        logger = LoggerFactory.getLogger(getClass());
-        this.viewEventPublisher = viewEventPublisher;
-        this.requestContext = requestContext;
-    }
 
     public void init() {
         initialized = false;
@@ -79,28 +72,6 @@ public abstract class ViewComponent extends CustomComponent {
 
     protected void fireViewEvent(@NotNull Object event) {
         viewEventPublisher.publish(event);
-    }
-
-    /**
-     * Returns the {@link Window} bound to the current request.
-     *
-     * @return
-     */
-    protected Window getContextWindow() {
-        Window window = requestContext.getWindow();
-        if (window == null) {
-            window = getContextApplication().getMainWindow();
-        }
-        return window;
-    }
-
-    /**
-     * Returns the {@link AbstractMVPApplication} bound to the current request.
-     *
-     * @return
-     */
-    protected AbstractMVPApplication getContextApplication() {
-        return requestContext.getApplication();
     }
 
     @Observes

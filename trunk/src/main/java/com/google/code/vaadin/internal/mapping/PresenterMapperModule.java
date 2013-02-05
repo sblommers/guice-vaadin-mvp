@@ -53,7 +53,7 @@ public class PresenterMapperModule extends AbstractModule {
 
     protected Map<Class<? extends View>, Class<? extends AbstractPresenter>> viewPresenterMap;
     protected Injector injector;
-    protected Class<? extends AbstractMVPApplication> applicationClass;
+    protected Class<? extends AbstractUI> applicationClass;
     protected ServletContext servletContext;
 
     /*===========================================[ CONSTRUCTORS ]=================*/

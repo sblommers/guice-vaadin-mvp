@@ -25,6 +25,8 @@ import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
 import com.google.inject.MembersInjector;
+import com.vaadin.server.Sizeable;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,28 +112,36 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
             configureAbstractSelectApi((AbstractSelect) component,
                     preconfigured);
         }
-        if (component instanceof AbstractLayout) {
-            boolean[] margin = preconfigured.margin();
-            if (margin.length == 1) {
-                ((AbstractLayout) component).setMargin(margin[0]);
-            } else if (margin.length == 2) {
-                Layout.MarginInfo mi = new Layout.MarginInfo(margin[0],
-                        margin[1], margin[0], margin[1]);
-                ((AbstractLayout) component).setMargin(mi);
-            } else if (margin.length == 3) {
-                Layout.MarginInfo mi = new Layout.MarginInfo(margin[0],
-                        margin[1], margin[2], margin[1]);
-                ((AbstractLayout) component).setMargin(mi);
-            } else if (margin.length == 4) {
-                Layout.MarginInfo mi = new Layout.MarginInfo(margin[0],
-                        margin[1], margin[2], margin[3]);
-                ((AbstractLayout) component).setMargin(mi);
+
+        MarginInfo mi = null;
+        boolean[] margin = preconfigured.margin();
+        if (margin.length == 1) {
+            mi = new MarginInfo(margin[0]);
+        } else if (margin.length == 2) {
+            mi = new MarginInfo(margin[0], margin[1], margin[0],
+                    margin[1]);
+        } else if (margin.length == 3) {
+            mi = new MarginInfo(margin[0], margin[1], margin[2],
+                    margin[1]);
+        } else if (margin.length == 4) {
+            mi = new MarginInfo(margin[0], margin[1], margin[2],
+                    margin[3]);
+        }
+
+        if (mi != null) {
+            if (component instanceof AbstractOrderedLayout) {
+                ((AbstractOrderedLayout) component).setMargin(mi);
+            } else if (component instanceof GridLayout) {
+                ((GridLayout) component).setMargin(mi);
             }
         }
+
         if (component instanceof AbstractOrderedLayout) {
             ((AbstractOrderedLayout) component)
                     .setSpacing(preconfigured.spacing());
         }
+
+
         return component;
     }
 
@@ -149,9 +159,9 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
 
         configureLocalization(component, preconfigured);
 
-        String debugId = preconfigured.debugId();
-        if (!debugId.isEmpty()) {
-            component.setDebugId(debugId);
+        String id = preconfigured.id();
+        if (!id.isEmpty()) {
+            component.setId(id);
         }
 
         if (preconfigured.sizeFull()) {
@@ -161,12 +171,12 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
         } else {
             float width = preconfigured.width();
             if (width > -1.0f) {
-                int widthUnits = preconfigured.widthUnits();
+                Sizeable.Unit widthUnits = preconfigured.widthUnits();
                 component.setWidth(width, widthUnits);
             }
             float height = preconfigured.height();
             if (height > -1.0f) {
-                int heightUnits = preconfigured.heightUnits();
+                Sizeable.Unit heightUnits = preconfigured.heightUnits();
                 component.setHeight(height, heightUnits);
             }
         }
@@ -215,12 +225,18 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
         }
     }
 
-    private static void configureFieldApi(com.vaadin.ui.Field field, Preconfigured preconfigured) {
-        String description = preconfigured.description();
-        if (!description.isEmpty()) {
-            field.setDescription(description);
+    private static void configureAbstractFieldApi(AbstractField abstractField, Preconfigured preconfigured) {
+        if (!(abstractField instanceof Form)) {
+            abstractField.setInvalidAllowed(preconfigured.invalidAllowed());
         }
+        abstractField.setInvalidCommitted(preconfigured.invalidCommitted());
+        abstractField.setValidationVisible(preconfigured.validationVisible());
+        if (preconfigured.tabIndex() > -1) {
+            abstractField.setTabIndex(preconfigured.tabIndex());
+        }
+    }
 
+    private static void configureFieldApi(com.vaadin.ui.Field field, Preconfigured preconfigured) {
         String requiredError = preconfigured.requiredError();
         if (!requiredError.isEmpty()) {
             field.setRequiredError(requiredError);
@@ -229,26 +245,14 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
         field.setRequired(preconfigured.required());
     }
 
-    private static void configureAbstractFieldApi(AbstractField abstractField, Preconfigured preconfigured) {
-        if (!(abstractField instanceof Form)) {
-            abstractField.setInvalidAllowed(preconfigured.invalidAllowed());
-        }
-        abstractField.setInvalidCommitted(preconfigured.invalidCommitted());
-        abstractField.setReadThrough(preconfigured.readTrough());
-        abstractField.setWriteThrough(preconfigured.writeTrough());
-        abstractField.setValidationVisible(preconfigured.validationVisible());
-        if (preconfigured.tabIndex() > -1) {
-            abstractField.setTabIndex(preconfigured.tabIndex());
-        }
-    }
-
-    private static void configureAbstractSelectApi(AbstractSelect abstractSelect, Preconfigured preconfigured) {
+    private static void configureAbstractSelectApi(AbstractSelect abstractSelect,
+                                                   Preconfigured preconfigured) {
         abstractSelect.setNullSelectionAllowed(preconfigured
                 .nullSelectionAllowed());
         abstractSelect.setMultiSelect(preconfigured.multiSelect());
         abstractSelect.setNewItemsAllowed(preconfigured.newItemsAllowed());
-        if (preconfigured.itemCaptionMode() > -1) {
-            abstractSelect.setItemCaptionMode(preconfigured.itemCaptionMode());
-        }
+        // if (preconfigured.itemCaptionMode() > -1) {
+        abstractSelect.setItemCaptionMode(preconfigured.itemCaptionMode());
+        // }
     }
 }

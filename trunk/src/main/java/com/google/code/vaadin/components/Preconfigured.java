@@ -51,86 +51,57 @@ public @interface Preconfigured {
 
     String labelValueKey() default "";
 
-
     boolean immediate() default false;
-
 
     boolean nullSelectionAllowed() default true;
 
-
     String[] styleName() default {};
-
 
     boolean spacing() default false;
 
-
     boolean[] margin() default false;
-
 
     boolean sizeFull() default false;
 
-
     float height() default -1.0f;
-
 
     Unit heightUnits() default Unit.PIXELS;
 
-
     float width() default -1.0f;
-
 
     Unit widthUnits() default Unit.PIXELS;
 
-
     Class<? extends Component> implementation() default Component.class;
-
 
     boolean readOnly() default false;
 
-
     boolean enabled() default true;
-
 
     boolean visible() default true;
 
-
     String caption() default "";
-
 
     String id() default "";
 
-
     boolean sizeUndefined() default false;
-
-
-    String description() default "";
-
 
     boolean required() default false;
 
-
     String requiredError() default "";
-
 
     boolean invalidAllowed() default true;
 
-
     boolean invalidCommitted() default false;
-
 
     boolean validationVisible() default true;
 
-
     int tabIndex() default -1;
 
-
     boolean multiSelect() default false;
-
 
     boolean newItemsAllowed() default false;
 
     AbstractSelect.ItemCaptionMode itemCaptionMode() default AbstractSelect.ItemCaptionMode.EXPLICIT_DEFAULTS_ID;
-
 
     boolean localized() default true;
 }

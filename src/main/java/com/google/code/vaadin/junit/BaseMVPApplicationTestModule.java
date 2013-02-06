@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.junit;
 
+import com.google.code.vaadin.TextBundle;
 import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventBusModule;
@@ -43,7 +44,7 @@ public class BaseMVPApplicationTestModule extends AbstractMVPApplicationModule {
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    protected void bindComponents() {
+    protected void installModules() {
         install(createLoggerModule());
         install(createEventBusModule());
         install(createPresenterMapperModule());
@@ -51,8 +52,11 @@ public class BaseMVPApplicationTestModule extends AbstractMVPApplicationModule {
     }
 
     @Override
-    protected void bindTextBundle() {
+    protected void bindComponents() {
+    }
 
+    @Override
+    protected void bindTextBundle() {
     }
 
     protected LoggerModule createLoggerModule() {

@@ -42,7 +42,7 @@ public class ApplicationClassProvider {
 
     public static Class<? extends AbstractUI> getApplicationClass(ServletContext context) {
         try {
-            return (Class<? extends AbstractUI>) Class.forName(context.getInitParameter(MVPApplicationInitParameters.P_APPLICATION));
+            return (Class<? extends AbstractUI>) Class.forName(context.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS));
         } catch (Exception e) {
             throw new MVPApplicationException(String.format("ERROR: Unable to instantiate class of [%s]. " +
                     "Please check your webapp deployment descriptor.", AbstractUI.class.getName()), e);

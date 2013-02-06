@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.mvp;
 
+import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 
 /**
@@ -27,7 +28,7 @@ import com.vaadin.ui.ComponentContainer;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-public interface View extends ComponentContainer {
+public interface View extends Component {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 

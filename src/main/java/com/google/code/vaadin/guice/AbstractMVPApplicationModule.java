@@ -22,8 +22,8 @@ import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.ServletModule;
-import com.google.inject.servlet.ServletScopes;
-import com.vaadin.Application;
+import com.vaadin.server.UIProvider;
+import com.vaadin.ui.UI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,13 +41,14 @@ import java.util.Map;
  * @see MVPApplicationContextListener
  * @since 24.01.13
  */
+@SuppressWarnings("AbstractClassExtendsConcreteClass")
 public abstract class AbstractMVPApplicationModule extends ServletModule {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     protected Logger logger;
     protected ServletContext servletContext;
-    protected Class<? extends Application> applicationClass;
+    protected Class uiClass;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
@@ -57,10 +58,10 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
 
         if (servletContext != null) {
             try {
-                applicationClass = (Class<? extends Application>) Class.forName(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION));
+                uiClass = Class.forName(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS));
             } catch (Exception e) {
                 throw new MVPApplicationException(String.format("ERROR: Unable to instantiate class of [%s]. " +
-                        "Please check your webapp deployment descriptor.", Application.class.getName()), e);
+                        "Please check your webapp deployment descriptor.", UI.class.getName()), e);
             }
         }
     }
@@ -71,15 +72,18 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
     protected void configureServlets() {
         if (servletContext != null) {
             serve("/*").with(GuiceApplicationServlet.class, extractInitParams(servletContext));
-            bind(Class.class).annotatedWith(Names.named(MVPApplicationInitParameters.P_APPLICATION)).toInstance(applicationClass);
-            bind(Application.class).to(applicationClass).in(ServletScopes.SESSION);
+            bind(Class.class).annotatedWith(Names.named(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS)).toInstance(uiClass);
+            bind(UIProvider.class).to(BaseUIProvider.class);
         } else {
             logger.info("Application running in test environment");
         }
 
+        installModules();
         bindTextBundle();
         bindComponents();
     }
+
+    protected abstract void installModules();
 
     protected abstract void bindTextBundle();
 

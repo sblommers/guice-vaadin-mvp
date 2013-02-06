@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin;
 
+import com.google.code.vaadin.localization.TextBundle;
 import com.google.code.vaadin.mvp.Lang;
 import com.google.inject.AbstractModule;
 import com.google.inject.servlet.ServletScopes;

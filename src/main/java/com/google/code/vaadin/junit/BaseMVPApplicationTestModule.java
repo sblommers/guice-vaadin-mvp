@@ -18,10 +18,10 @@
 
 package com.google.code.vaadin.junit;
 
-import com.google.code.vaadin.TextBundle;
 import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventBusModule;
+import com.google.code.vaadin.internal.localization.ResourceBundleInjectionModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
 
@@ -47,6 +47,7 @@ public class BaseMVPApplicationTestModule extends AbstractMVPApplicationModule {
     protected void installModules() {
         install(createLoggerModule());
         install(createEventBusModule());
+        install(createResourceBundleInjectionModule());
         install(createPresenterMapperModule());
         install(createComponentPreconfigurationModule());
     }
@@ -65,6 +66,10 @@ public class BaseMVPApplicationTestModule extends AbstractMVPApplicationModule {
 
     protected EventBusModule createEventBusModule() {
         return new EventBusModule(servletContext);
+    }
+
+    protected ResourceBundleInjectionModule createResourceBundleInjectionModule() {
+        return new ResourceBundleInjectionModule();
     }
 
     protected PresenterMapperModule createPresenterMapperModule() {

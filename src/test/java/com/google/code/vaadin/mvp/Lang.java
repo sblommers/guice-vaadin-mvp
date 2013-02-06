@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.mvp;
 
-import com.google.code.vaadin.TextBundle;
+import com.google.code.vaadin.localization.TextBundle;
 import com.google.inject.servlet.SessionScoped;
 
 import java.util.Locale;

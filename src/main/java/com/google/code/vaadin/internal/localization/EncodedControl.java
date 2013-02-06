@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin;
+package com.google.code.vaadin.internal.localization;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +33,7 @@ import java.util.ResourceBundle;
 
 /**
  * Special workaround for {@link ResourceBundle} to work with UTF-8 locales.
+ * http://stackoverflow.com/questions/4659929/how-to-use-utf-8-in-resource-properties-with-resourcebundle
  * Example code:
  * <pre>
  *    //todo
@@ -40,7 +41,7 @@ import java.util.ResourceBundle;
  * @author Alexey Krylov
  * @since 01.02.13
  */
-public class EncodedControl extends ResourceBundle.Control {
+class EncodedControl extends ResourceBundle.Control {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

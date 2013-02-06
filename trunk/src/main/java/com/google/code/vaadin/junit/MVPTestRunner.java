@@ -25,7 +25,8 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.servlet.GuiceFilter;
 import com.google.inject.servlet.GuiceFilterResetter;
-import com.vaadin.Application;
+import com.vaadin.server.VaadinRequest;
+import com.vaadin.ui.UI;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
@@ -104,7 +105,7 @@ public class MVPTestRunner extends JUniceRunner {
 
     protected ServletContext createServletContext() {
         ServletContext servletContext = mock(ServletContext.class);
-        when(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION)).thenReturn(getApplicationClass().getName());
+        when(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS)).thenReturn(getApplicationUIClass().getName());
         when(servletContext.getInitParameterNames()).thenReturn(Collections.enumeration(new HashSet()));
 
         Injector delegate = (Injector) Proxy.newProxyInstance(
@@ -129,8 +130,8 @@ public class MVPTestRunner extends JUniceRunner {
         return servletContext;
     }
 
-    protected Class<? extends Application> getApplicationClass() {
-        return MVPTestApplication.class;
+    protected Class<? extends UI> getApplicationUIClass() {
+        return MVPTestApplicationUI.class;
     }
 
     @Override
@@ -154,11 +155,12 @@ public class MVPTestRunner extends JUniceRunner {
 
 	/*===========================================[ INNER CLASSES ]================*/
 
-    private static class MVPTestApplication extends Application{
-        private static final long serialVersionUID = 1558300559331144543L;
+    private static class MVPTestApplicationUI extends UI{
+
+        private static final long serialVersionUID = 5297142885176304733L;
 
         @Override
-        public void init() {
+        protected void init(VaadinRequest request) {
 
         }
     }

@@ -28,6 +28,6 @@ public interface MVPApplicationInitParameters {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
-    String P_APPLICATION = "application";
+    String P_APPLICATION_UI_CLASS = "ui-class";
     String P_APPLICATION_MODULE = "application-module";
 }

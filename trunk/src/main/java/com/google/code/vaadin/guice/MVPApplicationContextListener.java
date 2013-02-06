@@ -137,14 +137,6 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
 
     @Override
     protected Injector getInjector() {
-        if (injector == null) {
-            injector = createInjector();
-        }
-
-        return injector;
-    }
-
-    protected Injector createInjector() {
         try {
             logger.info("Creating Injector...");
             Collection<Module> modules = new ArrayList<Module>();
@@ -156,7 +148,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
             modules.add(createComponentPreconfigurationModule());
 
             Injector injector = Guice.createInjector(modules);
-
+            this.injector = injector;
             logger.info("Injector successfully created");
             return injector;
         } catch (Exception e) {

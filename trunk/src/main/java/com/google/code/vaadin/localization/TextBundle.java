@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin;
+package com.google.code.vaadin.localization;
 
 import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
 

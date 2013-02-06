@@ -22,6 +22,7 @@ import com.google.code.vaadin.TextBundleTestModule;
 import com.google.code.vaadin.components.Preconfigured;
 import com.google.code.vaadin.junit.MVPTestRunner;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import org.junit.Assert;
 import org.junit.Test;
@@ -50,6 +51,10 @@ public class PreconfiguredInjectionTest {
     @Preconfigured(caption = "Begin")
     private Button button;
 
+    @Inject
+    @Preconfigured(caption = "testLabel")
+    private Label label;
+
     /*===========================================[ CLASS METHODS ]================*/
 
     @Test
@@ -57,5 +62,7 @@ public class PreconfiguredInjectionTest {
         Assert.assertTrue("Property 'nullSelectionAllowed' is not applied", table.isNullSelectionAllowed());
         Assert.assertTrue("Property 'immediate' is not applied", table.isImmediate());
         Assert.assertEquals("Property 'caption' is not applied", "Begin", button.getCaption());
+        Assert.assertEquals("testLabel", label.getCaption());
     }
+
 }

@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.internal.components;
 
-import com.google.code.vaadin.TextBundle;
+import com.google.code.vaadin.localization.TextBundle;
 import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.events.LocaleChangedEvent;
 import com.google.inject.servlet.SessionScoped;

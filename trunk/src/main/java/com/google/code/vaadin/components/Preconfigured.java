@@ -32,7 +32,7 @@ import static com.vaadin.server.Sizeable.Unit;
  * @since 23.01.13
  */
 @Documented
-@Target({ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
+@Target({ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Preconfigured {
     /**

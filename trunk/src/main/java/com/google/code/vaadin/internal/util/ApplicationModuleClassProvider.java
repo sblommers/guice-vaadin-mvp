@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.internal.util;
 
-import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
+import com.google.code.vaadin.application.AbstractMVPApplicationModule;
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 

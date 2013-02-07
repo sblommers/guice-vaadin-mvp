@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.mvp;
 
+import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
 
 import javax.inject.Inject;
@@ -28,6 +29,7 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 23.01.13
  */
+@UIScoped
 public abstract class AbstractView extends ViewComponent implements View {
 
     /*===========================================[ STATIC VARIABLES ]=============*/

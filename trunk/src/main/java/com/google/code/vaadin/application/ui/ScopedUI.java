@@ -16,8 +16,10 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin.application.ui;
 
+import com.google.code.vaadin.application.uiscope.UIKey;
+import com.google.code.vaadin.application.uiscope.UIScope;
 import com.vaadin.ui.UI;
 
 /**
@@ -26,7 +28,7 @@ import com.vaadin.ui.UI;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-public abstract class AbstractUI extends UI {
+public abstract class ScopedUI extends UI {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
 
@@ -34,9 +36,26 @@ public abstract class AbstractUI extends UI {
 
     /*===========================================[ CLASS METHODS ]================*/
 
+    private UIKey instanceKey;
+    private UIScope uiScope;
+
+    protected void setInstanceKey(UIKey instanceKey) {
+        this.instanceKey = instanceKey;
+    }
+
+    public UIKey getInstanceKey() {
+        return instanceKey;
+    }
+
+    protected void setScope(UIScope uiScope) {
+        this.uiScope = uiScope;
+    }
+
     @Override
     public void detach() {
+        if (uiScope != null) {
+            uiScope.releaseScope(getInstanceKey());
+        }
         super.detach();
-        //todo unbind context
     }
 }

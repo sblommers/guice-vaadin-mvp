@@ -18,8 +18,8 @@
 
 package com.google.code.vaadin.mvp;
 
+import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.localization.TextBundle;
-import com.google.inject.servlet.SessionScoped;
 
 import java.util.Locale;
 
@@ -29,7 +29,7 @@ import java.util.Locale;
  * @author Alexey Krylov
  * @since 31.01.13
  */
-@SessionScoped
+@UIScoped
 public class Lang implements TextBundle {
 
 	/*===========================================[ STATIC VARIABLES ]=============*/

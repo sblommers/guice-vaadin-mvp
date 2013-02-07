@@ -18,8 +18,8 @@
 
 package com.google.code.vaadin.internal.util;
 
+import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
-import com.google.code.vaadin.mvp.AbstractUI;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 
 import javax.servlet.ServletContext;
@@ -40,12 +40,12 @@ public class ApplicationClassProvider {
 
     /*===========================================[ CLASS METHODS ]================*/
 
-    public static Class<? extends AbstractUI> getApplicationClass(ServletContext context) {
+    public static Class<? extends ScopedUI> getApplicationClass(ServletContext context) {
         try {
-            return (Class<? extends AbstractUI>) Class.forName(context.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS));
+            return (Class<? extends ScopedUI>) Class.forName(context.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS));
         } catch (Exception e) {
             throw new MVPApplicationException(String.format("ERROR: Unable to instantiate class of [%s]. " +
-                    "Please check your webapp deployment descriptor.", AbstractUI.class.getName()), e);
+                    "Please check your webapp deployment descriptor.", ScopedUI.class.getName()), e);
         }
     }
 }

@@ -18,15 +18,18 @@
 
 package com.google.code.vaadin.internal.mapping;
 
+import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.internal.util.TypeUtil;
-import com.google.code.vaadin.mvp.*;
+import com.google.code.vaadin.mvp.AbstractPresenter;
+import com.google.code.vaadin.mvp.AbstractView;
+import com.google.code.vaadin.mvp.View;
+import com.google.code.vaadin.mvp.ViewPresenterMappingRegistry;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.Matchers;
-import com.google.inject.servlet.ServletScopes;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
@@ -53,7 +56,7 @@ public class PresenterMapperModule extends AbstractModule {
 
     protected Map<Class<? extends View>, Class<? extends AbstractPresenter>> viewPresenterMap;
     protected Injector injector;
-    protected Class<? extends AbstractUI> applicationClass;
+    protected Class<? extends ScopedUI> applicationClass;
     protected ServletContext servletContext;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
@@ -67,7 +70,7 @@ public class PresenterMapperModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(ViewPresenterMappingRegistry.class).to(DefaultViewPresenterMappingRegistry.class).in(ServletScopes.SESSION);
+        bind(ViewPresenterMappingRegistry.class).to(DefaultViewPresenterMappingRegistry.class);
 
         //1. find all presenters
         Reflections reflections = new Reflections(createReflectionsConfiguration());

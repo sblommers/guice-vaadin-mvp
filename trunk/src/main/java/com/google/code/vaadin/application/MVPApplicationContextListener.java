@@ -16,8 +16,9 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.guice;
+package com.google.code.vaadin.application;
 
+import com.google.code.vaadin.application.uiscope.UIScopeModule;
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.internal.event.EventBusSubscribersRegistry;
@@ -144,6 +145,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
             modules.add(createLoggerModule());
             modules.add(createEventBusModule());
             modules.add(createResourceBundleInjectionModule());
+            modules.add(createUIScopeModule());
             modules.add(createApplicationModule());
             modules.add(createPresenterMapperModule());
             // support for @Preconfigured last because it depends on TextBundle bindings in ApplicationModule
@@ -168,6 +170,10 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
 
     protected ResourceBundleInjectionModule createResourceBundleInjectionModule() {
         return new ResourceBundleInjectionModule();
+    }
+
+    protected UIScopeModule createUIScopeModule() {
+        return new UIScopeModule();
     }
 
     protected PresenterMapperModule createPresenterMapperModule() {

@@ -18,6 +18,8 @@
 
 package com.google.code.vaadin.internal.util;
 
+import com.google.code.vaadin.application.uiscope.UIScope;
+import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.inject.Binding;
 import com.google.inject.Injector;
 import com.google.inject.Scope;
@@ -47,6 +49,11 @@ public class ScopesResolver {
 
 	/*===========================================[ CLASS METHODS ]================*/
 
+    public static boolean isUIScoped(Binding<?> binding) {
+        UIScope current = UIScope.getCurrent();
+        return isScopedWith(binding, Arrays.asList(current), Arrays.<Class<? extends Annotation>>asList(UIScoped.class));
+    }
+
     public static boolean isSessionScoped(Binding<?> binding) {
         return isScopedWith(binding, Arrays.asList(ServletScopes.SESSION), Arrays.<Class<? extends Annotation>>asList(SessionScoped.class));
     }
@@ -55,7 +62,7 @@ public class ScopesResolver {
         return isScopedWith(binding, Arrays.asList(ServletScopes.REQUEST), Arrays.<Class<? extends Annotation>>asList(RequestScoped.class));
     }
 
-    public static boolean isScopedWith(Binding<?> binding, Collection<Scope> scopes, Collection<Class<? extends Annotation>> scopeAnnotations) {
+    public static boolean isScopedWith(Binding<?> binding, Collection<? extends Scope> scopes, Collection<Class<? extends Annotation>> scopeAnnotations) {
         Binding<?> bindingToAnalyze = binding;
 
         do {
@@ -88,9 +95,9 @@ public class ScopesResolver {
 
     private static class ScopeAnalyzer implements BindingScopingVisitor<Boolean> {
         private final Collection<Class<? extends Annotation>> scopeAnnotations;
-        private final Collection<Scope> scopes;
+        private final Collection<? extends Scope> scopes;
 
-        private ScopeAnalyzer(Collection<Scope> scopes, Collection<Class<? extends Annotation>> scopeAnnotations) {
+        private ScopeAnalyzer(Collection<? extends Scope> scopes, Collection<Class<? extends Annotation>> scopeAnnotations) {
             this.scopeAnnotations = scopeAnnotations;
             this.scopes = scopes;
         }

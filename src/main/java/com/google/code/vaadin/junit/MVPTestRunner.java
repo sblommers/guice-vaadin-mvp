@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.junit;
 
+import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.code.vaadin.junit.util.ServletTestUtils;
 import com.google.code.vaadin.mvp.MVPApplicationException;
@@ -155,7 +156,7 @@ public class MVPTestRunner extends JUniceRunner {
 
 	/*===========================================[ INNER CLASSES ]================*/
 
-    private static class MVPTestApplicationUI extends UI{
+    private static class MVPTestApplicationUI extends ScopedUI{
 
         private static final long serialVersionUID = 5297142885176304733L;
 

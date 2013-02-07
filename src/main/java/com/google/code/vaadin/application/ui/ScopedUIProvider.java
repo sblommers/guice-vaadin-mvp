@@ -49,7 +49,7 @@ public class ScopedUIProvider extends UIProvider {
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
-    protected ScopedUIProvider(Injector injector,
+    protected void init(Injector injector,
                                @Named(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS) Class uiClass,
                                UIKeyProvider uiKeyProvider) {
 
@@ -76,11 +76,13 @@ public class ScopedUIProvider extends UIProvider {
         // hold the key while UI is created
         CurrentInstance.set(UIKey.class, uiKey);
         // and set up the scope
-        UIScope.getCurrent().startScope(uiKey);
+        UIScope scope = UIScope.getCurrent();
+        scope.startScope(uiKey);
 
         // create the UI
         ScopedUI ui = (ScopedUI) injector.getInstance(uiClass);
         ui.setInstanceKey(uiKey);
+        ui.setScope(scope);
         logger.debug("returning instance of " + ui.getClass().getName() + " with key " + uiKey);
         return ui;
     }

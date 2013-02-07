@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.guice;
+package com.google.code.vaadin.application;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

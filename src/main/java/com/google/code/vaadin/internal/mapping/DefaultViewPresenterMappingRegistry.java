@@ -18,10 +18,10 @@
 
 package com.google.code.vaadin.internal.mapping;
 
+import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
 import com.google.code.vaadin.mvp.ViewPresenterMappingRegistry;
-import com.google.inject.servlet.SessionScoped;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,7 +33,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @see PresenterMapperModule
  * @since 25.01.13
  */
-@SessionScoped
+@UIScoped
 class DefaultViewPresenterMappingRegistry implements ViewPresenterMappingRegistry {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

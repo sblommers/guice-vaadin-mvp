@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.mvp;
 
+import com.google.code.vaadin.application.uiscope.UIScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +34,7 @@ import java.io.Serializable;
  * @author Alexey Krylov
  * @since 23.01.13
  */
+@UIScoped
 public abstract class AbstractPresenter<T extends View> implements Serializable {
 
     /*===========================================[ STATIC VARIABLES ]=============*/

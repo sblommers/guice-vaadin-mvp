@@ -51,7 +51,7 @@ public class ScopesResolverTest {
         //todo detect notscoped components. what if nonscoped component will be injected into the singleton
         Binding<Lang> langBinding = injector.getBinding(Lang.class);
         Assert.assertFalse("Lang is RequestScoped", ScopesResolver.isRequestScoped(langBinding));
-        Assert.assertTrue("Lang is not SessionScoped", ScopesResolver.isSessionScoped(langBinding));
+        Assert.assertTrue("Lang is not UIScoped", ScopesResolver.isUIScoped(langBinding));
 
         RequestContext instance = injector.getInstance(RequestContext.class);
         instance.toString();

@@ -18,10 +18,10 @@
 
 package com.google.code.vaadin.internal.components;
 
+import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.localization.TextBundle;
 import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.events.LocaleChangedEvent;
-import com.google.inject.servlet.SessionScoped;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import org.slf4j.Logger;
@@ -37,7 +37,7 @@ import java.util.Map;
  * @see VaadinComponentsInjector
  * @since 31.01.13
  */
-@SessionScoped
+@UIScoped
 class LocalizableComponentsRegistry {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/

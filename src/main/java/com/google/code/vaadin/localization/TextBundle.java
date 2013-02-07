@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.localization;
 
-import com.google.code.vaadin.guice.AbstractMVPApplicationModule;
+import com.google.code.vaadin.application.AbstractMVPApplicationModule;
 
 /**
  * Interface for a bundle implementation used for obtaining (localized) texts.

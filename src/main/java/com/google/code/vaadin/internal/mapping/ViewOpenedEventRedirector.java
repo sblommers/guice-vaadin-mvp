@@ -18,11 +18,11 @@
 
 package com.google.code.vaadin.internal.mapping;
 
+import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.mvp.AbstractPresenter;
-import com.google.code.vaadin.mvp.ViewPresenterMappingRegistry;
 import com.google.code.vaadin.mvp.Observes;
+import com.google.code.vaadin.mvp.ViewPresenterMappingRegistry;
 import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
-import com.google.inject.servlet.SessionScoped;
 
 import javax.inject.Inject;
 
@@ -32,7 +32,7 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 25.01.13
  */
-@SessionScoped
+@UIScoped
 class ViewOpenedEventRedirector {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

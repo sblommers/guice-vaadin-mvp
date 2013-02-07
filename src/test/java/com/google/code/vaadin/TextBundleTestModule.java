@@ -21,7 +21,6 @@ package com.google.code.vaadin;
 import com.google.code.vaadin.localization.TextBundle;
 import com.google.code.vaadin.mvp.Lang;
 import com.google.inject.AbstractModule;
-import com.google.inject.servlet.ServletScopes;
 
 /**
  * MVPApplicationTestModule - TODO: description
@@ -35,6 +34,6 @@ public class TextBundleTestModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(TextBundle.class).to(Lang.class).in(ServletScopes.SESSION);
+        bind(TextBundle.class).to(Lang.class);
     }
 }

@@ -47,7 +47,6 @@ public class ViewPresenterIntercommunicationTest {
     @Inject
     private BasicView basicView;
 
-
     /*===========================================[ CLASS METHODS ]================*/
 
     @Test

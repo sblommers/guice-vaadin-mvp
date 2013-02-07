@@ -24,7 +24,7 @@
     </filter-mapping>
 
     <listener>
-        <listener-class>com.google.code.vaadin.guice.MVPApplicationContextListener</listener-class>
+        <listener-class>com.google.code.vaadin.application.MVPApplicationContextListener</listener-class>
     </listener>
 
     <context-param>
@@ -34,7 +34,7 @@
     </context-param>
 
     <context-param>
-        <description>com.google.code.vaadin.guice.AbstractMVPApplicationModule Implementation</description>
+        <description>com.google.code.vaadin.application.AbstractMVPApplicationModule Implementation</description>
         <param-name>application-module</param-name>
         <param-value>com.mycomp.app.guice.MyMVPApplicationModule</param-value>
     </context-param>

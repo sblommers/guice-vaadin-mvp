@@ -19,16 +19,12 @@
 package com.google.code.vaadin.junit.mvp;
 
 import com.google.code.vaadin.internal.util.ScopesResolver;
-import com.google.code.vaadin.junit.MVPTestRunner;
+import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.Lang;
 import com.google.inject.Binding;
-import com.google.inject.Injector;
 import com.sun.xml.internal.ws.client.RequestContext;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import javax.inject.Inject;
 
 /**
  * ViewPresenterIntercommunicationTest - TODO: description
@@ -36,15 +32,9 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 28.01.13
  */
-@RunWith(MVPTestRunner.class)
-public class ScopesResolverTest {
+public class ScopesResolverTest extends AbstractMVPTest{
 
-    /*===========================================[ INSTANCE VARIABLES ]===========*/
-
-    @Inject
-    private Injector injector;
-
-    /*===========================================[ CLASS METHODS ]================*/
+	/*===========================================[ CLASS METHODS ]================*/
 
     @Test
     public void testScopesHelper() {

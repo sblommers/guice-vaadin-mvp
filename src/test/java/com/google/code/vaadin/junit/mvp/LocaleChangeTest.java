@@ -18,20 +18,20 @@
 
 package com.google.code.vaadin.junit.mvp;
 
+import com.google.code.vaadin.MVPTestModule;
 import com.google.code.vaadin.TextBundleTestModule;
 import com.google.code.vaadin.components.Preconfigured;
-import com.google.code.vaadin.junit.MVPTestRunner;
+import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.Lang;
 import com.google.code.vaadin.mvp.TestView;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
 import com.google.code.vaadin.mvp.events.LocaleChangedEvent;
-import com.google.inject.Injector;
+import com.google.inject.Stage;
+import com.mycila.testing.plugin.guice.GuiceContext;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Window;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.nnsoft.guice.junice.annotation.GuiceModules;
 
 import javax.inject.Inject;
 
@@ -41,14 +41,10 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 28.01.13
  */
-@RunWith(MVPTestRunner.class)
-@GuiceModules(modules = TextBundleTestModule.class)
-public class LocaleChangeTest {
+@GuiceContext(value = {TextBundleTestModule.class, MVPTestModule.class}, stage = Stage.PRODUCTION)
+public class LocaleChangeTest extends AbstractMVPTest{
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
-
-    @Inject
-    private Injector injector;
 
     @Inject
     @Preconfigured(labelValueKey = "label")

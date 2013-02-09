@@ -37,7 +37,6 @@ import java.util.Map;
  * @see VaadinComponentsInjector
  * @since 31.01.13
  */
-//@Singleton
 @UIScoped
 class LocalizableComponentsRegistry {
 

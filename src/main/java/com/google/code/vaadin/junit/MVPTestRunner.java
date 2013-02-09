@@ -100,7 +100,7 @@ public class MVPTestRunner extends JUniceRunner {
     protected List<Module> inizializeInjector(Class<?> clazz) throws HandleException, InstantiationException, IllegalAccessException {
         List<Module> modules = super.inizializeInjector(clazz);
         servletContext = createServletContext();
-        modules.add(new BaseMVPApplicationTestModule());
+        //modules.add(new AbstractMVPApplicationTestModule());
         return modules;
     }
 
@@ -110,7 +110,7 @@ public class MVPTestRunner extends JUniceRunner {
         when(servletContext.getInitParameterNames()).thenReturn(Collections.enumeration(new HashSet()));
 
         Injector delegate = (Injector) Proxy.newProxyInstance(
-                BaseMVPApplicationTestModule.class.getClassLoader(),
+                AbstractMVPApplicationTestModule.class.getClassLoader(),
                 new Class[]{Injector.class}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

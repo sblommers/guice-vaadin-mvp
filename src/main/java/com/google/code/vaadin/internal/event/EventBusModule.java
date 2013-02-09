@@ -62,6 +62,7 @@ public class EventBusModule extends AbstractModule {
         requestInjection(eventBusTypeListener);
         bindListener(Matchers.any(), eventBusTypeListener);
 
+
         // MessageBus
         bindMessageBus();
         // EventBus
@@ -90,13 +91,20 @@ public class EventBusModule extends AbstractModule {
         bind(ViewEventPublisher.class).toProvider(ViewEventPublisherProvider.class).in(UIScope.getCurrent());
     }
 
-    public static class EventBusTypeListener implements TypeListener {
+    private static class EventBusTypeListener implements TypeListener {
+
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
+
         @Inject
         private Provider<Injector> injectorProvider;
 
+	/*===========================================[ INTERFACE METHODS ]============*/
+
         @Override
         public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
-            encounter.register(new EventPublisherInjector<I>(injectorProvider.get()));
+            if (injectorProvider != null) {
+                encounter.register(new EventPublisherInjector<I>(injectorProvider.get()));
+            }
         }
     }
 }

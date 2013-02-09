@@ -139,7 +139,6 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
                     .setSpacing(preconfigured.spacing());
         }
 
-
         return component;
     }
 
@@ -188,7 +187,6 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
         } catch (ConfigurationException e) {
             logger.error("ERROR: No TextBundle implementation registered!", e);
         }
-        //todo в этот момент еще нет UIScoped приложения, т.к. инъекция идет раньше чем оно появляется
         LocalizableComponentsRegistry componentsRegistry = injector.getInstance(LocalizableComponentsRegistry.class);
 
         String caption = preconfigured.caption();

@@ -5,11 +5,10 @@
 
 package com.google.code.vaadin.junit.localization;
 
-import com.google.code.vaadin.junit.MVPTestRunner;
+import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.localization.InjectBundle;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.util.ResourceBundle;
 
@@ -19,8 +18,7 @@ import java.util.ResourceBundle;
  * @author Alexey Krylov (AleX)
  * @since 07.02.13
  */
-@RunWith(MVPTestRunner.class)
-public class ResourceBundleInjectionTest {
+public class ResourceBundleInjectionTest extends AbstractMVPTest{
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 

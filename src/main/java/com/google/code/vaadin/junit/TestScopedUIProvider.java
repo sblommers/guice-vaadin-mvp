@@ -15,12 +15,15 @@ import com.google.inject.Inject;
  * @since 09.02.13
  */
 public class TestScopedUIProvider extends ScopedUIProvider {
-/*===========================================[ STATIC VARIABLES ]=============*/
-/*===========================================[ INSTANCE VARIABLES ]===========*/
-/*===========================================[ CONSTRUCTORS ]=================*/
-/*===========================================[ CLASS METHODS ]================*/
+
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final long serialVersionUID = 2050144768207694166L;
+
+	/*===========================================[ CLASS METHODS ]================*/
+
     @Inject
     protected void initScope(){
-        createInstance(UITestBase.TestUI.class);
+        createInstance(uiClass);
     }
 }

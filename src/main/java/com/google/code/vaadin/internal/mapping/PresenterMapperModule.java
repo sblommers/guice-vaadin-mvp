@@ -77,14 +77,13 @@ public class PresenterMapperModule extends AbstractModule {
         Set<Class<? extends AbstractPresenter>> subTypesOf = reflections.getSubTypesOf(AbstractPresenter.class);
 
         //2. create context map: View interface -> Presenter class
-        viewPresenterMap = new ConcurrentHashMap<Class<? extends View>, Class<? extends AbstractPresenter>>();
+        viewPresenterMap = new ConcurrentHashMap<>();
         for (Class<? extends AbstractPresenter> presenterClass : subTypesOf) {
             Class<View> viewClass = TypeUtil.getTypeParameterClass(presenterClass, View.class);
             viewPresenterMap.put(viewClass, presenterClass);
         }
 
         //3. Add listener for all ViewInitialized event - see viewInitialized method
-        //bind(PresenterMapper.class).asEagerSingleton();
         ViewTypeListener viewTypeListener = new ViewTypeListener();
         requestInjection(viewTypeListener);
         bindListener(Matchers.any(), viewTypeListener);

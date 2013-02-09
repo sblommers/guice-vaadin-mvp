@@ -18,13 +18,7 @@
 
 package com.google.code.vaadin.application;
 
-import com.google.code.vaadin.application.uiscope.UIScopeModule;
-import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
-import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.internal.event.EventBusSubscribersRegistry;
-import com.google.code.vaadin.internal.localization.ResourceBundleInjectionModule;
-import com.google.code.vaadin.internal.logging.LoggerModule;
-import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
 import com.google.code.vaadin.internal.util.ApplicationModuleClassProvider;
 import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.EventBuses;
@@ -32,7 +26,6 @@ import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
-import com.google.inject.Module;
 import com.google.inject.servlet.GuiceServletContextListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,8 +35,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.Enumeration;
 
 /**
@@ -61,7 +53,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
     private static final Logger logger = LoggerFactory.getLogger(MVPApplicationContextListener.class);
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
-
+   //todo track shutdown to call PreDestroy
     private Class<? extends AbstractMVPApplicationModule> mvpApplicationModuleClass;
     private Injector injector;
     private ServletContext servletContext;
@@ -141,17 +133,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
     protected Injector getInjector() {
         try {
             logger.info("Creating Injector...");
-            Collection<Module> modules = new ArrayList<Module>();
-            modules.add(createLoggerModule());
-            modules.add(createEventBusModule());
-            modules.add(createResourceBundleInjectionModule());
-            modules.add(createUIScopeModule());
-            modules.add(createApplicationModule());
-            modules.add(createPresenterMapperModule());
-            // support for @Preconfigured last because it depends on TextBundle bindings in ApplicationModule
-            modules.add(createComponentPreconfigurationModule());
-
-            Injector injector = Guice.createInjector(modules);
+            Injector injector = Guice.createInjector(Arrays.asList(createApplicationModule()));
             this.injector = injector;
             logger.info("Injector successfully created");
             return injector;
@@ -160,32 +142,8 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
         }
     }
 
-    protected LoggerModule createLoggerModule() {
-        return new LoggerModule();
-    }
-
-    protected EventBusModule createEventBusModule() {
-        return new EventBusModule();
-    }
-
-    protected ResourceBundleInjectionModule createResourceBundleInjectionModule() {
-        return new ResourceBundleInjectionModule();
-    }
-
-    protected UIScopeModule createUIScopeModule() {
-        return new UIScopeModule();
-    }
-
-    protected PresenterMapperModule createPresenterMapperModule() {
-        return new PresenterMapperModule(servletContext);
-    }
-
     protected AbstractMVPApplicationModule createApplicationModule() throws Exception {
         Constructor<? extends AbstractMVPApplicationModule> constructor = mvpApplicationModuleClass.getConstructor(ServletContext.class);
         return constructor.newInstance(servletContext);
-    }
-
-    protected VaadinComponentPreconfigurationModule createComponentPreconfigurationModule() {
-        return new VaadinComponentPreconfigurationModule();
     }
 }

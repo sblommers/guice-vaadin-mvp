@@ -5,10 +5,9 @@
 
 package com.google.code.vaadin.junit.logger;
 
-import com.google.code.vaadin.junit.MVPTestRunner;
+import com.google.code.vaadin.junit.AbstractMVPTest;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;
@@ -19,8 +18,7 @@ import javax.inject.Inject;
  * @author Alexey Krylov (AleX)
  * @since 09.02.13
  */
-@RunWith(MVPTestRunner.class)
-public class LoggerInjectionTest {
+public class LoggerInjectionTest extends AbstractMVPTest{
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 

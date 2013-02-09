@@ -19,7 +19,7 @@
 package com.google.code.vaadin.junit.preconfigured;
 
 import com.google.code.vaadin.components.Preconfigured;
-import com.google.code.vaadin.junit.UITestBase;
+import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
@@ -36,7 +36,7 @@ import javax.inject.Inject;
  */
 //@RunWith(MVPTestRunner.class)
 //@GuiceModules(modules = TextBundleTestModule.class)
-public class PreconfiguredInjectionTest extends UITestBase{
+public class PreconfiguredInjectionTest extends AbstractMVPTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

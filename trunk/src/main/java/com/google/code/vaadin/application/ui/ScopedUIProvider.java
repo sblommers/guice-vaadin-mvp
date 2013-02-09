@@ -71,7 +71,7 @@ public class ScopedUIProvider extends UIProvider {
         return uiClass;
     }
 
-    protected UI createInstance(Class<? extends UI> uiClass) {
+    public UI createInstance(Class<? extends UI> uiClass) {
         UIKey uiKey = uiKeyProvider.get();
         // hold the key while UI is created
         CurrentInstance.set(UIKey.class, uiKey);

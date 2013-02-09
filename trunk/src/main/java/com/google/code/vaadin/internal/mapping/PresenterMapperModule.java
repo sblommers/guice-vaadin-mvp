@@ -20,7 +20,6 @@ package com.google.code.vaadin.internal.mapping;
 
 import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
-import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.internal.util.TypeUtil;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.AbstractView;
@@ -28,6 +27,7 @@ import com.google.code.vaadin.mvp.View;
 import com.google.code.vaadin.mvp.ViewPresenterMappingRegistry;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
+import com.google.inject.Provider;
 import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.spi.InjectionListener;
@@ -39,6 +39,7 @@ import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import java.util.Map;
 import java.util.Set;
@@ -55,7 +56,6 @@ public class PresenterMapperModule extends AbstractModule {
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     protected Map<Class<? extends View>, Class<? extends AbstractPresenter>> viewPresenterMap;
-    protected Injector injector;
     protected Class<? extends ScopedUI> applicationClass;
     protected ServletContext servletContext;
 
@@ -85,7 +85,9 @@ public class PresenterMapperModule extends AbstractModule {
 
         //3. Add listener for all ViewInitialized event - see viewInitialized method
         //bind(PresenterMapper.class).asEagerSingleton();
-        bindListener(Matchers.any(), new ViewTypeListener());
+        ViewTypeListener viewTypeListener = new ViewTypeListener();
+        requestInjection(viewTypeListener);
+        bindListener(Matchers.any(), viewTypeListener);
     }
 
     /*===========================================[ CLASS METHODS ]================*/
@@ -99,6 +101,9 @@ public class PresenterMapperModule extends AbstractModule {
     /*===========================================[ INNER CLASSES ]================*/
 
     private class ViewTypeListener implements TypeListener {
+        @Inject
+        private Provider<Injector> injectorProvider;
+
         @Override
         public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
             encounter.register(new InjectionListener<I>() {
@@ -115,7 +120,7 @@ public class PresenterMapperModule extends AbstractModule {
                         //4. Instantiate appropriate Presenter for View interface from event. Appropriate earlier created View will be injected - it's because SessionScope.
                         Class<? extends AbstractPresenter> presenterClass = viewPresenterMap.get(viewInterface);
 
-                        Injector injector = InjectorProvider.getInjector(servletContext);
+                        Injector injector = injectorProvider.get();
                         AbstractPresenter presenter = injector.getInstance(presenterClass);
                         presenter.setView(view);
                         DefaultViewPresenterMappingRegistry mappingRegistry = injector.getInstance(DefaultViewPresenterMappingRegistry.class);

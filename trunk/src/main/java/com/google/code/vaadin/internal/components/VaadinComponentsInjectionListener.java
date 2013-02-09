@@ -19,12 +19,14 @@
 package com.google.code.vaadin.internal.components;
 
 import com.google.code.vaadin.components.Preconfigured;
+import com.google.inject.Injector;
+import com.google.inject.Provider;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
 import com.vaadin.ui.Component;
 
-import javax.servlet.ServletContext;
+import javax.inject.Inject;
 import java.lang.reflect.Field;
 
 /**
@@ -38,13 +40,8 @@ class VaadinComponentsInjectionListener implements TypeListener {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private ServletContext servletContext;
-
-    /*===========================================[ CONSTRUCTORS ]=================*/
-
-    VaadinComponentsInjectionListener(ServletContext servletContext) {
-        this.servletContext = servletContext;
-    }
+    @Inject
+    private Provider<Injector> injectorProvider;
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
@@ -54,7 +51,7 @@ class VaadinComponentsInjectionListener implements TypeListener {
             if (Component.class.isAssignableFrom(field.getType())
                     && field.isAnnotationPresent(Preconfigured.class)) {
                 Preconfigured preconfigured = field.getAnnotation(Preconfigured.class);
-                encounter.register(new VaadinComponentsInjector<T>(field, preconfigured, servletContext));
+                encounter.register(new VaadinComponentsInjector<T>(field, preconfigured, injectorProvider.get()));
             }
         }
     }

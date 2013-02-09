@@ -18,16 +18,13 @@
 
 package com.google.code.vaadin.junit.preconfigured;
 
-import com.google.code.vaadin.TextBundleTestModule;
 import com.google.code.vaadin.components.Preconfigured;
-import com.google.code.vaadin.junit.MVPTestRunner;
+import com.google.code.vaadin.junit.UITestBase;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.nnsoft.guice.junice.annotation.GuiceModules;
 
 import javax.inject.Inject;
 
@@ -37,9 +34,9 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-@RunWith(MVPTestRunner.class)
-@GuiceModules(modules = TextBundleTestModule.class)
-public class PreconfiguredInjectionTest {
+//@RunWith(MVPTestRunner.class)
+//@GuiceModules(modules = TextBundleTestModule.class)
+public class PreconfiguredInjectionTest extends UITestBase{
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

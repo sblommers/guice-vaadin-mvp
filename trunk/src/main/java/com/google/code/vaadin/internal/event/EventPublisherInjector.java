@@ -18,7 +18,6 @@
 
 package com.google.code.vaadin.internal.event;
 
-import com.google.code.vaadin.internal.util.InjectorProvider;
 import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.EventBuses;
 import com.google.inject.Injector;
@@ -29,8 +28,6 @@ import net.engio.mbassy.common.ReflectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletContext;
-
 /**
  * EventPublisherInjector - TODO: description
  *
@@ -39,25 +36,24 @@ import javax.servlet.ServletContext;
  */
 class EventPublisherInjector<T> implements MembersInjector<T> {
 
-    /*===========================================[ STATIC VARIABLES ]=============*/
+	/*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final Logger logger = LoggerFactory.getLogger(EventPublisherInjector.class);
 
-    /*===========================================[ INSTANCE VARIABLES ]===========*/
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private ServletContext servletContext;
+    private Injector injector;
 
-    /*===========================================[ CONSTRUCTORS ]=================*/
+	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    EventPublisherInjector(ServletContext servletContext) {
-        this.servletContext = servletContext;
+    EventPublisherInjector(Injector injector) {
+        this.injector = injector;
     }
 
-    /*===========================================[ INTERFACE METHODS ]============*/
+	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     public void injectMembers(T instance) {
-        Injector injector = InjectorProvider.getInjector(servletContext);
         Class<?> instanceClass = instance.getClass();
 
         // Subscribe only if @Observes/@Listener methods present

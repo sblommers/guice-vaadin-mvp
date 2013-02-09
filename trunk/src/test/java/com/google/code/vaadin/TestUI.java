@@ -15,10 +15,12 @@ import com.vaadin.server.VaadinRequest;
  * @since 08.02.13
  */
 public class TestUI extends ScopedUI {
-/*===========================================[ STATIC VARIABLES ]=============*/
-/*===========================================[ INSTANCE VARIABLES ]===========*/
-/*===========================================[ CONSTRUCTORS ]=================*/
-/*===========================================[ CLASS METHODS ]================*/
+
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final long serialVersionUID = -6532654525605545841L;
+
+	/*===========================================[ CONSTRUCTORS ]=================*/
 
     @Override
     protected void init(VaadinRequest request) {

@@ -165,7 +165,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
     }
 
     protected EventBusModule createEventBusModule() {
-        return new EventBusModule(servletContext);
+        return new EventBusModule();
     }
 
     protected ResourceBundleInjectionModule createResourceBundleInjectionModule() {
@@ -186,6 +186,6 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
     }
 
     protected VaadinComponentPreconfigurationModule createComponentPreconfigurationModule() {
-        return new VaadinComponentPreconfigurationModule(servletContext);
+        return new VaadinComponentPreconfigurationModule();
     }
 }

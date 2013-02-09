@@ -19,7 +19,6 @@ import com.vaadin.server.UIProvider;
 import com.vaadin.ui.UI;
 import com.vaadin.util.CurrentInstance;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.inject.Named;
 
@@ -38,22 +37,23 @@ public class ScopedUIProvider extends UIProvider {
 
     private static final long serialVersionUID = -5773777009877153344L;
 
-    private static Logger logger = LoggerFactory.getLogger(ScopedUIProvider.class);
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private UIKeyProvider uiKeyProvider;
-    private Class uiClass;
+    protected Logger logger;
+    protected UIKeyProvider uiKeyProvider;
+    protected Class uiClass;
     protected Injector injector;
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
-    protected void init(Injector injector,
-                               @Named(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS) Class uiClass,
-                               UIKeyProvider uiKeyProvider) {
+    protected void init(Logger logger, Injector injector,
+                        @Named(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS) Class uiClass,
+                        UIKeyProvider uiKeyProvider) {
 
         Preconditions.checkArgument(ScopedUI.class.isAssignableFrom(uiClass), String.format("ERROR: %s is not subclass of ScopedUI", uiClass.getName()));
+        this.logger = logger;
         this.injector = injector;
         this.uiClass = uiClass;
         this.uiKeyProvider = uiKeyProvider;
@@ -72,6 +72,8 @@ public class ScopedUIProvider extends UIProvider {
     }
 
     public UI createInstance(Class<? extends UI> uiClass) {
+        Preconditions.checkArgument(ScopedUI.class.isAssignableFrom(uiClass), "ERROR: Invalid configuration - using ScopedUIProvider to instantiate no ScopedUI subclass");
+
         UIKey uiKey = uiKeyProvider.get();
         // hold the key while UI is created
         CurrentInstance.set(UIKey.class, uiKey);

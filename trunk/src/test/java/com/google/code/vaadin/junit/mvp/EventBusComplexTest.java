@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.junit.mvp;
 
-import com.google.code.vaadin.junit.MVPTestRunner;
+import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.GlobalModelEventPublisher;
 import com.google.code.vaadin.mvp.ModelEventPublisher;
 import com.google.code.vaadin.mvp.Observes;
@@ -26,11 +26,9 @@ import com.google.code.vaadin.mvp.ViewEventPublisher;
 import com.google.code.vaadin.mvp.events.GlobalModelEvent;
 import com.google.code.vaadin.mvp.events.ModelEvent;
 import com.google.code.vaadin.mvp.events.ViewEvent;
-import com.google.inject.Injector;
 import com.google.inject.Scopes;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
@@ -43,8 +41,7 @@ import static org.junit.Assert.assertNotNull;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-@RunWith(MVPTestRunner.class)
-public class EventBusComplexTest {
+public class EventBusComplexTest extends AbstractMVPTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -56,9 +53,6 @@ public class EventBusComplexTest {
 
     @Inject
     private GlobalModelEventPublisher globalModelEventPublisher;
-
-    @Inject
-    private Injector injector;
 
     private int viewEventReceivedCount;
     private int modelEventReceivedCount;

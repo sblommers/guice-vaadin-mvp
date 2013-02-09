@@ -18,12 +18,11 @@
 
 package com.google.code.vaadin.junit.mvp;
 
-import com.google.code.vaadin.junit.MVPTestRunner;
+import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
 import com.google.code.vaadin.mvp.events.ViewEvent;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
@@ -36,8 +35,7 @@ import static org.junit.Assert.assertTrue;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-@RunWith(MVPTestRunner.class)
-public class ViewEventPublisherTest {
+public class ViewEventPublisherTest extends AbstractMVPTest{
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

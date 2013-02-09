@@ -18,12 +18,11 @@
 
 package com.google.code.vaadin.junit.mvp;
 
-import com.google.code.vaadin.junit.MVPTestRunner;
+import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.TestPresenter;
 import com.google.inject.Injector;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
@@ -33,13 +32,7 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-@RunWith(MVPTestRunner.class)
-public class PresenterInstantiationTest {
-
-    /*===========================================[ INSTANCE VARIABLES ]===========*/
-
-    @Inject
-    private Injector injector;
+public class PresenterInstantiationTest extends AbstractMVPTest {
 
     /*===========================================[ CLASS METHODS ]================*/
 

@@ -19,6 +19,12 @@
 package com.google.code.vaadin.application;
 
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
+import com.google.code.vaadin.application.uiscope.UIScopeModule;
+import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
+import com.google.code.vaadin.internal.event.EventBusModule;
+import com.google.code.vaadin.internal.localization.ResourceBundleInjectionModule;
+import com.google.code.vaadin.internal.logging.LoggerModule;
+import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.common.base.Preconditions;
@@ -64,6 +70,14 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
 
     @Override
     protected void configureServlets() {
+        install(createLoggerModule());
+        install(createEventBusModule());
+        install(createResourceBundleInjectionModule());
+        install(createUIScopeModule());
+        install(createPresenterMapperModule());
+        // support for @Preconfigured last because it depends on TextBundle bindings in ApplicationModule
+        install(createComponentPreconfigurationModule());
+
         try {
             uiClass = Class.forName(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS));
         } catch (Exception e) {
@@ -78,6 +92,30 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
         installModules();
         bindTextBundle();
         bindComponents();
+    }
+
+    protected LoggerModule createLoggerModule() {
+        return new LoggerModule();
+    }
+
+    protected EventBusModule createEventBusModule() {
+        return new EventBusModule();
+    }
+
+    protected ResourceBundleInjectionModule createResourceBundleInjectionModule() {
+        return new ResourceBundleInjectionModule();
+    }
+
+    protected UIScopeModule createUIScopeModule() {
+        return new UIScopeModule();
+    }
+
+    protected PresenterMapperModule createPresenterMapperModule() {
+        return new PresenterMapperModule(servletContext);
+    }
+
+    protected VaadinComponentPreconfigurationModule createComponentPreconfigurationModule() {
+        return new VaadinComponentPreconfigurationModule();
     }
 
     protected void bindUIProvider() {

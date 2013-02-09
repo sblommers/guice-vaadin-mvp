@@ -32,21 +32,13 @@ import javax.servlet.ServletContext;
  */
 public class VaadinComponentPreconfigurationModule extends AbstractModule {
 
-    /*===========================================[ INSTANCE VARIABLES ]===========*/
-
-    private ServletContext servletContext;
-
-    /*===========================================[ CONSTRUCTORS ]=================*/
-
-    public VaadinComponentPreconfigurationModule(ServletContext servletContext) {
-        this.servletContext = servletContext;
-    }
-
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void configure() {
         // support for @Preconfigured
-        bindListener(Matchers.any(), new VaadinComponentsInjectionListener(servletContext));
+        VaadinComponentsInjectionListener listener = new VaadinComponentsInjectionListener();
+        requestInjection(listener);
+        bindListener(Matchers.any(), listener);
     }
 }

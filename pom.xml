@@ -63,6 +63,7 @@
         <version.guice-servlet>3.0</version.guice-servlet>
         <version.google-guava>13.0.1</version.google-guava>
         <version.mycila-guice>2.10.ga</version.mycila-guice>
+        <version.mycila-testing-guice>2.9.ga</version.mycila-testing-guice>
 
         <!-- Validation -->
 
@@ -151,6 +152,18 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${version.google-guava}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mycila</groupId>
+            <artifactId>mycila-guice</artifactId>
+            <version>${version.mycila-guice}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mycila.testing.plugins</groupId>
+            <artifactId>mycila-testing-guice2</artifactId>
+            <version>${version.mycila-testing-guice}</version>
         </dependency>
 
         <!-- Validation -->
@@ -244,18 +257,6 @@
             <version>${version.logback}</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-guice</artifactId>
-            <version>1.2.1</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -283,8 +284,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${version.maven-compiler-plugin}</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                     <encoding>${module.encoding}</encoding>
                 </configuration>
             </plugin>

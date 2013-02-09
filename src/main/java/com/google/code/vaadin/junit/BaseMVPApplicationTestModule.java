@@ -19,14 +19,27 @@
 package com.google.code.vaadin.junit;
 
 import com.google.code.vaadin.application.AbstractMVPApplicationModule;
+import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.code.vaadin.application.uiscope.UIScopeModule;
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.event.EventBusModule;
 import com.google.code.vaadin.internal.localization.ResourceBundleInjectionModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
+import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
+import com.google.inject.Injector;
+import com.vaadin.server.UIProvider;
 
 import javax.servlet.ServletContext;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.Collections;
+import java.util.HashSet;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * TestMVPApplicationModule - TODO: description
@@ -38,28 +51,62 @@ public class BaseMVPApplicationTestModule extends AbstractMVPApplicationModule {
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    protected BaseMVPApplicationTestModule(ServletContext servletContext) {
-        super(servletContext);
+    public BaseMVPApplicationTestModule() {
+        super(mock(ServletContext.class));
     }
 
-    /*===========================================[ INTERFACE METHODS ]============*/
+	/*===========================================[ CLASS METHODS ]================*/
+
+    @Override
+    protected void configureServlets() {
+        activateServletContext();
+        super.configureServlets();
+    }
+
+    @Override
+    protected void bindUIProvider() {
+        bind(UIProvider.class).to(ScopedUIProvider.class);
+        bind(ScopedUIProvider.class).to(TestScopedUIProvider.class);
+    }
+
+    protected ServletContext activateServletContext() {
+        when(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS)).thenReturn(UITestBase.TestUI.class.getName());
+        when(servletContext.getInitParameterNames()).thenReturn(Collections.enumeration(new HashSet()));
+
+
+        //todo provider
+        Injector delegate = (Injector) Proxy.newProxyInstance(
+                BaseMVPApplicationTestModule.class.getClassLoader(),
+                new Class[]{Injector.class}, new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                try {
+                    return method.invoke(null, args);
+                } catch (InvocationTargetException e) {
+                    Throwable t = e.getCause();
+                    if (t != null) {
+                        throw t;
+                    } else {
+                        throw e;
+                    }
+                }
+            }
+        });
+
+        when(servletContext.getAttribute(Injector.class.getName())).thenReturn(delegate);
+        return servletContext;
+    }
+
+	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void installModules() {
         install(createLoggerModule());
-        install(createEventBusModule());
+        //install(createEventBusModule());
         install(createResourceBundleInjectionModule());
         install(createUIScopeModule());
         install(createPresenterMapperModule());
         install(createComponentPreconfigurationModule());
-    }
-
-    @Override
-    protected void bindComponents() {
-    }
-
-    @Override
-    protected void bindTextBundle() {
     }
 
     protected LoggerModule createLoggerModule() {
@@ -67,7 +114,7 @@ public class BaseMVPApplicationTestModule extends AbstractMVPApplicationModule {
     }
 
     protected EventBusModule createEventBusModule() {
-        return new EventBusModule(servletContext);
+        return new EventBusModule();
     }
 
     protected ResourceBundleInjectionModule createResourceBundleInjectionModule() {
@@ -83,6 +130,14 @@ public class BaseMVPApplicationTestModule extends AbstractMVPApplicationModule {
     }
 
     protected VaadinComponentPreconfigurationModule createComponentPreconfigurationModule() {
-        return new VaadinComponentPreconfigurationModule(servletContext);
+        return new VaadinComponentPreconfigurationModule();
+    }
+
+    @Override
+    protected void bindComponents() {
+    }
+
+    @Override
+    protected void bindTextBundle() {
     }
 }

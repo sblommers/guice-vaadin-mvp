@@ -52,7 +52,6 @@ public class UIScope implements Scope {
 
             return createCacheEntry(uiKey);
         }
-
     }
 
     public boolean isCacheHasEntryFor(UIKey uiKey) {
@@ -106,7 +105,7 @@ public class UIScope implements Scope {
         @Override
         public T get() {
             // get the scope cache for the current UI
-            logger.debug("looking for a UIScoped instance of {}", key.getClass().getName());
+            logger.debug("looking for a UIScoped instance of {}", key);
 
             // get the current UIKey. It should always be there, as it is created before the UI
             UIKey uiKey = CurrentInstance.get(UIKey.class);

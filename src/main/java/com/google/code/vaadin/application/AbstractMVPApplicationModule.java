@@ -56,29 +56,32 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
 
     protected AbstractMVPApplicationModule(ServletContext servletContext) {
         Preconditions.checkNotNull(servletContext);
-
         logger = LoggerFactory.getLogger(getClass());
         this.servletContext = servletContext;
-
-        try {
-            uiClass = Class.forName(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS));
-        } catch (Exception e) {
-            throw new MVPApplicationException(String.format("ERROR: Unable to instantiate class of [%s]. " +
-                    "Please check your webapp deployment descriptor.", UI.class.getName()), e);
-        }
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     protected void configureServlets() {
+        try {
+            uiClass = Class.forName(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS));
+        } catch (Exception e) {
+            throw new MVPApplicationException(String.format("ERROR: Unable to instantiate class of [%s]. " +
+                    "Please check your webapp deployment descriptor.", UI.class.getName()), e);
+        }
+
         serve("/*").with(GuiceApplicationServlet.class, extractInitParams(servletContext));
         bind(Class.class).annotatedWith(Names.named(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS)).toInstance(uiClass);
-        bind(UIProvider.class).to(ScopedUIProvider.class);
+        bindUIProvider();
 
         installModules();
         bindTextBundle();
         bindComponents();
+    }
+
+    protected void bindUIProvider() {
+        bind(UIProvider.class).to(ScopedUIProvider.class);
     }
 
     protected abstract void installModules();

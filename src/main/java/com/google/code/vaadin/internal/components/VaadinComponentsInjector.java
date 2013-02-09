@@ -18,9 +18,8 @@
 
 package com.google.code.vaadin.internal.components;
 
-import com.google.code.vaadin.localization.TextBundle;
 import com.google.code.vaadin.components.Preconfigured;
-import com.google.code.vaadin.internal.util.InjectorProvider;
+import com.google.code.vaadin.localization.TextBundle;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
@@ -31,7 +30,6 @@ import com.vaadin.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletContext;
 import java.lang.reflect.Field;
 
 /**
@@ -50,14 +48,14 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
 
     private Field field;
     private Preconfigured preconfigured;
-    private ServletContext servletContext;
+    private final Injector injector;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    VaadinComponentsInjector(Field field, Preconfigured preconfigured, ServletContext servletContext) {
+    VaadinComponentsInjector(Field field, Preconfigured preconfigured, Injector injector) {
         this.field = field;
         this.preconfigured = preconfigured;
-        this.servletContext = servletContext;
+        this.injector = injector;
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
@@ -183,13 +181,14 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
     }
 
     private void configureLocalization(Component component, Preconfigured preconfigured) {
-        Injector injector = InjectorProvider.getInjector(servletContext);
+        //Injector injector = InjectorProvider.getInjector(servletContext);
         TextBundle textBundle = null;
         try {
             textBundle = injector.getInstance(TextBundle.class);
         } catch (ConfigurationException e) {
             logger.error("ERROR: No TextBundle implementation registered!", e);
         }
+        //todo в этот момент еще нет UIScoped приложения, т.к. инъекция идет раньше чем оно появляется
         LocalizableComponentsRegistry componentsRegistry = injector.getInstance(LocalizableComponentsRegistry.class);
 
         String caption = preconfigured.caption();

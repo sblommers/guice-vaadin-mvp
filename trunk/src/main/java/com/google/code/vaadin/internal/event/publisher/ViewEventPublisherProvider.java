@@ -38,16 +38,13 @@ public class ViewEventPublisherProvider implements Provider<ViewEventPublisher> 
 
     private Logger logger;
     private EventBus viewEventBus;
-    private EventBus globalViewEventBus;
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Inject
-    public void init(Logger logger, @EventBuses.ViewEventBus EventBus viewEventBus,
-                     @EventBuses.GlobalViewEventBus EventBus globalViewEventBus) {
+    public void init(Logger logger, @EventBuses.ViewEventBus EventBus viewEventBus) {
         this.logger = logger;
         this.viewEventBus = viewEventBus;
-        this.globalViewEventBus = globalViewEventBus;
     }
 
     @Override
@@ -56,11 +53,10 @@ public class ViewEventPublisherProvider implements Provider<ViewEventPublisher> 
             @Override
             public void publish(Object event) {
                 viewEventBus.publish(event);
-                globalViewEventBus.publish(event);
             }
         };
 
-        logger.debug(String.format("ViewEventPublisher created: [%d], global: [%d]", viewEventBus.hashCode(), globalViewEventBus.hashCode()));
+        logger.debug(String.format("ViewEventPublisher created: [%d]", viewEventBus.hashCode()));
         return viewEventPublisher;
     }
 }

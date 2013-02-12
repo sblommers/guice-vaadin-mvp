@@ -20,11 +20,9 @@ package com.google.code.vaadin.internal.event;
 
 import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.internal.event.eventbus.GlobalModelEventBusProvider;
-import com.google.code.vaadin.internal.event.eventbus.GlobalViewEventBusProvider;
 import com.google.code.vaadin.internal.event.eventbus.ModelEventBusProvider;
 import com.google.code.vaadin.internal.event.eventbus.ViewEventBusProvider;
 import com.google.code.vaadin.internal.event.messagebus.GlobalModelMessageBusProvider;
-import com.google.code.vaadin.internal.event.messagebus.GlobalViewMessageBusProvider;
 import com.google.code.vaadin.internal.event.messagebus.ModelMessageBusProvider;
 import com.google.code.vaadin.internal.event.messagebus.ViewMessageBusProvider;
 import com.google.code.vaadin.internal.event.publisher.GlobalModelEventPublisherProvider;
@@ -75,14 +73,12 @@ public class EventBusModule extends AbstractModule {
         bind(IMessageBus.class).annotatedWith(EventBuses.ModelEventBus.class).toProvider(ModelMessageBusProvider.class).in(UIScope.getCurrent());
         bind(IMessageBus.class).annotatedWith(EventBuses.ViewEventBus.class).toProvider(ViewMessageBusProvider.class).in(UIScope.getCurrent());
         bind(IMessageBus.class).annotatedWith(EventBuses.GlobalModelEventBus.class).toProvider(GlobalModelMessageBusProvider.class).in(Scopes.SINGLETON);
-        bind(IMessageBus.class).annotatedWith(EventBuses.GlobalViewEventBus.class).toProvider(GlobalViewMessageBusProvider.class).in(Scopes.SINGLETON);
     }
 
     private void bindEventBus() {
         bind(EventBus.class).annotatedWith(EventBuses.ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(UIScope.getCurrent());
         bind(EventBus.class).annotatedWith(EventBuses.ViewEventBus.class).toProvider(ViewEventBusProvider.class).in(UIScope.getCurrent());
         bind(EventBus.class).annotatedWith(EventBuses.GlobalModelEventBus.class).toProvider(GlobalModelEventBusProvider.class).in(Scopes.SINGLETON);
-        bind(EventBus.class).annotatedWith(EventBuses.GlobalViewEventBus.class).toProvider(GlobalViewEventBusProvider.class).in(Scopes.SINGLETON);
     }
 
     private void bindEventPublishers() {

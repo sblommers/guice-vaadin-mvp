@@ -4,12 +4,11 @@ import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.code.vaadin.application.uiscope.UIKey;
 import com.google.inject.Injector;
-import com.google.inject.Stage;
 import com.mycila.testing.junit.MycilaJunitRunner;
-import com.mycila.testing.plugin.guice.GuiceContext;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.util.CurrentInstance;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -55,10 +54,10 @@ public abstract class MVPTestBase {
     public void uiSetup() {
         logger.info("initialising test");
 
-        ui = createTestUI(getTestUIClass());
+       /* ui = createTestUI(getTestUIClass());
         CurrentInstance.set(UI.class, ui);
         //when(mockedRequest.getParameter("v-loc")).thenReturn(baseUri + "/");
-        ui.doInit(mockedRequest, 1);
+        ui.doInit(mockedRequest, 1);*/
     }
 
     /**
@@ -71,6 +70,11 @@ public abstract class MVPTestBase {
         CurrentInstance.set(UI.class, null);
         CurrentInstance.set(UIKey.class, null);
         return (ScopedUI) uiProvider.createInstance(uiClass);
+    }
+
+    //@After
+    public void cleanup() {
+        ui.detach();
     }
 
     protected abstract Class<? extends ScopedUI> getTestUIClass();

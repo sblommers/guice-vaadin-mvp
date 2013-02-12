@@ -52,7 +52,7 @@ class DefaultEventBusSubscribersRegistry implements EventBusSubscribersRegistry 
 
     /*===========================================[ CLASS METHODS ]================*/
 
-    public void registerSessionScopedSubscriber(Object subscriber) {
+    public void registerUIScopedSubscriber(Object subscriber) {
         String sessionID = httpSessionProvider.get().getId();
         Collection subscribers = subscribersMap.get(sessionID);
         if (subscribers == null) {

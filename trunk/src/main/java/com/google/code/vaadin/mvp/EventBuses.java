@@ -43,13 +43,6 @@ public interface EventBuses {
     @Documented
     @Target({ElementType.FIELD, ElementType.PARAMETER})
     @Retention(RetentionPolicy.RUNTIME)
-    @interface GlobalViewEventBus {
-    }
-
-    @BindingAnnotation
-    @Documented
-    @Target({ElementType.FIELD, ElementType.PARAMETER})
-    @Retention(RetentionPolicy.RUNTIME)
     @interface ModelEventBus {
     }
 

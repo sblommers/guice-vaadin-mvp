@@ -22,14 +22,9 @@ import com.google.code.vaadin.application.AbstractMVPApplicationModule;
 import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
-import com.google.inject.Injector;
 import com.vaadin.server.UIProvider;
 
 import javax.servlet.ServletContext;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -62,7 +57,7 @@ public abstract class AbstractMVPApplicationTestModule extends AbstractMVPApplic
         when(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS)).thenReturn(getTestUIClass().getName());
         when(servletContext.getInitParameterNames()).thenReturn(Collections.enumeration(new HashSet()));
 
-        //todo provider
+       /* //todo provider
         Injector delegate = (Injector) Proxy.newProxyInstance(
                 AbstractMVPApplicationTestModule.class.getClassLoader(),
                 new Class[]{Injector.class}, new InvocationHandler() {
@@ -81,7 +76,7 @@ public abstract class AbstractMVPApplicationTestModule extends AbstractMVPApplic
             }
         });
 
-        when(servletContext.getAttribute(Injector.class.getName())).thenReturn(delegate);
+        when(servletContext.getAttribute(Injector.class.getName())).thenReturn(delegate);*/
         return servletContext;
     }
 

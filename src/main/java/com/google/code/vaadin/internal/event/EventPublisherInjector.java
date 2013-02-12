@@ -55,17 +55,20 @@ class EventPublisherInjector<T> implements MembersInjector<T> {
     @Override
     public void injectMembers(T instance) {
         Class<?> instanceClass = instance.getClass();
+        // todo simplify & remove explicit subscription to UIScoped model eventbus
+        // todo direct subscription: Presenter -> ViewEventBus (UIScoped). All magic should be removed
 
         // Subscribe only if @Observes/@Listener methods present
-        if (injector != null && !ReflectionUtils.getMethods(CompositeMetadataReader.AllMessageHandlers, instanceClass).isEmpty()) {
+        if (!ReflectionUtils.getMethods(CompositeMetadataReader.AllMessageHandlers, instanceClass).isEmpty()) {
             /**
-             * Do not allowed to register Singleton-scoped instances as Session-scoped ViewEventBus subscriber.
+             * Do not allowed to register Singleton-scoped instances as UI-scoped ViewEventBus subscriber.
              * This case only possible for not eager singletons that is injected by Session-scoped components.
              */
             if (!Scopes.isSingleton(injector.getBinding(instanceClass))) {
                 EventBus viewEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.ViewEventBus.class));
                 EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.ModelEventBus.class));
-                injector.getInstance(DefaultEventBusSubscribersRegistry.class).registerSessionScopedSubscriber(instance);
+                //todo uiscope   !!!!!!
+                //injector.getInstance(DefaultEventBusSubscribersRegistry.class).registerUIScopedSubscriber(instance);
                 viewEventBus.subscribe(instance);
                 modelEventBus.subscribe(instance);
                 logger.info(String.format("[%s] subscribed to ViewEventBus [#%d] and ModelEventBus [#%d]", instance.toString(), viewEventBus.hashCode(), modelEventBus.hashCode()));

@@ -19,6 +19,7 @@
 package com.google.code.vaadin.internal.mapping;
 
 import com.google.code.vaadin.application.ui.ScopedUI;
+import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.internal.util.TypeUtil;
 import com.google.code.vaadin.mvp.AbstractPresenter;
@@ -70,7 +71,7 @@ public class PresenterMapperModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(ViewPresenterMappingRegistry.class).to(DefaultViewPresenterMappingRegistry.class);
+        bind(ViewPresenterMappingRegistry.class).to(DefaultViewPresenterMappingRegistry.class).in(UIScope.getCurrent());
 
         //1. find all presenters
         Reflections reflections = new Reflections(createReflectionsConfiguration());

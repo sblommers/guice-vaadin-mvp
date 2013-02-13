@@ -18,12 +18,10 @@
 
 package com.google.code.vaadin.junit.mvp;
 
+import com.google.code.vaadin.internal.util.ScopesResolver;
 import com.google.code.vaadin.junit.AbstractMVPTest;
-import com.google.code.vaadin.mvp.GlobalModelEventPublisher;
-import com.google.code.vaadin.mvp.ModelEventPublisher;
-import com.google.code.vaadin.mvp.Observes;
-import com.google.code.vaadin.mvp.ViewEventPublisher;
-import com.google.code.vaadin.mvp.events.GlobalModelEvent;
+import com.google.code.vaadin.mvp.*;
+import com.google.code.vaadin.mvp.events.SharedModelEvent;
 import com.google.code.vaadin.mvp.events.ModelEvent;
 import com.google.code.vaadin.mvp.events.ViewEvent;
 import com.google.inject.Scopes;
@@ -52,11 +50,11 @@ public class EventBusComplexTest extends AbstractMVPTest {
     private ModelEventPublisher modelEventPublisher;
 
     @Inject
-    private GlobalModelEventPublisher globalModelEventPublisher;
+    private SharedModelEventPublisher sharedModelEventPublisher;
 
     private int viewEventReceivedCount;
     private int modelEventReceivedCount;
-    private int globalModelEventReceivedCount;
+    private int sharedModelEventReceivedCount;
 
     /*===========================================[ CLASS METHODS ]================*/
 
@@ -65,14 +63,14 @@ public class EventBusComplexTest extends AbstractMVPTest {
         viewEventReceivedCount++;
     }
 
-    @Observes
+    @Observes(EventType.MODEL)
     public void modelEventReceived(ModelEvent modelEvent) {
         modelEventReceivedCount++;
     }
 
-    @Observes
-    public void globalModelEventReceived(GlobalModelEvent globalModelEvent) {
-        globalModelEventReceivedCount++;
+    @Observes(EventType.SHARED_MODEL)
+    public void sharedModelEventReceived(SharedModelEvent sharedModelEvent) {
+        sharedModelEventReceivedCount++;
     }
 
     @Test
@@ -86,20 +84,13 @@ public class EventBusComplexTest extends AbstractMVPTest {
     }
 
     @Test
-    public void globalModelEventPublisherNotNull() {
-        assertNotNull("GlobalModelEventPublisher is null", globalModelEventPublisher);
-        assertEquals("Different GlobalModelEventPublisher instances", injector.getInstance(GlobalModelEventPublisher.class), globalModelEventPublisher);
+    public void viewEventPublisherIsUIScoped() {
+        assertNotNull("ViewEventPublisher is not UIScoped", ScopesResolver.isUIScoped(injector.getBinding(ViewEventPublisher.class)));
     }
 
     @Test
-    public void globalModelEventPublisherIsSingleton() {
-        Assert.assertTrue("GlobalModelEventPublisher is not singleton", Scopes.isSingleton(injector.getBinding(GlobalModelEventPublisher.class)));
-    }
-
-    @Test
-    public void globalModelEventNotified() {
-        globalModelEventPublisher.publish(new GlobalModelEvent());
-        assertEquals("Event was not received", 1, globalModelEventReceivedCount);
+    public void modelEventPublisherIsUIScoped() {
+        assertNotNull("ModelEventPublisher is not UIScoped", ScopesResolver.isUIScoped(injector.getBinding(ModelEventPublisher.class)));
     }
 
     @Test
@@ -112,5 +103,26 @@ public class EventBusComplexTest extends AbstractMVPTest {
     public void viewEventNotified() {
         viewEventPublisher.publish(new ViewEvent());
         assertEquals("Event was not received", 1, viewEventReceivedCount);
+    }
+
+    @Test
+    public void sharedModelEventPublisherNotNull() {
+        assertNotNull("SharedModelEventPublisher is null", sharedModelEventPublisher);
+    }
+
+    @Test
+    public void sharedModelEventPublisherEquals() {
+        assertEquals("Different SharedModelEventPublisher instances", injector.getInstance(SharedModelEventPublisher.class), sharedModelEventPublisher);
+    }
+
+    @Test
+    public void sharedModelEventPublisherIsSingleton() {
+        Assert.assertTrue("SharedModelEventPublisher is not singleton", Scopes.isSingleton(injector.getBinding(SharedModelEventPublisher.class)));
+    }
+
+    @Test
+    public void sharedModelEventNotified() {
+        sharedModelEventPublisher.publish(new SharedModelEvent());
+        assertEquals("Event was not received", 1, sharedModelEventReceivedCount);
     }
 }

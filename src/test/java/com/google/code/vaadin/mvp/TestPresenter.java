@@ -52,7 +52,7 @@ public class TestPresenter extends AbstractPresenter<TestView> {
         contactOpened = true;
     }
 
-    @Observes
+    @Observes(EventType.MODEL)
     private void domainEventReceived(DomainEvent domainEvent) {
         domainEventReceived = true;
     }

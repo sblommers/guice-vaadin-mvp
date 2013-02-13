@@ -19,6 +19,7 @@
 package com.google.code.vaadin.junit.mvp;
 
 import com.google.code.vaadin.junit.AbstractMVPTest;
+import com.google.code.vaadin.mvp.EventType;
 import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.ViewEventPublisher;
 import com.google.code.vaadin.mvp.events.ViewEvent;
@@ -46,7 +47,7 @@ public class ViewEventPublisherTest extends AbstractMVPTest{
 
     /*===========================================[ CLASS METHODS ]================*/
 
-    @Observes
+    @Observes(EventType.VIEW)
     public void when(ViewEvent viewEvent) {
         eventNotified = true;
     }

@@ -39,7 +39,7 @@ public class BasicPresenter extends AbstractPresenter<BasicView> {
 
     /*===========================================[ CLASS METHODS ]================*/
 
-    @Observes
+    @Observes(EventType.VIEW)
     private void sampleButtonPressed(ViewEvent viewEvent) {
         eventReceived = true;
     }

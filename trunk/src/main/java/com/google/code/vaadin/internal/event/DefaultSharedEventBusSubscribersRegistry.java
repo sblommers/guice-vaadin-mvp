@@ -31,11 +31,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * SessionContext - TODO: description
- *
+ * TODO remove or fix
+ * TODO add listener to detach and unsubscribe from global eventbus
+ * TODO hold only global eventbus listeners
  * @author Alexey Krylov
  * @since 27.01.13
  */
-class DefaultEventBusSubscribersRegistry implements EventBusSubscribersRegistry {
+class DefaultSharedEventBusSubscribersRegistry implements SharedEventBusSubscribersRegistry {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

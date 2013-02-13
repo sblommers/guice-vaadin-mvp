@@ -34,7 +34,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 25.01.13
  */
 @UIScoped
-class DefaultViewPresenterMappingRegistry implements ViewPresenterMappingRegistry {
+class AccessibleViewPresenterMappingRegistry implements ViewPresenterMappingRegistry {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -42,7 +42,7 @@ class DefaultViewPresenterMappingRegistry implements ViewPresenterMappingRegistr
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    DefaultViewPresenterMappingRegistry() {
+    AccessibleViewPresenterMappingRegistry() {
         mappings = new ConcurrentHashMap<>();
     }
 

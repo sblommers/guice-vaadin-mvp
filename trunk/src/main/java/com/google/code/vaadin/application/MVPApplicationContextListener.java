@@ -18,14 +18,10 @@
 
 package com.google.code.vaadin.application;
 
-import com.google.code.vaadin.internal.event.EventBusSubscribersRegistry;
 import com.google.code.vaadin.internal.util.ApplicationModuleClassProvider;
-import com.google.code.vaadin.mvp.EventBus;
-import com.google.code.vaadin.mvp.EventBuses;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Key;
 import com.google.inject.servlet.GuiceServletContextListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,10 +49,10 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
     private static final Logger logger = LoggerFactory.getLogger(MVPApplicationContextListener.class);
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
-    //todo track shutdown to call PreDestroy
-    private Class<? extends AbstractMVPApplicationModule> mvpApplicationModuleClass;
-    private Injector injector;
-    private ServletContext servletContext;
+
+    protected Class<? extends AbstractMVPApplicationModule> mvpApplicationModuleClass;
+    protected ServletContext servletContext;
+    protected Injector injector;
 
     /*===========================================[ CLASS METHODS ]================*/
 
@@ -87,8 +83,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
         HttpSession session = se.getSession();
         String sessionID = session.getId();
         logger.debug(String.format("Destroying data of session: [%s]", sessionID));
-        //todo unsubscribe when UI is detached.
-        unsubscribeUIScopedSubscribers(sessionID);
+
         if (logger.isDebugEnabled()) {
             Enumeration attributeNames = session.getAttributeNames();
             while (attributeNames.hasMoreElements()) {
@@ -114,16 +109,6 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
             while (attributeNames.hasMoreElements()) {
                 String name = attributeNames.nextElement().toString();
                 logger.debug(String.format("REQUEST attribute: [%s]", request.getAttribute(name)));
-            }
-        }
-    }
-
-    protected void unsubscribeUIScopedSubscribers(String sessionID) {
-        Iterable sessionScopedSubscribers = injector.getInstance(EventBusSubscribersRegistry.class).getAndRemoveSessionScopedSubscribers(sessionID);
-        EventBus sharedModelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.SharedModelEventBus.class));
-        if (sessionScopedSubscribers != null) {
-            for (Object subscriber : sessionScopedSubscribers) {
-                sharedModelEventBus.unsubscribe(subscriber);
             }
         }
     }

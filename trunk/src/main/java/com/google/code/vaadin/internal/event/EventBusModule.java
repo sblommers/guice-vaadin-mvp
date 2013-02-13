@@ -20,14 +20,14 @@ package com.google.code.vaadin.internal.event;
 
 import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.internal.event.configuration.DefaultEventBusModuleConfigurationBuilder;
-import com.google.code.vaadin.internal.event.eventbus.SharedModelEventBusProvider;
 import com.google.code.vaadin.internal.event.eventbus.ModelEventBusProvider;
+import com.google.code.vaadin.internal.event.eventbus.SharedModelEventBusProvider;
 import com.google.code.vaadin.internal.event.eventbus.ViewEventBusProvider;
-import com.google.code.vaadin.internal.event.messagebus.SharedMessageBusProvider;
 import com.google.code.vaadin.internal.event.messagebus.MessageBusProvider;
+import com.google.code.vaadin.internal.event.messagebus.SharedMessageBusProvider;
 import com.google.code.vaadin.internal.event.messagebus.ViewMessageBusProvider;
-import com.google.code.vaadin.internal.event.publisher.SharedModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ModelEventPublisherProvider;
+import com.google.code.vaadin.internal.event.publisher.SharedModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ViewEventPublisherProvider;
 import com.google.code.vaadin.mvp.*;
 import com.google.inject.AbstractModule;
@@ -67,7 +67,7 @@ public class EventBusModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(EventBusSubscribersRegistry.class).to(DefaultEventBusSubscribersRegistry.class).in(Scopes.SINGLETON);
+        bind(EventBusModuleConfiguration.class).toInstance(configuration);
 
         // Registers all injectees as EventBus subscribers because we can't definitely say who is listening
         EventBusTypeListener eventBusTypeListener = new EventBusTypeListener(configuration);
@@ -81,6 +81,7 @@ public class EventBusModule extends AbstractModule {
         }
 
         if (configuration.isSharedModelEventBusRequired()) {
+            bind(SharedEventBusSubscribersRegistry.class).to(DefaultSharedEventBusSubscribersRegistry.class).in(Scopes.SINGLETON);
             bindSharedModelEventBus();
         }
     }

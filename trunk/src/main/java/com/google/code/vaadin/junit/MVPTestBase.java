@@ -3,11 +3,14 @@ package com.google.code.vaadin.junit;
 import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.code.vaadin.application.uiscope.UIKey;
+import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.inject.Injector;
 import com.mycila.testing.junit.MycilaJunitRunner;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.UI;
 import com.vaadin.util.CurrentInstance;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -31,12 +34,14 @@ public abstract class MVPTestBase {
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
     protected VaadinRequest mockedRequest = mock(VaadinRequest.class);
+    protected VaadinSession mockedSession = mock(VaadinSession.class);
 
     protected Logger logger;
     protected ScopedUIProvider uiProvider;
     protected Injector injector;
 
     protected UI ui;
+    private boolean isFirstTest = true;
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
@@ -45,18 +50,23 @@ public abstract class MVPTestBase {
         this.logger = logger;
         this.uiProvider = uiProvider;
         this.injector = injector;
+        isFirstTest = true;
+        ui = CurrentInstance.get(UI.class);
+        ui.setSession(mockedSession);
     }
 
 	/*===========================================[ CLASS METHODS ]================*/
 
     @Before
     public void uiSetup() {
-        //logger.info("initialising test");
-
-       /* ui = createTestUI(getTestUIClass());
-        CurrentInstance.set(UI.class, ui);
-        //when(mockedRequest.getParameter("v-loc")).thenReturn(baseUri + "/");
-        ui.doInit(mockedRequest, 1);*/
+        logger.info("initialising test");
+        if (!isFirstTest) {
+            ui = createTestUI(getTestUIClass());
+            CurrentInstance.set(UI.class, ui);
+            //when(mockedRequest.getParameter("v-loc")).thenReturn(baseUri + "/");
+            ui.doInit(mockedRequest, 1);
+            ui.setSession(mockedSession);
+        }
     }
 
     /**
@@ -71,9 +81,13 @@ public abstract class MVPTestBase {
         return (ScopedUI) uiProvider.createInstance(uiClass);
     }
 
-    //@After
+    @After
     public void cleanup() {
         ui.detach();
+
+        if (isFirstTest) {
+            isFirstTest = false;
+        }
     }
 
     protected abstract Class<? extends ScopedUI> getTestUIClass();

@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
  * @author Alexey Krylov (AleX)
  * @since 13.02.13
  */
-public interface MethodResolutionPredicates {
+interface MethodResolutionPredicates {
     /*===========================================[ INTERFACE METHODS ]==============*/
 
     IPredicate<Method> AllEventHandlers = new IPredicate<Method>() {

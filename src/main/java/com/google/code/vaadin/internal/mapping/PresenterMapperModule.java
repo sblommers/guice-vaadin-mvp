@@ -32,6 +32,8 @@ import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import java.util.HashMap;
@@ -45,6 +47,10 @@ import java.util.Set;
  * @since 25.01.13
  */
 public class PresenterMapperModule extends AbstractModule {
+
+   /*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final Logger logger = LoggerFactory.getLogger(PresenterMapperModule.class);
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -62,7 +68,8 @@ public class PresenterMapperModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(ViewPresenterMappingRegistry.class).to(DefaultViewPresenterMappingRegistry.class).in(UIScope.getCurrent());
+        bind(ViewPresenterMappingRegistry.class).to(AccessibleViewPresenterMappingRegistry.class).in(UIScope.getCurrent());
+        bind(ViewProvider.class).to(AccessibleViewProvider.class).in(UIScope.getCurrent());
 
         //1. find all presenters
         Reflections reflections = new Reflections(createReflectionsConfiguration());

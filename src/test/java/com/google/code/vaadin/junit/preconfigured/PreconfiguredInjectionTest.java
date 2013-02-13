@@ -34,8 +34,6 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-//@RunWith(MVPTestRunner.class)
-//@GuiceModules(modules = TextBundleTestModule.class)
 public class PreconfiguredInjectionTest extends AbstractMVPTest {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

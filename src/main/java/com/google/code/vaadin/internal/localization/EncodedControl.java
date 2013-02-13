@@ -42,7 +42,7 @@ import java.util.ResourceBundle;
  * @author Alexey Krylov
  * @since 01.02.13
  */
-class EncodedControl extends ResourceBundle.Control {
+public class EncodedControl extends ResourceBundle.Control {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

@@ -7,6 +7,8 @@ package com.google.code.vaadin.junit;
 
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.inject.Inject;
+import com.vaadin.ui.UI;
+import com.vaadin.util.CurrentInstance;
 
 /**
  * TestScopedUIProvider - TODO: description
@@ -24,6 +26,7 @@ public class TestScopedUIProvider extends ScopedUIProvider {
 
     @Inject
     protected void initScope() {
-        createInstance(uiClass);
+        UI ui = createInstance(uiClass);
+        CurrentInstance.set(UI.class, ui);
     }
 }

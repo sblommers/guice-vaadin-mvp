@@ -20,11 +20,6 @@ import javax.inject.Inject;
  */
 public class LoggerInjectionTest extends AbstractMVPTest{
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
-
-    @Inject
-    private Logger logger;
-
 	/*===========================================[ CLASS METHODS ]================*/
 
     @Test

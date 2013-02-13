@@ -16,28 +16,22 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.util;
+package com.google.code.vaadin.internal.event;
 
-import com.google.inject.Injector;
-
-import javax.servlet.ServletContext;
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 /**
- * InjectorProvider - TODO: description
+ * IMVPApplicationContext - TODO: description
  *
  * @author Alexey Krylov
- * @since 26.01.13
+ * @since 28.01.13
  */
-public class InjectorProvider {
+public interface SharedEventBusSubscribersRegistry {
 
-    /*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ INTERFACE METHODS ]==============*/
 
-    private InjectorProvider() {
-    }
+    Collection getAndRemoveSessionScopedSubscribers(@NotNull String sessionID);
 
-    /*===========================================[ CLASS METHODS ]================*/
-
-    public static Injector getInjector(ServletContext context) {
-        return (Injector) context.getAttribute(Injector.class.getName());
-    }
+    Collection getSessionScopedSubscribers(@NotNull String sessionID);
 }

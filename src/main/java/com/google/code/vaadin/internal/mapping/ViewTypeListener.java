@@ -49,21 +49,24 @@ class ViewTypeListener implements TypeListener {
             public void afterInjection(I injectee) {
                 if (injectee instanceof View) {
                     View view = (View) injectee;
-                    Class<? extends View> viewInterface = view.getClass();
+                    Class<? extends View> viewClass = view.getClass();
 
                     if (view instanceof AbstractView) {
-                        viewInterface = ((AbstractView) view).getViewInterface();
+                        viewClass = ((AbstractView) view).getViewInterface();
                     }
 
                     //4. Instantiate appropriate Presenter for View interface from event. Appropriate earlier created View will be injected - it's because SessionScope.
-                    Class<? extends AbstractPresenter> presenterClass = viewPresenterMap.get(viewInterface);
-
+                    Class<? extends AbstractPresenter> presenterClass = viewPresenterMap.get(viewClass);
                     Injector injector = injectorProvider.get();
-                    AbstractPresenter presenter = injector.getInstance(presenterClass);
-                    presenter.setView(view);
 
-                    DefaultViewPresenterMappingRegistry mappingRegistry = injector.getInstance(DefaultViewPresenterMappingRegistry.class);
+                    AccessibleViewProvider viewProvider = injector.getInstance(AccessibleViewProvider.class);
+                    viewProvider.register(presenterClass,  view);
+
+                    AbstractPresenter presenter = injector.getInstance(presenterClass);
+
+                    AccessibleViewPresenterMappingRegistry mappingRegistry = injector.getInstance(AccessibleViewPresenterMappingRegistry.class);
                     mappingRegistry.registerMapping(view, presenter);
+
                     // Instantiate support for Presenter.viewOpened
                     injector.getInstance(ViewOpenedEventRedirector.class);
                 }

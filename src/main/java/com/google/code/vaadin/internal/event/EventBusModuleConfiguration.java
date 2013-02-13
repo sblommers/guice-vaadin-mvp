@@ -12,6 +12,9 @@ package com.google.code.vaadin.internal.event;
  * @since 13.02.13
  */
 public interface EventBusModuleConfiguration {
+
+	/*===========================================[ INTERFACE METHODS ]============*/
+
     boolean isModelEventBusRequired();
 
     boolean isSharedModelEventBusRequired();

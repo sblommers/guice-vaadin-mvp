@@ -29,7 +29,7 @@ public class UIScope implements Scope {
 
     private static Logger logger = LoggerFactory.getLogger(UIScope.class);
 
-    private static UIScope current;
+    private static volatile UIScope current;
 
     private final Map<UIKey, Map<Key<?>, Object>> cache = new TreeMap<>();
 
@@ -80,10 +80,18 @@ public class UIScope implements Scope {
     }
 
     public static UIScope getCurrent() {
-        if (current == null) {
-            current = new UIScope();
+        // double-checked locking with volatile
+        UIScope scope = current;
+        if (scope == null) {
+            synchronized (UIScope.class) {
+                scope = current;
+                if (scope == null) {
+                    current = new UIScope();
+                    scope = current;
+                }
+            }
         }
-        return current;
+        return scope;
     }
 
     /**

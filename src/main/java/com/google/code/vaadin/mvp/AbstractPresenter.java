@@ -19,6 +19,8 @@
 package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.application.uiscope.UIScoped;
+import com.google.code.vaadin.internal.mapping.ViewProvider;
+import com.google.inject.ProvisionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,14 +51,12 @@ public abstract class AbstractPresenter<T extends View> implements Serializable 
     /*===========================================[ CLASS METHODS ]================*/
 
     @Inject
-    protected void init() {
+    protected void init(ViewProvider viewProvider) {
         logger = LoggerFactory.getLogger(getClass());
-    }
-
-    //TODO simplify?? hide publicity, rename
-    //TODO идея - упростить схему с viewInitialized через InjectionListener'ов -  в hear инициализировать presenter
-    public void setView(T view) {
-        this.view = view;
+        view = viewProvider.getView(this);
+        if (view == null) {
+            throw new ProvisionException(String.format("ERROR: Unable to resolve View for Presenter [%s]", getClass().getName()));
+        }
         initPresenter();
         logger.debug(String.format("Presenter initialized: [%s#%d], view class: [%s#%d]", getClass().getName(), hashCode(), view.getClass().getName(), view.hashCode()));
     }

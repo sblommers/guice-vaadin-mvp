@@ -19,23 +19,23 @@
 package com.google.code.vaadin.internal.event.eventbus;
 
 import com.google.code.vaadin.internal.event.AbstractEventBusProvider;
-import com.google.code.vaadin.internal.event.messagebus.MessageBusProvider;
+import com.google.code.vaadin.internal.event.messagebus.SharedMessageBusProvider;
 import net.engio.mbassy.IMessageBus;
 
 import javax.inject.Inject;
 
 /**
- * Session-scoped Model EventBus provider.
+ * Shared Model EventBus provider. Allows to inject MBassador {@link IMessageBus}.
  *
  * @author Alexey Krylov
  * @since 26.01.13
  */
-public class ModelEventBusProvider extends AbstractEventBusProvider {
+public class SharedModelEventBusProvider extends AbstractEventBusProvider {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
-    private MessageBusProvider messageBusProvider;
+    private SharedMessageBusProvider messageBusProvider;
 
     /*===========================================[ INTERFACE METHODS ]============*/
 

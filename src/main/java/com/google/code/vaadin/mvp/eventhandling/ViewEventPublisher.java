@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin.mvp.eventhandling;
 
 /**
  * EventPublisher - TODO: description
@@ -24,6 +24,6 @@ package com.google.code.vaadin.mvp;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-public interface SharedModelEventPublisher extends EventPublisher {
+public interface ViewEventPublisher extends EventPublisher {
     /*===========================================[ INTERFACE METHODS ]==============*/
 }

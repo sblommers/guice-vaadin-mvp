@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.internal.event;
+package com.google.code.vaadin.internal.event.configuration;
 
 /**
  * EventBusModuleConfiguration - TODO: description

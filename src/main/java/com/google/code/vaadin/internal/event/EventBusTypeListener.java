@@ -5,6 +5,7 @@
 
 package com.google.code.vaadin.internal.event;
 
+import com.google.code.vaadin.internal.event.configuration.EventBusModuleConfiguration;
 import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;

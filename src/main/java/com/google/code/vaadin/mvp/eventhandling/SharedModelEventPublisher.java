@@ -16,19 +16,14 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
-
-import javax.validation.constraints.NotNull;
+package com.google.code.vaadin.mvp.eventhandling;
 
 /**
  * EventPublisher - TODO: description
  *
  * @author Alexey Krylov
- * @since 26.01.13
+ * @since 23.01.13
  */
-public interface EventPublisher {
-
+public interface SharedModelEventPublisher extends EventPublisher {
     /*===========================================[ INTERFACE METHODS ]==============*/
-
-    void publish(@NotNull Object event);
 }

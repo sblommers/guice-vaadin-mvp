@@ -16,14 +16,20 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin.internal.mapping;
+
+import com.google.code.vaadin.mvp.AbstractPresenter;
+import com.google.code.vaadin.mvp.View;
 
 /**
- * EventPublisher - TODO: description
+ * IViewPresenterMappingContext - TODO: description
  *
  * @author Alexey Krylov
- * @since 23.01.13
+ * @since 28.01.13
  */
-public interface ViewEventPublisher extends EventPublisher {
+public interface ViewPresenterMappingRegistry {
+
     /*===========================================[ INTERFACE METHODS ]==============*/
+
+    <P extends AbstractPresenter<V>, V extends View> P getPresenterForView(V view);
 }

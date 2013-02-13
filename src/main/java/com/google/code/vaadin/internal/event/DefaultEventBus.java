@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.internal.event;
 
-import com.google.code.vaadin.mvp.EventBus;
+import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.common.base.Preconditions;
 import net.engio.mbassy.IMessageBus;
 import org.slf4j.Logger;

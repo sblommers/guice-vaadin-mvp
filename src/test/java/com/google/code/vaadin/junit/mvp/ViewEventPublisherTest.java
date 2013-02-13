@@ -19,9 +19,9 @@
 package com.google.code.vaadin.junit.mvp;
 
 import com.google.code.vaadin.junit.AbstractMVPTest;
-import com.google.code.vaadin.mvp.EventType;
-import com.google.code.vaadin.mvp.Observes;
-import com.google.code.vaadin.mvp.ViewEventPublisher;
+import com.google.code.vaadin.mvp.eventhandling.EventType;
+import com.google.code.vaadin.mvp.eventhandling.Observes;
+import com.google.code.vaadin.mvp.eventhandling.ViewEventPublisher;
 import com.google.code.vaadin.mvp.events.ViewEvent;
 import org.junit.Test;
 

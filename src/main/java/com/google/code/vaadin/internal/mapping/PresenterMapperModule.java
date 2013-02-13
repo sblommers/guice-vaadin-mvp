@@ -24,7 +24,7 @@ import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.internal.util.TypeUtil;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
-import com.google.code.vaadin.mvp.ViewPresenterMappingRegistry;
+import com.google.code.vaadin.internal.mapping.ViewPresenterMappingRegistry;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 import org.reflections.Configuration;

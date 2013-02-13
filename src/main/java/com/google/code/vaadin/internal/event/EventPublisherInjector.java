@@ -18,8 +18,9 @@
 
 package com.google.code.vaadin.internal.event;
 
-import com.google.code.vaadin.mvp.EventBus;
-import com.google.code.vaadin.mvp.EventBuses;
+import com.google.code.vaadin.internal.event.configuration.EventBusModuleConfiguration;
+import com.google.code.vaadin.mvp.eventhandling.EventBus;
+import com.google.code.vaadin.mvp.eventhandling.EventBuses;
 import com.google.inject.*;
 import net.engio.mbassy.common.ReflectionUtils;
 import org.slf4j.Logger;

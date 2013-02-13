@@ -20,6 +20,8 @@ package com.google.code.vaadin.internal.event;
 
 import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.internal.event.configuration.DefaultEventBusModuleConfigurationBuilder;
+import com.google.code.vaadin.internal.event.configuration.EventBusModuleConfiguration;
+import com.google.code.vaadin.internal.event.configuration.EventBusModuleConfigurationBuilder;
 import com.google.code.vaadin.internal.event.eventbus.ModelEventBusProvider;
 import com.google.code.vaadin.internal.event.eventbus.SharedModelEventBusProvider;
 import com.google.code.vaadin.internal.event.eventbus.ViewEventBusProvider;
@@ -29,7 +31,7 @@ import com.google.code.vaadin.internal.event.messagebus.ViewMessageBusProvider;
 import com.google.code.vaadin.internal.event.publisher.ModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.SharedModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ViewEventPublisherProvider;
-import com.google.code.vaadin.mvp.*;
+import com.google.code.vaadin.mvp.eventhandling.*;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import com.google.inject.matcher.Matchers;

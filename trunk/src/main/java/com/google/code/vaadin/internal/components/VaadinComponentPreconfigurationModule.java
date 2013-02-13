@@ -22,8 +22,6 @@ import com.google.code.vaadin.components.Preconfigured;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 
-import javax.servlet.ServletContext;
-
 /**
  * Adds support for {@link Preconfigured} annotation.
  *

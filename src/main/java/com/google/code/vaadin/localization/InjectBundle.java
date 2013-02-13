@@ -18,5 +18,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InjectBundle {
     String baseName();
+
     String encoding() default "UTF-8";
 }

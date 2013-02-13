@@ -23,8 +23,8 @@ import com.google.code.vaadin.junit.MVPTestRunner;
 /**
  * Exposed access to {@link GuiceFilter#reset()}. Required by JUnit-tests.
  *
- * @see MVPTestRunner
  * @author Alexey Krylov
+ * @see MVPTestRunner
  * @since 28.01.13
  */
 public class GuiceFilterResetter {

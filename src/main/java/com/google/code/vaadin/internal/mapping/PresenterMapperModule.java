@@ -23,28 +23,20 @@ import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.internal.util.ApplicationClassProvider;
 import com.google.code.vaadin.internal.util.TypeUtil;
 import com.google.code.vaadin.mvp.AbstractPresenter;
-import com.google.code.vaadin.mvp.AbstractView;
 import com.google.code.vaadin.mvp.View;
 import com.google.code.vaadin.mvp.ViewPresenterMappingRegistry;
 import com.google.inject.AbstractModule;
-import com.google.inject.Injector;
-import com.google.inject.Provider;
-import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.Matchers;
-import com.google.inject.spi.InjectionListener;
-import com.google.inject.spi.TypeEncounter;
-import com.google.inject.spi.TypeListener;
 import org.reflections.Configuration;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
-import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * PresenterMappingModule - TODO: description
@@ -56,7 +48,6 @@ public class PresenterMapperModule extends AbstractModule {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    protected Map<Class<? extends View>, Class<? extends AbstractPresenter>> viewPresenterMap;
     protected Class<? extends ScopedUI> applicationClass;
     protected ServletContext servletContext;
 
@@ -78,14 +69,14 @@ public class PresenterMapperModule extends AbstractModule {
         Set<Class<? extends AbstractPresenter>> subTypesOf = reflections.getSubTypesOf(AbstractPresenter.class);
 
         //2. create context map: View interface -> Presenter class
-        viewPresenterMap = new ConcurrentHashMap<>();
+        Map<Class<? extends View>, Class<? extends AbstractPresenter>> viewPresenterMap = new HashMap<>();
         for (Class<? extends AbstractPresenter> presenterClass : subTypesOf) {
             Class<View> viewClass = TypeUtil.getTypeParameterClass(presenterClass, View.class);
             viewPresenterMap.put(viewClass, presenterClass);
         }
 
         //3. Add listener for all ViewInitialized event - see viewInitialized method
-        ViewTypeListener viewTypeListener = new ViewTypeListener();
+        ViewTypeListener viewTypeListener = new ViewTypeListener(viewPresenterMap);
         requestInjection(viewTypeListener);
         bindListener(Matchers.any(), viewTypeListener);
     }
@@ -96,40 +87,5 @@ public class PresenterMapperModule extends AbstractModule {
         return new ConfigurationBuilder()
                 .addUrls(ClasspathHelper.forClass(applicationClass))
                 .setScanners(new SubTypesScanner());
-    }
-
-    /*===========================================[ INNER CLASSES ]================*/
-
-    private class ViewTypeListener implements TypeListener {
-        @Inject
-        private Provider<Injector> injectorProvider;
-
-        @Override
-        public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
-            encounter.register(new InjectionListener<I>() {
-                @Override
-                public void afterInjection(I injectee) {
-                    if (injectee instanceof View) {
-                        View view = (View) injectee;
-                        Class<? extends View> viewInterface = view.getClass();
-
-                        if (view instanceof AbstractView) {
-                            viewInterface = ((AbstractView) view).getViewInterface();
-                        }
-
-                        //4. Instantiate appropriate Presenter for View interface from event. Appropriate earlier created View will be injected - it's because SessionScope.
-                        Class<? extends AbstractPresenter> presenterClass = viewPresenterMap.get(viewInterface);
-
-                        Injector injector = injectorProvider.get();
-                        AbstractPresenter presenter = injector.getInstance(presenterClass);
-                        presenter.setView(view);
-                        DefaultViewPresenterMappingRegistry mappingRegistry = injector.getInstance(DefaultViewPresenterMappingRegistry.class);
-                        mappingRegistry.registerMapping(view, presenter);
-                        // Instantiate support for Presenter.viewOpened
-                        injector.getInstance(ViewOpenedEventRedirector.class);
-                    }
-                }
-            });
-        }
     }
 }

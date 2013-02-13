@@ -74,7 +74,7 @@ public class TypeUtil {
         Preconditions.checkArgument(aClass != null);
         Preconditions.checkArgument(parameterIndex >= 0);
 
-        List<Type> types = new ArrayList<Type>();
+        List<Type> types = new ArrayList<>();
 
         // check interfaces
         getGenericInterfacesActualTypes(types, aClass);
@@ -114,7 +114,7 @@ public class TypeUtil {
         Preconditions.checkArgument(aClass != null);
         Preconditions.checkArgument(genericParameterClass != null);
 
-        List<Type> types = new ArrayList<Type>();
+        List<Type> types = new ArrayList<>();
 
         // check interfaces
         getGenericInterfacesActualTypes(types, aClass);

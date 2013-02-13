@@ -24,6 +24,6 @@ package com.google.code.vaadin.mvp;
  * @author Alexey Krylov
  * @since 23.01.13
  */
-public interface GlobalModelEventPublisher extends EventPublisher {
+public interface SharedModelEventPublisher extends EventPublisher {
     /*===========================================[ INTERFACE METHODS ]==============*/
 }

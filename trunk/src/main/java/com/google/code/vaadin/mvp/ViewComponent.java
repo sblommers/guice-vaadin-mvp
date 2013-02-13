@@ -58,7 +58,7 @@ public abstract class ViewComponent extends CustomComponent {
         initialized = true;
     }
 
-    protected void initComponent(){
+    protected void initComponent() {
 
     }
 
@@ -74,7 +74,7 @@ public abstract class ViewComponent extends CustomComponent {
         viewEventPublisher.publish(event);
     }
 
-    @Observes
+    @Observes(EventType.VIEW)
     void localeChanged(LocaleChangedEvent localeChangedEvent) {
         if (initialized) {
             localize();

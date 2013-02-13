@@ -8,7 +8,6 @@ import com.mycila.testing.junit.MycilaJunitRunner;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.util.CurrentInstance;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -52,7 +51,7 @@ public abstract class MVPTestBase {
 
     @Before
     public void uiSetup() {
-        logger.info("initialising test");
+        //logger.info("initialising test");
 
        /* ui = createTestUI(getTestUIClass());
         CurrentInstance.set(UI.class, ui);

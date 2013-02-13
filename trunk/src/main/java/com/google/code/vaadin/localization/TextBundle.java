@@ -22,8 +22,9 @@ import com.google.code.vaadin.application.AbstractMVPApplicationModule;
 
 /**
  * Interface for a bundle implementation used for obtaining (localized) texts.
- * @see AbstractMVPApplicationModule#bindTextBundle()
+ *
  * @author Alexey Krylov
+ * @see AbstractMVPApplicationModule#bindTextBundle()
  * @since 23.01.13
  */
 public interface TextBundle {

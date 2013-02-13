@@ -156,7 +156,7 @@ public class MVPTestRunner extends JUniceRunner {
 
 	/*===========================================[ INNER CLASSES ]================*/
 
-    private static class MVPTestApplicationUI extends ScopedUI{
+    private static class MVPTestApplicationUI extends ScopedUI {
 
         private static final long serialVersionUID = 5297142885176304733L;
 

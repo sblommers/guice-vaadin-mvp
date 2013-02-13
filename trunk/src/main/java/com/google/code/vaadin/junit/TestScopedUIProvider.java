@@ -23,7 +23,7 @@ public class TestScopedUIProvider extends ScopedUIProvider {
 	/*===========================================[ CLASS METHODS ]================*/
 
     @Inject
-    protected void initScope(){
+    protected void initScope() {
         createInstance(uiClass);
     }
 }

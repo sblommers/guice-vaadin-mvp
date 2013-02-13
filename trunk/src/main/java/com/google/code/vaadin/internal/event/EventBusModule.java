@@ -19,27 +19,21 @@
 package com.google.code.vaadin.internal.event;
 
 import com.google.code.vaadin.application.uiscope.UIScope;
-import com.google.code.vaadin.internal.event.eventbus.GlobalModelEventBusProvider;
+import com.google.code.vaadin.internal.event.configuration.DefaultEventBusModuleConfigurationBuilder;
+import com.google.code.vaadin.internal.event.eventbus.SharedModelEventBusProvider;
 import com.google.code.vaadin.internal.event.eventbus.ModelEventBusProvider;
 import com.google.code.vaadin.internal.event.eventbus.ViewEventBusProvider;
-import com.google.code.vaadin.internal.event.messagebus.GlobalModelMessageBusProvider;
-import com.google.code.vaadin.internal.event.messagebus.ModelMessageBusProvider;
+import com.google.code.vaadin.internal.event.messagebus.SharedMessageBusProvider;
+import com.google.code.vaadin.internal.event.messagebus.MessageBusProvider;
 import com.google.code.vaadin.internal.event.messagebus.ViewMessageBusProvider;
-import com.google.code.vaadin.internal.event.publisher.GlobalModelEventPublisherProvider;
+import com.google.code.vaadin.internal.event.publisher.SharedModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ModelEventPublisherProvider;
 import com.google.code.vaadin.internal.event.publisher.ViewEventPublisherProvider;
 import com.google.code.vaadin.mvp.*;
 import com.google.inject.AbstractModule;
-import com.google.inject.Injector;
 import com.google.inject.Scopes;
-import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.Matchers;
-import com.google.inject.spi.TypeEncounter;
-import com.google.inject.spi.TypeListener;
 import net.engio.mbassy.IMessageBus;
-
-import javax.inject.Inject;
-import javax.inject.Provider;
 
 /**
  * EventPublisherModule - TODO: description
@@ -49,6 +43,26 @@ import javax.inject.Provider;
  */
 public class EventBusModule extends AbstractModule {
 
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
+
+    private EventBusModuleConfiguration configuration;
+
+	/*===========================================[ CONSTRUCTORS ]=================*/
+
+    public EventBusModule() {
+        this(getConfigurationBuilder().build());
+    }
+
+    public EventBusModule(EventBusModuleConfiguration configuration) {
+        this.configuration = configuration;
+    }
+
+	/*===========================================[ CLASS METHODS ]================*/
+
+    public static EventBusModuleConfigurationBuilder getConfigurationBuilder() {
+        return new DefaultEventBusModuleConfigurationBuilder();
+    }
+
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
@@ -56,51 +70,36 @@ public class EventBusModule extends AbstractModule {
         bind(EventBusSubscribersRegistry.class).to(DefaultEventBusSubscribersRegistry.class).in(Scopes.SINGLETON);
 
         // Registers all injectees as EventBus subscribers because we can't definitely say who is listening
-        EventBusTypeListener eventBusTypeListener = new EventBusTypeListener();
+        EventBusTypeListener eventBusTypeListener = new EventBusTypeListener(configuration);
         requestInjection(eventBusTypeListener);
         bindListener(Matchers.any(), eventBusTypeListener);
 
+        bindViewEventBus();
 
-        // MessageBus
-        bindMessageBus();
-        // EventBus
-        bindEventBus();
-        // EventPublishers
-        bindEventPublishers();
+        if (configuration.isModelEventBusRequired()) {
+            bindModelEventBus();
+        }
+
+        if (configuration.isSharedModelEventBusRequired()) {
+            bindSharedModelEventBus();
+        }
     }
 
-    private void bindMessageBus() {
-        bind(IMessageBus.class).annotatedWith(EventBuses.ModelEventBus.class).toProvider(ModelMessageBusProvider.class).in(UIScope.getCurrent());
-        bind(IMessageBus.class).annotatedWith(EventBuses.ViewEventBus.class).toProvider(ViewMessageBusProvider.class).in(UIScope.getCurrent());
-        bind(IMessageBus.class).annotatedWith(EventBuses.GlobalModelEventBus.class).toProvider(GlobalModelMessageBusProvider.class).in(Scopes.SINGLETON);
-    }
-
-    private void bindEventBus() {
-        bind(EventBus.class).annotatedWith(EventBuses.ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(UIScope.getCurrent());
+    protected void bindViewEventBus() {
         bind(EventBus.class).annotatedWith(EventBuses.ViewEventBus.class).toProvider(ViewEventBusProvider.class).in(UIScope.getCurrent());
-        bind(EventBus.class).annotatedWith(EventBuses.GlobalModelEventBus.class).toProvider(GlobalModelEventBusProvider.class).in(Scopes.SINGLETON);
-    }
-
-    private void bindEventPublishers() {
-        bind(GlobalModelEventPublisher.class).toProvider(GlobalModelEventPublisherProvider.class).in(Scopes.SINGLETON);
-        bind(ModelEventPublisher.class).toProvider(ModelEventPublisherProvider.class).in(UIScope.getCurrent());
+        bind(IMessageBus.class).annotatedWith(EventBuses.ViewEventBus.class).toProvider(ViewMessageBusProvider.class).in(UIScope.getCurrent());
         bind(ViewEventPublisher.class).toProvider(ViewEventPublisherProvider.class).in(UIScope.getCurrent());
     }
 
-    private static class EventBusTypeListener implements TypeListener {
+    protected void bindModelEventBus() {
+        bind(EventBus.class).annotatedWith(EventBuses.ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(UIScope.getCurrent());
+        bind(IMessageBus.class).annotatedWith(EventBuses.ModelEventBus.class).toProvider(MessageBusProvider.class).in(UIScope.getCurrent());
+        bind(ModelEventPublisher.class).toProvider(ModelEventPublisherProvider.class).in(UIScope.getCurrent());
+    }
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
-
-        @Inject
-        private Provider<Injector> injectorProvider;
-
-	/*===========================================[ INTERFACE METHODS ]============*/
-
-        @Override
-        public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
-            if (injectorProvider != null) {
-                encounter.register(new EventPublisherInjector<I>(injectorProvider.get()));
-            }
-        }
+    protected void bindSharedModelEventBus() {
+        bind(EventBus.class).annotatedWith(EventBuses.SharedModelEventBus.class).toProvider(SharedModelEventBusProvider.class).in(Scopes.SINGLETON);
+        bind(IMessageBus.class).annotatedWith(EventBuses.SharedModelEventBus.class).toProvider(SharedMessageBusProvider.class).in(Scopes.SINGLETON);
+        bind(SharedModelEventPublisher.class).toProvider(SharedModelEventPublisherProvider.class).in(Scopes.SINGLETON);
     }
 }

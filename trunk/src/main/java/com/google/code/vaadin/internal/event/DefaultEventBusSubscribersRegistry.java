@@ -46,7 +46,7 @@ class DefaultEventBusSubscribersRegistry implements EventBusSubscribersRegistry 
 
     @Inject
     protected void init(Provider<HttpSession> httpSessionProvider) {
-        subscribersMap = new ConcurrentHashMap<String, Collection>();
+        subscribersMap = new ConcurrentHashMap<>();
         this.httpSessionProvider = httpSessionProvider;
     }
 

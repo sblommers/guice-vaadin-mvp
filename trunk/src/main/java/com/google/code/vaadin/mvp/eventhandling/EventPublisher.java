@@ -16,21 +16,19 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin.mvp.eventhandling;
 
 import javax.validation.constraints.NotNull;
 
 /**
- * EventBus - TODO: description
+ * EventPublisher - TODO: description
  *
  * @author Alexey Krylov
  * @since 26.01.13
  */
-public interface EventBus extends EventPublisher {
+public interface EventPublisher {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
-    void subscribe(@NotNull Object subscriber);
-
-    void unsubscribe(@NotNull Object subscriber);
+    void publish(@NotNull Object event);
 }

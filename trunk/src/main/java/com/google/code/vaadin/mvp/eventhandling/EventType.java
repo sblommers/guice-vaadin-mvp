@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin.mvp.eventhandling;
 
 /**
  * EventType - TODO: description

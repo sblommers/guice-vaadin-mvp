@@ -20,8 +20,8 @@ package com.google.code.vaadin.internal.components;
 
 import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.localization.TextBundle;
-import com.google.code.vaadin.mvp.EventType;
-import com.google.code.vaadin.mvp.Observes;
+import com.google.code.vaadin.mvp.eventhandling.EventType;
+import com.google.code.vaadin.mvp.eventhandling.Observes;
 import com.google.code.vaadin.mvp.events.LocaleChangedEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;

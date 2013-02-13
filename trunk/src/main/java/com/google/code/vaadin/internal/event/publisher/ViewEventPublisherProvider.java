@@ -18,9 +18,9 @@
 
 package com.google.code.vaadin.internal.event.publisher;
 
-import com.google.code.vaadin.mvp.EventBus;
-import com.google.code.vaadin.mvp.EventBuses;
-import com.google.code.vaadin.mvp.ViewEventPublisher;
+import com.google.code.vaadin.mvp.eventhandling.EventBus;
+import com.google.code.vaadin.mvp.eventhandling.EventBuses;
+import com.google.code.vaadin.mvp.eventhandling.ViewEventPublisher;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;

@@ -20,7 +20,7 @@ package com.google.code.vaadin.junit.mvp;
 
 import com.google.code.vaadin.internal.util.ScopesResolver;
 import com.google.code.vaadin.junit.AbstractMVPTest;
-import com.google.code.vaadin.mvp.*;
+import com.google.code.vaadin.mvp.eventhandling.*;
 import com.google.code.vaadin.mvp.events.SharedModelEvent;
 import com.google.code.vaadin.mvp.events.ModelEvent;
 import com.google.code.vaadin.mvp.events.ViewEvent;

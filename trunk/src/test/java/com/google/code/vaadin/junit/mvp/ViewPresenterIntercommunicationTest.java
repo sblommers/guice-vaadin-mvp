@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.junit.mvp;
 
+import com.google.code.vaadin.internal.mapping.ViewPresenterMappingRegistry;
 import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.*;
 import org.junit.Assert;

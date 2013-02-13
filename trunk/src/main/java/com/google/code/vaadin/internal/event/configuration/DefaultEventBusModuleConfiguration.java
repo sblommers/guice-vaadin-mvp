@@ -5,8 +5,6 @@
 
 package com.google.code.vaadin.internal.event.configuration;
 
-import com.google.code.vaadin.internal.event.EventBusModuleConfiguration;
-
 /**
  * DefaultEventBusModuleConfiguration - TODO: description
  *

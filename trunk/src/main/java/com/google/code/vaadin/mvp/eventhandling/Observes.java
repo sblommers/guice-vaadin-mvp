@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin.mvp.eventhandling;
 
 import java.lang.annotation.*;
 

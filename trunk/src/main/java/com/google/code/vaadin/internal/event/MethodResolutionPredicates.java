@@ -5,8 +5,8 @@
 
 package com.google.code.vaadin.internal.event;
 
-import com.google.code.vaadin.mvp.EventType;
-import com.google.code.vaadin.mvp.Observes;
+import com.google.code.vaadin.mvp.eventhandling.EventType;
+import com.google.code.vaadin.mvp.eventhandling.Observes;
 import net.engio.mbassy.common.IPredicate;
 
 import java.lang.reflect.Method;

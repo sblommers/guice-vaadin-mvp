@@ -6,6 +6,8 @@
 package com.google.code.vaadin;
 
 import com.google.code.vaadin.application.ui.ScopedUI;
+import com.google.code.vaadin.internal.event.EventBusModule;
+import com.google.code.vaadin.internal.event.EventBusModuleConfiguration;
 import com.google.code.vaadin.junit.AbstractMVPApplicationTestModule;
 
 /**
@@ -17,6 +19,15 @@ import com.google.code.vaadin.junit.AbstractMVPApplicationTestModule;
 public class MVPTestModule extends AbstractMVPApplicationTestModule {
 
     /*===========================================[ CLASS METHODS ]================*/
+
+    @Override
+    protected EventBusModule createEventBusModule() {
+        EventBusModuleConfiguration configuration = EventBusModule.getConfigurationBuilder()
+                .withSharedModelEventBus()
+                .withModelEventBus()
+                .build();
+        return new EventBusModule(configuration);
+    }
 
     @Override
     protected Class<? extends ScopedUI> getTestUIClass() {

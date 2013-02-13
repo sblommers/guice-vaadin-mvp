@@ -19,12 +19,12 @@
 package com.google.code.vaadin.mvp.events;
 
 /**
- * GlobalModelEvent - TODO: description
+ * Shared - TODO: description
  *
  * @author Alexey Krylov
  * @since 28.01.13
  */
-public class GlobalModelEvent {
+public class SharedModelEvent {
 /*===========================================[ STATIC VARIABLES ]=============*/
 /*===========================================[ INSTANCE VARIABLES ]===========*/
 /*===========================================[ CONSTRUCTORS ]=================*/

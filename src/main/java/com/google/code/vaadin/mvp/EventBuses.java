@@ -50,6 +50,6 @@ public interface EventBuses {
     @Documented
     @Target({ElementType.FIELD, ElementType.PARAMETER})
     @Retention(RetentionPolicy.RUNTIME)
-    @interface GlobalModelEventBus {
+    @interface SharedModelEventBus {
     }
 }

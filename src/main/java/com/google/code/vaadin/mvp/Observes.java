@@ -31,4 +31,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface Observes {
+
+    EventType value() default EventType.VIEW;
+
 }

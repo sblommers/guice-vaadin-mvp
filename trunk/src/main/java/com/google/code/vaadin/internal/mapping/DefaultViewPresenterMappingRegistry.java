@@ -43,7 +43,7 @@ class DefaultViewPresenterMappingRegistry implements ViewPresenterMappingRegistr
     /*===========================================[ CONSTRUCTORS ]=================*/
 
     DefaultViewPresenterMappingRegistry() {
-        mappings = new ConcurrentHashMap<View, AbstractPresenter>();
+        mappings = new ConcurrentHashMap<>();
     }
 
     /*===========================================[ CLASS METHODS ]================*/

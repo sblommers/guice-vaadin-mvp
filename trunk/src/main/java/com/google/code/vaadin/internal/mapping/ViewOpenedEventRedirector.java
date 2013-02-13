@@ -20,6 +20,7 @@ package com.google.code.vaadin.internal.mapping;
 
 import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.mvp.AbstractPresenter;
+import com.google.code.vaadin.mvp.EventType;
 import com.google.code.vaadin.mvp.Observes;
 import com.google.code.vaadin.mvp.ViewPresenterMappingRegistry;
 import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
@@ -42,7 +43,7 @@ class ViewOpenedEventRedirector {
 
     /*===========================================[ CLASS METHODS ]================*/
 
-    @Observes
+    @Observes(EventType.VIEW)
     public void viewOpened(ViewOpenedEvent event) {
         AbstractPresenter abstractPresenter = mappingRegistry.getPresenterForView(event.getView());
         //5. Call viewOpened if appropriate event received from view

@@ -20,10 +20,7 @@ package com.google.code.vaadin.internal.event;
 
 import com.google.code.vaadin.mvp.EventBus;
 import com.google.code.vaadin.mvp.EventBuses;
-import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.MembersInjector;
-import com.google.inject.Scopes;
+import com.google.inject.*;
 import net.engio.mbassy.common.ReflectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,11 +39,13 @@ class EventPublisherInjector<T> implements MembersInjector<T> {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
+    private EventBusModuleConfiguration configuration;
     private Injector injector;
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    EventPublisherInjector(Injector injector) {
+    EventPublisherInjector(EventBusModuleConfiguration configuration, Injector injector) {
+        this.configuration = configuration;
         this.injector = injector;
     }
 
@@ -54,29 +53,57 @@ class EventPublisherInjector<T> implements MembersInjector<T> {
 
     @Override
     public void injectMembers(T instance) {
-        Class<?> instanceClass = instance.getClass();
-        // todo simplify & remove explicit subscription to UIScoped model eventbus
-        // todo direct subscription: Presenter -> ViewEventBus (UIScoped). All magic should be removed
+        subscribeToViewEventBus(instance);
 
-        // Subscribe only if @Observes/@Listener methods present
-        if (!ReflectionUtils.getMethods(CompositeMetadataReader.AllMessageHandlers, instanceClass).isEmpty()) {
-            /**
-             * Do not allowed to register Singleton-scoped instances as UI-scoped ViewEventBus subscriber.
-             * This case only possible for not eager singletons that is injected by Session-scoped components.
-             */
+        if (configuration.isModelEventBusRequired()) {
+            subscribeToModelEventBus(instance);
+        }
+
+        if (configuration.isSharedModelEventBusRequired()) {
+            subscribeToSharedModelEventBus(instance);
+        }
+    }
+
+    /**
+     * Do not allowed to register Singleton-scoped instances as UI-scoped ViewEventBus subscriber
+     * because there is no UIScope on Injector instantiation.
+     * This case only possible for not eager singletons that is injected by UI-scoped components.
+     */
+    private void subscribeToViewEventBus(T instance) {
+        Class<?> instanceClass = instance.getClass();
+        if (!ReflectionUtils.getMethods(MethodResolutionPredicates.ViewEventHandlers, instanceClass).isEmpty()) {
             if (!Scopes.isSingleton(injector.getBinding(instanceClass))) {
                 EventBus viewEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.ViewEventBus.class));
-                EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.ModelEventBus.class));
-                //todo uiscope   !!!!!!
-                //injector.getInstance(DefaultEventBusSubscribersRegistry.class).registerUIScopedSubscriber(instance);
                 viewEventBus.subscribe(instance);
-                modelEventBus.subscribe(instance);
-                logger.info(String.format("[%s] subscribed to ViewEventBus [#%d] and ModelEventBus [#%d]", instance.toString(), viewEventBus.hashCode(), modelEventBus.hashCode()));
+                logger.info(String.format("[%s] subscribed to ViewEventBus [#%d]", instance.toString(), viewEventBus.hashCode()));
+            } else {
+                throw new ProvisionException("ERROR: Do not allowed to register Singleton-scoped instances as UI-scoped ViewEventBus subscriber");
             }
+        }
+    }
 
-            EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.GlobalModelEventBus.class));
+    /**
+     * @see EventPublisherInjector#subscribeToViewEventBus(Object)
+     */
+    private void subscribeToModelEventBus(T instance) {
+        Class<?> instanceClass = instance.getClass();
+        if (!ReflectionUtils.getMethods(MethodResolutionPredicates.ModelEventHandlers, instanceClass).isEmpty()) {
+            if (!Scopes.isSingleton(injector.getBinding(instanceClass))) {
+                EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.ModelEventBus.class));
+                modelEventBus.subscribe(instance);
+                logger.info(String.format("[%s] subscribed to ModelEventBus [#%d]", instance.toString(), modelEventBus.hashCode()));
+            } else {
+                throw new ProvisionException("ERROR: Do not allowed to register Singleton-scoped instances as UI-scoped ModelEventBus subscriber");
+            }
+        }
+    }
+
+    private void subscribeToSharedModelEventBus(T instance) {
+        Class<?> instanceClass = instance.getClass();
+        if (!ReflectionUtils.getMethods(MethodResolutionPredicates.SharedModelEventHandlers, instanceClass).isEmpty()) {
+            EventBus modelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.SharedModelEventBus.class));
             modelEventBus.subscribe(instance);
-            logger.info(String.format("[%s] subscribed to GlobalModelEventBus [#%d]", instance, modelEventBus.hashCode()));
+            logger.info(String.format("[%s] subscribed to SharedModelEventBus [#%d]", instance, modelEventBus.hashCode()));
         }
     }
 }

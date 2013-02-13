@@ -31,7 +31,7 @@ public class UIScope implements Scope {
 
     private static UIScope current;
 
-    private final Map<UIKey, Map<Key<?>, Object>> cache = new TreeMap<UIKey, Map<Key<?>, Object>>();
+    private final Map<UIKey, Map<Key<?>, Object>> cache = new TreeMap<>();
 
     public UIScope() {
         logger.debug("creating UIScope " + this);
@@ -39,7 +39,7 @@ public class UIScope implements Scope {
 
     @Override
     public <T> Provider<T> scope(Key<T> key, Provider<T> unscoped) {
-        return new UIScopeProvider<T>(key, unscoped);
+        return new UIScopeProvider<>(key, unscoped);
     }
 
     private <T> Map<Key<?>, Object> getScopedObjectMap(UIKey uiKey) {
@@ -69,7 +69,7 @@ public class UIScope implements Scope {
     }
 
     private Map<Key<?>, Object> createCacheEntry(UIKey uiKey) {
-        Map<Key<?>, Object> uiEntry = new HashMap<Key<?>, Object>();
+        Map<Key<?>, Object> uiEntry = new HashMap<>();
         cache.put(uiKey, uiEntry);
         logger.debug("created a scope cache for UIScope with key: " + uiKey);
         return uiEntry;

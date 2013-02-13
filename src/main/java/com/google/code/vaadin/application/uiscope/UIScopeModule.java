@@ -12,10 +12,8 @@
  */
 package com.google.code.vaadin.application.uiscope;
 
-import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
-import com.vaadin.server.UIProvider;
 
 public class UIScopeModule extends AbstractModule {
 

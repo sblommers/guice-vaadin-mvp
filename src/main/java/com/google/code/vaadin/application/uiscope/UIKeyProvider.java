@@ -12,17 +12,15 @@
  */
 package com.google.code.vaadin.application.uiscope;
 
-import com.google.code.vaadin.application.uiscope.UIKey;
-
 import javax.inject.Provider;
 
 public class UIKeyProvider implements Provider<UIKey> {
-	private static int counter = 0;
+    private static int counter = 0;
 
-	@Override
-	public UIKey get() {
-		counter++;
-		return new UIKey(counter);
-	}
+    @Override
+    public UIKey get() {
+        counter++;
+        return new UIKey(counter);
+    }
 
 }

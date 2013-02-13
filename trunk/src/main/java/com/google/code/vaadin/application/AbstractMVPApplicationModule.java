@@ -129,7 +129,7 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
     protected abstract void bindComponents();
 
     protected Map<String, String> extractInitParams(ServletContext servletContext) {
-        Map<String, String> initParams = new HashMap<String, String>();
+        Map<String, String> initParams = new HashMap<>();
         Enumeration parameterNames = servletContext.getInitParameterNames();
         while (parameterNames.hasMoreElements()) {
             String name = parameterNames.nextElement().toString();

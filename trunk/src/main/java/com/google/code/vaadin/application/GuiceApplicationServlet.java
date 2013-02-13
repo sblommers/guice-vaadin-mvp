@@ -29,7 +29,7 @@ import com.vaadin.server.*;
  * @since 23.01.13
  */
 @Singleton
-class GuiceApplicationServlet extends VaadinServlet implements SessionInitListener{
+class GuiceApplicationServlet extends VaadinServlet implements SessionInitListener {
 
 	/*===========================================[ STATIC VARIABLES ]=============*/
 

@@ -25,25 +25,25 @@ package com.google.code.vaadin.application.uiscope;
  * The counter value is set by the {@link UIKeyProvider}
  */
 public class UIKey implements Comparable<UIKey> {
-	private final int counter;
+    private final int counter;
 
-	public UIKey(int counter) {
-		super();
-		this.counter = counter;
-	}
+    public UIKey(int counter) {
+        super();
+        this.counter = counter;
+    }
 
-	public int getCounter() {
-		return counter;
-	}
+    public int getCounter() {
+        return counter;
+    }
 
-	@Override
-	public String toString() {
-		return "UIKey:" + counter;
-	}
+    @Override
+    public String toString() {
+        return "UIKey:" + counter;
+    }
 
-	@Override
-	public int compareTo(UIKey other) {
-		return this.getCounter() - other.getCounter();
-	}
+    @Override
+    public int compareTo(UIKey other) {
+        return this.getCounter() - other.getCounter();
+    }
 
 }

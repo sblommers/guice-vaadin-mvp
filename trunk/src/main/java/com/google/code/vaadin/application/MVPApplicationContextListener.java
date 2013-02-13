@@ -53,7 +53,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
     private static final Logger logger = LoggerFactory.getLogger(MVPApplicationContextListener.class);
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
-   //todo track shutdown to call PreDestroy
+    //todo track shutdown to call PreDestroy
     private Class<? extends AbstractMVPApplicationModule> mvpApplicationModuleClass;
     private Injector injector;
     private ServletContext servletContext;
@@ -65,8 +65,8 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
         logger.info("Initializing Guice-Vaadin-MVP context...");
 
         servletContext = servletContextEvent.getServletContext();
-
         mvpApplicationModuleClass = ApplicationModuleClassProvider.getApplicationModuleClass(servletContext);
+
         super.contextInitialized(servletContextEvent);
     }
 
@@ -87,7 +87,8 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
         HttpSession session = se.getSession();
         String sessionID = session.getId();
         logger.debug(String.format("Destroying data of session: [%s]", sessionID));
-        unsubscribeSessionScopedSubscribers(sessionID);
+        //todo unsubscribe when UI is detached.
+        unsubscribeUIScopedSubscribers(sessionID);
         if (logger.isDebugEnabled()) {
             Enumeration attributeNames = session.getAttributeNames();
             while (attributeNames.hasMoreElements()) {
@@ -117,12 +118,12 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
         }
     }
 
-    protected void unsubscribeSessionScopedSubscribers(String sessionID) {
+    protected void unsubscribeUIScopedSubscribers(String sessionID) {
         Iterable sessionScopedSubscribers = injector.getInstance(EventBusSubscribersRegistry.class).getAndRemoveSessionScopedSubscribers(sessionID);
-        EventBus globalModelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.GlobalModelEventBus.class));
+        EventBus sharedModelEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.SharedModelEventBus.class));
         if (sessionScopedSubscribers != null) {
             for (Object subscriber : sessionScopedSubscribers) {
-                globalModelEventBus.unsubscribe(subscriber);
+                sharedModelEventBus.unsubscribe(subscriber);
             }
         }
     }

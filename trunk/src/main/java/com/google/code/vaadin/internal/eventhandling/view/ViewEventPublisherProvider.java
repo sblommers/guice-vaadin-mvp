@@ -32,7 +32,7 @@ import javax.inject.Provider;
  * @author Alexey Krylov
  * @since 26.01.13
  */
-public class ViewEventPublisherProvider implements Provider<ViewEventPublisher> {
+class ViewEventPublisherProvider implements Provider<ViewEventPublisher> {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

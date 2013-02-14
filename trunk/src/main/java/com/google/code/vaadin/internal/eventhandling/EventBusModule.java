@@ -18,24 +18,14 @@
 
 package com.google.code.vaadin.internal.eventhandling;
 
-import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.internal.eventhandling.configuration.DefaultEventBusModuleConfigurationBuilder;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusModuleConfiguration;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusModuleConfigurationBuilder;
-import com.google.code.vaadin.internal.eventhandling.model.ModelEventBusProvider;
-import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedModelEventBusProvider;
-import com.google.code.vaadin.internal.eventhandling.view.ViewEventBusProvider;
-import com.google.code.vaadin.internal.eventhandling.model.ModelMessageBusProvider;
-import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedMessageBusProvider;
-import com.google.code.vaadin.internal.eventhandling.view.ViewMessageBusProvider;
-import com.google.code.vaadin.internal.eventhandling.model.ModelEventPublisherProvider;
-import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedModelEventPublisherProvider;
-import com.google.code.vaadin.internal.eventhandling.view.ViewEventPublisherProvider;
-import com.google.code.vaadin.mvp.eventhandling.*;
+import com.google.code.vaadin.internal.eventhandling.model.ModelEventBusModule;
+import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedModelEventBusModule;
+import com.google.code.vaadin.internal.eventhandling.view.ViewEventBusModule;
 import com.google.inject.AbstractModule;
-import com.google.inject.Scopes;
 import com.google.inject.matcher.Matchers;
-import net.engio.mbassy.IMessageBus;
 
 /**
  * EventPublisherModule - TODO: description
@@ -76,34 +66,13 @@ public class EventBusModule extends AbstractModule {
         requestInjection(eventBusTypeListener);
         bindListener(Matchers.any(), eventBusTypeListener);
 
-        bindViewEventBus();
+        install(new ViewEventBusModule());
 
         if (configuration.isModelEventBusRequired()) {
             install(new ModelEventBusModule());
-            bindModelEventBus();
         }
-
         if (configuration.isSharedModelEventBusRequired()) {
-            bind(SharedEventBusSubscribersRegistry.class).to(DefaultSharedEventBusSubscribersRegistry.class).in(Scopes.SINGLETON);
-            bindSharedModelEventBus();
+            install(new SharedModelEventBusModule());
         }
-    }
-
-    protected void bindViewEventBus() {
-        bind(EventBus.class).annotatedWith(EventBuses.ViewEventBus.class).toProvider(ViewEventBusProvider.class).in(UIScope.getCurrent());
-        bind(IMessageBus.class).annotatedWith(EventBuses.ViewEventBus.class).toProvider(ViewMessageBusProvider.class).in(UIScope.getCurrent());
-        bind(ViewEventPublisher.class).toProvider(ViewEventPublisherProvider.class).in(UIScope.getCurrent());
-    }
-
-    protected void bindModelEventBus() {
-        bind(EventBus.class).annotatedWith(EventBuses.ModelEventBus.class).toProvider(ModelEventBusProvider.class).in(UIScope.getCurrent());
-        bind(IMessageBus.class).annotatedWith(EventBuses.ModelEventBus.class).toProvider(ModelMessageBusProvider.class).in(UIScope.getCurrent());
-        bind(ModelEventPublisher.class).toProvider(ModelEventPublisherProvider.class).in(UIScope.getCurrent());
-    }
-
-    protected void bindSharedModelEventBus() {
-        bind(EventBus.class).annotatedWith(EventBuses.SharedModelEventBus.class).toProvider(SharedModelEventBusProvider.class).in(Scopes.SINGLETON);
-        bind(IMessageBus.class).annotatedWith(EventBuses.SharedModelEventBus.class).toProvider(SharedMessageBusProvider.class).in(Scopes.SINGLETON);
-        bind(SharedModelEventPublisher.class).toProvider(SharedModelEventPublisherProvider.class).in(Scopes.SINGLETON);
     }
 }

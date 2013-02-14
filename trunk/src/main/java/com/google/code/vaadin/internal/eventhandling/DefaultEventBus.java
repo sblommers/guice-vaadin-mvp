@@ -32,7 +32,7 @@ import javax.validation.constraints.NotNull;
  * @author Alexey Krylov
  * @since 26.01.13
  */
-public class DefaultEventBus implements EventBus {
+class DefaultEventBus implements EventBus {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
 
@@ -44,7 +44,7 @@ public class DefaultEventBus implements EventBus {
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    public DefaultEventBus(IMessageBus bus) {
+    DefaultEventBus(IMessageBus bus) {
         this.bus = bus;
     }
 

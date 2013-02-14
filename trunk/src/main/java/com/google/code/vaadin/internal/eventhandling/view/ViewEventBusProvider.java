@@ -19,7 +19,6 @@
 package com.google.code.vaadin.internal.eventhandling.view;
 
 import com.google.code.vaadin.internal.eventhandling.AbstractEventBusProvider;
-import com.google.code.vaadin.internal.eventhandling.view.ViewMessageBusProvider;
 import net.engio.mbassy.IMessageBus;
 
 import javax.inject.Inject;
@@ -30,7 +29,7 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 26.01.13
  */
-public class ViewEventBusProvider extends AbstractEventBusProvider {
+class ViewEventBusProvider extends AbstractEventBusProvider {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

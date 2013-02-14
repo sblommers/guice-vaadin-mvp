@@ -30,7 +30,7 @@ import net.engio.mbassy.BusConfiguration;
  * @author Alexey Krylov
  * @since 26.01.13
  */
-public class SharedMessageBusProvider extends AbstractMessageBusProvider {
+class SharedMessageBusProvider extends AbstractMessageBusProvider {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

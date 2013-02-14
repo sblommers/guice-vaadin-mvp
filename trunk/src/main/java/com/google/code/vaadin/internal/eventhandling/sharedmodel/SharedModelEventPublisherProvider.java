@@ -32,7 +32,7 @@ import javax.inject.Provider;
  * @author Alexey Krylov
  * @since 26.01.13
  */
-public class SharedModelEventPublisherProvider implements Provider<SharedModelEventPublisher> {
+class SharedModelEventPublisherProvider implements Provider<SharedModelEventPublisher> {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

@@ -16,8 +16,9 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.eventhandling;
+package com.google.code.vaadin.internal.eventhandling.sharedmodel;
 
+import com.google.code.vaadin.internal.eventhandling.SharedEventBusSubscribersRegistry;
 import com.google.common.base.Preconditions;
 
 import javax.inject.Inject;

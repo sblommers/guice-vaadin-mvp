@@ -20,7 +20,6 @@ package com.google.code.vaadin;
 
 import com.google.code.vaadin.localization.TextBundle;
 import com.google.code.vaadin.mvp.Lang;
-import com.google.inject.AbstractModule;
 
 /**
  * MVPApplicationTestModule - TODO: description
@@ -28,12 +27,12 @@ import com.google.inject.AbstractModule;
  * @author Alexey Krylov
  * @since 28.01.13
  */
-public class TextBundleTestModule extends AbstractModule {
+public class MVPTestModuleWithTextBundle extends MVPTestModule {
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    protected void configure() {
+    protected void bindTextBundle() {
         bind(TextBundle.class).to(Lang.class);
     }
 }

@@ -18,8 +18,7 @@
 
 package com.google.code.vaadin.junit.mvp;
 
-import com.google.code.vaadin.MVPTestModule;
-import com.google.code.vaadin.TextBundleTestModule;
+import com.google.code.vaadin.MVPTestModuleWithTextBundle;
 import com.google.code.vaadin.components.Preconfigured;
 import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.Lang;
@@ -41,7 +40,7 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 28.01.13
  */
-@GuiceContext(value = {TextBundleTestModule.class, MVPTestModule.class}, stage = Stage.PRODUCTION)
+@GuiceContext(value = {MVPTestModuleWithTextBundle.class}, stage = Stage.PRODUCTION)
 public class LocaleChangeTest extends AbstractMVPTest{
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/

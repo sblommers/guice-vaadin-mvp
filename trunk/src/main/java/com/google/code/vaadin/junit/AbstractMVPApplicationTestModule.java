@@ -19,9 +19,10 @@
 package com.google.code.vaadin.junit;
 
 import com.google.code.vaadin.application.AbstractMVPApplicationModule;
+import com.google.code.vaadin.application.MVPApplicationInitParameters;
 import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
-import com.google.code.vaadin.application.MVPApplicationInitParameters;
+import com.google.code.vaadin.localization.TextBundle;
 import com.vaadin.server.UIProvider;
 
 import javax.servlet.ServletContext;
@@ -55,28 +56,8 @@ public abstract class AbstractMVPApplicationTestModule extends AbstractMVPApplic
 
     protected ServletContext activateServletContext() {
         when(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS)).thenReturn(getTestUIClass().getName());
+        when(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_MODULE)).thenReturn(getClass().getName());
         when(servletContext.getInitParameterNames()).thenReturn(Collections.enumeration(new HashSet()));
-
-       /* //todo provider
-        Injector delegate = (Injector) Proxy.newProxyInstance(
-                AbstractMVPApplicationTestModule.class.getClassLoader(),
-                new Class[]{Injector.class}, new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                try {
-                    return method.invoke(null, args);
-                } catch (InvocationTargetException e) {
-                    Throwable t = e.getCause();
-                    if (t != null) {
-                        throw t;
-                    } else {
-                        throw e;
-                    }
-                }
-            }
-        });
-
-        when(servletContext.getAttribute(Injector.class.getName())).thenReturn(delegate);*/
         return servletContext;
     }
 
@@ -100,6 +81,11 @@ public abstract class AbstractMVPApplicationTestModule extends AbstractMVPApplic
 
     @Override
     protected void bindTextBundle() {
-        //todo bind default impl
+        bind(TextBundle.class).toInstance(new TextBundle() {
+            @Override
+            public String getText(String key, Object... params) {
+                return key;
+            }
+        });
     }
 }

@@ -1,18 +1,14 @@
 package com.google.code.vaadin.application.uiscope;
 
-public class UIScopeException extends RuntimeException {
+import com.google.code.vaadin.mvp.MVPApplicationException;
 
-    protected UIScopeException() {
-        super();
-    }
+public class UIScopeException extends MVPApplicationException {
 
-    protected UIScopeException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
+	/*===========================================[ STATIC VARIABLES ]=============*/
 
-    protected UIScopeException(String message, Throwable cause) {
-        super(message, cause);
-    }
+    private static final long serialVersionUID = -1325029302330469640L;
+
+	/*===========================================[ CONSTRUCTORS ]=================*/
 
     protected UIScopeException(String message) {
         super(message);
@@ -22,4 +18,7 @@ public class UIScopeException extends RuntimeException {
         super(cause);
     }
 
+    protected UIScopeException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

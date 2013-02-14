@@ -5,11 +5,11 @@
 
 package com.google.code.vaadin.application.ui;
 
+import com.google.code.vaadin.application.MVPApplicationInitParameters;
 import com.google.code.vaadin.application.uiscope.UIKey;
 import com.google.code.vaadin.application.uiscope.UIKeyProvider;
 import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.application.uiscope.UIScoped;
-import com.google.code.vaadin.application.MVPApplicationInitParameters;
 import com.google.common.base.Preconditions;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -51,8 +51,9 @@ public class ScopedUIProvider extends UIProvider {
     protected void init(Logger logger, Injector injector,
                         @Named(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS) Class uiClass,
                         UIKeyProvider uiKeyProvider) {
-
         Preconditions.checkArgument(ScopedUI.class.isAssignableFrom(uiClass), String.format("ERROR: %s is not subclass of ScopedUI", uiClass.getName()));
+
+        logger.error("CREATED: " + uiKeyProvider.hashCode());
         this.logger = logger;
         this.injector = injector;
         this.uiClass = uiClass;

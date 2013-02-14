@@ -13,14 +13,18 @@
 package com.google.code.vaadin.application.uiscope;
 
 import javax.inject.Provider;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class UIKeyProvider implements Provider<UIKey> {
-    private static int counter = 0;
+
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static AtomicLong counter = new AtomicLong();
+
+	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     public UIKey get() {
-        counter++;
-        return new UIKey(counter);
+        return new UIKey(counter.incrementAndGet());
     }
-
 }

@@ -18,7 +18,7 @@ import com.mycila.testing.plugin.guice.GuiceContext;
  * @since 10.02.13
  */
 @GuiceContext(value = MVPTestModule.class, stage = Stage.PRODUCTION)
-public abstract class AbstractMVPTest extends MVPTestBase {
+public abstract class AbstractMVPTest extends AbstractMVPTestBase {
 
 	/*===========================================[ INTERFACE METHODS ]============*/
 

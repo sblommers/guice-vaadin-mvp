@@ -29,7 +29,7 @@ import javax.inject.Inject;
  * @author Alexey Krylov
  * @since 26.01.13
  */
-public class SharedModelEventBusProvider extends AbstractEventBusProvider {
+class SharedModelEventBusProvider extends AbstractEventBusProvider {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

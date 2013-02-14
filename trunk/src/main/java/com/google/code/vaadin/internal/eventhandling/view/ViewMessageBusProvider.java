@@ -16,32 +16,31 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin.internal.eventhandling.view;
 
-import com.google.code.vaadin.mvp.eventhandling.events.ViewEvent;
+import com.google.code.vaadin.internal.eventhandling.AbstractMessageBusProvider;
+import com.google.code.vaadin.mvp.eventhandling.EventBuses;
+import com.google.inject.Inject;
+import net.engio.mbassy.BusConfiguration;
 
 /**
- * TestView - TODO: description
+ * ViewMessageBusProvider - TODO: description
  *
  * @author Alexey Krylov
- * @since 24.01.13
+ * @since 26.01.13
  */
-public class BasicView extends AbstractView {
+public class ViewMessageBusProvider extends AbstractMessageBusProvider {
 
-    /*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private static final long serialVersionUID = 4317442441310926792L;
+    @Inject(optional = true)
+    @EventBuses.ViewEventBus
+    private BusConfiguration busConfiguration;
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
-    public void sampleButtonPressed() {
-        fireViewEvent(new ViewEvent());
-    }
-
-    /*===========================================[ CLASS METHODS ]================*/
-
     @Override
-    protected void initView() {
-
+    protected BusConfiguration getConfiguration() {
+        return busConfiguration;
     }
 }

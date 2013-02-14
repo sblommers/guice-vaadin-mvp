@@ -19,7 +19,7 @@
 package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.application.uiscope.UIScoped;
-import com.google.code.vaadin.mvp.events.ViewOpenedEvent;
+import com.google.code.vaadin.mvp.eventhandling.events.ViewOpenedEvent;
 
 import javax.inject.Inject;
 

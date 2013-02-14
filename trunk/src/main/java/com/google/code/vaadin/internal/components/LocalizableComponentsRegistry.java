@@ -22,7 +22,7 @@ import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.localization.TextBundle;
 import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
-import com.google.code.vaadin.mvp.events.LocaleChangedEvent;
+import com.google.code.vaadin.mvp.eventhandling.events.LocaleChangedEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import org.slf4j.Logger;

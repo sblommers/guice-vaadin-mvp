@@ -16,32 +16,37 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin.internal.eventhandling;
 
-import com.google.code.vaadin.mvp.eventhandling.events.ViewEvent;
+import com.google.code.vaadin.mvp.eventhandling.EventBus;
+import net.engio.mbassy.IMessageBus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.inject.Provider;
 
 /**
- * TestView - TODO: description
+ * AbstractEventBusProvider - TODO: description
  *
  * @author Alexey Krylov
- * @since 24.01.13
+ * @since 26.01.13
  */
-public class BasicView extends AbstractView {
-
-    /*===========================================[ STATIC VARIABLES ]=============*/
-
-    private static final long serialVersionUID = 4317442441310926792L;
+public abstract class AbstractEventBusProvider implements Provider<EventBus> {
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
-    public void sampleButtonPressed() {
-        fireViewEvent(new ViewEvent());
-    }
-
-    /*===========================================[ CLASS METHODS ]================*/
-
     @Override
-    protected void initView() {
-
+    public EventBus get() {
+        Logger logger = LoggerFactory.getLogger(getClass());
+        EventBus eventBus = createEventBus();
+        logger.debug("EventBus created: " + eventBus.hashCode());
+        return eventBus;
     }
+
+    protected EventBus createEventBus() {
+        return new DefaultEventBus(getMessageBus());
+    }
+
+    public abstract IMessageBus getMessageBus();
+
 }

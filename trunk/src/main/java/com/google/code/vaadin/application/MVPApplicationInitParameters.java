@@ -16,32 +16,18 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
-
-import com.google.code.vaadin.mvp.eventhandling.events.ViewEvent;
+package com.google.code.vaadin.application;
 
 /**
- * TestView - TODO: description
+ * Mandatory webapp init parameter names.
  *
  * @author Alexey Krylov
- * @since 24.01.13
+ * @since 25.01.13
  */
-public class BasicView extends AbstractView {
+public interface MVPApplicationInitParameters {
 
-    /*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ INTERFACE METHODS ]==============*/
 
-    private static final long serialVersionUID = 4317442441310926792L;
-
-    /*===========================================[ INTERFACE METHODS ]============*/
-
-    public void sampleButtonPressed() {
-        fireViewEvent(new ViewEvent());
-    }
-
-    /*===========================================[ CLASS METHODS ]================*/
-
-    @Override
-    protected void initView() {
-
-    }
+    String P_APPLICATION_UI_CLASS = "ui-class";
+    String P_APPLICATION_MODULE = "application-module";
 }

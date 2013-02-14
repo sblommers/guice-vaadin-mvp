@@ -20,7 +20,7 @@ package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
-import com.google.code.vaadin.mvp.events.ViewEvent;
+import com.google.code.vaadin.mvp.eventhandling.events.ViewEvent;
 
 /**
  * TestPresenter - TODO: description

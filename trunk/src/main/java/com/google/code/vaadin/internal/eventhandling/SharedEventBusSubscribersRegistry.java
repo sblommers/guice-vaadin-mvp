@@ -16,32 +16,22 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin.internal.eventhandling;
 
-import com.google.code.vaadin.mvp.eventhandling.events.ViewEvent;
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 /**
- * TestView - TODO: description
+ * IMVPApplicationContext - TODO: description
  *
  * @author Alexey Krylov
- * @since 24.01.13
+ * @since 28.01.13
  */
-public class BasicView extends AbstractView {
+public interface SharedEventBusSubscribersRegistry {
 
-    /*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ INTERFACE METHODS ]==============*/
 
-    private static final long serialVersionUID = 4317442441310926792L;
+    Collection getAndRemoveSessionScopedSubscribers(@NotNull String sessionID);
 
-    /*===========================================[ INTERFACE METHODS ]============*/
-
-    public void sampleButtonPressed() {
-        fireViewEvent(new ViewEvent());
-    }
-
-    /*===========================================[ CLASS METHODS ]================*/
-
-    @Override
-    protected void initView() {
-
-    }
+    Collection getSessionScopedSubscribers(@NotNull String sessionID);
 }

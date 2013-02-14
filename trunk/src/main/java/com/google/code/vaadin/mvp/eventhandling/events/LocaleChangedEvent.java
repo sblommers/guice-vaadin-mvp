@@ -16,32 +16,31 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.mvp;
+package com.google.code.vaadin.mvp.eventhandling.events;
 
-import com.google.code.vaadin.mvp.eventhandling.events.ViewEvent;
+import java.util.Locale;
 
 /**
- * TestView - TODO: description
+ * LocaleChangedEvent - TODO: description
  *
  * @author Alexey Krylov
- * @since 24.01.13
+ * @since 31.01.13
  */
-public class BasicView extends AbstractView {
+public class LocaleChangedEvent {
 
-    /*===========================================[ STATIC VARIABLES ]=============*/
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private static final long serialVersionUID = 4317442441310926792L;
+    private Locale locale;
 
-    /*===========================================[ INTERFACE METHODS ]============*/
+	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    public void sampleButtonPressed() {
-        fireViewEvent(new ViewEvent());
+    public LocaleChangedEvent(Locale locale) {
+        this.locale = locale;
     }
 
-    /*===========================================[ CLASS METHODS ]================*/
+	/*===========================================[ GETTER/SETTER ]================*/
 
-    @Override
-    protected void initView() {
-
+    public Locale getLocale() {
+        return locale;
     }
 }

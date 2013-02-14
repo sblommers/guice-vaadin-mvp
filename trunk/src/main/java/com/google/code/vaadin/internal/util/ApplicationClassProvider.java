@@ -19,7 +19,7 @@
 package com.google.code.vaadin.internal.util;
 
 import com.google.code.vaadin.application.ui.ScopedUI;
-import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
+import com.google.code.vaadin.application.MVPApplicationInitParameters;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 
 import javax.servlet.ServletContext;

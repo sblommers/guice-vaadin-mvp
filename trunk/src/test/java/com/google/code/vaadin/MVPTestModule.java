@@ -6,8 +6,8 @@
 package com.google.code.vaadin;
 
 import com.google.code.vaadin.application.ui.ScopedUI;
-import com.google.code.vaadin.internal.event.EventBusModule;
-import com.google.code.vaadin.internal.event.configuration.EventBusModuleConfiguration;
+import com.google.code.vaadin.internal.eventhandling.EventBusModule;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusModuleConfiguration;
 import com.google.code.vaadin.junit.AbstractMVPApplicationTestModule;
 
 /**

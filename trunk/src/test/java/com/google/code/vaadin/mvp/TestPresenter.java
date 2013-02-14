@@ -20,8 +20,8 @@ package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
-import com.google.code.vaadin.mvp.events.ContactOpenedEvent;
-import com.google.code.vaadin.mvp.events.DomainEvent;
+import com.google.code.vaadin.mvp.eventhandling.events.ContactOpenedEvent;
+import com.google.code.vaadin.mvp.eventhandling.events.DomainEvent;
 
 import javax.inject.Inject;
 

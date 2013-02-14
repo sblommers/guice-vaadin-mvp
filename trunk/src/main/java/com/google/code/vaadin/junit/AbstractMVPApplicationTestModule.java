@@ -21,7 +21,7 @@ package com.google.code.vaadin.junit;
 import com.google.code.vaadin.application.AbstractMVPApplicationModule;
 import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
-import com.google.code.vaadin.internal.servlet.MVPApplicationInitParameters;
+import com.google.code.vaadin.application.MVPApplicationInitParameters;
 import com.vaadin.server.UIProvider;
 
 import javax.servlet.ServletContext;

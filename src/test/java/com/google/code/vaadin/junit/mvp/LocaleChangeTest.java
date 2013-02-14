@@ -25,7 +25,7 @@ import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.Lang;
 import com.google.code.vaadin.mvp.TestView;
 import com.google.code.vaadin.mvp.eventhandling.ViewEventPublisher;
-import com.google.code.vaadin.mvp.events.LocaleChangedEvent;
+import com.google.code.vaadin.mvp.eventhandling.events.LocaleChangedEvent;
 import com.google.inject.Stage;
 import com.mycila.testing.plugin.guice.GuiceContext;
 import com.vaadin.ui.Label;

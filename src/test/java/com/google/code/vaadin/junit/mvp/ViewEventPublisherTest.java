@@ -22,7 +22,7 @@ import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
 import com.google.code.vaadin.mvp.eventhandling.ViewEventPublisher;
-import com.google.code.vaadin.mvp.events.ViewEvent;
+import com.google.code.vaadin.mvp.eventhandling.events.ViewEvent;
 import org.junit.Test;
 
 import javax.inject.Inject;

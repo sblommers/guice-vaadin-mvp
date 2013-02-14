@@ -19,7 +19,7 @@
 package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.mvp.eventhandling.ModelEventPublisher;
-import com.google.code.vaadin.mvp.events.DomainEvent;
+import com.google.code.vaadin.mvp.eventhandling.events.DomainEvent;
 
 import javax.inject.Inject;
 

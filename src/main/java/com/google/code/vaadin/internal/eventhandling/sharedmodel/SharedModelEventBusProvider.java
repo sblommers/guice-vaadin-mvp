@@ -16,36 +16,30 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.mapping;
+package com.google.code.vaadin.internal.eventhandling.sharedmodel;
 
-import com.google.code.vaadin.application.uiscope.UIScoped;
-import com.google.code.vaadin.mvp.AbstractPresenter;
-import com.google.code.vaadin.mvp.eventhandling.EventType;
-import com.google.code.vaadin.mvp.eventhandling.Observes;
-import com.google.code.vaadin.mvp.eventhandling.events.ViewOpenedEvent;
+import com.google.code.vaadin.internal.eventhandling.AbstractEventBusProvider;
+import net.engio.mbassy.IMessageBus;
 
 import javax.inject.Inject;
 
 /**
- * PresenterInitializer - TODO: description
+ * Shared Model EventBus provider. Allows to inject MBassador {@link IMessageBus}.
  *
  * @author Alexey Krylov
- * @since 25.01.13
+ * @since 26.01.13
  */
-@UIScoped
-class ViewOpenedEventRedirector {
+public class SharedModelEventBusProvider extends AbstractEventBusProvider {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
-    private ViewPresenterMappingRegistry mappingRegistry;
+    private SharedMessageBusProvider messageBusProvider;
 
-    /*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
-    @Observes(EventType.VIEW)
-    public void viewOpened(ViewOpenedEvent event) {
-        AbstractPresenter abstractPresenter = mappingRegistry.getPresenterForView(event.getView());
-        //5. Call viewOpened if appropriate event received from view
-        abstractPresenter.viewOpened();
+    @Override
+    public IMessageBus getMessageBus() {
+        return messageBusProvider.get();
     }
 }

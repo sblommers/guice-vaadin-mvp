@@ -21,6 +21,8 @@ package com.google.code.vaadin.junit.mvp;
 import com.google.code.vaadin.internal.mapping.ViewPresenterMappingRegistry;
 import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.*;
+import com.google.code.vaadin.mvp.eventhandling.SharedModelEventPublisher;
+import com.google.code.vaadin.mvp.eventhandling.events.SharedModelEvent;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -42,6 +44,9 @@ public class ViewPresenterIntercommunicationTest extends AbstractMVPTest {
     @Inject
     private BasicView basicView;
 
+    @Inject
+    private SharedModelEventPublisher sharedModelEventPublisher;
+
     /*===========================================[ CLASS METHODS ]================*/
 
     @Test
@@ -56,6 +61,9 @@ public class ViewPresenterIntercommunicationTest extends AbstractMVPTest {
 
         Assert.assertTrue("ContactOpenedEvent was not received", presenter.isContactOpened());
         Assert.assertTrue("DomainEvent was not received", presenter.isDomainEventReceived());
+
+        sharedModelEventPublisher.publish(new SharedModelEvent());
+        Assert.assertTrue("SharedModelEvent was not received", presenter.isSharedModelEventReceived());
     }
 
     @Test

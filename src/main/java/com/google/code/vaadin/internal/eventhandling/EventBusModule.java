@@ -62,9 +62,9 @@ public class EventBusModule extends AbstractModule {
         bind(EventBusModuleConfiguration.class).toInstance(configuration);
 
         // Registers all injectees as EventBus subscribers because we can't definitely say who is listening
-        EventBusTypeListener eventBusTypeListener = new EventBusTypeListener(configuration);
-        requestInjection(eventBusTypeListener);
-        bindListener(Matchers.any(), eventBusTypeListener);
+        EventBusTypeAutoSubscriber eventBusTypeAutoSubscriber = new EventBusTypeAutoSubscriber(configuration);
+        requestInjection(eventBusTypeAutoSubscriber);
+        bindListener(Matchers.any(), eventBusTypeAutoSubscriber);
 
         install(new ViewEventBusModule());
 

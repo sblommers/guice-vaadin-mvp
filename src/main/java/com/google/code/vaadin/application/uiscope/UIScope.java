@@ -40,7 +40,7 @@ public class UIScope implements Scope {
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
     public UIScope() {
-        logger.debug("creating UIScope " + this);
+        logger.debug("Creating UIScope: " + this);
     }
 
 	/*===========================================[ CLASS METHODS ]================*/
@@ -49,7 +49,7 @@ public class UIScope implements Scope {
         // return an existing cache instance
         if (cache.containsKey(uiKey)) {
             Map<Key<?>, Object> scopedObjects = cache.get(uiKey);
-            logger.debug("scope cache retrieved for UI key: " + uiKey);
+            logger.debug(String.format("Scope cache retrieved for UI key: [%s]", uiKey));
             return scopedObjects;
         } else {
             return createCacheEntry(uiKey);
@@ -59,7 +59,7 @@ public class UIScope implements Scope {
     private Map<Key<?>, Object> createCacheEntry(UIKey uiKey) {
         Map<Key<?>, Object> uiEntry = new HashMap<>();
         cache.put(uiKey, uiEntry);
-        logger.debug("created a scope cache for UIScope with key: " + uiKey);
+        logger.debug(String.format("Created a scope cache for UIScope with key: [%s]", uiKey));
         return uiEntry;
     }
 
@@ -124,21 +124,21 @@ public class UIScope implements Scope {
         @Override
         public T get() {
             // get the scope cache for the current UI
-            logger.debug("looking for a UIScoped instance of {}", key);
+            logger.debug(String.format("Looking for a UIScoped instance of: [%s]", key));
 
             // get the current UIKey. It should always be there, as it is created before the UI
             UIKey uiKey = CurrentInstance.get(UIKey.class);
             // this may be null if we are in the process of constructing the UI
             ScopedUI currentUI = (ScopedUI) UI.getCurrent();
-            String msg = "This should not be possible, unless perhaps you are testing and have not set up the test fixture correctly.  Try sub-classing UITestBase and calling createTestUI() or createBasicUI() to prepare the UIScope correctly.  If you are not testing please report a bug";
+            String msg = "This should not be possible, unless perhaps you are testing and have not set up the test fixture correctly.  Try sub-classing AbstractMVPTestBase and run it with subclass of AbstractMVPApplicationTestModule.  If you are not testing please report a bug";
             if (uiKey == null) {
                 if (currentUI == null) {
-                    throw new UIScopeException("UI and uiKey are null. " + msg);
+                    throw new UIScopeException("ERROR: UI and uiKey are null. " + msg);
                 } else {
                     // this can happen when the framework switches UIs
                     uiKey = currentUI.getInstanceKey();
                     if (uiKey == null) {
-                        throw new UIScopeException("uiKey is null and cannot be obtained from the UI. " + msg);
+                        throw new UIScopeException("ERROR: uiKey is null and cannot be obtained from the UI. " + msg);
                     }
                 }
             }
@@ -148,14 +148,12 @@ public class UIScope implements Scope {
             if (currentUI != null) {
                 if (!uiKey.equals(currentUI.getInstanceKey())) {
                     throw new UIScopeException(
-                            "The UI and its UIKey have got out of sync.  Results are unpredictable. " + msg);
+                            "ERROR: The UI and its UIKey have got out of sync.  Results are unpredictable. " + msg);
                 }
             }
 
-            logger.debug("looking for cache for key: " + uiKey);
+            logger.debug(String.format("Looking for cache for key: [%s]", uiKey));
             Map<Key<?>, Object> scopedObjects = getScopedObjectMap(uiKey);
-            // this line should fail tests but having trouble setting up a decent test. TestBench needed?
-            // Map<Key<?>, Object> scopedObjects = getScopedObjectMap(CurrentInstance.get(UIKey.class));
 
             // retrieve an existing instance if possible
 
@@ -163,14 +161,14 @@ public class UIScope implements Scope {
             T current = (T) scopedObjects.get(key);
 
             if (current != null) {
-                logger.debug("returning existing instance of " + current.getClass().getSimpleName());
+                logger.debug(String.format("Returning existing instance of [%s]", current.getClass().getSimpleName()));
                 return current;
             }
 
             // or create the first instance and cache it
             current = unscoped.get();
             scopedObjects.put(key, current);
-            logger.debug("new instance of " + current.getClass().getSimpleName() + " created, as none in cache");
+            logger.debug(String.format("New instance of [%s] created, as none in cache", current.getClass().getSimpleName()));
             return current;
         }
     }

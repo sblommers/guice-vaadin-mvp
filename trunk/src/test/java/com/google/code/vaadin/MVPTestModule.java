@@ -33,9 +33,4 @@ public class MVPTestModule extends AbstractMVPApplicationTestModule {
     protected Class<? extends ScopedUI> getTestUIClass() {
         return TestUI.class;
     }
-
-    @Override
-    protected void bindTextBundle() {
-
-    }
 }

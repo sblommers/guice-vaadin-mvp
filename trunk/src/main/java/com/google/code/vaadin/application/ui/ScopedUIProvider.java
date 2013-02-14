@@ -10,9 +10,13 @@ import com.google.code.vaadin.application.uiscope.UIKey;
 import com.google.code.vaadin.application.uiscope.UIKeyProvider;
 import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.application.uiscope.UIScoped;
+import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedEventBusSubscribersRegistry;
+import com.google.code.vaadin.mvp.eventhandling.EventBus;
+import com.google.code.vaadin.mvp.eventhandling.EventBuses;
 import com.google.common.base.Preconditions;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.vaadin.server.ClientConnector;
 import com.vaadin.server.UIClassSelectionEvent;
 import com.vaadin.server.UICreateEvent;
 import com.vaadin.server.UIProvider;
@@ -21,6 +25,9 @@ import com.vaadin.util.CurrentInstance;
 import org.slf4j.Logger;
 
 import javax.inject.Named;
+import java.util.Collection;
+
+import static com.vaadin.server.ClientConnector.DetachListener;
 
 /**
  * A Vaadin UI provider which supports the use of Guice scoped UI (see {@link UIScoped}). If you do not need UIScope,
@@ -42,22 +49,24 @@ public class ScopedUIProvider extends UIProvider {
 
     protected Logger logger;
     protected UIKeyProvider uiKeyProvider;
-    protected Class uiClass;
     protected Injector injector;
+    protected Class uiClass;
+    protected EventBus sharedEventBus;
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
     protected void init(Logger logger, Injector injector,
                         @Named(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS) Class uiClass,
-                        UIKeyProvider uiKeyProvider) {
+                        UIKeyProvider uiKeyProvider,
+                        @EventBuses.SharedModelEventBus EventBus sharedEventBus) {
         Preconditions.checkArgument(ScopedUI.class.isAssignableFrom(uiClass), String.format("ERROR: %s is not subclass of ScopedUI", uiClass.getName()));
 
-        logger.error("CREATED: " + uiKeyProvider.hashCode());
         this.logger = logger;
         this.injector = injector;
         this.uiClass = uiClass;
         this.uiKeyProvider = uiKeyProvider;
+        this.sharedEventBus = sharedEventBus;
     }
 
 	/*===========================================[ CLASS METHODS ]================*/
@@ -86,7 +95,31 @@ public class ScopedUIProvider extends UIProvider {
         ScopedUI ui = (ScopedUI) injector.getInstance(uiClass);
         ui.setInstanceKey(uiKey);
         ui.setScope(scope);
-        logger.debug("returning instance of " + ui.getClass().getName() + " with key " + uiKey);
+
+        ui.addDetachListener(createScopedUIDetachListener(uiClass, uiKey));
+
+        logger.debug(String.format("Returning instance of [%s] with key [%s]", uiClass.getName(), uiKey));
         return ui;
+    }
+
+    protected DetachListener createScopedUIDetachListener(final Class<? extends UI> uiClass, final UIKey uiKey) {
+        return new DetachListener() {
+            private static final long serialVersionUID = -3087386509047842913L;
+
+            @Override
+            public void detach(ClientConnector.DetachEvent event) {
+                logger.debug(String.format("Detaching [%s] with key [%s]", uiClass.getName(), uiKey));
+
+                SharedEventBusSubscribersRegistry subscribersRegistry = injector.getInstance(SharedEventBusSubscribersRegistry.class);
+                Collection<Object> uiScopedSubscribers = subscribersRegistry.removeAndGetSubscribers(uiKey);
+
+                // Unsubscribe all non-singletons (UIScoped, nonscoped, etc) from SharedEventBus
+                for (Object subscriber : uiScopedSubscribers) {
+                    sharedEventBus.unsubscribe(subscriber);
+                }
+
+                logger.info(String.format("Detached [%s] with key [%s]", uiClass.getName(), uiKey));
+            }
+        };
     }
 }

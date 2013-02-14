@@ -22,6 +22,7 @@ import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
 import com.google.code.vaadin.mvp.eventhandling.events.ContactOpenedEvent;
 import com.google.code.vaadin.mvp.eventhandling.events.DomainEvent;
+import com.google.code.vaadin.mvp.eventhandling.events.SharedModelEvent;
 
 import javax.inject.Inject;
 
@@ -41,6 +42,7 @@ public class TestPresenter extends AbstractPresenter<TestView> {
 
     private boolean contactOpened;
     private boolean domainEventReceived;
+    private boolean sharedModelEventReceived;
     private boolean viewOpened;
 
     @Inject
@@ -57,6 +59,11 @@ public class TestPresenter extends AbstractPresenter<TestView> {
     @Observes(EventType.MODEL)
     private void domainEventReceived(DomainEvent domainEvent) {
         domainEventReceived = true;
+    }
+
+    @Observes(EventType.SHARED_MODEL)
+    private void sharedDomainEventReceived(SharedModelEvent sharedModelEvent) {
+        sharedModelEventReceived = true;
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
@@ -83,5 +90,9 @@ public class TestPresenter extends AbstractPresenter<TestView> {
 
     public boolean isDomainEventReceived() {
         return domainEventReceived;
+    }
+
+    public boolean isSharedModelEventReceived() {
+        return sharedModelEventReceived;
     }
 }

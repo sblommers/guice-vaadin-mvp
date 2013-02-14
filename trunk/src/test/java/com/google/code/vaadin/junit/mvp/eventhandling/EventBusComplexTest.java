@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.junit.mvp;
+package com.google.code.vaadin.junit.mvp.eventhandling;
 
 import com.google.code.vaadin.internal.util.ScopesResolver;
 import com.google.code.vaadin.junit.AbstractMVPTest;

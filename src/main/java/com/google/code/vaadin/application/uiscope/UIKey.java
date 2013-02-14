@@ -25,15 +25,40 @@ package com.google.code.vaadin.application.uiscope;
  * The counter value is set by the {@link UIKeyProvider}
  */
 public class UIKey implements Comparable<UIKey> {
-    private final int counter;
 
-    public UIKey(int counter) {
-        super();
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
+
+    private long counter;
+
+	/*===========================================[ CONSTRUCTORS ]=================*/
+
+    public UIKey(long counter) {
         this.counter = counter;
     }
 
-    public int getCounter() {
-        return counter;
+	/*===========================================[ CLASS METHODS ]================*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UIKey)) {
+            return false;
+        }
+
+        UIKey uiKey = (UIKey) o;
+
+        if (counter != uiKey.counter) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (counter ^ (counter >>> 32));
     }
 
     @Override
@@ -41,9 +66,16 @@ public class UIKey implements Comparable<UIKey> {
         return "UIKey:" + counter;
     }
 
+	/*===========================================[ INTERFACE METHODS ]============*/
+
     @Override
     public int compareTo(UIKey other) {
-        return this.getCounter() - other.getCounter();
+        return Long.compare(counter, other.getCounter());
     }
 
+	/*===========================================[ GETTER/SETTER ]================*/
+
+    public long getCounter() {
+        return counter;
+    }
 }

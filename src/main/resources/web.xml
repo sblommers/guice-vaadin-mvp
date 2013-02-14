@@ -3,14 +3,14 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="APP_ID"
     version="3.0">
 
-    <display-name>Guice-Vaadin-MVP Sample Application</display-name>
+    <display-name>Guice-Vaadin-MVP Sample Application Configuration</display-name>
 
     <context-param>
         <description>
             Vaadin production mode
         </description>
         <param-name>productionMode</param-name>
-        <param-value>false</param-value>
+        <param-value>true</param-value>
     </context-param>
 
     <filter>
@@ -28,9 +28,9 @@
     </listener>
 
     <context-param>
-        <description>com.google.code.vaadin.mvp.AbstractMVPApplication Implementation</description>
+        <description>com.google.code.vaadin.application.ui.ScopedUI Implementation</description>
         <param-name>ui-class</param-name>
-        <param-value>com.mycomp.app.MyMVPApplication</param-value>
+        <param-value>com.mycomp.app.MyApplicationUI</param-value>
     </context-param>
 
     <context-param>

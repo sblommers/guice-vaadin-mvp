@@ -27,20 +27,23 @@ import java.util.TreeMap;
 
 public class UIScope implements Scope {
 
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
     private static Logger logger = LoggerFactory.getLogger(UIScope.class);
 
     private static volatile UIScope current;
 
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
+
     private final Map<UIKey, Map<Key<?>, Object>> cache = new TreeMap<>();
+
+	/*===========================================[ CONSTRUCTORS ]=================*/
 
     public UIScope() {
         logger.debug("creating UIScope " + this);
     }
 
-    @Override
-    public <T> Provider<T> scope(Key<T> key, Provider<T> unscoped) {
-        return new UIScopeProvider<>(key, unscoped);
-    }
+	/*===========================================[ CLASS METHODS ]================*/
 
     private <T> Map<Key<?>, Object> getScopedObjectMap(UIKey uiKey) {
         // return an existing cache instance
@@ -49,13 +52,15 @@ public class UIScope implements Scope {
             logger.debug("scope cache retrieved for UI key: " + uiKey);
             return scopedObjects;
         } else {
-
             return createCacheEntry(uiKey);
         }
     }
 
-    public boolean isCacheHasEntryFor(UIKey uiKey) {
-        return cache.containsKey(uiKey);
+    private Map<Key<?>, Object> createCacheEntry(UIKey uiKey) {
+        Map<Key<?>, Object> uiEntry = new HashMap<>();
+        cache.put(uiKey, uiEntry);
+        logger.debug("created a scope cache for UIScope with key: " + uiKey);
+        return uiEntry;
     }
 
     public boolean isCacheHasEntryFor(ScopedUI ui) {
@@ -68,11 +73,8 @@ public class UIScope implements Scope {
         }
     }
 
-    private Map<Key<?>, Object> createCacheEntry(UIKey uiKey) {
-        Map<Key<?>, Object> uiEntry = new HashMap<>();
-        cache.put(uiKey, uiEntry);
-        logger.debug("created a scope cache for UIScope with key: " + uiKey);
-        return uiEntry;
+    public boolean isCacheHasEntryFor(UIKey uiKey) {
+        return cache.containsKey(uiKey);
     }
 
     public void releaseScope(UIKey uiKey) {
@@ -100,6 +102,15 @@ public class UIScope implements Scope {
     public void flush() {
         cache.clear();
     }
+
+	/*===========================================[ INTERFACE METHODS ]============*/
+
+    @Override
+    public <T> Provider<T> scope(Key<T> key, Provider<T> unscoped) {
+        return new UIScopeProvider<>(key, unscoped);
+    }
+
+	/*===========================================[ INNER CLASSES ]================*/
 
     private class UIScopeProvider<T> implements Provider<T> {
         private final Key<T> key;

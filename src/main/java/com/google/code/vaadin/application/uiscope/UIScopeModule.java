@@ -40,7 +40,7 @@ public class UIScopeModule extends AbstractModule {
 
 	/*===========================================[ GETTER/SETTER ]================*/
 
-    public UIScope getUiScope() {
+    public UIScope getUIScope() {
         return uiScope;
     }
 }

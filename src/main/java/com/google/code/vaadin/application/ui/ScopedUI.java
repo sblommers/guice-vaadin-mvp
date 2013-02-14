@@ -54,7 +54,7 @@ public abstract class ScopedUI extends UI {
     @Override
     public void detach() {
         if (uiScope != null) {
-            uiScope.releaseScope(getInstanceKey());
+            uiScope.releaseScope(instanceKey);
         }
         super.detach();
     }

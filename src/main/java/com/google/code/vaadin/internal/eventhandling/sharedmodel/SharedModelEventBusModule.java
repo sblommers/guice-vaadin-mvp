@@ -5,7 +5,6 @@
 
 package com.google.code.vaadin.internal.eventhandling.sharedmodel;
 
-import com.google.code.vaadin.internal.eventhandling.SharedEventBusSubscribersRegistry;
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.code.vaadin.mvp.eventhandling.EventBuses;
 import com.google.code.vaadin.mvp.eventhandling.SharedModelEventPublisher;
@@ -25,7 +24,8 @@ public class SharedModelEventBusModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(SharedEventBusSubscribersRegistry.class).to(DefaultSharedEventBusSubscribersRegistry.class).in(Scopes.SINGLETON);
+        bind(SharedEventBusSubscribersRegistry.class).to(AccessibleSharedEventBusSubscribersRegistry.class);
+        bind(AccessibleSharedEventBusSubscribersRegistry.class).in(Scopes.SINGLETON);
         bind(EventBus.class).annotatedWith(EventBuses.SharedModelEventBus.class).toProvider(SharedModelEventBusProvider.class).in(Scopes.SINGLETON);
         bind(IMessageBus.class).annotatedWith(EventBuses.SharedModelEventBus.class).toProvider(SharedMessageBusProvider.class).in(Scopes.SINGLETON);
         bind(SharedModelEventPublisher.class).toProvider(SharedModelEventPublisherProvider.class).in(Scopes.SINGLETON);

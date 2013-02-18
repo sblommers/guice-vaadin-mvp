@@ -26,6 +26,7 @@ import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedModelEven
 import com.google.code.vaadin.internal.eventhandling.view.ViewEventBusModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
+import com.google.inject.spi.TypeListener;
 
 /**
  * EventPublisherModule - TODO: description
@@ -62,7 +63,7 @@ public class EventBusModule extends AbstractModule {
         bind(EventBusModuleConfiguration.class).toInstance(configuration);
 
         // Registers all injectees as EventBus subscribers because we can't definitely say who is listening
-        EventBusTypeAutoSubscriber eventBusTypeAutoSubscriber = new EventBusTypeAutoSubscriber(configuration);
+        TypeListener eventBusTypeAutoSubscriber = new EventBusTypeAutoSubscriber(configuration);
         requestInjection(eventBusTypeAutoSubscriber);
         bindListener(Matchers.any(), eventBusTypeAutoSubscriber);
 

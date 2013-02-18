@@ -19,7 +19,7 @@
 package com.google.code.vaadin.mvp;
 
 /**
- * GuiceVaadinMVPException - TODO: description
+ * Generic MVP Application exception.
  *
  * @author Alexey Krylov
  * @since 23.01.13

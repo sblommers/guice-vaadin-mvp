@@ -28,10 +28,8 @@ import javax.inject.Inject;
 import java.io.Serializable;
 
 /**
- * Abstract implementation of CDI Utils MVP-pattern presenter. Associated
- * {@link View} interface extension is
- * declared for each extended AbstractPresenter using
- * ViewInterface} annotation.
+ * Abstract implementation of MVP-pattern presenter. Associated {@link View} interface extension is
+ * declared for each extended AbstractPresenter using paramtetrization.
  *
  * @author Alexey Krylov
  * @since 23.01.13

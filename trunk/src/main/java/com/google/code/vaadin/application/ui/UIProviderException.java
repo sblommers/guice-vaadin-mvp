@@ -23,7 +23,7 @@ import com.google.code.vaadin.mvp.MVPApplicationException;
 /**
  * UIProviderException - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 08.02.13
  */
 public class UIProviderException extends MVPApplicationException {

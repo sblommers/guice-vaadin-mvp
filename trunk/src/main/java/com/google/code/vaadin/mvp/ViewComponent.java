@@ -85,7 +85,7 @@ public abstract class ViewComponent extends CustomComponent {
     }
 
     /**
-     * Override to localize the view. Firing a {@link LocaleChangedEvent} event will eventually invoke this method
+     * Override to localize the view. Firing a {@link LocaleChangedEvent} event will eventually invoke this method.
      */
     protected void localize() {
     }

@@ -40,7 +40,6 @@ public @interface Preconfigured {
      * implementation of it is found). The acquired text is set as the
      * Component's caption.
      */
-
     String captionKey() default "";
 
     /**
@@ -48,7 +47,6 @@ public @interface Preconfigured {
      * implementation of it is found). The acquired text is set as the Label's
      * value.
      */
-
     String labelValueKey() default "";
 
     boolean immediate() default false;

@@ -29,8 +29,6 @@ import org.junit.Test;
 import javax.inject.Inject;
 
 /**
- * ViewPresenterIntercommunicationTest - TODO: description
- *
  * @author Alexey Krylov
  * @since 28.01.13
  */

@@ -21,8 +21,6 @@ package com.google.code.vaadin.mvp;
 import com.google.inject.ImplementedBy;
 
 /**
- * ITestView - TODO: description
- *
  * @author Alexey Krylov
  * @since 28.01.13
  */

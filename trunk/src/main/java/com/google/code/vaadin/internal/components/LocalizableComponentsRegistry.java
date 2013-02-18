@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Registry of localizable components.
+ * Registry of localizable components. Used to perform auto-localization if locale is changed.
  *
  * @author Alexey Krylov
  * @see VaadinComponentsInjector

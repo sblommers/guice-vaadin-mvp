@@ -26,9 +26,10 @@ import java.lang.reflect.Field;
 import java.util.ResourceBundle;
 
 /**
- * ResourceBundleInjector - TODO: description
+ * Support component for {@link ResourceBundle} injection.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
+ * @see ResourceBundleTypeListener
  * @since 07.02.13
  */
 class ResourceBundleInjector<T> implements MembersInjector<T> {

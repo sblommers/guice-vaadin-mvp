@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- * TestMVPApplicationModule - TODO: description
+ * Base module for endpoint application test module.
  *
  * @author Alexey Krylov
  * @since 24.01.13

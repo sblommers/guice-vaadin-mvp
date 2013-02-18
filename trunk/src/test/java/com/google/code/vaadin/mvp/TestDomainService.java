@@ -24,8 +24,6 @@ import com.google.code.vaadin.mvp.eventhandling.events.DomainEvent;
 import javax.inject.Inject;
 
 /**
- * TestDomainService - TODO: description
- *
  * @author Alexey Krylov
  * @since 28.01.13
  */

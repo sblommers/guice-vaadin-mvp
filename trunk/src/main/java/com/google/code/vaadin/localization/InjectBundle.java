@@ -23,11 +23,11 @@ import java.lang.annotation.*;
 /**
  * BundleLocale - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 07.02.13
  */
 @Documented
-@Target({ElementType.PARAMETER, ElementType.FIELD})
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InjectBundle {
     String baseName();

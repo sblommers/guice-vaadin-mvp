@@ -24,9 +24,7 @@ import com.google.code.vaadin.internal.eventhandling.configuration.EventBusModul
 import com.google.code.vaadin.junit.AbstractMVPApplicationTestModule;
 
 /**
- * MVPTestModule - TODO: description
- *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 10.02.13
  */
 public class MVPTestModule extends AbstractMVPApplicationTestModule {

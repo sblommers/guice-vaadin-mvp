@@ -27,8 +27,6 @@ import com.google.code.vaadin.mvp.eventhandling.events.SharedModelEvent;
 import javax.inject.Inject;
 
 /**
- * TestPresenter - TODO: description
- *
  * @author Alexey Krylov
  * @since 24.01.13
  */

@@ -23,9 +23,7 @@ import com.google.code.vaadin.mvp.eventhandling.Observes;
 import com.google.code.vaadin.mvp.eventhandling.events.SharedModelEvent;
 
 /**
- * NonScopedServiceComponent - TODO: description
- *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 14.02.13
  */
 public class NonScopedServiceComponent {

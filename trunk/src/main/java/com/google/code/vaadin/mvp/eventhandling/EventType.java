@@ -19,9 +19,10 @@
 package com.google.code.vaadin.mvp.eventhandling;
 
 /**
- * EventType - TODO: description
+ * Expected Event source - view event bus, model event bus or shared model event bus.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
+ * @see Observes
  * @since 13.02.13
  */
 public enum EventType {

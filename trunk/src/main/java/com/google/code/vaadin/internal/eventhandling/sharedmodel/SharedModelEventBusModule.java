@@ -28,7 +28,7 @@ import net.engio.mbassy.IMessageBus;
 /**
  * SharedModelEventBusModule - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 14.02.13
  */
 public class SharedModelEventBusModule extends AbstractModule {

@@ -24,9 +24,9 @@ import com.vaadin.ui.UI;
 import com.vaadin.util.CurrentInstance;
 
 /**
- * TestScopedUIProvider - TODO: description
+ * ScopedUIProvider which immediately creates one instance of UI - it is required for JUnit tests.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 09.02.13
  */
 public class TestScopedUIProvider extends ScopedUIProvider {

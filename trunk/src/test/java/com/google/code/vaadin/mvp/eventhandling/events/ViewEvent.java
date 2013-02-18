@@ -19,14 +19,8 @@
 package com.google.code.vaadin.mvp.eventhandling.events;
 
 /**
- * SampleEvent - TODO: description
- *
  * @author Alexey Krylov
  * @since 24.01.13
  */
 public class ViewEvent {
-/*===========================================[ STATIC VARIABLES ]=============*/
-/*===========================================[ INSTANCE VARIABLES ]===========*/
-/*===========================================[ CONSTRUCTORS ]=================*/
-/*===========================================[ CLASS METHODS ]================*/
 }

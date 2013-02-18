@@ -21,8 +21,6 @@ package com.google.code.vaadin.mvp;
 import com.google.code.vaadin.mvp.eventhandling.events.ContactOpenedEvent;
 
 /**
- * TestView - TODO: description
- *
  * @author Alexey Krylov
  * @since 24.01.13
  */

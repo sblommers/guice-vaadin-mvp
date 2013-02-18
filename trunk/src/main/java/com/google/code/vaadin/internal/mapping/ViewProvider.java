@@ -24,7 +24,7 @@ import com.google.code.vaadin.mvp.View;
 /**
  * ViewProvider - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 14.02.13
  */
 public interface ViewProvider {

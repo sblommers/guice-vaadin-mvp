@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.internal.eventhandling;
 
+import com.google.code.vaadin.mvp.eventhandling.Observes;
 import com.google.common.base.Predicate;
 import com.sun.istack.internal.Nullable;
 import net.engio.mbassy.common.ReflectionUtils;
@@ -31,7 +32,7 @@ import java.util.List;
 import static com.google.common.collect.Collections2.filter;
 
 /**
- * CompositeMetadataReader - TODO: description
+ * MBassador metadata reader with {@link Observes} annotation support.
  *
  * @author Alexey Krylov
  * @since 24.01.13

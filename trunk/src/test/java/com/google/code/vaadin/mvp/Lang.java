@@ -24,8 +24,6 @@ import com.google.code.vaadin.localization.TextBundle;
 import java.util.Locale;
 
 /**
- * Lang - TODO: description
- *
  * @author Alexey Krylov
  * @since 31.01.13
  */

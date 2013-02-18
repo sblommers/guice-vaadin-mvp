@@ -27,7 +27,7 @@ import java.lang.reflect.Method;
 /**
  * MethodResolutionPredicates - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 13.02.13
  */
 public interface MethodResolutionPredicates {

@@ -34,8 +34,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * EventPublisherTest - TODO: description
- *
  * @author Alexey Krylov
  * @since 24.01.13
  */

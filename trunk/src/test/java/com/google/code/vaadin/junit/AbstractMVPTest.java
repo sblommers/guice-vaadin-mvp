@@ -25,9 +25,7 @@ import com.google.inject.Stage;
 import com.mycila.testing.plugin.guice.GuiceContext;
 
 /**
- * TestMVPTestBase - TODO: description
- *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 10.02.13
  */
 @GuiceContext(value = MVPTestModule.class, stage = Stage.PRODUCTION)

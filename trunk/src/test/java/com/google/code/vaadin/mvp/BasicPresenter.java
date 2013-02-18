@@ -23,8 +23,6 @@ import com.google.code.vaadin.mvp.eventhandling.Observes;
 import com.google.code.vaadin.mvp.eventhandling.events.ViewEvent;
 
 /**
- * TestPresenter - TODO: description
- *
  * @author Alexey Krylov
  * @since 24.01.13
  */

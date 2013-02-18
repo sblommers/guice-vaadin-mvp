@@ -19,11 +19,10 @@
 package com.google.code.vaadin.mvp;
 
 import com.vaadin.ui.Component;
-import com.vaadin.ui.ComponentContainer;
 
 /**
- * Interface for each View interface. It extends {@link ComponentContainer} to allow direct interface
- * injection.
+ * Interface for each View interface. It extends {@link Component} to allow composite View creation directly from
+ * injected View instances.
  *
  * @author Alexey Krylov
  * @since 23.01.13

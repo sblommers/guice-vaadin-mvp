@@ -23,10 +23,11 @@ import com.google.code.vaadin.localization.InjectBundle;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.inject.Inject;
 import java.util.ResourceBundle;
 
 /**
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 07.02.13
  */
 public class ResourceBundleInjectionTest extends AbstractMVPTest{
@@ -36,7 +37,7 @@ public class ResourceBundleInjectionTest extends AbstractMVPTest{
     @InjectBundle(baseName = "TestBundle_ru_RU")
     private ResourceBundle resourceBundle;
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Test
     public void testBundleInjection() {

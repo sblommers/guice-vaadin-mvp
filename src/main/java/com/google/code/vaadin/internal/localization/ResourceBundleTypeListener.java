@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 /**
  * BundleLocaleTypeListener - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 07.02.13
  */
 class ResourceBundleTypeListener implements TypeListener {

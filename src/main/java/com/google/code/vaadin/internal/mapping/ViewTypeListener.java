@@ -35,7 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * ViewTypeListener - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 13.02.13
  */
 class ViewTypeListener implements TypeListener {

@@ -43,7 +43,7 @@ import static org.mockito.Mockito.mock;
  * they want to inject UIScoped objects - otherwise the injection happens before the UIScope context is ready.
  * <p/>
  * A number of providers are made available by the class
- *
+ * //todo
  * @author David Sowerby 18 Jan 2013
  */
 @RunWith(MycilaJunitRunner.class)

@@ -30,9 +30,7 @@ import org.junit.Test;
 import javax.inject.Inject;
 
 /**
- * SharedEventBusTest - TODO: description
- *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 14.02.13
  */
 @GuiceContext(value = {SharedEventBusReceiverModule.class, MVPTestModule.class}, stage = Stage.PRODUCTION)

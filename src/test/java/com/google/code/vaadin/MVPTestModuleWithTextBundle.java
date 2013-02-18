@@ -22,8 +22,6 @@ import com.google.code.vaadin.localization.TextBundle;
 import com.google.code.vaadin.mvp.Lang;
 
 /**
- * MVPApplicationTestModule - TODO: description
- *
  * @author Alexey Krylov
  * @since 28.01.13
  */

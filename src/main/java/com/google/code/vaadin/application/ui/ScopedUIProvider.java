@@ -48,7 +48,7 @@ import static com.vaadin.server.ClientConnector.DetachListener;
  * <p/>
  * Subclasses should implement getUIClass(UIClassSelectionEvent event) to provide logic for selecting the UI class.
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 08.02.13
  */
 public class ScopedUIProvider extends UIProvider {

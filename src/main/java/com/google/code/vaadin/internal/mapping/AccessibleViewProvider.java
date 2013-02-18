@@ -28,10 +28,9 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * AccessibleViewProvider - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 14.02.13
  */
-
 @UIScoped
 class AccessibleViewProvider implements ViewProvider {
 

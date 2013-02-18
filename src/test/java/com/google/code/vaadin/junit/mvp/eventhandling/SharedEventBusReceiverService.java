@@ -27,9 +27,7 @@ import com.google.code.vaadin.mvp.eventhandling.events.SharedModelEvent;
 import javax.inject.Inject;
 
 /**
- * SharedEventBusTest - TODO: description
- *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 14.02.13
  */
 public class SharedEventBusReceiverService {

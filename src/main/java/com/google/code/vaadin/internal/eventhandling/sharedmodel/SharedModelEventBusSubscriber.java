@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 /**
  * SharedModelEventBusSubscriber - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 14.02.13
  */
 public class SharedModelEventBusSubscriber<T> implements MembersInjector<T> {

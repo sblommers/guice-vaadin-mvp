@@ -19,7 +19,7 @@
 package com.google.code.vaadin.mvp.eventhandling;
 
 /**
- * EventPublisher - TODO: description
+ * Event publisher available todo
  *
  * @author Alexey Krylov
  * @since 23.01.13

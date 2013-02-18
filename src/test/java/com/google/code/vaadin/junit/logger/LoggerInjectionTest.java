@@ -26,9 +26,7 @@ import org.slf4j.Logger;
 import javax.inject.Inject;
 
 /**
- * LoggerInjectionTest - TODO: description
- *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 09.02.13
  */
 public class LoggerInjectionTest extends AbstractMVPTest{

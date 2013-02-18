@@ -31,8 +31,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * EventPublisherTest - TODO: description
- *
  * @author Alexey Krylov
  * @since 24.01.13
  */

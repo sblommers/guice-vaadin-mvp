@@ -24,7 +24,7 @@ import com.google.inject.matcher.Matchers;
 /**
  * ResourceBundleInjectionModule - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 07.02.13
  */
 public class ResourceBundleInjectionModule extends AbstractModule {

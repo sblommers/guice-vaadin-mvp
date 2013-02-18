@@ -19,14 +19,8 @@
 package com.google.code.vaadin.mvp.eventhandling.events;
 
 /**
- * DomainEvent - TODO: description
- *
  * @author Alexey Krylov
  * @since 28.01.13
  */
 public class DomainEvent {
-/*===========================================[ STATIC VARIABLES ]=============*/
-/*===========================================[ INSTANCE VARIABLES ]===========*/
-/*===========================================[ CONSTRUCTORS ]=================*/
-/*===========================================[ CLASS METHODS ]================*/
 }

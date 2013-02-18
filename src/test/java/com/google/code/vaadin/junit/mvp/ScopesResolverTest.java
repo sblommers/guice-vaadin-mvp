@@ -27,8 +27,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * ViewPresenterIntercommunicationTest - TODO: description
- *
  * @author Alexey Krylov
  * @since 28.01.13
  */

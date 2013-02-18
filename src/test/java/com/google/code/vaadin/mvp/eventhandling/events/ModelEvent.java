@@ -19,14 +19,8 @@
 package com.google.code.vaadin.mvp.eventhandling.events;
 
 /**
- * ModelEvent - TODO: description
- *
  * @author Alexey Krylov
  * @since 28.01.13
  */
 public class ModelEvent {
-/*===========================================[ STATIC VARIABLES ]=============*/
-/*===========================================[ INSTANCE VARIABLES ]===========*/
-/*===========================================[ CONSTRUCTORS ]=================*/
-/*===========================================[ CLASS METHODS ]================*/
 }

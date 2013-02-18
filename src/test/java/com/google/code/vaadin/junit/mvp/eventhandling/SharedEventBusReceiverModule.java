@@ -22,9 +22,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 
 /**
- * SharedEventBusReceiverModule - TODO: description
- *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 14.02.13
  */
 public class SharedEventBusReceiverModule extends AbstractModule {

@@ -29,8 +29,6 @@ import org.junit.Test;
 import javax.inject.Inject;
 
 /**
- * PreconfiguredInjectionTest - TODO: description
- *
  * @author Alexey Krylov
  * @since 24.01.13
  */

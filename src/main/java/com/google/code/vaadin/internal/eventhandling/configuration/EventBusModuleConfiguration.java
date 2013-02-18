@@ -21,7 +21,7 @@ package com.google.code.vaadin.internal.eventhandling.configuration;
 /**
  * EventBusModuleConfiguration - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 13.02.13
  */
 public interface EventBusModuleConfiguration {

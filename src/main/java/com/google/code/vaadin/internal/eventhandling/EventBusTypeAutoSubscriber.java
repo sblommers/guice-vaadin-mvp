@@ -33,7 +33,7 @@ import javax.inject.Provider;
 /**
  * EventBusTypeListener - TODO: description
  *
- * @author Alexey Krylov (AleX)
+ * @author Alexey Krylov
  * @since 13.02.13
  */
 class EventBusTypeAutoSubscriber implements TypeListener {

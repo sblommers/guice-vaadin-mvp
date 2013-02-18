@@ -48,5 +48,4 @@ public abstract class AbstractEventBusProvider implements Provider<EventBus> {
     }
 
     public abstract IMessageBus getMessageBus();
-
 }

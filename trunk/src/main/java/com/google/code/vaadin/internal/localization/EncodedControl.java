@@ -32,14 +32,12 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 /**
- * Special workaround for {@link ResourceBundle} to work with UTF-8 locales.
- * http://stackoverflow.com/questions/4659929/how-to-use-utf-8-in-resource-properties-with-resourcebundle
- * Example code:
- * <pre>
- *    //todo
- * </pre>
+ * Special workaround for {@link ResourceBundle} to work with different locales.
+ * <a href="http://stackoverflow.com/questions/4659929/how-to-use-utf-8-in-resource-properties-with-resourcebundle">See
+ * detailed description</a>
  *
  * @author Alexey Krylov
+ * @see ResourceBundleInjector
  * @since 01.02.13
  */
 class EncodedControl extends ResourceBundle.Control {

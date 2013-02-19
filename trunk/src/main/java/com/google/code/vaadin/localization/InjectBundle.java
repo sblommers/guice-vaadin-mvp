@@ -18,19 +18,31 @@
 
 package com.google.code.vaadin.localization;
 
+import com.google.code.vaadin.internal.localization.ResourceBundleInjectionModule;
+
 import java.lang.annotation.*;
+import java.util.ResourceBundle;
 
 /**
- * BundleLocale - TODO: description
+ * {@link ResourceBundle} marked with this annotation will be injected automatically.
+ * This is very useful for situations when {@link ResourceBundle#getBundle(String)} is not working propertly due to
+ * bundle encoding specifics.
  *
  * @author Alexey Krylov
+ * @see ResourceBundleInjectionModule
  * @since 07.02.13
  */
 @Documented
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InjectBundle {
+    /**
+     * @return the base name of the resource bundle
+     */
     String baseName();
 
+    /**
+     * @return encoding of the resource bundle
+     */
     String encoding() default "UTF-8";
 }

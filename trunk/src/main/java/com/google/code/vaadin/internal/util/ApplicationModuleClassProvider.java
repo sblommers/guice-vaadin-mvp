@@ -25,7 +25,7 @@ import com.google.code.vaadin.mvp.MVPApplicationException;
 import javax.servlet.ServletContext;
 
 /**
- * ApplicationModuleClassProvider - TODO: description
+ * Provides implementation class of main application module - {@link AbstractMVPApplicationModule}.
  *
  * @author Alexey Krylov
  * @since 25.01.13

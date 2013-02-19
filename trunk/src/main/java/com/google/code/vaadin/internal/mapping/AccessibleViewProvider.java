@@ -21,12 +21,14 @@ package com.google.code.vaadin.internal.mapping;
 import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * AccessibleViewProvider - TODO: description
+ * Default implementation of {@link ViewProvider}. Allows registration in the {@code presenterViewMap}.
  *
  * @author Alexey Krylov
  * @since 14.02.13
@@ -34,7 +36,11 @@ import java.util.concurrent.ConcurrentHashMap;
 @UIScoped
 class AccessibleViewProvider implements ViewProvider {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    private static final Logger logger = LoggerFactory.getLogger(AccessibleViewProvider.class);
+
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private final Map<Class<? extends AbstractPresenter>, View> presenterViewMap;
 
@@ -48,7 +54,7 @@ class AccessibleViewProvider implements ViewProvider {
 
     void register(Class<? extends AbstractPresenter> presenterClass, View view) {
         presenterViewMap.put(presenterClass, view);
-
+        logger.debug(String.format("[%s] registered for [%s]", view.getClass().getName(), presenterClass.getClass().getName()));
     }
 
 	/*===========================================[ INTERFACE METHODS ]============*/

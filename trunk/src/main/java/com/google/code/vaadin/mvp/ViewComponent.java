@@ -51,6 +51,7 @@ public abstract class ViewComponent extends CustomComponent {
 
     @com.google.inject.Inject(optional = true)
     private TextBundle textBundle;
+
     private boolean initialized;
 
     /*===========================================[ CLASS METHODS ]================*/

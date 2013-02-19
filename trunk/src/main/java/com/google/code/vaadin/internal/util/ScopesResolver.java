@@ -35,7 +35,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * GuiceHelper - TODO: description
+ * Utility to resolve binding scopes.
  *
  * @author Alexey Krylov
  * @since 26.01.13

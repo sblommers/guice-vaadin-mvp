@@ -20,11 +20,10 @@ package com.google.code.vaadin.internal.mapping;
 
 import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.application.uiscope.UIScope;
-import com.google.code.vaadin.internal.util.ApplicationClassProvider;
+import com.google.code.vaadin.internal.util.ApplicationUIClassProvider;
 import com.google.code.vaadin.internal.util.TypeUtil;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
-import com.google.code.vaadin.internal.mapping.ViewPresenterMappingRegistry;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 import org.reflections.Configuration;
@@ -61,7 +60,7 @@ public class PresenterMapperModule extends AbstractModule {
 
     public PresenterMapperModule(ServletContext servletContext) {
         this.servletContext = servletContext;
-        applicationClass = ApplicationClassProvider.getApplicationClass(servletContext);
+        applicationClass = ApplicationUIClassProvider.getApplicationClass(servletContext);
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/

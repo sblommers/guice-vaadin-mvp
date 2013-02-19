@@ -25,17 +25,16 @@ import com.google.code.vaadin.mvp.MVPApplicationException;
 import javax.servlet.ServletContext;
 
 /**
- * //todo
- * Provides application implementation of {@link }MVPApplication
+ * Provides implementation class of main application UI - {@link ScopedUI}.
  *
  * @author Alexey Krylov
  * @since 25.01.13
  */
-public class ApplicationClassProvider {
+public class ApplicationUIClassProvider {
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    private ApplicationClassProvider() {
+    private ApplicationUIClassProvider() {
     }
 
     /*===========================================[ CLASS METHODS ]================*/

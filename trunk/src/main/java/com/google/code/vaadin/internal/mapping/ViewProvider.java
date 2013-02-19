@@ -22,9 +22,10 @@ import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
 
 /**
- * ViewProvider - TODO: description
+ * Provides {@link View} instance for specified {@link AbstractPresenter}.
  *
  * @author Alexey Krylov
+ * @see AbstractPresenter#init(ViewProvider)
  * @since 14.02.13
  */
 public interface ViewProvider {

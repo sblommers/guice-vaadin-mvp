@@ -43,7 +43,7 @@ public abstract class AbstractView extends ViewComponent implements View {
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Inject
-    protected void postConstuct() {
+    void postConstuct() {
         // Determine the view interface
         for (Class<?> clazz : getClass().getInterfaces()) {
             if (!clazz.equals(View.class)

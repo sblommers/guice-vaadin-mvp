@@ -44,7 +44,9 @@ import static org.mockito.Mockito.mock;
  * <p/>
  * A number of providers are made available by the class
  * //todo
- * @author David Sowerby 18 Jan 2013
+ *
+ * @author Alexey Krylov
+ * @since 09.02.2013
  */
 @RunWith(MycilaJunitRunner.class)
 public abstract class AbstractMVPTestBase {

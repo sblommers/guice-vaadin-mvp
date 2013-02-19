@@ -27,7 +27,8 @@ import java.lang.reflect.Field;
 import java.util.ResourceBundle;
 
 /**
- * BundleLocaleTypeListener - TODO: description
+ * Listens for {@link ResourceBundle} with {@link InjectBundle} annotation and registers {@link ResourceBundleInjector}
+ * for them.
  *
  * @author Alexey Krylov
  * @since 07.02.13

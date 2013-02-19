@@ -49,7 +49,7 @@ public abstract class AbstractPresenter<T extends View> implements Serializable 
     /*===========================================[ CLASS METHODS ]================*/
 
     @Inject
-    protected void init(ViewProvider viewProvider) {
+    void init(ViewProvider viewProvider) {
         logger = LoggerFactory.getLogger(getClass());
         view = viewProvider.getView(this);
         if (view == null) {

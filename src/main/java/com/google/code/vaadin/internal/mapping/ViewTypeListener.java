@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * ViewTypeListener - TODO: description
+ * Performs View -> Presenter mapping during View injection process.
  *
  * @author Alexey Krylov
  * @since 13.02.13
@@ -73,7 +73,7 @@ class ViewTypeListener implements TypeListener {
                     Injector injector = injectorProvider.get();
 
                     AccessibleViewProvider viewProvider = injector.getInstance(AccessibleViewProvider.class);
-                    viewProvider.register(presenterClass,  view);
+                    viewProvider.register(presenterClass, view);
 
                     AbstractPresenter presenter = injector.getInstance(presenterClass);
 

@@ -18,10 +18,14 @@
 
 package com.google.code.vaadin.mvp.eventhandling.events;
 
+import com.google.code.vaadin.mvp.ViewComponent;
+import com.google.code.vaadin.mvp.eventhandling.ViewEventPublisher;
+
 import java.util.Locale;
 
 /**
- * LocaleChangedEvent - TODO: description
+ * Represents fact of application Locale change. Firing of this event on the {@link ViewEventPublisher} will cause
+ * refreshing of all components with captions/labels + chain of {@link ViewComponent#localize()} invocations.
  *
  * @author Alexey Krylov
  * @since 31.01.13

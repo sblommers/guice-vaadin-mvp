@@ -18,11 +18,14 @@
 
 package com.google.code.vaadin.internal.localization;
 
+import com.google.code.vaadin.localization.InjectBundle;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 
+import java.util.ResourceBundle;
+
 /**
- * ResourceBundleInjectionModule - TODO: description
+ * Support module for {@link ResourceBundle} injections via {@link InjectBundle} annotation.
  *
  * @author Alexey Krylov
  * @since 07.02.13

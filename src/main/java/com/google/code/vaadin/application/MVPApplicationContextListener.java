@@ -22,6 +22,7 @@ import com.google.code.vaadin.internal.util.ApplicationModuleClassProvider;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Stage;
 import com.google.inject.servlet.GuiceServletContextListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -119,7 +120,7 @@ public class MVPApplicationContextListener extends GuiceServletContextListener i
     protected Injector getInjector() {
         try {
             logger.info("Creating Injector...");
-            Injector injector = Guice.createInjector(Arrays.asList(createApplicationModule()));
+            Injector injector = Guice.createInjector(Stage.PRODUCTION, Arrays.asList(createApplicationModule()));
             this.injector = injector;
             logger.info("Injector successfully created");
             return injector;

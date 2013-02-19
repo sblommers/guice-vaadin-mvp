@@ -23,7 +23,7 @@ import com.google.inject.Singleton;
 import com.vaadin.server.*;
 
 /**
- * Constructs a new Application instance for each user.
+ * Constructs a new Application instance for each user session.
  *
  * @author Alexey Krylov
  * @since 23.01.13

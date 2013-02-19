@@ -23,9 +23,10 @@ import com.google.code.vaadin.application.uiscope.UIScope;
 import com.vaadin.ui.UI;
 
 /**
- * AbstractMVPApplication - TODO: description
+ * Base class for all Guice-Vaadin-MVP-based applications.
  *
  * @author Alexey Krylov
+ * @see ScopedUIProvider
  * @since 23.01.13
  */
 public abstract class ScopedUI extends UI {

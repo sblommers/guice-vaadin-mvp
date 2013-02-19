@@ -38,13 +38,11 @@ import com.vaadin.util.CurrentInstance;
 import org.slf4j.Logger;
 
 import javax.inject.Named;
-import java.util.Collection;
 
 import static com.vaadin.server.ClientConnector.DetachListener;
 
 /**
- * A Vaadin UI provider which supports the use of Guice scoped UI (see {@link UIScoped}). If you do not need UIScope,
- * then just extend from UIProvider directly
+ * A Vaadin UI provider which supports the use of Guice scoped UI (see {@link UIScoped}).
  * <p/>
  * Subclasses should implement getUIClass(UIClassSelectionEvent event) to provide logic for selecting the UI class.
  *
@@ -124,7 +122,7 @@ public class ScopedUIProvider extends UIProvider {
                 logger.debug(String.format("Detaching [%s] with key [%s]", uiClass.getName(), uiKey));
 
                 SharedEventBusSubscribersRegistry subscribersRegistry = injector.getInstance(SharedEventBusSubscribersRegistry.class);
-                Collection<Object> uiScopedSubscribers = subscribersRegistry.removeAndGetSubscribers(uiKey);
+                Iterable<Object> uiScopedSubscribers = subscribersRegistry.removeAndGetSubscribers(uiKey);
 
                 // Unsubscribe all non-singletons (UIScoped, nonscoped, etc) from SharedEventBus
                 for (Object subscriber : uiScopedSubscribers) {

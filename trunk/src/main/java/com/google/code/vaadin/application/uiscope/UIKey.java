@@ -17,6 +17,8 @@
  */
 package com.google.code.vaadin.application.uiscope;
 
+import com.google.code.vaadin.application.ui.ScopedUIProvider;
+
 /**
  * This class is entirely passive - it is a surrogate for the UI itself during the IoC process in support of
  * {@link UIScoped}. <br>
@@ -28,20 +30,24 @@ package com.google.code.vaadin.application.uiscope;
  * are then linked by that {@link UIKey} instance.<br>
  * <br>
  * The counter value is set by the {@link UIKeyProvider}
+ *
+ * @author Alexey Krylov
+ * @see ScopedUIProvider
+ * @since 23.01.13
  */
 public class UIKey implements Comparable<UIKey> {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private long counter;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     public UIKey(long counter) {
         this.counter = counter;
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Override
     public boolean equals(Object o) {
@@ -71,14 +77,14 @@ public class UIKey implements Comparable<UIKey> {
         return "UIKey:" + counter;
     }
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     public int compareTo(UIKey other) {
         return Long.compare(counter, other.getCounter());
     }
 
-	/*===========================================[ GETTER/SETTER ]================*/
+    /*===========================================[ GETTER/SETTER ]================*/
 
     public long getCounter() {
         return counter;

@@ -18,8 +18,10 @@
 
 package com.google.code.vaadin.application;
 
+import com.google.code.vaadin.application.ui.ScopedUI;
+
 /**
- * Mandatory webapp init parameter names.
+ * Mandatory application init parameter names. Should be in the web.xml or any other webapp deployment descriptors.
  *
  * @author Alexey Krylov
  * @since 25.01.13
@@ -28,6 +30,13 @@ public interface MVPApplicationInitParameters {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
+    /**
+     * Application UI class. It should extend {@link ScopedUI}.
+     */
     String P_APPLICATION_UI_CLASS = "ui-class";
+
+    /**
+     * Application Guice module class. It shoud extend {@link AbstractMVPApplicationModule}.
+     */
     String P_APPLICATION_MODULE = "application-module";
 }

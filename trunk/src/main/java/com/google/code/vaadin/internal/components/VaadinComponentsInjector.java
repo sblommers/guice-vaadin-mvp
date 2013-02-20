@@ -221,7 +221,7 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
             }
         }
     }
-
+    //TODO check with cdi
     private static void configureAbstractFieldApi(AbstractField abstractField, Preconfigured preconfigured) {
         if (!(abstractField instanceof Form)) {
             abstractField.setInvalidAllowed(preconfigured.invalidAllowed());

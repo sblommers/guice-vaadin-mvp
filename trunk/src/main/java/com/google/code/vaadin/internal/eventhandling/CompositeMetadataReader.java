@@ -20,12 +20,13 @@ package com.google.code.vaadin.internal.eventhandling;
 
 import com.google.code.vaadin.mvp.eventhandling.Observes;
 import com.google.common.base.Predicate;
-import com.sun.istack.internal.Nullable;
 import net.engio.mbassy.common.ReflectionUtils;
 import net.engio.mbassy.listener.*;
 
+import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,14 +49,14 @@ class CompositeMetadataReader extends MetadataReader {
         // get all methods with @Observes annotation
         List<Method> observerMethods = ReflectionUtils.getMethods(MethodResolutionPredicates.AllEventHandlers, target);
         // retain only those that are at the bottom of their respective class hierarchy (deepest overriding method)
-        List<Method> bottomMostHandlers = new LinkedList<Method>();
+        Collection<Method> bottomMostHandlers = new LinkedList<Method>();
         for (Method handler : observerMethods) {
             if (!ReflectionUtils.containsOverridingMethod(observerMethods, handler)) {
                 bottomMostHandlers.add(handler);
             }
         }
 
-        List<MessageHandlerMetadata> filteredObserverHandlers = new LinkedList<>();
+        Collection<MessageHandlerMetadata> filteredObserverHandlers = new LinkedList<>();
         // for each handler there will be no overriding method that specifies @Observes annotation
         // but an overriding method does inherit the listener configuration of the overwritten method
         for (Method handler : bottomMostHandlers) {
@@ -72,9 +73,9 @@ class CompositeMetadataReader extends MetadataReader {
          */
         messageHandlers.addAll(filter(filteredObserverHandlers, new Predicate<MessageHandlerMetadata>() {
             @Override
-            public boolean apply(@Nullable MessageHandlerMetadata observerHandler) {
+            public boolean apply(@Nullable MessageHandlerMetadata input) {
                 for (MessageHandlerMetadata messageHandler : messageHandlers) {
-                    if (messageHandler.getHandler().equals(observerHandler.getHandler())) {
+                    if (messageHandler.getHandler().equals(input.getHandler())) {
                         return false;
                     }
                 }

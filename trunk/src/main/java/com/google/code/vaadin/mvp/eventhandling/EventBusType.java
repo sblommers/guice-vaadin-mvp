@@ -16,19 +16,26 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.eventhandling.configuration;
+package com.google.code.vaadin.mvp.eventhandling;
+
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+
+import javax.inject.Qualifier;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
- * EventBusModuleConfiguration - TODO: description
+ * Marks any method of any object as an event handler.
  *
  * @author Alexey Krylov
- * @since 13.02.13
+ * @see EventBus
+ * @since 23.01.13
  */
-public interface EventBusModuleConfiguration {
+@Qualifier
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+public @interface EventBusType {
 
-	/*===========================================[ INTERFACE METHODS ]============*/
-
-    boolean isModelEventBusRequired();
-
-    boolean isSharedModelEventBusRequired();
+    EventBusTypes value() default EventBusTypes.VIEW;
 }

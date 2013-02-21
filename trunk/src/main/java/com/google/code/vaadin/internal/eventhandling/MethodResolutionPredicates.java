@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.internal.eventhandling;
 
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
 import net.engio.mbassy.common.IPredicate;
@@ -30,7 +31,7 @@ import java.lang.reflect.Method;
  * @author Alexey Krylov
  * @since 13.02.13
  */
-public interface MethodResolutionPredicates {
+public class MethodResolutionPredicates {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
@@ -66,4 +67,7 @@ public interface MethodResolutionPredicates {
     };
 
 
+    public static IPredicate<Method> getEventHandlersPredicate(EventBusTypes eventBusType){
+
+    }
 }

@@ -52,26 +52,34 @@ class DefaultEventBus implements EventBus {
 
     @Override
     public void subscribe(@NotNull Object subscriber) {
+        Preconditions.checkArgument(subscriber != null, "Specified subscriber is null");
+
         if (logger.isDebugEnabled()) {
             logger.debug(String.format("Subscribing: [%s] -> [#%d]", subscriber, hashCode()));
         }
+
         bus.subscribe(subscriber);
     }
 
     @Override
     public void unsubscribe(@NotNull Object subscriber) {
+        Preconditions.checkArgument(subscriber != null, "Specified subscriber is null");
+
         if (logger.isDebugEnabled()) {
             logger.debug(String.format("Unsubscribing: [%s] -> [#%d]", subscriber, hashCode()));
         }
+
         bus.unsubscribe(subscriber);
     }
 
     @Override
     public void publish(@NotNull Object event) {
         Preconditions.checkArgument(event != null, "Published Event can't be null");
+
         if (logger.isDebugEnabled()) {
             logger.debug(String.format("Event: [%s] -> [#%d]", event, hashCode()));
         }
+
         bus.post(event).now();
     }
 

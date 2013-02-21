@@ -18,38 +18,42 @@
 
 package com.google.code.vaadin.internal.eventhandling.configuration;
 
+import net.engio.mbassy.BusConfiguration;
+
 /**
- * DefaultEventBusModuleConfigurationBuilder - TODO: description
- *
- * @author Alexey Krylov
- * @since 13.02.13
+ * @author Alexey Krylov (lexx)
+ * @since 20.02.13
  */
-public class DefaultEventBusModuleConfigurationBuilder implements EventBusModuleConfigurationBuilder {
+class DefaultEventBusBindingBuilder implements EventBusBindingBuilder {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private boolean modelEventBusEnabled;
-    private boolean sharedModelEventBusEnabled;
+    private EventBusTypes type;
+    private BusConfiguration configuration;
+
+	/*===========================================[ CONSTRUCTORS ]=================*/
+
+    DefaultEventBusBindingBuilder(EventBusTypes type) {
+        this.type = type;
+    }
 
 	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public EventBusModuleConfigurationBuilder withModelEventBus() {
-        modelEventBusEnabled = true;
-        return this;
+    public void withConfiguration(BusConfiguration configuration) {
+        this.configuration = configuration;
+        build();
     }
 
     @Override
-    public EventBusModuleConfigurationBuilder withSharedModelEventBus() {
-        sharedModelEventBusEnabled = true;
-        return this;
+    public void withDefaultConfiguration() {
+        withConfiguration(BusConfiguration.Default());
     }
 
-    @Override
-    public EventBusModuleConfiguration build() {
-        DefaultEventBusModuleConfiguration configuration = new DefaultEventBusModuleConfiguration();
-        configuration.setModelEventBusEnabled(modelEventBusEnabled);
-        configuration.setSharedModelEventBusEnabled(sharedModelEventBusEnabled);
-        return configuration;
+    protected EventBusBinding build() {
+        AccessibleEventBusBinding binding = new AccessibleEventBusBinding();
+        binding.setType(type);
+        binding.setConfiguration(configuration);
+        return binding;
     }
 }

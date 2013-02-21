@@ -19,17 +19,14 @@
 package com.google.code.vaadin.internal.eventhandling;
 
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusModuleConfiguration;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.internal.eventhandling.model.ModelEventBusSubscriber;
-import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedModelEventBusSubscriber;
 import com.google.code.vaadin.internal.eventhandling.view.ViewEventBusSubscriber;
-import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
-
-import javax.inject.Inject;
-import javax.inject.Provider;
-
+import net.engio.mbassy.IMessageBus;
+//todo use governator with bootstrap module
 /**
  * EventBusTypeListener - TODO: description
  *
@@ -40,14 +37,14 @@ class EventBusTypeAutoSubscriber implements TypeListener {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    @Inject
-    private Provider<Injector> injectorProvider;
-    private EventBusModuleConfiguration configuration;
+    private IMessageBus messageBus;
+    private EventBusTypes eventBusType;
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    EventBusTypeAutoSubscriber(EventBusModuleConfiguration configuration) {
-        this.configuration = configuration;
+    EventBusTypeAutoSubscriber(IMessageBus messageBus, EventBusTypes eventBusType) {
+        this.messageBus = messageBus;
+        this.eventBusType = eventBusType;
     }
 
 	/*===========================================[ INTERFACE METHODS ]============*/
@@ -58,18 +55,6 @@ class EventBusTypeAutoSubscriber implements TypeListener {
      */
     @Override
     public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
-        // This check will skip all Singleton instantiations
-        if (injectorProvider != null) {
-            Injector injector = injectorProvider.get();
-            encounter.register(new ViewEventBusSubscriber<I>(injector));
-
-            if (configuration.isModelEventBusRequired()) {
-                encounter.register(new ModelEventBusSubscriber<I>(injector));
-            }
-
-            if (configuration.isSharedModelEventBusRequired()) {
-                encounter.register(new SharedModelEventBusSubscriber<I>(injector));
-            }
-        }
+        encounter.register(new EventBusTypeSubscriber<>(messageBus, eventBusType));
     }
 }

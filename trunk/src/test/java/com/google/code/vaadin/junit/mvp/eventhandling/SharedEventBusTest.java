@@ -19,11 +19,14 @@
 package com.google.code.vaadin.junit.mvp.eventhandling;
 
 import com.google.code.vaadin.MVPTestModule;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.junit.AbstractMVPTest;
+import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import com.google.code.vaadin.mvp.eventhandling.SharedModelEventPublisher;
 import com.google.code.vaadin.mvp.eventhandling.events.SharedModelEvent;
 import com.google.inject.Stage;
 import com.mycila.testing.plugin.guice.GuiceContext;
+import net.engio.mbassy.IMessageBus;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -41,7 +44,9 @@ public class SharedEventBusTest extends AbstractMVPTest{
     @Inject
     private SharedModelEventPublisher publisher;
 
-
+    @Inject
+    @EventBusType(EventBusTypes.VIEW)
+    private IMessageBus messageBus;
 
 	/*===========================================[ CLASS METHODS ]================*/
 

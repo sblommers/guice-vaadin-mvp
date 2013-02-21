@@ -19,18 +19,13 @@
 package com.google.code.vaadin.internal.eventhandling.configuration;
 
 /**
- * EventBusModuleConfigurationBuilder - TODO: description
+ * EventBusType - TODO: description
  *
- * @author Alexey Krylov
- * @since 13.02.13
+ * @author Alexey Krylov (lexx)
+ * @since 22.02.13
  */
-public interface EventBusModuleConfigurationBuilder {
-
-    /*===========================================[ INTERFACE METHODS ]==============*/
-
-    EventBusModuleConfigurationBuilder withModelEventBus();
-
-    EventBusModuleConfigurationBuilder withSharedModelEventBus();
-
-    EventBusModuleConfiguration build();
+public enum EventBusTypes {
+    VIEW,
+    MODEL,
+    SHARED_MODEL
 }

@@ -25,7 +25,6 @@ import com.google.code.vaadin.internal.eventhandling.EventBusModule;
 import com.google.code.vaadin.internal.localization.ResourceBundleInjectionModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
-import com.google.code.vaadin.application.MVPApplicationInitParameters;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.common.base.Preconditions;
 import com.google.inject.name.Names;
@@ -67,7 +66,7 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
-
+    //TODO move modules to guice package
     @Override
     protected void configureServlets() {
         install(createLoggerModule());

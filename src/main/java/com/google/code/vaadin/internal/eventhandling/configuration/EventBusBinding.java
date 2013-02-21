@@ -16,31 +16,21 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.eventhandling.view;
+package com.google.code.vaadin.internal.eventhandling.configuration;
 
-import com.google.code.vaadin.internal.eventhandling.AbstractMessageBusProvider;
-import com.google.code.vaadin.mvp.eventhandling.EventBuses;
-import com.google.inject.Inject;
 import net.engio.mbassy.BusConfiguration;
 
 /**
- * ViewMessageBusProvider - TODO: description
+ * Настройки привязки конкретной шины сообщений.
  *
- * @author Alexey Krylov
- * @since 26.01.13
+ * @author Alexey Krylov (lexx)
+ * @since 20.02.13
  */
-class ViewMessageBusProvider extends AbstractMessageBusProvider {
+public interface EventBusBinding {
 
-    /*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INTERFACE METHODS ]==============*/
 
-    @Inject(optional = true)
-    @EventBuses.ViewEventBus
-    private BusConfiguration busConfiguration;
+    EventBusTypes getType();
 
-    /*===========================================[ INTERFACE METHODS ]============*/
-
-    @Override
-    protected BusConfiguration getConfiguration() {
-        return busConfiguration;
-    }
+    BusConfiguration getConfiguration();
 }

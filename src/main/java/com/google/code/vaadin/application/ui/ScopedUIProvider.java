@@ -23,12 +23,14 @@ import com.google.code.vaadin.application.uiscope.UIKey;
 import com.google.code.vaadin.application.uiscope.UIKeyProvider;
 import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.application.uiscope.UIScoped;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusModuleConfiguration;
 import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedEventBusSubscribersRegistry;
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.code.vaadin.mvp.eventhandling.EventBuses;
 import com.google.common.base.Preconditions;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Key;
 import com.vaadin.server.ClientConnector;
 import com.vaadin.server.UIClassSelectionEvent;
 import com.vaadin.server.UICreateEvent;
@@ -62,7 +64,7 @@ public class ScopedUIProvider extends UIProvider {
     protected UIKeyProvider uiKeyProvider;
     protected Injector injector;
     protected Class uiClass;
-    protected EventBus sharedEventBus;
+    protected EventBusModuleConfiguration configuration;
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
@@ -70,14 +72,14 @@ public class ScopedUIProvider extends UIProvider {
     protected void init(Logger logger, Injector injector,
                         @Named(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS) Class uiClass,
                         UIKeyProvider uiKeyProvider,
-                        @EventBuses.SharedModelEventBus EventBus sharedEventBus) {
+                        EventBusModuleConfiguration configuration) {
         Preconditions.checkArgument(ScopedUI.class.isAssignableFrom(uiClass), String.format("ERROR: %s is not subclass of ScopedUI", uiClass.getName()));
 
         this.logger = logger;
         this.injector = injector;
         this.uiClass = uiClass;
         this.uiKeyProvider = uiKeyProvider;
-        this.sharedEventBus = sharedEventBus;
+        this.configuration = configuration;
     }
 
 	/*===========================================[ CLASS METHODS ]================*/
@@ -124,9 +126,12 @@ public class ScopedUIProvider extends UIProvider {
                 SharedEventBusSubscribersRegistry subscribersRegistry = injector.getInstance(SharedEventBusSubscribersRegistry.class);
                 Iterable<Object> uiScopedSubscribers = subscribersRegistry.removeAndGetSubscribers(uiKey);
 
-                // Unsubscribe all non-singletons (UIScoped, nonscoped, etc) from SharedEventBus
-                for (Object subscriber : uiScopedSubscribers) {
-                    sharedEventBus.unsubscribe(subscriber);
+                if (configuration.isSharedModelEventBusRequired()) {
+                    EventBus sharedEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.SharedModelEventBus.class));
+                    // Unsubscribe all non-singletons (UIScoped, nonscoped, etc) from SharedEventBus
+                    for (Object subscriber : uiScopedSubscribers) {
+                        sharedEventBus.unsubscribe(subscriber);
+                    }
                 }
 
                 logger.info(String.format("Detached [%s] with key [%s]", uiClass.getName(), uiKey));

@@ -16,30 +16,35 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.eventhandling.model;
+package com.google.code.vaadin.internal.eventhandling.configuration;
 
-import com.google.code.vaadin.internal.eventhandling.AbstractEventBusProvider;
+import com.google.inject.TypeLiteral;
+import com.google.inject.spi.TypeEncounter;
+import com.google.inject.spi.TypeListener;
 import net.engio.mbassy.IMessageBus;
 
-import javax.inject.Inject;
-
 /**
- * Session-scoped Model EventBus provider.
- *
  * @author Alexey Krylov
- * @since 26.01.13
+ * @since 13.02.13
  */
-class ModelEventBusProvider extends AbstractEventBusProvider {
+class EventBusTypeAutoSubscriber implements TypeListener {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    @Inject
-    private ModelMessageBusProvider modelMessageBusProvider;
+    private IMessageBus eventBus;
+    private EventBusTypes eventBusType;
+
+    /*===========================================[ CONSTRUCTORS ]=================*/
+
+    EventBusTypeAutoSubscriber(IMessageBus eventBus, EventBusTypes eventBusType) {
+        this.eventBus = eventBus;
+        this.eventBusType = eventBusType;
+    }
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public IMessageBus getMessageBus() {
-        return modelMessageBusProvider.get();
+    public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
+        encounter.register(new EventBusSubscriber<>(eventBus, eventBusType));
     }
 }

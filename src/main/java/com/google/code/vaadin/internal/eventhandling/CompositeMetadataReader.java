@@ -18,19 +18,21 @@
 
 package com.google.code.vaadin.internal.eventhandling;
 
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
-import com.google.common.base.Predicate;
+import com.google.common.base.Function;
 import net.engio.mbassy.common.ReflectionUtils;
 import net.engio.mbassy.listener.*;
 
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Collections2.transform;
 
 /**
  * MBassador metadata reader with {@link Observes} annotation support.
@@ -40,16 +42,44 @@ import static com.google.common.collect.Collections2.filter;
  */
 class CompositeMetadataReader extends MetadataReader {
 
+  /*===========================================[ INSTANCE VARIABLES ]===========*/
+
+    private EventBusTypes busType;
+
+    /*===========================================[ CONSTRUCTORS ]=================*/
+
+    CompositeMetadataReader(EventBusTypes busType) {
+        this.busType = busType;
+    }
+
     /*===========================================[ CLASS METHODS ]================*/
 
     @Override
     public List<MessageHandlerMetadata> getMessageHandlers(Class<?> target) {
-        final List<MessageHandlerMetadata> messageHandlers = new LinkedList(super.getMessageHandlers(target));
+        final Iterable<MessageHandlerMetadata> listenerMessageHandlers = new LinkedList(super.getMessageHandlers(target));
+        Collection<MessageHandlerMetadata> observerHandlers = findObservesMethods(target);
 
-        // get all methods with @Observes annotation
-        List<Method> observerMethods = ReflectionUtils.getMethods(MethodResolutionPredicates.AllEventHandlers, target);
-        // retain only those that are at the bottom of their respective class hierarchy (deepest overriding method)
-        Collection<Method> bottomMostHandlers = new LinkedList<Method>();
+        // Заменяем MessageHandlerMetadata взятые из @Observer на метаданные из @Listener
+        return new ArrayList<>(transform(observerHandlers, new Function<MessageHandlerMetadata, MessageHandlerMetadata>() {
+            @Override
+            public MessageHandlerMetadata apply(@Nullable MessageHandlerMetadata input) {
+                if (input != null) {
+                    for (MessageHandlerMetadata listenerMessageHandler : listenerMessageHandlers) {
+                        if (listenerMessageHandler.getHandler().equals(input.getHandler())) {
+                            return listenerMessageHandler;
+                        }
+                    }
+                }
+                return input;
+            }
+        }));
+    }
+
+    protected Collection<MessageHandlerMetadata> findObservesMethods(Class<?> target) {
+        // получаем все методы с аннотацией @Observes
+        List<Method> observerMethods = ReflectionUtils.getMethods(MethodResolutionPredicates.getEventHandlersPredicate(busType), target);
+        // оставляем только те, которые наверху иерархии классов (самый верхний переопределяющий метод)
+        Collection<Method> bottomMostHandlers = new LinkedList<>();
         for (Method handler : observerMethods) {
             if (!ReflectionUtils.containsOverridingMethod(observerMethods, handler)) {
                 bottomMostHandlers.add(handler);
@@ -57,33 +87,25 @@ class CompositeMetadataReader extends MetadataReader {
         }
 
         Collection<MessageHandlerMetadata> filteredObserverHandlers = new LinkedList<>();
-        // for each handler there will be no overriding method that specifies @Observes annotation
-        // but an overriding method does inherit the listener configuration of the overwritten method
+
+        // для каждого обработчика не будет переопределяющего метода с явно указанной аннотацией @Observes
+        // но переопределяющий метод наследует конфигурацию переопределенного метода
         for (Method handler : bottomMostHandlers) {
-            Method overriddenHandler = ReflectionUtils.getOverridingMethod(handler, target);
-            // if a handler is overwritten it inherits the configuration of its parent method
-            MessageHandlerMetadata handlerMetadata = new MessageHandlerMetadata(overriddenHandler == null ? handler : overriddenHandler,
-                    new IMessageFilter[0], new MappedListener());
-            filteredObserverHandlers.add(handlerMetadata);
-        }
-
-        /**
-         *  Remove from all @Observer handlers methods with @Listener annotation.
-         *  This is required to allow user to define one method with two annotation
-         */
-        messageHandlers.addAll(filter(filteredObserverHandlers, new Predicate<MessageHandlerMetadata>() {
-            @Override
-            public boolean apply(@Nullable MessageHandlerMetadata input) {
-                for (MessageHandlerMetadata messageHandler : messageHandlers) {
-                    if (messageHandler.getHandler().equals(input.getHandler())) {
-                        return false;
-                    }
-                }
-                return true;
+            Observes observer = handler.getAnnotation(Observes.class);
+            Listener listener = handler.getAnnotation(Listener.class);
+            if (observer.enabled() && (listener == null || listener.enabled())) {
+                Method overriddenHandler = ReflectionUtils.getOverridingMethod(handler, target);
+                // Если обработчик переопределен, то он наследует от конфигурацию от родительского метода
+                MessageHandlerMetadata handlerMetadata = new MessageHandlerMetadata(overriddenHandler == null ? handler : overriddenHandler,
+                        getFilter(observer), new MappedListener());
+                filteredObserverHandlers.add(handlerMetadata);
             }
-        }));
+        }
+        return filteredObserverHandlers;
+    }
 
-        return messageHandlers;
+    protected IMessageFilter[] getFilter(Observes observer) {
+        return new IMessageFilter[0];
     }
 
     /*===========================================[ INNER CLASSES ]================*/

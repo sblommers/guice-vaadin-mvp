@@ -33,4 +33,6 @@ import java.lang.annotation.*;
 public @interface Observes {
 
     EventType value() default EventType.VIEW;
+
+    boolean enabled() default true;
 }

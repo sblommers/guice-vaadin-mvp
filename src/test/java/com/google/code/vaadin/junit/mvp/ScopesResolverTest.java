@@ -22,7 +22,6 @@ import com.google.code.vaadin.internal.util.ScopesResolver;
 import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.Lang;
 import com.google.inject.Binding;
-import com.sun.xml.internal.ws.client.RequestContext;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -39,8 +38,5 @@ public class ScopesResolverTest extends AbstractMVPTest{
         Binding<Lang> langBinding = injector.getBinding(Lang.class);
         Assert.assertFalse("Lang is RequestScoped", ScopesResolver.isRequestScoped(langBinding));
         Assert.assertTrue("Lang is not UIScoped", ScopesResolver.isUIScoped(langBinding));
-
-        RequestContext instance = injector.getInstance(RequestContext.class);
-        instance.toString();
     }
 }

@@ -16,28 +16,26 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.eventhandling.sharedmodel;
+package com.google.code.vaadin.internal.eventhandling.model;
 
 import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
-import com.google.code.vaadin.internal.eventhandling.EventBusTypeAutoSubscriber;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinding;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
-import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.code.vaadin.mvp.eventhandling.EventBusType;
-import com.google.code.vaadin.mvp.eventhandling.SharedModelEventPublisher;
+import com.google.code.vaadin.mvp.eventhandling.EventPublisher;
+import com.google.code.vaadin.mvp.eventhandling.ModelEventPublisher;
 import com.google.inject.Provider;
-import com.google.inject.Scopes;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 
 /**
- * SharedModelEventBusModule - TODO: description
+ * ModelEventBusModule - TODO: description
  *
- * @author Alexey Krylov
- * @since 14.02.13
+ * @author Alexey Krylov (lexx)
+ * @since 24.02.13
  */
-public class SharedModelEventBusModule extends AbstractEventBusModule {
+public class ModelEventBusModule extends AbstractEventBusModule {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
@@ -45,7 +43,7 @@ public class SharedModelEventBusModule extends AbstractEventBusModule {
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    public SharedModelEventBusModule(EventBusBinding eventBusBinding) {
+    public ModelEventBusModule(EventBusBinding eventBusBinding) {
         this.eventBusBinding = eventBusBinding;
     }
 
@@ -53,23 +51,21 @@ public class SharedModelEventBusModule extends AbstractEventBusModule {
 
     @Override
     protected void configure() {
-        bind(SharedEventBusSubscribersRegistry.class).to(AccessibleSharedEventBusSubscribersRegistry.class);
-        bind(AccessibleSharedEventBusSubscribersRegistry.class).in(Scopes.SINGLETON);
-        bindSharedModelEventBus();
+        bindModelEventBus();
     }
 
-    protected void bindSharedModelEventBus() {
-        bindEventBus(EventBusTypes.SHARED_MODEL,
-                mapObservesAnnotations(EventBusTypes.SHARED_MODEL, eventBusBinding.getConfiguration()));
+    protected void bindModelEventBus() {
+        bindEventBus(EventBusTypes.MODEL,
+                mapObservesAnnotations(EventBusTypes.MODEL, eventBusBinding.getConfiguration()));
 
-        bind(SharedModelEventPublisher.class).toProvider(new Provider<SharedModelEventPublisher>() {
+        bind(ModelEventPublisher.class).toProvider(new Provider<ModelEventPublisher>() {
             @Inject
-            @EventBusType(EventBusTypes.SHARED_MODEL)
-            private SharedModelEventPublisher publisher;
+            @EventBusType(EventBusTypes.MODEL)
+            private EventPublisher publisher;
 
             @Override
-            public SharedModelEventPublisher get() {
-                return new SharedModelEventPublisher() {
+            public ModelEventPublisher get() {
+                return new ModelEventPublisher() {
                     @Override
                     public void publish(@NotNull Object event) {
                         publisher.publish(event);
@@ -77,10 +73,5 @@ public class SharedModelEventBusModule extends AbstractEventBusModule {
                 };
             }
         });
-    }
-
-    @Override
-    protected EventBusTypeAutoSubscriber createEventBusTypeAutoSubscriber(EventBus eventBus, EventBusTypes eventBusType) {
-        return new SharedModelEventBusTypeAutoSubscriber(eventBus, eventBusType);
     }
 }

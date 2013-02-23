@@ -19,8 +19,10 @@
 package com.google.code.vaadin;
 
 import com.google.code.vaadin.application.ui.ScopedUI;
+import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
 import com.google.code.vaadin.internal.eventhandling.EventBusModule;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusModuleConfiguration;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinder;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.junit.AbstractMVPApplicationTestModule;
 
 /**
@@ -32,12 +34,14 @@ public class MVPTestModule extends AbstractMVPApplicationTestModule {
     /*===========================================[ CLASS METHODS ]================*/
 
     @Override
-    protected EventBusModule createEventBusModule() {
-        EventBusModuleConfiguration configuration = EventBusModule.getConfigurationBuilder()
-                .withSharedModelEventBus()
-                .withModelEventBus()
-                .build();
-        return new EventBusModule(configuration);
+    protected AbstractEventBusModule createEventBusModule() {
+        return new EventBusModule() {
+            @Override
+            protected void bindEventBuses(EventBusBinder binder) {
+                binder.bind(EventBusTypes.MODEL).withDefaultConfiguration();
+                binder.bind(EventBusTypes.SHARED_MODEL).withDefaultConfiguration();
+            }
+        };
     }
 
     @Override

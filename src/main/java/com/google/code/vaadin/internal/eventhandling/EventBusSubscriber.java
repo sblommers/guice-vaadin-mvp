@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.eventhandling.configuration;
+package com.google.code.vaadin.internal.eventhandling;
 
-import com.google.code.vaadin.internal.eventhandling.MethodResolutionPredicates;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
 import com.google.inject.MembersInjector;
-import net.engio.mbassy.IMessageBus;
 import net.engio.mbassy.common.ReflectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  * @see MethodResolutionPredicates
  * @since 14.02.13
  */
-class EventBusSubscriber<T> implements MembersInjector<T> {
+public class EventBusSubscriber<T> implements MembersInjector<T> {
 
     /*===========================================[ STATIC VARIABLES ]=============*/
 
@@ -42,12 +42,12 @@ class EventBusSubscriber<T> implements MembersInjector<T> {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private IMessageBus eventBus;
+    private EventBus eventBus;
     private EventBusTypes eventBusType;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    EventBusSubscriber(IMessageBus eventBus, EventBusTypes eventBusType) {
+    protected EventBusSubscriber(EventBus eventBus, EventBusTypes eventBusType) {
         this.eventBus = eventBus;
         this.eventBusType = eventBusType;
     }
@@ -59,11 +59,15 @@ class EventBusSubscriber<T> implements MembersInjector<T> {
         Class<?> instanceClass = instance.getClass();
         if (isMessageListener(instanceClass)) {
             eventBus.subscribe(instance);
+            postSubscribe(instance);
             logger.info(String.format("[%s] subscribed to EventBus [#%d]", instance.toString(), eventBus.hashCode()));
         }
     }
 
     protected boolean isMessageListener(Class<?> instanceClass) {
         return !ReflectionUtils.getMethods(MethodResolutionPredicates.getEventHandlersPredicate(eventBusType), instanceClass).isEmpty();
+    }
+
+    protected void postSubscribe(T instance) {
     }
 }

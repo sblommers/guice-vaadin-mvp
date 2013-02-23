@@ -20,6 +20,8 @@ package com.google.code.vaadin.internal.eventhandling.configuration;
 
 import net.engio.mbassy.BusConfiguration;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Построитель привязки конкретной шины сообщений.
  *
@@ -34,7 +36,7 @@ public interface EventBusBindingBuilder {
      *
      * @param configuration конфигурация шины сообщений
      */
-    void withConfiguration(BusConfiguration configuration);
+    void withConfiguration(@NotNull BusConfiguration configuration);
 
     /**
      * Привязывает именованную шину к конфигурации по-умолчанию.

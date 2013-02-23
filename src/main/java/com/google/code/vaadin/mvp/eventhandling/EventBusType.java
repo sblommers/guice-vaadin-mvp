@@ -26,6 +26,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
+ * //todo
  * Marks any method of any object as an event handler.
  *
  * @author Alexey Krylov

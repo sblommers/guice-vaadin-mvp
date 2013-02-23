@@ -18,6 +18,8 @@
 
 package com.google.code.vaadin.internal.eventhandling.configuration;
 
+import com.google.code.vaadin.mvp.eventhandling.EventType;
+
 /**
  * EventBusType - TODO: description
  *
@@ -25,7 +27,17 @@ package com.google.code.vaadin.internal.eventhandling.configuration;
  * @since 22.02.13
  */
 public enum EventBusTypes {
-    VIEW,
-    MODEL,
-    SHARED_MODEL
+    VIEW(EventType.VIEW),
+    MODEL(EventType.MODEL),
+    SHARED_MODEL(EventType.SHARED_MODEL);
+
+    private EventType eventType;
+
+    EventBusTypes(EventType eventType) {
+        this.eventType = eventType;
+    }
+
+    public EventType getEventType() {
+        return eventType;
+    }
 }

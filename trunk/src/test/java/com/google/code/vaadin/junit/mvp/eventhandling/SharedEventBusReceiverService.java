@@ -18,8 +18,9 @@
 
 package com.google.code.vaadin.junit.mvp.eventhandling;
 
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
-import com.google.code.vaadin.mvp.eventhandling.EventBuses;
+import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
 import com.google.code.vaadin.mvp.eventhandling.events.SharedModelEvent;
@@ -40,7 +41,7 @@ public class SharedEventBusReceiverService {
 	/*===========================================[ CLASS METHODS ]================*/
 
     @Inject
-    private void init(@EventBuses.SharedModelEventBus EventBus eventBus, NonScopedServiceComponent component) {
+    private void init(@EventBusType(EventBusTypes.SHARED_MODEL) EventBus eventBus, NonScopedServiceComponent component) {
         eventBus.subscribe(this);
         this.component = component;
         eventBus.subscribe(component);

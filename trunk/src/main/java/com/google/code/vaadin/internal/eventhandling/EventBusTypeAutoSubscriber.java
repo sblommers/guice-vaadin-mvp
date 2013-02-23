@@ -18,43 +18,44 @@
 
 package com.google.code.vaadin.internal.eventhandling;
 
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusModuleConfiguration;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
-import com.google.code.vaadin.internal.eventhandling.model.ModelEventBusSubscriber;
-import com.google.code.vaadin.internal.eventhandling.view.ViewEventBusSubscriber;
+import com.google.code.vaadin.mvp.eventhandling.EventBus;
+import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
-import net.engio.mbassy.IMessageBus;
-//todo use governator with bootstrap module
+
+import javax.inject.Inject;
+
 /**
- * EventBusTypeListener - TODO: description
- *
  * @author Alexey Krylov
  * @since 13.02.13
  */
-class EventBusTypeAutoSubscriber implements TypeListener {
+public class EventBusTypeAutoSubscriber implements TypeListener {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private IMessageBus messageBus;
-    private EventBusTypes eventBusType;
+    @Inject
+    protected Injector injector;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    protected EventBus eventBus;
+    protected EventBusTypes eventBusType;
 
-    EventBusTypeAutoSubscriber(IMessageBus messageBus, EventBusTypes eventBusType) {
-        this.messageBus = messageBus;
+    /*===========================================[ CONSTRUCTORS ]=================*/
+
+    protected EventBusTypeAutoSubscriber(EventBus eventBus, EventBusTypes eventBusType) {
+        this.eventBus = eventBus;
         this.eventBusType = eventBusType;
     }
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ INTERFACE METHODS ]============*/
 
-    /**
-     * Auto-subscription will only work if subscriber is directly injected by someone and this someone is not in
-     * Singleton scope.
-     */
     @Override
     public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
-        encounter.register(new EventBusTypeSubscriber<>(messageBus, eventBusType));
+        encounter.register(createEventBusSubscriber());
+    }
+
+    protected EventBusSubscriber<Object> createEventBusSubscriber() {
+        return new EventBusSubscriber<>(eventBus, eventBusType);
     }
 }

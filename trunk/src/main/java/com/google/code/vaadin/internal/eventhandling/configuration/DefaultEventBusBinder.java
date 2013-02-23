@@ -21,42 +21,43 @@ package com.google.code.vaadin.internal.eventhandling.configuration;
 import com.google.common.base.Preconditions;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * @author Alexey Krylov (lexx)
  * @since 20.02.13
  */
-class DefaultEventBusBinder implements EventBusBinder {
+public class DefaultEventBusBinder implements EventBusBinder {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private Collection<EventBusBinding> bindings;
+    private Map<EventBusTypes, EventBusBinding> bindings;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
-
-    DefaultEventBusBinder() {
-        bindings = new ArrayList<>();
+    //todo hide
+    public DefaultEventBusBinder() {
+        bindings = new EnumMap<>(EventBusTypes.class);
     }
 
     @Override
     public EventBusBindingBuilder bind(@NotNull EventBusTypes type) {
-        Preconditions.checkArgument(type != null, "Specified EventBusType is null or empty");
+        Preconditions.checkArgument(type != null, "Specified EventBusType is null");
 
         return new DefaultEventBusBindingBuilder(type) {
             @Override
             protected EventBusBinding build() {
                 EventBusBinding binding = super.build();
-                bindings.add(binding);
+                bindings.put(binding.getType(), binding);
                 return binding;
             }
         };
     }
 
     @Override
-    public Collection<EventBusBinding> getBindings() {
-        return Collections.unmodifiableCollection(bindings);
+    public EventBusBinding getBinding(@NotNull EventBusTypes type) {
+        Preconditions.checkArgument(type != null, "Specified EventBusType is null");
+
+        return bindings.get(type);
     }
 }

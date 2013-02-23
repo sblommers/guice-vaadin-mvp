@@ -23,10 +23,11 @@ import com.google.code.vaadin.application.uiscope.UIKey;
 import com.google.code.vaadin.application.uiscope.UIKeyProvider;
 import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.application.uiscope.UIScoped;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusModuleConfiguration;
+import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinder;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedEventBusSubscribersRegistry;
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
-import com.google.code.vaadin.mvp.eventhandling.EventBuses;
 import com.google.common.base.Preconditions;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -64,7 +65,7 @@ public class ScopedUIProvider extends UIProvider {
     protected UIKeyProvider uiKeyProvider;
     protected Injector injector;
     protected Class uiClass;
-    protected EventBusModuleConfiguration configuration;
+    protected EventBusBinder eventBusBinder;
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
@@ -72,14 +73,14 @@ public class ScopedUIProvider extends UIProvider {
     protected void init(Logger logger, Injector injector,
                         @Named(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS) Class uiClass,
                         UIKeyProvider uiKeyProvider,
-                        EventBusModuleConfiguration configuration) {
+                        EventBusBinder eventBusBinder) {
         Preconditions.checkArgument(ScopedUI.class.isAssignableFrom(uiClass), String.format("ERROR: %s is not subclass of ScopedUI", uiClass.getName()));
 
         this.logger = logger;
         this.injector = injector;
         this.uiClass = uiClass;
         this.uiKeyProvider = uiKeyProvider;
-        this.configuration = configuration;
+        this.eventBusBinder = eventBusBinder;
     }
 
 	/*===========================================[ CLASS METHODS ]================*/
@@ -126,8 +127,9 @@ public class ScopedUIProvider extends UIProvider {
                 SharedEventBusSubscribersRegistry subscribersRegistry = injector.getInstance(SharedEventBusSubscribersRegistry.class);
                 Iterable<Object> uiScopedSubscribers = subscribersRegistry.removeAndGetSubscribers(uiKey);
 
-                if (configuration.isSharedModelEventBusRequired()) {
-                    EventBus sharedEventBus = injector.getInstance(Key.get(EventBus.class, EventBuses.SharedModelEventBus.class));
+                // If Shared Model EventBus is present
+                if (eventBusBinder.getBinding(EventBusTypes.SHARED_MODEL) != null) {
+                    EventBus sharedEventBus = injector.getInstance(Key.get(EventBus.class, AbstractEventBusModule.eventBusType(EventBusTypes.SHARED_MODEL)));
                     // Unsubscribe all non-singletons (UIScoped, nonscoped, etc) from SharedEventBus
                     for (Object subscriber : uiScopedSubscribers) {
                         sharedEventBus.unsubscribe(subscriber);

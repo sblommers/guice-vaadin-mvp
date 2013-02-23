@@ -67,7 +67,13 @@ public class MethodResolutionPredicates {
     };
 
 
-    public static IPredicate<Method> getEventHandlersPredicate(EventBusTypes eventBusType){
-
+    public static IPredicate<Method> getEventHandlersPredicate(final EventBusTypes eventBusType){
+        return new IPredicate<Method>() {
+            @Override
+            public boolean apply(Method target) {
+                Observes observes = target.getAnnotation(Observes.class);
+                return observes != null && observes.value().equals(eventBusType.getEventType());
+            }
+        };
     }
 }

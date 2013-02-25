@@ -124,11 +124,11 @@ public class ScopedUIProvider extends UIProvider {
             public void detach(ClientConnector.DetachEvent event) {
                 logger.debug(String.format("Detaching [%s] with key [%s]", uiClass.getName(), uiKey));
 
-                SharedEventBusSubscribersRegistry subscribersRegistry = injector.getInstance(SharedEventBusSubscribersRegistry.class);
-                Iterable<Object> uiScopedSubscribers = subscribersRegistry.removeAndGetSubscribers(uiKey);
-
                 // If Shared Model EventBus is present
                 if (eventBusBinder.getBinding(EventBusTypes.SHARED_MODEL) != null) {
+                    SharedEventBusSubscribersRegistry subscribersRegistry = injector.getInstance(SharedEventBusSubscribersRegistry.class);
+                    Iterable<Object> uiScopedSubscribers = subscribersRegistry.removeAndGetSubscribers(uiKey);
+
                     EventBus sharedEventBus = injector.getInstance(Key.get(EventBus.class, AbstractEventBusModule.eventBusType(EventBusTypes.SHARED_MODEL)));
                     // Unsubscribe all non-singletons (UIScoped, nonscoped, etc) from SharedEventBus
                     for (Object subscriber : uiScopedSubscribers) {

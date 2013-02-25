@@ -19,8 +19,8 @@
 package com.google.code.vaadin.internal.eventhandling.model;
 
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.code.vaadin.mvp.eventhandling.EventBusType;
-import com.google.code.vaadin.mvp.eventhandling.EventPublisher;
 import com.google.code.vaadin.mvp.eventhandling.ModelEventPublisher;
 
 import javax.inject.Inject;
@@ -38,7 +38,7 @@ class ModelEventPublisherProvider implements Provider<ModelEventPublisher> {
 
     @Inject
     @EventBusType(EventBusTypes.MODEL)
-    private EventPublisher eventPublisher;
+    private EventBus eventBus;
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
@@ -47,7 +47,7 @@ class ModelEventPublisherProvider implements Provider<ModelEventPublisher> {
         return new ModelEventPublisher() {
             @Override
             public void publish(Object event) {
-                eventPublisher.publish(event);
+                eventBus.publish(event);
             }
         };
     }

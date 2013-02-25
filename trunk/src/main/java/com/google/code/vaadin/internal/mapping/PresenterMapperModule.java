@@ -69,7 +69,7 @@ public class PresenterMapperModule extends AbstractModule {
     protected void configure() {
         bind(ViewPresenterMappingRegistry.class).to(AccessibleViewPresenterMappingRegistry.class).in(UIScope.getCurrent());
         bind(ViewProvider.class).to(AccessibleViewProvider.class).in(UIScope.getCurrent());
-
+        //TODO option to provide all presenters manually
         //1. find all presenters
         Reflections reflections = new Reflections(createReflectionsConfiguration());
         Set<Class<? extends AbstractPresenter>> subTypesOf = reflections.getSubTypesOf(AbstractPresenter.class);

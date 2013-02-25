@@ -166,15 +166,20 @@ public class UIScope implements Scope {
             T current = (T) scopedObjects.get(key);
 
             if (current != null) {
-                logger.debug(String.format("Returning existing instance of [%s]", current.getClass().getSimpleName()));
+                logger.debug(String.format("Returning existing instance of [%s]", getInstanceSimpleClassName(current)));
                 return current;
             }
 
             // or create the first instance and cache it
             current = unscoped.get();
             scopedObjects.put(key, current);
-            logger.debug(String.format("New instance of [%s] created, as none in cache", current.getClass().getSimpleName()));
+            logger.debug(String.format("New instance of [%s] created, as none in cache", getInstanceSimpleClassName(current)));
             return current;
+        }
+
+        private String getInstanceSimpleClassName(Object instance) {
+            String simpleName = instance.getClass().getSimpleName();
+            return simpleName.isEmpty() ? instance.getClass().getName() : simpleName;
         }
     }
 }

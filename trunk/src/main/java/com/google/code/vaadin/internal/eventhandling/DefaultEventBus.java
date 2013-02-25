@@ -83,6 +83,28 @@ class DefaultEventBus implements EventBus {
         bus.post(event).now();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof DefaultEventBus)) {
+            return false;
+        }
+
+        DefaultEventBus eventBus = (DefaultEventBus) obj;
+
+        if (!bus.equals(eventBus.bus)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return bus.hashCode();
+    }
 
     @Override
     public String toString() {

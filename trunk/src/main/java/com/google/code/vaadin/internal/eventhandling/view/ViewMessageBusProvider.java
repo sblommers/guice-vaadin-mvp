@@ -32,6 +32,8 @@ import net.engio.mbassy.BusConfiguration;
  */
 class ViewMessageBusProvider extends AbstractMessageBusProvider {
 
+	/*===========================================[ INSTANCE VARIABLES ]===========*/
+
     @Inject
     @EventBusType(EventBusTypes.VIEW)
     private BusConfiguration busConfiguration;

@@ -19,8 +19,10 @@
 package com.google.code.vaadin.internal.eventhandling;
 
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
-import com.google.code.vaadin.mvp.eventhandling.EventType;
+import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
+import com.google.inject.Injector;
+import com.google.inject.Key;
 import com.google.inject.MembersInjector;
 import net.engio.mbassy.common.ReflectionUtils;
 import org.slf4j.Logger;
@@ -42,14 +44,14 @@ public class EventBusSubscriber<T> implements MembersInjector<T> {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private EventBus eventBus;
-    private EventType eventType;
+    private EventBusType eventBusType;
+    private Injector injector;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    public EventBusSubscriber(EventBus eventBus, EventType eventType) {
-        this.eventBus = eventBus;
-        this.eventType = eventType;
+    public EventBusSubscriber(Injector injector, EventBusType eventBusType) {
+        this.injector = injector;
+        this.eventBusType = eventBusType;
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
@@ -58,6 +60,7 @@ public class EventBusSubscriber<T> implements MembersInjector<T> {
     public void injectMembers(T instance) {
         Class<?> instanceClass = instance.getClass();
         if (isMessageListener(instanceClass)) {
+            EventBus eventBus = injector.getInstance(Key.get(EventBus.class, eventBusType));
             eventBus.subscribe(instance);
             postSubscribe(instance);
             logger.info(String.format("[%s] subscribed to EventBus [#%d]", instance.toString(), eventBus.hashCode()));
@@ -65,7 +68,7 @@ public class EventBusSubscriber<T> implements MembersInjector<T> {
     }
 
     protected boolean isMessageListener(Class<?> instanceClass) {
-        return !ReflectionUtils.getMethods(MethodResolutionPredicates.getEventHandlersPredicate(eventType), instanceClass).isEmpty();
+        return !ReflectionUtils.getMethods(MethodResolutionPredicates.getEventHandlersPredicate(eventBusType.value().getEventType()), instanceClass).isEmpty();
     }
 
     protected void postSubscribe(T instance) {

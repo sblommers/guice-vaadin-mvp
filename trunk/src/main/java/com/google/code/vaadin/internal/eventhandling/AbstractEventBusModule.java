@@ -61,10 +61,10 @@ public abstract class AbstractEventBusModule extends AbstractModule {
     @Override
     protected void configure() {
         BusConfiguration busConfiguration = eventBusBinding.getConfiguration();
-        EventBusTypes busType = eventBusBinding.getType();
+        EventBusType busType = eventBusBinding.getType();
 
-        busConfiguration.setMetadataReader(createMetadataReader(busType.getEventType()));
-        bind(BusConfiguration.class).annotatedWith(eventBusType(busType)).toInstance(busConfiguration);
+        busConfiguration.setMetadataReader(createMetadataReader(busType.value().getEventType()));
+        bind(BusConfiguration.class).annotatedWith(busType).toInstance(busConfiguration);
         bindEventBus();
     }
 
@@ -73,11 +73,11 @@ public abstract class AbstractEventBusModule extends AbstractModule {
     }
 
     protected void bindEventBus() {
-        Annotation eventBusType = eventBusType(eventBusBinding.getType());
+        Annotation busType = eventBusBinding.getType();
         Scope bindScope = getBindScope();
-        bind(IMessageBus.class).annotatedWith(eventBusType).toProvider(getMessageBusProviderClass()).in(bindScope);
-        bind(EventBus.class).annotatedWith(eventBusType).toProvider(getEventBusProviderClass()).in(bindScope);
-        bind(EventPublisher.class).annotatedWith(eventBusType).toProvider(getEventBusProviderClass()).in(bindScope);
+        bind(IMessageBus.class).annotatedWith(busType).toProvider(getMessageBusProviderClass()).in(bindScope);
+        bind(EventBus.class).annotatedWith(busType).toProvider(getEventBusProviderClass()).in(bindScope);
+        bind(EventPublisher.class).annotatedWith(busType).toProvider(getEventBusProviderClass()).in(bindScope);
         bindSpecificEventPublisher();
         bindAutoSubscriber();
     }
@@ -95,12 +95,12 @@ public abstract class AbstractEventBusModule extends AbstractModule {
     }
 
     protected void bindAutoSubscriber() {
-        TypeListener eventBusTypeAutoSubscriber = createEventBusTypeAutoSubscriber(getEventBusProviderClass(), eventBusBinding.getType().getEventType());
+        TypeListener eventBusTypeAutoSubscriber = createEventBusTypeAutoSubscriber();
         requestInjection(eventBusTypeAutoSubscriber);
         bindListener(Matchers.any(), eventBusTypeAutoSubscriber);
     }
 
-    protected EventBusTypeAutoSubscriber createEventBusTypeAutoSubscriber(Class<? extends Provider<? extends EventBus>> eventBusProviderClass, EventType eventType) {
-        return new EventBusTypeAutoSubscriber(eventBusProviderClass, eventType);
+    protected EventBusTypeAutoSubscriber createEventBusTypeAutoSubscriber() {
+        return new EventBusTypeAutoSubscriber(eventBusBinding.getType());
     }
 }

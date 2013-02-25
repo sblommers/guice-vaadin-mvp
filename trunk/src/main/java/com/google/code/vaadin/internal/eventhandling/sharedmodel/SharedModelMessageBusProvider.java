@@ -24,15 +24,12 @@ import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import com.google.inject.Inject;
 import net.engio.mbassy.BusConfiguration;
 
-import javax.inject.Singleton;
-
 /**
  * SharedModelMessageBusProvider - TODO: description
  *
  * @author Alexey Krylov (lexx)
  * @since 25.02.13
  */
-@Singleton
 public class SharedModelMessageBusProvider extends AbstractMessageBusProvider {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/

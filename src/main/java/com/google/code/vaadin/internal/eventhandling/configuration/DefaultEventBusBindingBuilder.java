@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.internal.eventhandling.configuration;
 
+import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import net.engio.mbassy.BusConfiguration;
 
 /**
@@ -28,12 +29,12 @@ class DefaultEventBusBindingBuilder implements EventBusBindingBuilder {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private EventBusTypes type;
+    private EventBusType type;
     private BusConfiguration configuration;
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    DefaultEventBusBindingBuilder(EventBusTypes type) {
+    DefaultEventBusBindingBuilder(EventBusType type) {
         this.type = type;
     }
 

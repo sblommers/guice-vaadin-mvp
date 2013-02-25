@@ -18,10 +18,8 @@
 
 package com.google.code.vaadin.internal.eventhandling;
 
-import com.google.code.vaadin.mvp.eventhandling.EventBus;
-import com.google.code.vaadin.mvp.eventhandling.EventType;
+import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import com.google.inject.Injector;
-import com.google.inject.Provider;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
@@ -39,14 +37,12 @@ public class EventBusTypeAutoSubscriber implements TypeListener {
     @Inject
     protected Injector injector;
 
-    protected Class<? extends Provider<? extends EventBus>> eventBusProviderClass;
-    protected EventType eventType;
+    protected EventBusType eventBusType;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    protected EventBusTypeAutoSubscriber(Class<? extends Provider<? extends EventBus>> eventBusProviderClass, EventType eventType) {
-        this.eventBusProviderClass = eventBusProviderClass;
-        this.eventType = eventType;
+    protected EventBusTypeAutoSubscriber(EventBusType eventBusType) {
+        this.eventBusType = eventBusType;
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
@@ -54,11 +50,11 @@ public class EventBusTypeAutoSubscriber implements TypeListener {
     @Override
     public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
         if (injector != null) {
-            encounter.register(createEventBusSubscriber(injector.getInstance(eventBusProviderClass).get()));
+            encounter.register(createEventBusSubscriber());
         }
     }
 
-    protected EventBusSubscriber<Object> createEventBusSubscriber(EventBus eventBus) {
-        return new EventBusSubscriber<>(eventBus, eventType);
+    protected EventBusSubscriber<Object> createEventBusSubscriber() {
+        return new EventBusSubscriber<>(injector, eventBusType);
     }
 }

@@ -5,6 +5,7 @@
 
 package com.google.code.vaadin.internal.eventhandling.configuration;
 
+import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import net.engio.mbassy.BusConfiguration;
 
 /**
@@ -16,13 +17,13 @@ class AccessibleEventBusBinding implements EventBusBinding {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private EventBusTypes type;
+    private EventBusType type;
     private BusConfiguration configuration;
 
 	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public EventBusTypes getType() {
+    public EventBusType getType() {
         return type;
     }
 
@@ -33,7 +34,7 @@ class AccessibleEventBusBinding implements EventBusBinding {
 
 	/*===========================================[ GETTER/SETTER ]================*/
 
-    protected void setType(EventBusTypes type) {
+    protected void setType(EventBusType type) {
         this.type = type;
     }
 

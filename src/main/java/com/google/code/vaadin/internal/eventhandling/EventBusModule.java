@@ -39,9 +39,13 @@ public class EventBusModule extends AbstractModule{
 
 	/*===========================================[ STATIC VARIABLES ]=============*/
 
-    protected static final Logger logger = LoggerFactory.getLogger(EventBusModule.class);
+    protected Logger logger;
 
 	/*===========================================[ INTERFACE METHODS ]============*/
+
+    public EventBusModule() {
+        logger = LoggerFactory.getLogger(getClass());
+    }
 
     @Override
     protected void configure() {

@@ -20,9 +20,7 @@ package com.google.code.vaadin.internal.eventhandling.sharedmodel;
 
 import com.google.code.vaadin.internal.eventhandling.EventBusSubscriber;
 import com.google.code.vaadin.internal.eventhandling.EventBusTypeAutoSubscriber;
-import com.google.code.vaadin.mvp.eventhandling.EventBus;
-import com.google.code.vaadin.mvp.eventhandling.EventType;
-import com.google.inject.Provider;
+import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 
 
 /**
@@ -40,16 +38,16 @@ class SharedModelEventBusTypeAutoSubscriber extends EventBusTypeAutoSubscriber {
     /*===========================================[ CONSTRUCTORS ]=================*/
 
 
-    SharedModelEventBusTypeAutoSubscriber(Class<? extends Provider<? extends EventBus>> eventBusProviderClass, EventType eventType, AccessibleSharedEventBusSubscribersRegistry registry) {
-        super(eventBusProviderClass, eventType);
+    SharedModelEventBusTypeAutoSubscriber(EventBusType eventBusType, AccessibleSharedEventBusSubscribersRegistry registry) {
+        super(eventBusType);
         this.registry = registry;
     }
 
     /*===========================================[ CLASS METHODS ]================*/
 
     @Override
-    protected EventBusSubscriber<Object> createEventBusSubscriber(EventBus eventBus) {
-        return new EventBusSubscriber<Object>(eventBus, eventType) {
+    protected EventBusSubscriber<Object> createEventBusSubscriber() {
+        return new EventBusSubscriber<Object>(injector, eventBusType) {
             @Override
             protected void postSubscribe(Object instance) {
                 registry.registerSubscriber(instance);

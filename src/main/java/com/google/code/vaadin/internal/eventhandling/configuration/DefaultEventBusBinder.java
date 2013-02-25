@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.internal.eventhandling.configuration;
 
+import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
 import com.google.common.base.Preconditions;
 
 import javax.validation.constraints.NotNull;
@@ -35,6 +36,7 @@ public class DefaultEventBusBinder implements EventBusBinder {
     private Map<EventBusTypes, EventBusBinding> bindings;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
+
     //todo hide
     public DefaultEventBusBinder() {
         bindings = new EnumMap<>(EventBusTypes.class);
@@ -44,11 +46,11 @@ public class DefaultEventBusBinder implements EventBusBinder {
     public EventBusBindingBuilder bind(@NotNull EventBusTypes type) {
         Preconditions.checkArgument(type != null, "Specified EventBusType is null");
 
-        return new DefaultEventBusBindingBuilder(type) {
+        return new DefaultEventBusBindingBuilder(AbstractEventBusModule.eventBusType(type)) {
             @Override
             protected EventBusBinding build() {
                 EventBusBinding binding = super.build();
-                bindings.put(binding.getType(), binding);
+                bindings.put(binding.getType().value(), binding);
                 return binding;
             }
         };

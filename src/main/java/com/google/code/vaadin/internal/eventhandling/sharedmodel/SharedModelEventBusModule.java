@@ -22,7 +22,6 @@ import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
 import com.google.code.vaadin.internal.eventhandling.EventBusTypeAutoSubscriber;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinding;
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
-import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.SharedModelEventPublisher;
 import com.google.inject.Provider;
 import com.google.inject.Scope;
@@ -61,8 +60,8 @@ public class SharedModelEventBusModule extends AbstractEventBusModule {
     }
 
     @Override
-    protected EventBusTypeAutoSubscriber createEventBusTypeAutoSubscriber(Class<? extends Provider<? extends EventBus>> eventBusProviderClass, EventType eventType) {
-        return new SharedModelEventBusTypeAutoSubscriber(eventBusProviderClass, eventType, registry);
+    protected EventBusTypeAutoSubscriber createEventBusTypeAutoSubscriber() {
+        return new SharedModelEventBusTypeAutoSubscriber(eventBusBinding.getType(), registry);
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/

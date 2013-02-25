@@ -39,7 +39,7 @@ public abstract class AbstractEventBusProvider implements Provider<EventBus> {
     public EventBus get() {
         Logger logger = LoggerFactory.getLogger(getClass());
         EventBus eventBus = createEventBus();
-        logger.debug("EventBus created: " + eventBus.hashCode());
+        logger.debug("EventBus created: #" + eventBus.hashCode());
         return eventBus;
     }
 

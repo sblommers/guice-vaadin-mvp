@@ -21,7 +21,9 @@ package com.google.code.vaadin.junit.mvp.eventhandling;
 import com.google.code.vaadin.MVPTestModule;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.junit.AbstractMVPTest;
+import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.code.vaadin.mvp.eventhandling.EventBusType;
+import com.google.code.vaadin.mvp.eventhandling.EventPublisher;
 import com.google.code.vaadin.mvp.eventhandling.SharedModelEventPublisher;
 import com.google.code.vaadin.mvp.eventhandling.events.SharedModelEvent;
 import com.google.inject.Stage;
@@ -37,9 +39,9 @@ import javax.inject.Inject;
  * @since 14.02.13
  */
 @GuiceContext(value = {SharedEventBusReceiverModule.class, MVPTestModule.class}, stage = Stage.PRODUCTION)
-public class SharedEventBusTest extends AbstractMVPTest{
+public class SharedEventBusTest extends AbstractMVPTest {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
     private SharedModelEventPublisher publisher;
@@ -48,10 +50,26 @@ public class SharedEventBusTest extends AbstractMVPTest{
     @EventBusType(EventBusTypes.SHARED_MODEL)
     private IMessageBus messageBus;
 
-	/*===========================================[ CLASS METHODS ]================*/
+    @Inject
+    @EventBusType(EventBusTypes.SHARED_MODEL)
+    private EventBus eventBus;
+
+    @Inject
+    @EventBusType(EventBusTypes.SHARED_MODEL)
+    private EventPublisher eventPublisher;
+
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Test
-    public void testPublish() {
+    public void testComponentsInjection() {
+        Assert.assertNotNull("SharedModelEventPublisher not null", publisher);
+        Assert.assertNotNull("Shared MessageBus is null", messageBus);
+        Assert.assertNotNull("Shared EventBus is null", eventBus);
+        Assert.assertNotNull("Shared EventPublisher is null", eventPublisher);
+    }
+
+    @Test
+    public void testPublishSharedDomainEvent() {
         publisher.publish(new SharedModelEvent());
 
         SharedEventBusReceiverService eventBusReceiverService = injector.getInstance(SharedEventBusReceiverService.class);

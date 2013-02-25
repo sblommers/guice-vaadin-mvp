@@ -19,8 +19,8 @@
 package com.google.code.vaadin.internal.eventhandling.sharedmodel;
 
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.code.vaadin.mvp.eventhandling.EventBusType;
-import com.google.code.vaadin.mvp.eventhandling.EventPublisher;
 import com.google.code.vaadin.mvp.eventhandling.SharedModelEventPublisher;
 
 import javax.inject.Inject;
@@ -38,7 +38,7 @@ class SharedModelEventPublisherProvider implements Provider<SharedModelEventPubl
 
     @Inject
     @EventBusType(EventBusTypes.SHARED_MODEL)
-    private EventPublisher eventPublisher;
+    private EventBus eventBus;
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
@@ -47,7 +47,7 @@ class SharedModelEventPublisherProvider implements Provider<SharedModelEventPubl
         return new SharedModelEventPublisher() {
             @Override
             public void publish(Object event) {
-                eventPublisher.publish(event);
+                eventBus.publish(event);
             }
         };
     }

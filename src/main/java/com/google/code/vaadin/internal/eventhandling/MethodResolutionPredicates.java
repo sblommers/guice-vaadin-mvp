@@ -32,39 +32,12 @@ import java.lang.reflect.Method;
  */
 public class MethodResolutionPredicates {
 
-    /*===========================================[ INTERFACE METHODS ]==============*/
+	/*===========================================[ CONSTRUCTORS ]=================*/
 
-    IPredicate<Method> AllEventHandlers = new IPredicate<Method>() {
-        @Override
-        public boolean apply(Method target) {
-            return target.getAnnotation(Observes.class) != null;
-        }
-    };
+    private MethodResolutionPredicates() {
+    }
 
-    IPredicate<Method> ViewEventHandlers = new IPredicate<Method>() {
-        @Override
-        public boolean apply(Method target) {
-            Observes observes = target.getAnnotation(Observes.class);
-            return observes != null && observes.value().equals(EventType.VIEW);
-        }
-    };
-
-    IPredicate<Method> ModelEventHandlers = new IPredicate<Method>() {
-        @Override
-        public boolean apply(Method target) {
-            Observes observes = target.getAnnotation(Observes.class);
-            return observes != null && observes.value().equals(EventType.MODEL);
-        }
-    };
-
-    IPredicate<Method> SharedModelEventHandlers = new IPredicate<Method>() {
-        @Override
-        public boolean apply(Method target) {
-            Observes observes = target.getAnnotation(Observes.class);
-            return observes != null && observes.value().equals(EventType.SHARED_MODEL);
-        }
-    };
-
+	/*===========================================[ CLASS METHODS ]================*/
 
     public static IPredicate<Method> getEventHandlersPredicate(final EventType eventType){
         return new IPredicate<Method>() {

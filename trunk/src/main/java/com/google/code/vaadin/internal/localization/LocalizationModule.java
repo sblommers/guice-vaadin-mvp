@@ -16,33 +16,29 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.eventhandling.view;
+package com.google.code.vaadin.internal.localization;
 
-import com.google.code.vaadin.internal.eventhandling.AbstractEventBusProvider;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
-import com.google.code.vaadin.mvp.eventhandling.EventBusType;
-import net.engio.mbassy.IMessageBus;
+import com.google.code.vaadin.localization.InjectBundle;
+import com.google.code.vaadin.localization.ResourceBundleProvider;
+import com.google.inject.AbstractModule;
+import com.google.inject.Scopes;
+import com.google.inject.matcher.Matchers;
 
-import javax.inject.Inject;
+import java.util.ResourceBundle;
 
 /**
- * Session-scoped View EventBus provider.
+ * Support module for {@link ResourceBundle} injections via {@link InjectBundle} annotation.
  *
  * @author Alexey Krylov
- * @since 26.01.13
+ * @since 07.02.13
  */
-class ViewEventBusProvider extends AbstractEventBusProvider {
-
-    /*===========================================[ INSTANCE VARIABLES ]===========*/
-
-    @Inject
-    @EventBusType(EventBusTypes.VIEW)
-    private IMessageBus messageBus;
+public class LocalizationModule extends AbstractModule {
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public IMessageBus getMessageBus() {
-        return messageBus;
+    protected void configure() {
+        bind(ResourceBundleProvider.class).to(DefaultResourceBundleProvider.class).in(Scopes.SINGLETON);
+        bindListener(Matchers.any(), new ResourceBundleTypeListener());
     }
 }

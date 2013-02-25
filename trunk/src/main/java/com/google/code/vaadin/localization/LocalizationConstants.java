@@ -16,26 +16,14 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.localization;
-
-import com.google.code.vaadin.localization.InjectBundle;
-import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
-
-import java.util.ResourceBundle;
+package com.google.code.vaadin.localization;
 
 /**
- * Support module for {@link ResourceBundle} injections via {@link InjectBundle} annotation.
+ * LocalizationConstants - TODO: description
  *
- * @author Alexey Krylov
- * @since 07.02.13
+ * @author Alexey Krylov (lexx)
+ * @since 25.02.13
  */
-public class ResourceBundleInjectionModule extends AbstractModule {
-
-	/*===========================================[ INTERFACE METHODS ]============*/
-
-    @Override
-    protected void configure() {
-        bindListener(Matchers.any(), new ResourceBundleTypeListener());
-    }
+public interface LocalizationConstants {
+    String DEFAULT_ENCODING = "UTF-8";
 }

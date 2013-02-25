@@ -22,7 +22,7 @@ import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.code.vaadin.application.uiscope.UIScopeModule;
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.eventhandling.EventBusModule;
-import com.google.code.vaadin.internal.localization.ResourceBundleInjectionModule;
+import com.google.code.vaadin.internal.localization.LocalizationModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
 import com.google.code.vaadin.mvp.MVPApplicationException;
@@ -71,7 +71,7 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
     protected void configureServlets() {
         install(createLoggerModule());
         install(createEventBusModule());
-        install(createResourceBundleInjectionModule());
+        install(createLocalizationModule());
         install(createUIScopeModule());
         install(createPresenterMapperModule());
         // support for @Preconfigured last because it depends on TextBundle bindings in ApplicationModule
@@ -101,8 +101,8 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
         return new EventBusModule();
     }
 
-    protected ResourceBundleInjectionModule createResourceBundleInjectionModule() {
-        return new ResourceBundleInjectionModule();
+    protected LocalizationModule createLocalizationModule() {
+        return new LocalizationModule();
     }
 
     protected UIScopeModule createUIScopeModule() {

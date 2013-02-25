@@ -58,4 +58,3 @@ class ResourceBundleInjector<T> implements MembersInjector<T> {
         }
     }
 }
-

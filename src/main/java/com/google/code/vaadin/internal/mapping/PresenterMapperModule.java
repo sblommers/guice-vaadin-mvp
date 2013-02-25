@@ -26,6 +26,7 @@ import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
+import com.google.inject.spi.TypeListener;
 import org.reflections.Configuration;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
@@ -35,9 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * PresenterMappingModule - TODO: description
@@ -47,7 +46,7 @@ import java.util.Set;
  */
 public class PresenterMapperModule extends AbstractModule {
 
-   /*===========================================[ STATIC VARIABLES ]=============*/
+    /*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final Logger logger = LoggerFactory.getLogger(PresenterMapperModule.class);
 
@@ -69,25 +68,29 @@ public class PresenterMapperModule extends AbstractModule {
     protected void configure() {
         bind(ViewPresenterMappingRegistry.class).to(AccessibleViewPresenterMappingRegistry.class).in(UIScope.getCurrent());
         bind(ViewProvider.class).to(AccessibleViewProvider.class).in(UIScope.getCurrent());
-        //TODO option to provide all presenters manually
         //1. find all presenters
-        Reflections reflections = new Reflections(createReflectionsConfiguration());
-        Set<Class<? extends AbstractPresenter>> subTypesOf = reflections.getSubTypesOf(AbstractPresenter.class);
+        Iterable<Class<? extends AbstractPresenter<? extends View>>> presenterClasses = getPresenterClasses();
 
         //2. create context map: View interface -> Presenter class
         Map<Class<? extends View>, Class<? extends AbstractPresenter>> viewPresenterMap = new HashMap<>();
-        for (Class<? extends AbstractPresenter> presenterClass : subTypesOf) {
+        for (Class<? extends AbstractPresenter> presenterClass : presenterClasses) {
             Class<View> viewClass = TypeUtil.getTypeParameterClass(presenterClass, View.class);
             viewPresenterMap.put(viewClass, presenterClass);
+            logger.debug(String.format("[%s] mapped", presenterClass.getName()));
         }
 
         //3. Add listener for all ViewInitialized event - see viewInitialized method
-        ViewTypeListener viewTypeListener = new ViewTypeListener(viewPresenterMap);
+        TypeListener viewTypeListener = new ViewTypeListener(viewPresenterMap);
         requestInjection(viewTypeListener);
         bindListener(Matchers.any(), viewTypeListener);
     }
 
-    /*===========================================[ CLASS METHODS ]================*/
+    protected Collection<Class<? extends AbstractPresenter<? extends View>>> getPresenterClasses() {
+        Collection<Class<? extends AbstractPresenter<? extends View>>> result = new ArrayList<>();
+        Reflections reflections = new Reflections(createReflectionsConfiguration());
+        result.addAll((Set)reflections.getSubTypesOf(AbstractPresenter.class));
+        return result;
+    }
 
     protected Configuration createReflectionsConfiguration() {
         return new ConfigurationBuilder()

@@ -19,6 +19,8 @@
 package com.google.code.vaadin.internal.eventhandling.model;
 
 import com.google.code.vaadin.internal.eventhandling.AbstractEventBusProvider;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import net.engio.mbassy.IMessageBus;
 
 import javax.inject.Inject;
@@ -34,12 +36,14 @@ class ModelEventBusProvider extends AbstractEventBusProvider {
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
-    private ModelMessageBusProvider modelMessageBusProvider;
+    @EventBusType(EventBusTypes.MODEL)
+    private IMessageBus messageBus;
+
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     public IMessageBus getMessageBus() {
-        return modelMessageBusProvider.get();
+        return messageBus;
     }
 }

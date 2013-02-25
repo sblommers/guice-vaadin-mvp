@@ -16,31 +16,22 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.junit.localization;
+package com.google.code.vaadin.localization;
 
-import com.google.code.vaadin.junit.AbstractMVPTest;
-import com.google.code.vaadin.localization.InjectBundle;
-import org.junit.Assert;
-import org.junit.Test;
-
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * @author Alexey Krylov
- * @since 07.02.13
+ * ResourceBundleProvider - TODO: description
+ *
+ * @author Alexey Krylov (lexx)
+ * @since 25.02.13
  */
-public class ResourceBundleInjectionTest extends AbstractMVPTest{
+public interface ResourceBundleProvider {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INTERFACE METHODS ]==============*/
 
-    @InjectBundle(baseName = "TestBundle_ru_RU")
-    private ResourceBundle resourceBundle;
-
-    /*===========================================[ CLASS METHODS ]================*/
-
-    @Test
-    public void testBundleInjection() {
-        Assert.assertNotNull(resourceBundle);
-        Assert.assertEquals("value_RU", resourceBundle.getString("key"));
-    }
+    ResourceBundle getBundle(@NotNull @Size(min = 1) String baseName, @NotNull Locale locale, String... encoding);
 }

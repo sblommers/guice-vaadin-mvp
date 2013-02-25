@@ -19,6 +19,8 @@
 package com.google.code.vaadin.internal.eventhandling.sharedmodel;
 
 import com.google.code.vaadin.internal.eventhandling.AbstractEventBusProvider;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import net.engio.mbassy.IMessageBus;
 
 import javax.inject.Inject;
@@ -34,12 +36,13 @@ class SharedModelEventBusProvider extends AbstractEventBusProvider {
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     @Inject
-    private SharedModelMessageBusProvider messageBusProvider;
+    @EventBusType(EventBusTypes.SHARED_MODEL)
+    private IMessageBus messageBus;
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
     public IMessageBus getMessageBus() {
-        return messageBusProvider.get();
+        return messageBus;
     }
 }

@@ -22,7 +22,8 @@ import com.google.inject.Provider;
 import net.engio.mbassy.BusConfiguration;
 import net.engio.mbassy.IMessageBus;
 import net.engio.mbassy.MBassador;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -37,7 +38,10 @@ public abstract class AbstractMessageBusProvider implements Provider<IMessageBus
 
     @Override
     public IMessageBus get() {
-        return new MBassador(getConfiguration());
+        Logger logger = LoggerFactory.getLogger(getClass());
+        IMessageBus mBassador = new MBassador(getConfiguration());
+        logger.debug("Bus created: #" + mBassador.hashCode());
+        return mBassador;
     }
 
     protected abstract BusConfiguration getConfiguration();

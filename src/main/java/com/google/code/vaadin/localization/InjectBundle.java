@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.localization;
 
-import com.google.code.vaadin.internal.localization.ResourceBundleInjectionModule;
+import com.google.code.vaadin.internal.localization.LocalizationModule;
 
 import java.lang.annotation.*;
 import java.util.ResourceBundle;
@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * bundle encoding specifics.
  *
  * @author Alexey Krylov
- * @see ResourceBundleInjectionModule
+ * @see LocalizationModule
  * @since 07.02.13
  */
 @Documented
@@ -44,5 +44,5 @@ public @interface InjectBundle {
     /**
      * @return encoding of the resource bundle
      */
-    String encoding() default "UTF-8";
+    String encoding() default LocalizationConstants.DEFAULT_ENCODING;
 }

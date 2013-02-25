@@ -33,5 +33,5 @@ public interface ResourceBundleProvider {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
-    ResourceBundle getBundle(@NotNull @Size(min = 1) String baseName, @NotNull Locale locale, String... encoding);
+    ResourceBundle getBundle(@NotNull @Size(min = 1) String baseName, Locale locale, String... encoding);
 }

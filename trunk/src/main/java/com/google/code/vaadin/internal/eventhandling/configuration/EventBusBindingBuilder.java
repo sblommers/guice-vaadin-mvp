@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
  * Построитель привязки конкретной шины сообщений.
  *
  * @author Alexey Krylov (lexx)
- * @see EventBusBinder#bind(String)
+ * @see EventBusBinder#bind(EventBusTypes)
  * @since 20.02.13
  */
 public interface EventBusBindingBuilder {

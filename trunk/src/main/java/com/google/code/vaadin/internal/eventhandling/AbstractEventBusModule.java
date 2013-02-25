@@ -18,19 +18,23 @@
 
 package com.google.code.vaadin.internal.eventhandling;
 
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinding;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import com.google.code.vaadin.mvp.eventhandling.EventPublisher;
+import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.inject.AbstractModule;
-import com.google.inject.Key;
+import com.google.inject.Provider;
+import com.google.inject.Scope;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.spi.TypeListener;
 import net.engio.mbassy.BusConfiguration;
 import net.engio.mbassy.IMessageBus;
-import net.engio.mbassy.MBassador;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.annotation.Annotation;
 
 /**
  * AbstractEventBusModule - TODO: description
@@ -40,52 +44,63 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractEventBusModule extends AbstractModule {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     protected Logger logger;
+    protected EventBusBinding eventBusBinding;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
-    protected AbstractEventBusModule() {
+    protected AbstractEventBusModule(EventBusBinding eventBusBinding) {
         logger = LoggerFactory.getLogger(getClass());
+        this.eventBusBinding = eventBusBinding;
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
-    protected BusConfiguration mapObservesAnnotations(EventBusTypes busType, BusConfiguration busConfiguration) {
-        busConfiguration.setMetadataReader(new CompositeMetadataReader(busType));
-        return busConfiguration;
+    @Override
+    protected void configure() {
+        BusConfiguration busConfiguration = eventBusBinding.getConfiguration();
+        EventBusTypes busType = eventBusBinding.getType();
+
+        busConfiguration.setMetadataReader(createMetadataReader(busType.getEventType()));
+        bind(BusConfiguration.class).annotatedWith(eventBusType(busType)).toInstance(busConfiguration);
+        bindEventBus();
     }
 
-    protected void bindEventBus(EventBusTypes type, BusConfiguration configuration) {
-        IMessageBus eventBus = new MBassador(configuration);
-        EventBus bus = createEventBus(eventBus);
-        requestInjection(bus);
-
-        EventBusType eventBusType = eventBusType(type);
-        bind(IMessageBus.class).annotatedWith(eventBusType).toInstance(eventBus);
-        bind(EventPublisher.class).annotatedWith(eventBusType).to(Key.get(EventBus.class, eventBusType));
-        bind(EventBus.class).annotatedWith(eventBusType).toInstance(bus);
-        bindAutoSubscriber(bus, type);
-
-        logger.debug(String.format("EventBus for [%s] created: [%d]", type, eventBus.hashCode()));
+    protected CompositeMetadataReader createMetadataReader(EventType eventType) {
+        return new CompositeMetadataReader(eventType);
     }
 
-    protected EventBus createEventBus(IMessageBus messageBus) {
-        return new DefaultEventBus(messageBus);
+    protected void bindEventBus() {
+        Annotation eventBusType = eventBusType(eventBusBinding.getType());
+        Scope bindScope = getBindScope();
+        bind(IMessageBus.class).annotatedWith(eventBusType).toProvider(getMessageBusProviderClass()).in(bindScope);
+        bind(EventBus.class).annotatedWith(eventBusType).toProvider(getEventBusProviderClass()).in(bindScope);
+        bind(EventPublisher.class).annotatedWith(eventBusType).toProvider(getEventBusProviderClass()).in(bindScope);
+        bindSpecificEventPublisher();
+        bindAutoSubscriber();
     }
+
+    protected abstract Scope getBindScope();
+
+    protected abstract Class<? extends Provider<? extends IMessageBus>> getMessageBusProviderClass();
+
+    protected abstract Class<? extends Provider<? extends EventBus>> getEventBusProviderClass();
+
+    protected abstract void bindSpecificEventPublisher();
 
     public static EventBusType eventBusType(EventBusTypes type) {
         return new EventBusTypeImpl(type);
     }
 
-    protected void bindAutoSubscriber(EventBus eventBus, EventBusTypes eventBusType) {
-        TypeListener eventBusTypeAutoSubscriber = createEventBusTypeAutoSubscriber(eventBus, eventBusType);
+    protected void bindAutoSubscriber() {
+        TypeListener eventBusTypeAutoSubscriber = createEventBusTypeAutoSubscriber(getEventBusProviderClass(), eventBusBinding.getType().getEventType());
         requestInjection(eventBusTypeAutoSubscriber);
         bindListener(Matchers.any(), eventBusTypeAutoSubscriber);
     }
 
-    protected EventBusTypeAutoSubscriber createEventBusTypeAutoSubscriber(EventBus eventBus, EventBusTypes eventBusType) {
-        return new EventBusTypeAutoSubscriber(eventBus, eventBusType);
+    protected EventBusTypeAutoSubscriber createEventBusTypeAutoSubscriber(Class<? extends Provider<? extends EventBus>> eventBusProviderClass, EventType eventType) {
+        return new EventBusTypeAutoSubscriber(eventBusProviderClass, eventType);
     }
 }

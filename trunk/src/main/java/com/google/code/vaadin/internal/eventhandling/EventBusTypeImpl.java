@@ -43,12 +43,12 @@ class EventBusTypeImpl implements EventBusType {
 
 	/*===========================================[ CLASS METHODS ]================*/
 
-    public boolean equals(Object o) {
-        if (!(o instanceof EventBusType)) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof EventBusType)) {
             return false;
         }
 
-        EventBusType other = (EventBusType) o;
+        EventBusType other = (EventBusType) obj;
         return value.equals(other.value());
     }
 

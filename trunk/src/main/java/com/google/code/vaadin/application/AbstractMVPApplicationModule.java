@@ -21,7 +21,6 @@ package com.google.code.vaadin.application;
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.code.vaadin.application.uiscope.UIScopeModule;
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
-import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
 import com.google.code.vaadin.internal.eventhandling.EventBusModule;
 import com.google.code.vaadin.internal.localization.ResourceBundleInjectionModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
@@ -98,7 +97,7 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
         return new LoggerModule();
     }
 
-    protected AbstractEventBusModule createEventBusModule() {
+    protected EventBusModule createEventBusModule() {
         return new EventBusModule();
     }
 

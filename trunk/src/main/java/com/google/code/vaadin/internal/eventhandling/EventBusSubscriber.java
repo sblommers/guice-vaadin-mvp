@@ -18,8 +18,8 @@
 
 package com.google.code.vaadin.internal.eventhandling;
 
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
+import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
 import com.google.inject.MembersInjector;
 import net.engio.mbassy.common.ReflectionUtils;
@@ -43,13 +43,13 @@ public class EventBusSubscriber<T> implements MembersInjector<T> {
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
     private EventBus eventBus;
-    private EventBusTypes eventBusType;
+    private EventType eventType;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    protected EventBusSubscriber(EventBus eventBus, EventBusTypes eventBusType) {
+    public EventBusSubscriber(EventBus eventBus, EventType eventType) {
         this.eventBus = eventBus;
-        this.eventBusType = eventBusType;
+        this.eventType = eventType;
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
@@ -65,7 +65,7 @@ public class EventBusSubscriber<T> implements MembersInjector<T> {
     }
 
     protected boolean isMessageListener(Class<?> instanceClass) {
-        return !ReflectionUtils.getMethods(MethodResolutionPredicates.getEventHandlersPredicate(eventBusType), instanceClass).isEmpty();
+        return !ReflectionUtils.getMethods(MethodResolutionPredicates.getEventHandlersPredicate(eventType), instanceClass).isEmpty();
     }
 
     protected void postSubscribe(T instance) {

@@ -40,14 +40,7 @@ class AccessibleSharedEventBusSubscribersRegistry implements SharedEventBusSubsc
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private Map<UIKey, Collection<Object>> subscribersMap;
-
-    /*===========================================[ CONSTRUCTORS ]=================*/
-
-    @Inject
-    void init() {
-        subscribersMap = new ConcurrentHashMap<>();
-    }
+    private Map<UIKey, Collection<Object>> subscribersMap =  new ConcurrentHashMap<>();
 
     /*===========================================[ CLASS METHODS ]================*/
 

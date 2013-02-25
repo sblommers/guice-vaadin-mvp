@@ -18,16 +18,12 @@
 
 package com.google.code.vaadin.internal.eventhandling.model;
 
-import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
+import com.google.code.vaadin.internal.eventhandling.UIScopedEventBusModule;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinding;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
-import com.google.code.vaadin.mvp.eventhandling.EventBusType;
-import com.google.code.vaadin.mvp.eventhandling.EventPublisher;
+import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.code.vaadin.mvp.eventhandling.ModelEventPublisher;
 import com.google.inject.Provider;
-
-import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
+import net.engio.mbassy.IMessageBus;
 
 /**
  * ModelEventBusModule - TODO: description
@@ -35,43 +31,28 @@ import javax.validation.constraints.NotNull;
  * @author Alexey Krylov (lexx)
  * @since 24.02.13
  */
-public class ModelEventBusModule extends AbstractEventBusModule {
-
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
-
-    private EventBusBinding eventBusBinding;
+public class ModelEventBusModule extends UIScopedEventBusModule {
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
     public ModelEventBusModule(EventBusBinding eventBusBinding) {
-        this.eventBusBinding = eventBusBinding;
+        super(eventBusBinding);
     }
 
 	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    protected void configure() {
-        bindModelEventBus();
+    protected Class<? extends Provider<? extends IMessageBus>> getMessageBusProviderClass() {
+        return ModelMessageBusProvider.class;
     }
 
-    protected void bindModelEventBus() {
-        bindEventBus(EventBusTypes.MODEL,
-                mapObservesAnnotations(EventBusTypes.MODEL, eventBusBinding.getConfiguration()));
+    @Override
+    protected Class<? extends Provider<? extends EventBus>> getEventBusProviderClass() {
+        return ModelEventBusProvider.class;
+    }
 
-        bind(ModelEventPublisher.class).toProvider(new Provider<ModelEventPublisher>() {
-            @Inject
-            @EventBusType(EventBusTypes.MODEL)
-            private EventPublisher publisher;
-
-            @Override
-            public ModelEventPublisher get() {
-                return new ModelEventPublisher() {
-                    @Override
-                    public void publish(@NotNull Object event) {
-                        publisher.publish(event);
-                    }
-                };
-            }
-        });
+    @Override
+    protected void bindSpecificEventPublisher() {
+        bind(ModelEventPublisher.class).toProvider(ModelEventPublisherProvider.class).in(getBindScope());
     }
 }

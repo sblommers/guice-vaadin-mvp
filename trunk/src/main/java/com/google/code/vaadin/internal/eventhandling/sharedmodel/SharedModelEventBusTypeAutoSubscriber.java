@@ -20,8 +20,10 @@ package com.google.code.vaadin.internal.eventhandling.sharedmodel;
 
 import com.google.code.vaadin.internal.eventhandling.EventBusSubscriber;
 import com.google.code.vaadin.internal.eventhandling.EventBusTypeAutoSubscriber;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
+import com.google.code.vaadin.mvp.eventhandling.EventType;
+import com.google.inject.Provider;
+
 
 /**
  * SharedModelEventBusSubscriber - TODO: description
@@ -31,23 +33,26 @@ import com.google.code.vaadin.mvp.eventhandling.EventBus;
  */
 class SharedModelEventBusTypeAutoSubscriber extends EventBusTypeAutoSubscriber {
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    SharedModelEventBusTypeAutoSubscriber(EventBus eventBus, EventBusTypes eventBusType) {
-        super(eventBus, eventBusType);
+    private AccessibleSharedEventBusSubscribersRegistry registry;
+
+    /*===========================================[ CONSTRUCTORS ]=================*/
+
+
+    SharedModelEventBusTypeAutoSubscriber(Class<? extends Provider<? extends EventBus>> eventBusProviderClass, EventType eventType, AccessibleSharedEventBusSubscribersRegistry registry) {
+        super(eventBusProviderClass, eventType);
+        this.registry = registry;
     }
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Override
-    protected EventBusSubscriber<Object> createEventBusSubscriber() {
-        return new EventBusSubscriber<Object>(eventBus, eventBusType) {
+    protected EventBusSubscriber<Object> createEventBusSubscriber(EventBus eventBus) {
+        return new EventBusSubscriber<Object>(eventBus, eventType) {
             @Override
             protected void postSubscribe(Object instance) {
-                if (injector != null) {
-                    // Register instance as SharedEventBus subscriber to unsubscribe later on UI.detach
-                    injector.getInstance(AccessibleSharedEventBusSubscribersRegistry.class).registerSubscriber(instance);
-                }
+                registry.registerSubscriber(instance);
             }
         };
     }

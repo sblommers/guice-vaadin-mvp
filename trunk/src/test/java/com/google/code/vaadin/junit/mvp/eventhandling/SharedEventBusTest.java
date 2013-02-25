@@ -45,7 +45,7 @@ public class SharedEventBusTest extends AbstractMVPTest{
     private SharedModelEventPublisher publisher;
 
     @Inject
-    @EventBusType(EventBusTypes.VIEW)
+    @EventBusType(EventBusTypes.SHARED_MODEL)
     private IMessageBus messageBus;
 
 	/*===========================================[ CLASS METHODS ]================*/

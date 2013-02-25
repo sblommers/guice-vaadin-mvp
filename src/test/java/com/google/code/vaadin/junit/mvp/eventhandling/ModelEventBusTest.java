@@ -22,6 +22,7 @@ import com.google.code.vaadin.MVPTestModule;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.eventhandling.*;
+import com.google.code.vaadin.mvp.eventhandling.events.ModelEvent;
 import com.google.inject.Stage;
 import com.mycila.testing.plugin.guice.GuiceContext;
 import net.engio.mbassy.IMessageBus;
@@ -54,6 +55,7 @@ public class ModelEventBusTest extends AbstractMVPTest {
     @Inject
     @EventBusType(EventBusTypes.MODEL)
     private EventPublisher eventPublisher;
+    private int eventCounter;
 
     /*===========================================[ CLASS METHODS ]================*/
 
@@ -63,5 +65,20 @@ public class ModelEventBusTest extends AbstractMVPTest {
         Assert.assertNotNull("Model MessageBus is null", messageBus);
         Assert.assertNotNull("Model EventBus is null", eventBus);
         Assert.assertNotNull("Model EventPublisher is null", eventPublisher);
+    }
+
+    @Observes(EventType.MODEL)
+    protected void on(ModelEvent event) {
+        eventCounter++;
+    }
+
+    @Test
+    public void testFireEvent() {
+        publisher.publish(new ModelEvent());
+        eventBus.publish(new ModelEvent());
+        messageBus.post(new ModelEvent()).now();
+        eventPublisher.publish(new ModelEvent());
+
+        Assert.assertEquals("Invalid received event count", 4, eventCounter);
     }
 }

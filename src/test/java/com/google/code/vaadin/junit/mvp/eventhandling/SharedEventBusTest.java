@@ -21,10 +21,8 @@ package com.google.code.vaadin.junit.mvp.eventhandling;
 import com.google.code.vaadin.MVPTestModule;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.junit.AbstractMVPTest;
-import com.google.code.vaadin.mvp.eventhandling.EventBus;
-import com.google.code.vaadin.mvp.eventhandling.EventBusType;
-import com.google.code.vaadin.mvp.eventhandling.EventPublisher;
-import com.google.code.vaadin.mvp.eventhandling.SharedModelEventPublisher;
+import com.google.code.vaadin.mvp.eventhandling.*;
+import com.google.code.vaadin.mvp.eventhandling.events.DomainEvent;
 import com.google.code.vaadin.mvp.eventhandling.events.SharedModelEvent;
 import com.google.inject.Stage;
 import com.mycila.testing.plugin.guice.GuiceContext;
@@ -57,6 +55,7 @@ public class SharedEventBusTest extends AbstractMVPTest {
     @Inject
     @EventBusType(EventBusTypes.SHARED_MODEL)
     private EventPublisher eventPublisher;
+    private int eventCounter;
 
     /*===========================================[ CLASS METHODS ]================*/
 
@@ -75,5 +74,20 @@ public class SharedEventBusTest extends AbstractMVPTest {
         SharedEventBusReceiverService eventBusReceiverService = injector.getInstance(SharedEventBusReceiverService.class);
         int received = eventBusReceiverService.getSharedModelEventReceivedCount();
         Assert.assertEquals("Event was not received", 2, received);
+    }
+
+    @Observes(EventType.SHARED_MODEL)
+    protected void on(DomainEvent event) {
+        eventCounter++;
+    }
+
+    @Test
+    public void testFireEvent() {
+        publisher.publish(new DomainEvent());
+        eventBus.publish(new DomainEvent());
+        messageBus.post(new DomainEvent()).now();
+        eventPublisher.publish(new DomainEvent());
+
+        Assert.assertEquals("Invalid received event count", 4, eventCounter);
     }
 }

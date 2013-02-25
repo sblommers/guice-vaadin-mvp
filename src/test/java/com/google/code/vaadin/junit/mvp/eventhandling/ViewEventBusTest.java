@@ -21,10 +21,8 @@ package com.google.code.vaadin.junit.mvp.eventhandling;
 import com.google.code.vaadin.MVPTestModule;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.junit.AbstractMVPTest;
-import com.google.code.vaadin.mvp.eventhandling.EventBus;
-import com.google.code.vaadin.mvp.eventhandling.EventBusType;
-import com.google.code.vaadin.mvp.eventhandling.EventPublisher;
-import com.google.code.vaadin.mvp.eventhandling.ViewEventPublisher;
+import com.google.code.vaadin.mvp.eventhandling.*;
+import com.google.code.vaadin.mvp.eventhandling.events.ViewEvent;
 import com.google.inject.Stage;
 import com.mycila.testing.plugin.guice.GuiceContext;
 import net.engio.mbassy.IMessageBus;
@@ -57,6 +55,7 @@ public class ViewEventBusTest extends AbstractMVPTest {
     @Inject
     @EventBusType(EventBusTypes.VIEW)
     private EventPublisher eventPublisher;
+    private int eventCounter;
 
     /*===========================================[ CLASS METHODS ]================*/
 
@@ -66,5 +65,20 @@ public class ViewEventBusTest extends AbstractMVPTest {
         Assert.assertNotNull("View MessageBus is null", messageBus);
         Assert.assertNotNull("View EventBus is null", eventBus);
         Assert.assertNotNull("View EventPublisher is null", eventPublisher);
+    }
+
+    @Observes(EventType.VIEW)
+    protected void on(ViewEvent event) {
+        eventCounter++;
+    }
+
+    @Test
+    public void testFireEvent() {
+        publisher.publish(new ViewEvent());
+        eventBus.publish(new ViewEvent());
+        messageBus.post(new ViewEvent()).now();
+        eventPublisher.publish(new ViewEvent());
+
+        Assert.assertEquals("Invalid received event count", 4, eventCounter);
     }
 }

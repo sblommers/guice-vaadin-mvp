@@ -95,6 +95,7 @@ public class EventBusComplexTest extends AbstractMVPTest {
     public void modelEventNotified() {
         viewEventPublisher.publish(new ModelEvent());
         modelEventPublisher.publish(new ModelEvent());
+        sharedModelEventPublisher.publish(new ModelEvent());
         assertEquals("Invalid received events count", 1, modelEventReceivedCount);
     }
 
@@ -102,6 +103,7 @@ public class EventBusComplexTest extends AbstractMVPTest {
     public void viewEventNotified() {
         viewEventPublisher.publish(new ViewEvent());
         modelEventPublisher.publish(new ViewEvent());
+        sharedModelEventPublisher.publish(new ViewEvent());
         assertEquals("Invalid received events count", 1, viewEventReceivedCount);
     }
 

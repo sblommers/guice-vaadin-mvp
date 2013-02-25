@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.internal.eventhandling;
 
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
 import com.google.common.base.Function;
 import net.engio.mbassy.common.ReflectionUtils;
@@ -44,12 +44,12 @@ class CompositeMetadataReader extends MetadataReader {
 
   /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private EventBusTypes busType;
+    private EventType eventType;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    CompositeMetadataReader(EventBusTypes busType) {
-        this.busType = busType;
+    CompositeMetadataReader(EventType eventType) {
+        this.eventType = eventType;
     }
 
     /*===========================================[ CLASS METHODS ]================*/
@@ -77,7 +77,7 @@ class CompositeMetadataReader extends MetadataReader {
 
     protected Collection<MessageHandlerMetadata> findObservesMethods(Class<?> target) {
         // получаем все методы с аннотацией @Observes
-        List<Method> observerMethods = ReflectionUtils.getMethods(MethodResolutionPredicates.getEventHandlersPredicate(busType), target);
+        List<Method> observerMethods = ReflectionUtils.getMethods(MethodResolutionPredicates.getEventHandlersPredicate(eventType), target);
         // оставляем только те, которые наверху иерархии классов (самый верхний переопределяющий метод)
         Collection<Method> bottomMostHandlers = new LinkedList<>();
         for (Method handler : observerMethods) {

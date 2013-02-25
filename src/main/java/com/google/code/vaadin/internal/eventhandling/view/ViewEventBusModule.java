@@ -18,17 +18,12 @@
 
 package com.google.code.vaadin.internal.eventhandling.view;
 
-import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
+import com.google.code.vaadin.internal.eventhandling.UIScopedEventBusModule;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinding;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
-import com.google.code.vaadin.mvp.eventhandling.EventBusType;
-import com.google.code.vaadin.mvp.eventhandling.EventPublisher;
+import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.code.vaadin.mvp.eventhandling.ViewEventPublisher;
 import com.google.inject.Provider;
-import net.engio.mbassy.BusConfiguration;
-
-import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
+import net.engio.mbassy.IMessageBus;
 
 /**
  * ViewEventBusModule - TODO: description
@@ -36,46 +31,28 @@ import javax.validation.constraints.NotNull;
  * @author Alexey Krylov (lexx)
  * @since 24.02.13
  */
-public class ViewEventBusModule extends AbstractEventBusModule {
-
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
-
-    private EventBusBinding eventBusBinding;
+public class ViewEventBusModule extends UIScopedEventBusModule {
 
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
     public ViewEventBusModule(EventBusBinding eventBusBinding) {
-        this.eventBusBinding = eventBusBinding;
+        super(eventBusBinding);
+    }
+
+    /*===========================================[ INTERFACE METHODS ]============*/
+
+    @Override
+    protected Class<? extends Provider<? extends IMessageBus>> getMessageBusProviderClass() {
+        return ViewMessageBusProvider.class;
     }
 
     @Override
-    protected void configure() {
-        bindViewEventBus();
+    protected Class<? extends Provider<? extends EventBus>> getEventBusProviderClass() {
+        return ViewEventBusProvider.class;
     }
 
-    protected void bindViewEventBus() {
-        BusConfiguration configuration = mapObservesAnnotations(EventBusTypes.VIEW,
-                eventBusBinding != null ? eventBusBinding.getConfiguration() : createDefaultViewEventBusConfiguration());
-        bindEventBus(EventBusTypes.VIEW, configuration);
-
-        bind(ViewEventPublisher.class).toProvider(new Provider<ViewEventPublisher>() {
-            @Inject
-            @EventBusType(EventBusTypes.VIEW)
-            private EventPublisher publisher;
-
-            @Override
-            public ViewEventPublisher get() {
-                return new ViewEventPublisher() {
-                    @Override
-                    public void publish(@NotNull Object event) {
-                        publisher.publish(event);
-                    }
-                };
-            }
-        });
-    }
-
-    protected BusConfiguration createDefaultViewEventBusConfiguration() {
-        return BusConfiguration.Default();
+    @Override
+    protected void bindSpecificEventPublisher() {
+        bind(ViewEventPublisher.class).toProvider(ViewEventPublisherProvider.class).in(getBindScope());
     }
 }

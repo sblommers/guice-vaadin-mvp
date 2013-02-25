@@ -25,6 +25,9 @@ import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes
 import com.google.code.vaadin.internal.eventhandling.model.ModelEventBusModule;
 import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedModelEventBusModule;
 import com.google.code.vaadin.internal.eventhandling.view.ViewEventBusModule;
+import com.google.inject.AbstractModule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * EventPublisherModule - TODO: description
@@ -32,7 +35,11 @@ import com.google.code.vaadin.internal.eventhandling.view.ViewEventBusModule;
  * @author Alexey Krylov
  * @since 24.01.13
  */
-public class EventBusModule extends AbstractEventBusModule {
+public class EventBusModule extends AbstractModule{
+
+	/*===========================================[ STATIC VARIABLES ]=============*/
+
+    protected static final Logger logger = LoggerFactory.getLogger(EventBusModule.class);
 
 	/*===========================================[ INTERFACE METHODS ]============*/
 
@@ -48,6 +55,12 @@ public class EventBusModule extends AbstractEventBusModule {
         bindEventBuses(eventBusBinder);
 
         EventBusBinding viewEventBusBinding = eventBusBinder.getBinding(EventBusTypes.VIEW);
+        if (viewEventBusBinding == null) {
+            eventBusBinder.bind(EventBusTypes.VIEW).withDefaultConfiguration();
+            viewEventBusBinding = eventBusBinder.getBinding(EventBusTypes.VIEW);
+            logger.info("Using default configuration for View EventBus");
+        }
+
         install(new ViewEventBusModule(viewEventBusBinding));
 
         EventBusBinding modelEventBusBinding = eventBusBinder.getBinding(EventBusTypes.MODEL);

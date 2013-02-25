@@ -18,11 +18,11 @@
 
 package com.google.code.vaadin.internal.eventhandling;
 
-import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.inject.Provider;
+import net.engio.mbassy.BusConfiguration;
 import net.engio.mbassy.IMessageBus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.engio.mbassy.MBassador;
+
 
 
 /**
@@ -31,21 +31,14 @@ import org.slf4j.LoggerFactory;
  * @author Alexey Krylov
  * @since 26.01.13
  */
-public abstract class AbstractEventBusProvider implements Provider<EventBus> {
+public abstract class AbstractMessageBusProvider implements Provider<IMessageBus> {
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public EventBus get() {
-        Logger logger = LoggerFactory.getLogger(getClass());
-        EventBus eventBus = createEventBus();
-        logger.debug("EventBus created: " + eventBus.hashCode());
-        return eventBus;
+    public IMessageBus get() {
+        return new MBassador(getConfiguration());
     }
 
-    protected EventBus createEventBus() {
-        return new DefaultEventBus(getMessageBus());
-    }
-
-    public abstract IMessageBus getMessageBus();
+    protected abstract BusConfiguration getConfiguration();
 }

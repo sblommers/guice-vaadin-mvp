@@ -16,36 +16,30 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.eventhandling;
+package com.google.code.vaadin.internal.eventhandling.view;
 
-import com.google.code.vaadin.mvp.eventhandling.EventBus;
-import com.google.inject.Provider;
-import net.engio.mbassy.IMessageBus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.google.code.vaadin.internal.eventhandling.AbstractMessageBusProvider;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.mvp.eventhandling.EventBusType;
+import com.google.inject.Inject;
+import net.engio.mbassy.BusConfiguration;
 
 /**
- * AbstractEventBusProvider - TODO: description
+ * ViewMessageBusProvider - TODO: description
  *
  * @author Alexey Krylov
  * @since 26.01.13
  */
-public abstract class AbstractEventBusProvider implements Provider<EventBus> {
+class ViewMessageBusProvider extends AbstractMessageBusProvider {
+
+    @Inject
+    @EventBusType(EventBusTypes.VIEW)
+    private BusConfiguration busConfiguration;
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public EventBus get() {
-        Logger logger = LoggerFactory.getLogger(getClass());
-        EventBus eventBus = createEventBus();
-        logger.debug("EventBus created: " + eventBus.hashCode());
-        return eventBus;
+    protected BusConfiguration getConfiguration() {
+        return busConfiguration;
     }
-
-    protected EventBus createEventBus() {
-        return new DefaultEventBus(getMessageBus());
-    }
-
-    public abstract IMessageBus getMessageBus();
 }

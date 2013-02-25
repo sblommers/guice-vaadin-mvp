@@ -16,35 +16,37 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin;
+package com.google.code.vaadin.internal.eventhandling.view;
 
-import com.google.code.vaadin.application.ui.ScopedUI;
-import com.google.code.vaadin.internal.eventhandling.EventBusModule;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinder;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
-import com.google.code.vaadin.junit.AbstractMVPApplicationTestModule;
+import com.google.code.vaadin.mvp.eventhandling.EventBusType;
+import com.google.code.vaadin.mvp.eventhandling.EventPublisher;
+import com.google.code.vaadin.mvp.eventhandling.ViewEventPublisher;
+
+import javax.inject.Inject;
+import javax.inject.Provider;
 
 /**
+ * ViewEventPublisherProvider - TODO: description
+ *
  * @author Alexey Krylov
- * @since 10.02.13
+ * @since 26.01.13
  */
-public class MVPTestModule extends AbstractMVPApplicationTestModule {
+class ViewEventPublisherProvider implements Provider<ViewEventPublisher> {
 
-    /*===========================================[ CLASS METHODS ]================*/
+    @Inject
+    @EventBusType(EventBusTypes.MODEL)
+    private EventPublisher eventPublisher;
+
+    /*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    protected EventBusModule createEventBusModule() {
-        return new EventBusModule() {
+    public ViewEventPublisher get() {
+        return new ViewEventPublisher() {
             @Override
-            protected void bindEventBuses(EventBusBinder binder) {
-                binder.bind(EventBusTypes.MODEL).withDefaultConfiguration();
-                binder.bind(EventBusTypes.SHARED_MODEL).withDefaultConfiguration();
+            public void publish(Object event) {
+                eventPublisher.publish(event);
             }
         };
-    }
-
-    @Override
-    protected Class<? extends ScopedUI> getTestUIClass() {
-        return TestUI.class;
     }
 }

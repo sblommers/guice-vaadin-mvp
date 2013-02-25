@@ -21,15 +21,13 @@ package com.google.code.vaadin.internal.eventhandling.sharedmodel;
 import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
 import com.google.code.vaadin.internal.eventhandling.EventBusTypeAutoSubscriber;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinding;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
-import com.google.code.vaadin.mvp.eventhandling.EventBusType;
+import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.SharedModelEventPublisher;
 import com.google.inject.Provider;
+import com.google.inject.Scope;
 import com.google.inject.Scopes;
-
-import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
+import net.engio.mbassy.IMessageBus;
 
 /**
  * SharedModelEventBusModule - TODO: description
@@ -39,48 +37,53 @@ import javax.validation.constraints.NotNull;
  */
 public class SharedModelEventBusModule extends AbstractEventBusModule {
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+    /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private EventBusBinding eventBusBinding;
+    private AccessibleSharedEventBusSubscribersRegistry registry;
 
-	/*===========================================[ CONSTRUCTORS ]=================*/
+    /*===========================================[ CONSTRUCTORS ]=================*/
+
+    /*===========================================[ CONSTRUCTORS ]=================*/
 
     public SharedModelEventBusModule(EventBusBinding eventBusBinding) {
-        this.eventBusBinding = eventBusBinding;
+        super(eventBusBinding);
     }
 
-	/*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ CLASS METHODS ]================*/
 
     @Override
     protected void configure() {
+        AccessibleSharedEventBusSubscribersRegistry registry = new AccessibleSharedEventBusSubscribersRegistry();
+        this.registry = registry;
         bind(SharedEventBusSubscribersRegistry.class).to(AccessibleSharedEventBusSubscribersRegistry.class);
-        bind(AccessibleSharedEventBusSubscribersRegistry.class).in(Scopes.SINGLETON);
-        bindSharedModelEventBus();
-    }
-
-    protected void bindSharedModelEventBus() {
-        bindEventBus(EventBusTypes.SHARED_MODEL,
-                mapObservesAnnotations(EventBusTypes.SHARED_MODEL, eventBusBinding.getConfiguration()));
-
-        bind(SharedModelEventPublisher.class).toProvider(new Provider<SharedModelEventPublisher>() {
-            @Inject
-            @EventBusType(EventBusTypes.SHARED_MODEL)
-            private SharedModelEventPublisher publisher;
-
-            @Override
-            public SharedModelEventPublisher get() {
-                return new SharedModelEventPublisher() {
-                    @Override
-                    public void publish(@NotNull Object event) {
-                        publisher.publish(event);
-                    }
-                };
-            }
-        });
+        bind(AccessibleSharedEventBusSubscribersRegistry.class).toInstance(registry);
+        super.configure();
     }
 
     @Override
-    protected EventBusTypeAutoSubscriber createEventBusTypeAutoSubscriber(EventBus eventBus, EventBusTypes eventBusType) {
-        return new SharedModelEventBusTypeAutoSubscriber(eventBus, eventBusType);
+    protected EventBusTypeAutoSubscriber createEventBusTypeAutoSubscriber(Class<? extends Provider<? extends EventBus>> eventBusProviderClass, EventType eventType) {
+        return new SharedModelEventBusTypeAutoSubscriber(eventBusProviderClass, eventType, registry);
+    }
+
+    /*===========================================[ INTERFACE METHODS ]============*/
+
+    @Override
+    protected Class<? extends Provider<? extends IMessageBus>> getMessageBusProviderClass() {
+        return SharedModelMessageBusProvider.class;
+    }
+
+    @Override
+    protected Class<? extends Provider<? extends EventBus>> getEventBusProviderClass() {
+        return SharedModelEventBusProvider.class;
+    }
+
+    @Override
+    protected void bindSpecificEventPublisher() {
+        bind(SharedModelEventPublisher.class).toProvider(SharedModelEventPublisherProvider.class).in(getBindScope());
+    }
+
+    @Override
+    protected Scope getBindScope() {
+        return Scopes.SINGLETON;
     }
 }

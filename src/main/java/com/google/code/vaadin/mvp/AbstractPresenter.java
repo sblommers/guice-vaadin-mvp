@@ -24,6 +24,7 @@ import com.google.inject.ProvisionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.Serializable;
 
@@ -55,6 +56,10 @@ public abstract class AbstractPresenter<T extends View> implements Serializable 
         if (view == null) {
             throw new ProvisionException(String.format("ERROR: Unable to resolve View for Presenter [%s]", getClass().getName()));
         }
+    }
+
+    @PostConstruct
+    void postConstruct(){
         initPresenter();
         logger.debug(String.format("Presenter initialized: [%s#%d], view class: [%s#%d]", getClass().getName(), hashCode(), view.getClass().getName(), view.hashCode()));
     }

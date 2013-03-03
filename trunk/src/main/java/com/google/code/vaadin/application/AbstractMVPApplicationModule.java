@@ -22,6 +22,7 @@ import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.code.vaadin.application.uiscope.UIScopeModule;
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.eventhandling.EventBusModule;
+import com.google.code.vaadin.internal.jsr250.Jsr250Module;
 import com.google.code.vaadin.internal.localization.LocalizationModule;
 import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
@@ -69,6 +70,11 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
     //TODO move modules to guice package
     @Override
     protected void configureServlets() {
+        // support of @PostConstuct and @Resource
+        if (isJsr250SupportEnabled()) {
+            install(createJsr250Module());
+        }
+
         install(createLoggerModule());
         install(createEventBusModule());
         install(createLocalizationModule());
@@ -95,6 +101,19 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
 
     protected LoggerModule createLoggerModule() {
         return new LoggerModule();
+    }
+
+    protected boolean isJsr250SupportEnabled() {
+        return true;
+    }
+
+    /**
+     * Override to provide your custom JSR-250 support module.
+     *
+     * @return JSR-250 support module
+     */
+    protected Jsr250Module createJsr250Module() {
+        return new Jsr250Module();
     }
 
     protected EventBusModule createEventBusModule() {

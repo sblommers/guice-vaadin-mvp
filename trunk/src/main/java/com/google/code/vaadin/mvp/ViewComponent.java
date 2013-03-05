@@ -25,7 +25,9 @@ import com.google.code.vaadin.mvp.eventhandling.ViewEventPublisher;
 import com.google.code.vaadin.mvp.eventhandling.events.LocaleChangedEvent;
 import com.vaadin.ui.CustomComponent;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 
@@ -55,6 +57,11 @@ public abstract class ViewComponent extends CustomComponent {
     private boolean initialized;
 
     /*===========================================[ CLASS METHODS ]================*/
+
+    @PostConstruct
+    void postConstruct() {
+        logger = LoggerFactory.getLogger(getClass());
+    }
 
     public void init() {
         if (!initialized) {

@@ -57,9 +57,10 @@ public abstract class ViewComponent extends CustomComponent {
     /*===========================================[ CLASS METHODS ]================*/
 
     public void init() {
-        initialized = false;
-        initComponent();
-        initialized = true;
+        if (!initialized) {
+            initComponent();
+            initialized = true;
+        }
     }
 
     protected void initComponent() {

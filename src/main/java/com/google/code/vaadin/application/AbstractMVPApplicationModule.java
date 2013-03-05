@@ -66,7 +66,8 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
         this.servletContext = servletContext;
     }
 
-    /*===========================================[ INTERFACE METHODS ]============*/
+    /*===========================================[ CLASS METHODS ]================*/
+
     //TODO move modules to guice package
     @Override
     protected void configureServlets() {
@@ -99,10 +100,6 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
         bindComponents();
     }
 
-    protected LoggerModule createLoggerModule() {
-        return new LoggerModule();
-    }
-
     protected boolean isJsr250SupportEnabled() {
         return true;
     }
@@ -114,6 +111,10 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
      */
     protected Jsr250Module createJsr250Module() {
         return new Jsr250Module();
+    }
+
+    protected LoggerModule createLoggerModule() {
+        return new LoggerModule();
     }
 
     protected EventBusModule createEventBusModule() {
@@ -136,16 +137,6 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
         return new VaadinComponentPreconfigurationModule();
     }
 
-    protected void bindUIProvider() {
-        bind(UIProvider.class).to(ScopedUIProvider.class);
-    }
-
-    protected abstract void installModules();
-
-    protected abstract void bindTextBundle();
-
-    protected abstract void bindComponents();
-
     protected Map<String, String> extractInitParams(ServletContext servletContext) {
         Map<String, String> initParams = new HashMap<>();
         Enumeration parameterNames = servletContext.getInitParameterNames();
@@ -157,4 +148,14 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
 
         return initParams;
     }
+
+    protected void bindUIProvider() {
+        bind(UIProvider.class).to(ScopedUIProvider.class);
+    }
+
+    protected abstract void installModules();
+
+    protected abstract void bindTextBundle();
+
+    protected abstract void bindComponents();
 }

@@ -34,5 +34,5 @@ public interface View extends Component {
     /**
      * Called (by the application logic) whenever the view is opened/accessed.
      */
-    void openView();
+    void open();
 }

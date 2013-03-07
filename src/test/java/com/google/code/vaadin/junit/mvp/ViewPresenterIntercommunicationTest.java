@@ -49,7 +49,7 @@ public class ViewPresenterIntercommunicationTest extends AbstractMVPTest {
 
     @Test
     public void testIntercommunication() {
-        view.openView();
+        view.open();
 
         ViewPresenterMappingRegistry mappingRegistry = injector.getInstance(ViewPresenterMappingRegistry.class);
         TestPresenter presenter = mappingRegistry.getPresenterForView(view);
@@ -66,7 +66,7 @@ public class ViewPresenterIntercommunicationTest extends AbstractMVPTest {
 
     @Test
     public void testIntercommunicationWithViewWithoutInterface() {
-        basicView.openView();
+        basicView.open();
 
         ViewPresenterMappingRegistry mappingRegistry = injector.getInstance(ViewPresenterMappingRegistry.class);
         BasicPresenter presenter = mappingRegistry.getPresenterForView(basicView);

@@ -99,7 +99,7 @@ public abstract class ViewComponent extends CustomComponent {
     protected void localize() {
     }
 
-    protected boolean isInitialized() {
+    public boolean isInitialized() {
         return initialized;
     }
 

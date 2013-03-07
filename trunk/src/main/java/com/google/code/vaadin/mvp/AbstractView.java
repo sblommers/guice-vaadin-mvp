@@ -21,7 +21,7 @@ package com.google.code.vaadin.mvp;
 import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.mvp.eventhandling.events.ViewOpenedEvent;
 
-import javax.inject.Inject;
+import javax.annotation.PostConstruct;
 
 /**
  * Abstract implementation of MVP-pattern View.
@@ -42,7 +42,7 @@ public abstract class AbstractView extends ViewComponent implements View {
 
     /*===========================================[ INTERFACE METHODS ]============*/
 
-    @Inject
+    @PostConstruct
     void postConstuct() {
         // Determine the view interface
         for (Class<?> clazz : getClass().getInterfaces()) {
@@ -59,9 +59,9 @@ public abstract class AbstractView extends ViewComponent implements View {
     }
 
     @Override
-    public void openView() {
+    public void open() {
         if (!isInitialized()) {
-            initComponent();
+            init();
             logger.debug(String.format("View initialized: [%s#%d]", viewInterface.getName(), hashCode()));
         }
 
@@ -72,7 +72,6 @@ public abstract class AbstractView extends ViewComponent implements View {
     @Override
     protected void initComponent() {
         initView();
-        setInitialized(true);
     }
 
     /**

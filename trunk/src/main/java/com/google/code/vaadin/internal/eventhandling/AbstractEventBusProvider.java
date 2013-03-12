@@ -20,9 +20,7 @@ package com.google.code.vaadin.internal.eventhandling;
 
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.inject.Provider;
-import net.engio.mbassy.IMessageBus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.engio.mbassy.bus.IMessageBus;
 
 
 /**

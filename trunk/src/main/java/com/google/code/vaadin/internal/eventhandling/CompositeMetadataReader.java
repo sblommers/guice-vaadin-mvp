@@ -59,7 +59,7 @@ class CompositeMetadataReader extends MetadataReader {
         final Iterable<MessageHandlerMetadata> listenerMessageHandlers = new LinkedList(super.getMessageHandlers(target));
         Collection<MessageHandlerMetadata> observerHandlers = findObservesMethods(target);
 
-        // Заменяем MessageHandlerMetadata взятые из @Observer на метаданные из @Listener
+        // Заменяем MessageHandlerMetadata взятые из @Observer на метаданные из @Handler
         return new ArrayList<>(transform(observerHandlers, new Function<MessageHandlerMetadata, MessageHandlerMetadata>() {
             @Override
             public MessageHandlerMetadata apply(@Nullable MessageHandlerMetadata input) {
@@ -92,7 +92,7 @@ class CompositeMetadataReader extends MetadataReader {
         // но переопределяющий метод наследует конфигурацию переопределенного метода
         for (Method handler : bottomMostHandlers) {
             Observes observer = handler.getAnnotation(Observes.class);
-            Listener listener = handler.getAnnotation(Listener.class);
+            Handler listener = handler.getAnnotation(Handler.class);
             if (observer.enabled() && (listener == null || listener.enabled())) {
                 Method overriddenHandler = ReflectionUtils.getOverridingMethod(handler, target);
                 // Если обработчик переопределен, то он наследует от конфигурацию от родительского метода
@@ -111,7 +111,7 @@ class CompositeMetadataReader extends MetadataReader {
     /*===========================================[ INNER CLASSES ]================*/
 
     @SuppressWarnings("ClassExplicitlyAnnotation")
-    private static class MappedListener implements Listener {
+    private static class MappedListener implements Handler {
         @Override
         public Filter[] filters() {
             return new Filter[0];
@@ -139,7 +139,7 @@ class CompositeMetadataReader extends MetadataReader {
 
         @Override
         public Class<? extends Annotation> annotationType() {
-            return Listener.class;
+            return Handler.class;
         }
     }
 }

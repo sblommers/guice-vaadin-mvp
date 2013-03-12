@@ -26,7 +26,7 @@ import com.google.code.vaadin.mvp.eventhandling.events.DomainEvent;
 import com.google.code.vaadin.mvp.eventhandling.events.SharedModelEvent;
 import com.google.inject.Stage;
 import com.mycila.testing.plugin.guice.GuiceContext;
-import net.engio.mbassy.IMessageBus;
+import net.engio.mbassy.bus.IMessageBus;
 import org.junit.Assert;
 import org.junit.Test;
 

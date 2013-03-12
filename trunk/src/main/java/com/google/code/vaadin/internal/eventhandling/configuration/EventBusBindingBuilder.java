@@ -18,7 +18,8 @@
 
 package com.google.code.vaadin.internal.eventhandling.configuration;
 
-import net.engio.mbassy.BusConfiguration;
+
+import net.engio.mbassy.bus.BusConfiguration;
 
 import javax.validation.constraints.NotNull;
 

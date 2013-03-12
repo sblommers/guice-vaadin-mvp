@@ -29,8 +29,8 @@ import com.google.inject.Provider;
 import com.google.inject.Scope;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.spi.TypeListener;
-import net.engio.mbassy.BusConfiguration;
-import net.engio.mbassy.IMessageBus;
+import net.engio.mbassy.bus.BusConfiguration;
+import net.engio.mbassy.bus.IMessageBus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

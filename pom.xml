@@ -48,15 +48,18 @@
 
     <properties>
         <module.encoding>UTF-8</module.encoding>
+        <source.version>1.7</source.version>
+        <target.version>1.7</target.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Vaadin stuff -->
 
-        <version.vaadin>7.0.0</version.vaadin>
+        <version.vaadin>7.0.2</version.vaadin>
 
-        <!-- EventBus -->
+        <!-- Message Bus -->
 
-        <version.mbassador>1.1.1</version.mbassador>
+        <version.mbassador>1.1.3</version.mbassador>
 
         <!-- Google stuff -->
 
@@ -104,6 +107,8 @@
         <version.maven-license-plugin>1.7.0</version.maven-license-plugin>
         <version.maven-changelog-plugin>2.2</version.maven-changelog-plugin>
         <version.maven-gpg-plugin>1.4</version.maven-gpg-plugin>
+        <maven-compiler-plugin.source>1.7</maven-compiler-plugin.source>
+        <maven-compiler-plugin.target>1.6</maven-compiler-plugin.target>
     </properties>
 
     <dependencies>
@@ -114,12 +119,14 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-server</artifactId>
             <version>${version.vaadin}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-client-compiled</artifactId>
             <version>${version.vaadin}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -133,9 +140,10 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-themes</artifactId>
             <version>${version.vaadin}</version>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- EventBus -->
+        <!-- Message Bus -->
 
         <dependency>
             <groupId>net.engio</groupId>
@@ -293,8 +301,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${version.maven-compiler-plugin}</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${source.version}</source>
+                    <target>${target.version}</target>
                     <encoding>${module.encoding}</encoding>
                 </configuration>
             </plugin>

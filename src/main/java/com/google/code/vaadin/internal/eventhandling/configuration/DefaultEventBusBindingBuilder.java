@@ -19,7 +19,7 @@
 package com.google.code.vaadin.internal.eventhandling.configuration;
 
 import com.google.code.vaadin.mvp.eventhandling.EventBusType;
-import net.engio.mbassy.BusConfiguration;
+import net.engio.mbassy.bus.BusConfiguration;
 
 /**
  * @author Alexey Krylov (lexx)

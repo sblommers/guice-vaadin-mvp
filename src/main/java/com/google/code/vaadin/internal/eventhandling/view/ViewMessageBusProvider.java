@@ -22,7 +22,7 @@ import com.google.code.vaadin.internal.eventhandling.AbstractMessageBusProvider;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import com.google.inject.Inject;
-import net.engio.mbassy.BusConfiguration;
+import net.engio.mbassy.bus.BusConfiguration;
 
 /**
  * ViewMessageBusProvider - TODO: description

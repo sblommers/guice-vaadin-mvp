@@ -23,7 +23,7 @@ import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBindi
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.code.vaadin.mvp.eventhandling.ModelEventPublisher;
 import com.google.inject.Provider;
-import net.engio.mbassy.IMessageBus;
+import net.engio.mbassy.bus.IMessageBus;
 
 /**
  * ModelEventBusModule - TODO: description

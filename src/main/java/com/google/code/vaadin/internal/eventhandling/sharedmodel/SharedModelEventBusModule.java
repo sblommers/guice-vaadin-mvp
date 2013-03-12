@@ -26,7 +26,7 @@ import com.google.code.vaadin.mvp.eventhandling.SharedModelEventPublisher;
 import com.google.inject.Provider;
 import com.google.inject.Scope;
 import com.google.inject.Scopes;
-import net.engio.mbassy.IMessageBus;
+import net.engio.mbassy.bus.IMessageBus;
 
 /**
  * SharedModelEventBusModule - TODO: description

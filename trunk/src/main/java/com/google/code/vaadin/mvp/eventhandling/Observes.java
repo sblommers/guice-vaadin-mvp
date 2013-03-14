@@ -24,6 +24,7 @@ import java.lang.annotation.*;
  * Marks any method of any object as an event handler.
  *
  * @author Alexey Krylov
+ * @see EventBusType
  * @see EventBus
  * @since 23.01.13
  */
@@ -32,7 +33,17 @@ import java.lang.annotation.*;
 @Inherited
 public @interface Observes {
 
+    /**
+     * Expected Event type. Directly linked with {@link EventBusType}.
+     *
+     * @return type of Event-source bus.
+     */
     EventType value() default EventType.VIEW;
 
+    /**
+     * Marked method will not be invoked if {@code enabled} is false.
+     *
+     * @return enabled/disabled flag
+     */
     boolean enabled() default true;
 }

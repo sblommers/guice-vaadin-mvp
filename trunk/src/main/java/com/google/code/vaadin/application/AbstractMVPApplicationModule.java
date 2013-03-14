@@ -19,7 +19,7 @@
 package com.google.code.vaadin.application;
 
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
-import com.google.code.vaadin.application.uiscope.UIScopeModule;
+import com.google.code.vaadin.internal.uiscope.UIScopeModule;
 import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.eventhandling.EventBusModule;
 import com.google.code.vaadin.internal.jsr250.Jsr250Module;
@@ -68,7 +68,6 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
 
     /*===========================================[ CLASS METHODS ]================*/
 
-    //TODO move modules to guice package
     @Override
     protected void configureServlets() {
         // support of @PostConstuct and @Resource

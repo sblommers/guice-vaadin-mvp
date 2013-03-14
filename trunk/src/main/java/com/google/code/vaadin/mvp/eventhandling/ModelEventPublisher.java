@@ -18,10 +18,21 @@
 
 package com.google.code.vaadin.mvp.eventhandling;
 
+import com.google.code.vaadin.application.uiscope.UIScoped;
+import com.google.code.vaadin.internal.eventhandling.EventBusModule;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinder;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+
 /**
- * EventPublisher - TODO: description
+ * Event publisher for UIScoped Model-related events.
+ * Default subscribers for this kind of events is Presenters and other UIScoped model components.
+ * This publisher is also UIScoped.
+ * <p/>
+ * NOTE: model EventBus is disabled by default. Use {@link EventBusBinder} and
+ * {@link EventBusModule#bindEventBuses(EventBusBinder)} to bind EventBus with {@link EventBusTypes#MODEL} type.
  *
  * @author Alexey Krylov
+ * @see UIScoped
  * @since 23.01.13
  */
 public interface ModelEventPublisher extends EventPublisher {

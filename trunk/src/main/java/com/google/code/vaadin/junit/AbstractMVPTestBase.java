@@ -20,7 +20,6 @@ package com.google.code.vaadin.junit;
 
 import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
-import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.inject.Injector;
 import com.mycila.testing.junit.MycilaJunitRunner;
 import com.vaadin.server.VaadinRequest;
@@ -38,12 +37,7 @@ import javax.inject.Inject;
 import static org.mockito.Mockito.mock;
 
 /**
- * Extend this class to test anything related to a Vaadin UI (or in the case of V7, as {@link ScopedUI}. Note that the
- * {@link UIScope} is not prepared until the {@link #uiSetup()} method is called, so subclasses must use providers if
- * they want to inject UIScoped objects - otherwise the injection happens before the UIScope context is ready.
- * <p/>
- * A number of providers are made available by the class
- * //todo
+ * Extend this class to test anything related to a Vaadin UI (or in the case of guice-vaadin-mvp, as {@link ScopedUI}.
  *
  * @author Alexey Krylov
  * @since 09.02.2013
@@ -82,8 +76,10 @@ public abstract class AbstractMVPTestBase {
 
     @Before
     public void uiSetup() {
-        logger.info("initialising test");
+        // for the first test UI is initialized in the 'init' method above
         if (!isFirstTest) {
+            logger.info("initialising test");
+
             ui = createTestUI(getTestUIClass());
             CurrentInstance.set(UI.class, ui);
             ui.doInit(mockedRequest, 1);

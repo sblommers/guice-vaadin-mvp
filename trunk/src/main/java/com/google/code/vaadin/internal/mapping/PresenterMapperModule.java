@@ -40,7 +40,7 @@ import java.util.*;
 
 /**
  * PresenterMappingModule - TODO: description
- *
+ * TODO manual wiring option
  * @author Alexey Krylov
  * @since 25.01.13
  */

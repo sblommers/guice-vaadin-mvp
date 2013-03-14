@@ -32,7 +32,7 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 /**
- * Special workaround for {@link ResourceBundle} to work with different locales.
+ * Special workaround for {@link ResourceBundle} to work with different UTF-8 locales.
  * <a href="http://stackoverflow.com/questions/4659929/how-to-use-utf-8-in-resource-properties-with-resourcebundle">See
  * detailed description</a>
  *
@@ -40,7 +40,7 @@ import java.util.ResourceBundle;
  * @see ResourceBundleInjector
  * @since 01.02.13
  */
-class EncodedControl extends ResourceBundle.Control {
+public class EncodedControl extends ResourceBundle.Control {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 

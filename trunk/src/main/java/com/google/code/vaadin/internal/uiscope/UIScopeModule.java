@@ -15,8 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.code.vaadin.application.uiscope;
+package com.google.code.vaadin.internal.uiscope;
 
+import com.google.code.vaadin.application.uiscope.UIScope;
+import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 

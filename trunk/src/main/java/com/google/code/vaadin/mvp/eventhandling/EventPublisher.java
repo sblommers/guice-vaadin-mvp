@@ -21,7 +21,7 @@ package com.google.code.vaadin.mvp.eventhandling;
 import javax.validation.constraints.NotNull;
 
 /**
- * EventPublisher - TODO: description
+ * Generic interface of Event Publisher - component that publishes Events to appropriate Event Bus.
  *
  * @author Alexey Krylov
  * @since 26.01.13
@@ -30,5 +30,12 @@ public interface EventPublisher {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
+    /**
+     * Publishes Event to Event Bus.
+     *
+     * @param event event to publish
+     *
+     * @throws IllegalArgumentException if specified {@code event} is null
+     */
     void publish(@NotNull Object event);
 }

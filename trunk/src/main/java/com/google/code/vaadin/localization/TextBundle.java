@@ -21,7 +21,7 @@ package com.google.code.vaadin.localization;
 import com.google.code.vaadin.application.AbstractMVPApplicationModule;
 
 /**
- * Interface for a bundle implementation used for obtaining (localized) texts.
+ * Interface for a bundle implementation used for obtaining localized texts.
  *
  * @author Alexey Krylov
  * @see AbstractMVPApplicationModule#bindTextBundle()

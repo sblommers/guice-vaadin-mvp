@@ -20,13 +20,13 @@ package com.google.code.vaadin.application.ui;
 
 import com.google.code.vaadin.application.MVPApplicationInitParameters;
 import com.google.code.vaadin.application.uiscope.UIKey;
-import com.google.code.vaadin.application.uiscope.UIKeyProvider;
 import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinder;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedEventBusSubscribersRegistry;
+import com.google.code.vaadin.internal.uiscope.UIKeyProvider;
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
 import com.google.common.base.Preconditions;
 import com.google.inject.Inject;

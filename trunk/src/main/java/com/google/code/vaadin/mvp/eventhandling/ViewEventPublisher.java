@@ -18,12 +18,16 @@
 
 package com.google.code.vaadin.mvp.eventhandling;
 
+import com.google.code.vaadin.application.uiscope.UIScoped;
+
 /**
- * Event publisher available todo
+ * Event publisher for View-related events.
+ * Default subscribers for this kind of events is Presenters and UIScoped model components.
+ * This publisher is also UIScoped.
  *
  * @author Alexey Krylov
+ * @see UIScoped
  * @since 23.01.13
  */
 public interface ViewEventPublisher extends EventPublisher {
-    /*===========================================[ INTERFACE METHODS ]==============*/
 }

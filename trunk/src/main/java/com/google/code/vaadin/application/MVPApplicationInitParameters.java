@@ -36,7 +36,7 @@ public interface MVPApplicationInitParameters {
     String P_APPLICATION_UI_CLASS = "ui-class";
 
     /**
-     * Application Guice module class. It shoud extend {@link AbstractMVPApplicationModule}.
+     * Application Guice module class. It should extend {@link AbstractMVPApplicationModule}.
      */
     String P_APPLICATION_MODULE = "application-module";
 }

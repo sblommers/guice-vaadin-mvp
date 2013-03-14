@@ -19,8 +19,6 @@
 package com.google.code.vaadin.localization;
 
 /**
- * LocalizationConstants - TODO: description
- *
  * @author Alexey Krylov (lexx)
  * @since 25.02.13
  */

@@ -28,12 +28,12 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * DefaultResourceBundleProvider - TODO: description
+ * Default implementation of {@link ResourceBundleProvider}.
  *
  * @author Alexey Krylov (lexx)
  * @since 25.02.13
  */
-public class DefaultResourceBundleProvider implements ResourceBundleProvider {
+class DefaultResourceBundleProvider implements ResourceBundleProvider {
 
     /*===========================================[ INTERFACE METHODS ]============*/
 

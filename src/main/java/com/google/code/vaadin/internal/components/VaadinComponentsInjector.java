@@ -72,11 +72,11 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
     }
 
     /**
-     * Applies @Preconfigured attributes to Vaadin Components.
+     * Applies {@link Preconfigured} attributes to Vaadin Components.
      *
-     * @param c
+     * @param c component to configure
      *
-     * @return
+     * @return configured component
      */
     @SuppressWarnings("OverlyComplexMethod")
     private <T extends Component> T configureComponent(T c) {
@@ -180,7 +180,6 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
     }
 
     private void configureLocalization(Component component, Preconfigured preconfigured) {
-        //Injector injector = InjectorProvider.getInjector(servletContext);
         TextBundle textBundle = null;
         try {
             textBundle = injector.getInstance(TextBundle.class);
@@ -248,8 +247,6 @@ class VaadinComponentsInjector<T> implements MembersInjector<T> {
                 .nullSelectionAllowed());
         abstractSelect.setMultiSelect(preconfigured.multiSelect());
         abstractSelect.setNewItemsAllowed(preconfigured.newItemsAllowed());
-        // if (preconfigured.itemCaptionMode() > -1) {
         abstractSelect.setItemCaptionMode(preconfigured.itemCaptionMode());
-        // }
     }
 }

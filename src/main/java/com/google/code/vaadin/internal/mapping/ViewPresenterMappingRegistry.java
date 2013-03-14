@@ -22,7 +22,7 @@ import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
 
 /**
- * IViewPresenterMappingContext - TODO: description
+ * Registry of [View] -> [Presenter] associations.
  *
  * @author Alexey Krylov
  * @since 28.01.13

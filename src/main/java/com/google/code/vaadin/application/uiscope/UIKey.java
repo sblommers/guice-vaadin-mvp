@@ -18,6 +18,7 @@
 package com.google.code.vaadin.application.uiscope;
 
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
+import com.google.code.vaadin.internal.uiscope.UIKeyProvider;
 
 /**
  * This class is entirely passive - it is a surrogate for the UI itself during the IoC process in support of

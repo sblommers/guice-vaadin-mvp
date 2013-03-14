@@ -18,13 +18,16 @@
 
 package com.google.code.vaadin.localization;
 
+import com.google.code.vaadin.internal.localization.EncodedControl;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * ResourceBundleProvider - TODO: description
+ * Allows quick and conveniet access to project's Resources Bundles.
+ * Bundles will be created with special UTF-8 characters support - {@link EncodedControl}.
  *
  * @author Alexey Krylov (lexx)
  * @since 25.02.13
@@ -33,5 +36,15 @@ public interface ResourceBundleProvider {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
+    /**
+     * Provides instance of {@link ResourceBundle} for specified locale and optional encoding.
+     * Bundle will be created with special UTF-8 characters support - {@link EncodedControl}.
+     *
+     * @param baseName bundle base name
+     * @param locale   required bundle locale
+     * @param encoding optional encoding. Default is {@link LocalizationConstants#DEFAULT_ENCODING}.
+     *
+     * @throws IllegalArgumentException if {@code baseName} is null or empty.
+     */
     ResourceBundle getBundle(@NotNull @Size(min = 1) String baseName, Locale locale, String... encoding);
 }

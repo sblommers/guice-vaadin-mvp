@@ -18,16 +18,21 @@
 
 package com.google.code.vaadin.mvp.eventhandling;
 
+import com.google.code.vaadin.internal.eventhandling.EventBusModule;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinder;
 import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
 
+import javax.inject.Inject;
 import javax.inject.Qualifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * //todo
- * Marks any method of any object as an event handler.
+ * Describes what type of EventBus should be injected. Should be used in conjunction with {@link Inject}.
+ * * <p/>
+ * NOTE: shared model/model EventBus is disabled by default. Use {@link EventBusBinder} and
+ * {@link EventBusModule#bindEventBuses(EventBusBinder)} to bind this kind of Event buses.
  *
  * @author Alexey Krylov
  * @see EventBus

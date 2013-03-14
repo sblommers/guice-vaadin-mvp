@@ -18,12 +18,22 @@
 
 package com.google.code.vaadin.mvp.eventhandling;
 
+import com.google.code.vaadin.internal.eventhandling.EventBusModule;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinder;
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.inject.Scopes;
+
 /**
- * EventPublisher - TODO: description
+ * Event publisher for global (shared) Model-related events.
+ * There is no default subscribers for this kind of events.
+ * This publisher is application-scoped (singleton).
+ * <p/>
+ * NOTE: shared model EventBus is disabled by default. Use {@link EventBusBinder} and
+ * {@link EventBusModule#bindEventBuses(EventBusBinder)} to bind EventBus with {@link EventBusTypes#SHARED_MODEL} type.
  *
  * @author Alexey Krylov
+ * @see Scopes#SINGLETON
  * @since 23.01.13
  */
 public interface SharedModelEventPublisher extends EventPublisher {
-    /*===========================================[ INTERFACE METHODS ]==============*/
 }

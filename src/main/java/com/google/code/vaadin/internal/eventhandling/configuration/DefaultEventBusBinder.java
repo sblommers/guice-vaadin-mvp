@@ -26,7 +26,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 20.02.13
  */
 public class DefaultEventBusBinder implements EventBusBinder {

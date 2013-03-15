@@ -23,9 +23,9 @@ import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBindi
 import com.google.inject.Scope;
 
 /**
- * UIScopedEventBusModule - TODO: description
+ * Base Event-Bus configuration module.
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 25.02.13
  */
 public abstract class UIScopedEventBusModule extends AbstractEventBusModule {

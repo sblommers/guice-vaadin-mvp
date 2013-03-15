@@ -28,7 +28,7 @@ import net.engio.mbassy.bus.IMessageBus;
 /**
  * ModelEventBusModule - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 24.02.13
  */
 public class ModelEventBusModule extends UIScopedEventBusModule {

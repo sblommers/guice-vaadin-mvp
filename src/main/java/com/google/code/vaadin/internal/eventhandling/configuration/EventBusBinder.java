@@ -29,7 +29,7 @@ import javax.validation.constraints.NotNull;
  * bind("eventbus").withDefaultConfiguration();
  * </pre>
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @see EventBusModule#bindEventBuses(EventBusBinder)
  * @since 20.02.13
  */

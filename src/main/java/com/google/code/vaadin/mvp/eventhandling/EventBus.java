@@ -18,19 +18,45 @@
 
 package com.google.code.vaadin.mvp.eventhandling;
 
+import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+
 import javax.validation.constraints.NotNull;
 
 /**
- * EventBus - TODO: description
+ * Dispatches events to listeners, and provides ways for listeners to register
+ * themselves.
+ * <p/>
+ * The EventBus allows publish-subscribe-style communication between
+ * components without requiring the components to explicitly register with one
+ * another (and thus be aware of each other).
  *
  * @author Alexey Krylov
+ * @see Observes
+ * @see EventType
+ * @see EventBusTypes
  * @since 26.01.13
  */
 public interface EventBus extends EventPublisher {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
+    /**
+     * Registers all handler methods on {@code subscriber} to receive events.
+     *
+     * @param subscriber object whose handler methods should be registered
+     *
+     * @throws IllegalArgumentException if specified {@code subscriber} is null
+     */
     void subscribe(@NotNull Object subscriber);
 
-    void unsubscribe(@NotNull Object subscriber);
+    /**
+     * Unregisters all handler methods on a registered {@code object}.
+     *
+     * @param subscriber object whose handler methods should be unregistered.
+     *
+     * @return {@code true} if unsubscribing successful
+     *
+     * @throws IllegalArgumentException if specified {@code subscriber} is null
+     */
+    boolean unsubscribe(@NotNull Object subscriber);
 }

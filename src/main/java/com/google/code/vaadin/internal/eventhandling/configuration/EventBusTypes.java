@@ -21,9 +21,10 @@ package com.google.code.vaadin.internal.eventhandling.configuration;
 import com.google.code.vaadin.mvp.eventhandling.EventType;
 
 /**
+ * Enumeration
  * EventBusType - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 22.02.13
  */
 public enum EventBusTypes {

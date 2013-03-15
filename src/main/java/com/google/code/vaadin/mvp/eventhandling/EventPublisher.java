@@ -31,7 +31,7 @@ public interface EventPublisher {
     /*===========================================[ INTERFACE METHODS ]==============*/
 
     /**
-     * Publishes Event to Event Bus.
+     * Publishes Event to publisher-associated Event Bus.
      *
      * @param event event to publish
      *

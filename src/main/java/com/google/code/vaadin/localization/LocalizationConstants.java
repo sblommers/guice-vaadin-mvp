@@ -19,7 +19,7 @@
 package com.google.code.vaadin.localization;
 
 /**
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 25.02.13
  */
 public interface LocalizationConstants {

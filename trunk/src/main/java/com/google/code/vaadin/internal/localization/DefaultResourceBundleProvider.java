@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 /**
  * Default implementation of {@link ResourceBundleProvider}.
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 25.02.13
  */
 class DefaultResourceBundleProvider implements ResourceBundleProvider {

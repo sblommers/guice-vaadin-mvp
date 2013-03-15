@@ -39,7 +39,7 @@ import java.lang.annotation.Annotation;
 /**
  * AbstractEventBusModule - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 24.02.13
  */
 public abstract class AbstractEventBusModule extends AbstractModule {

@@ -26,7 +26,7 @@ import java.lang.annotation.Annotation;
 /**
  * ObservesImpl - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 24.02.13
  */
 class EventBusTypeImpl implements EventBusType {

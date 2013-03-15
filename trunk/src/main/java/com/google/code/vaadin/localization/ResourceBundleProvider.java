@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * Allows quick and conveniet access to project's Resources Bundles.
  * Bundles will be created with special UTF-8 characters support - {@link EncodedControl}.
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 25.02.13
  */
 public interface ResourceBundleProvider {

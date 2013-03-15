@@ -22,7 +22,7 @@ import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import net.engio.mbassy.bus.BusConfiguration;
 
 /**
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 20.02.13
  */
 class DefaultEventBusBindingBuilder implements EventBusBindingBuilder {

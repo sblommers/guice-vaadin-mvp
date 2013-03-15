@@ -24,7 +24,7 @@ import net.engio.mbassy.bus.BusConfiguration;
 /**
  * Настройки привязки конкретной шины сообщений.
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 20.02.13
  */
 public interface EventBusBinding {

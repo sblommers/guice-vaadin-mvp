@@ -27,7 +27,7 @@ import net.engio.mbassy.bus.BusConfiguration;
 /**
  * SharedModelMessageBusProvider - TODO: description
  *
- * @author Alexey Krylov (lexx)
+ * @author Alexey Krylov
  * @since 25.02.13
  */
 public class SharedModelMessageBusProvider extends AbstractMessageBusProvider {

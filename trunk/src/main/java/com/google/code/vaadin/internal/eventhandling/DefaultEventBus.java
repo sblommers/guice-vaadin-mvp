@@ -62,14 +62,14 @@ class DefaultEventBus implements EventBus {
     }
 
     @Override
-    public void unsubscribe(@NotNull Object subscriber) {
+    public boolean unsubscribe(@NotNull Object subscriber) {
         Preconditions.checkArgument(subscriber != null, "Specified subscriber is null");
 
         if (logger.isDebugEnabled()) {
             logger.debug(String.format("Unsubscribing: [%s] -> [#%d]", subscriber, hashCode()));
         }
 
-        bus.unsubscribe(subscriber);
+        return bus.unsubscribe(subscriber);
     }
 
     @Override

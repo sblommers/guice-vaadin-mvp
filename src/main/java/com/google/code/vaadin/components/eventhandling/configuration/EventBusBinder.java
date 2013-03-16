@@ -18,32 +18,33 @@
 
 package com.google.code.vaadin.components.eventhandling.configuration;
 
-import com.google.code.vaadin.internal.eventhandling.EventBusModule;
+import com.google.code.vaadin.application.AbstractMVPApplicationModule;
 import com.google.code.vaadin.mvp.eventhandling.EventBusTypes;
 
 import javax.validation.constraints.NotNull;
 
 /**
- * Собирает конфигурации привязок шин сообщений.
- * Пример:
+ * Collects all Event Buses binding configurations.
+ * <p/>
+ * Example:
  * <pre>
- * bind("eventbus").withDefaultConfiguration();
+ * bind(EventBusTypes.VIEW).withDefaultConfiguration();
  * </pre>
  *
  * @author Alexey Krylov
- * @see EventBusModule#bindEventBuses(EventBusBinder)
+ * @see AbstractMVPApplicationModule#bindEventBuses(EventBusBinder)
  * @since 20.02.13
  */
 public interface EventBusBinder {
 
     /**
-     * Начинает процесс привязывания именованной шины сообщения.
+     * Initiates binding process for specified EventBus type.
      *
      * @param type bus type
      *
-     * @return построитель привязки для указанной шины
+     * @return binding builder instance
      *
-     * @throws IllegalArgumentException если в качестве {@code busName} передана пустая строка или {@code null}
+     * @throws IllegalArgumentException if specified {@code type} is null
      */
     EventBusBindingBuilder bind(@NotNull EventBusTypes type);
 

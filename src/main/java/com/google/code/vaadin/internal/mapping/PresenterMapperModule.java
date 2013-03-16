@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.internal.mapping;
 
+import com.google.code.vaadin.application.AbstractMVPApplicationModule;
 import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.components.mapping.ViewPresenterMappingRegistry;
@@ -41,9 +42,11 @@ import javax.servlet.ServletContext;
 import java.util.*;
 
 /**
- * PresenterMappingModule - TODO: description
+ * View -> Presenter mapping support components.
+ * It supports two ways of configuration - classpath scan and direct specification of Presenter classes.
  *
  * @author Alexey Krylov
+ * @see AbstractMVPApplicationModule#getPresenterClasses()
  * @since 25.01.13
  */
 public class PresenterMapperModule extends AbstractModule {
@@ -74,10 +77,9 @@ public class PresenterMapperModule extends AbstractModule {
         bind(ViewProvider.class).to(AccessibleViewProvider.class).in(UIScope.getCurrent());
         //1. find all presenters
         Collection<Class<? extends AbstractPresenter<? extends View>>> presenterClasses = new ArrayList<>(this.presenterClasses);
-        if (presenterClasses.isEmpty()){
+        if (presenterClasses.isEmpty()) {
             presenterClasses.addAll(findPresenterClasses());
         }
-
 
         //2. create context map: View interface -> Presenter class
         Map<Class<? extends View>, Class<? extends AbstractPresenter>> viewPresenterMap = new HashMap<>();

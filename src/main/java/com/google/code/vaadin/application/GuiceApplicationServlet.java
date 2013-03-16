@@ -29,7 +29,7 @@ import com.vaadin.server.*;
  * @since 23.01.13
  */
 @Singleton
-class GuiceApplicationServlet extends VaadinServlet implements SessionInitListener {
+public class GuiceApplicationServlet extends VaadinServlet implements SessionInitListener {
 
 	/*===========================================[ STATIC VARIABLES ]=============*/
 
@@ -41,7 +41,7 @@ class GuiceApplicationServlet extends VaadinServlet implements SessionInitListen
      * Cannot use constructor injection. Container expects servlet to have no-arg public constructor
      */
     @Inject
-    private UIProvider basicProvider;
+    protected UIProvider basicProvider;
 
 	/*===========================================[ CLASS METHODS ]================*/
 

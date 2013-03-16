@@ -42,7 +42,7 @@ public interface ResourceBundleProvider {
      *
      * @param baseName bundle base name
      * @param locale   required bundle locale
-     * @param encoding optional encoding. Default is {@link LocalizationConstants#DEFAULT_ENCODING}.
+     * @param encoding optional encoding. Default is {@link LocalizationConstants#DEFAULT_BUNDLE_ENCODING}.
      *
      * @throws IllegalArgumentException if {@code baseName} is null or empty.
      */

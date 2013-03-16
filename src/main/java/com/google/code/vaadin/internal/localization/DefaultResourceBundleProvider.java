@@ -42,7 +42,7 @@ class DefaultResourceBundleProvider implements ResourceBundleProvider {
     public ResourceBundle getBundle(@NotNull @Size(min = 1) String baseName, Locale locale, String... encoding) {
         Preconditions.checkArgument(baseName != null && !baseName.isEmpty(), "Specified baseName is null or empty");
 
-        String requestedEncoding = LocalizationConstants.DEFAULT_ENCODING;
+        String requestedEncoding = LocalizationConstants.DEFAULT_BUNDLE_ENCODING;
         if (encoding != null && encoding.length > 0 && !encoding[0].isEmpty()) {
             requestedEncoding = encoding[0];
         }

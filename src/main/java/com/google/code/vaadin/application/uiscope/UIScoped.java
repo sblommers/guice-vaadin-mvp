@@ -26,6 +26,13 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * Apply this to classes when you want one instance per UI.
+ *
+ * @author Alexey Krylov
+ * @see UIScope
+ * @since 23.01.13
+ */
 @Target({TYPE, METHOD})
 @Retention(RUNTIME)
 @ScopeAnnotation

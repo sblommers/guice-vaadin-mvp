@@ -26,7 +26,7 @@ import com.mycila.inject.jsr250.Jsr250;
  * JSR-250 support module. Default implementation is {@link Jsr250}.
  *
  * @author Alexey Krylov
- * @see AbstractMVPApplicationModule#createJsr250Module()
+ * @see AbstractMVPApplicationModule#isJsr250SupportEnabled()
  * @since 04.03.13
  */
 public class Jsr250Module extends AbstractModule {

@@ -21,8 +21,10 @@ package com.google.code.vaadin.components.mapping;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
 
+import javax.validation.constraints.NotNull;
+
 /**
- * Registry of [View] -> [Presenter] associations.
+ * Registry of View -> Presenter mappings.
  *
  * @author Alexey Krylov
  * @since 28.01.13
@@ -31,5 +33,5 @@ public interface ViewPresenterMappingRegistry {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
-    <P extends AbstractPresenter<V>, V extends View> P getPresenterForView(V view);
+    <P extends AbstractPresenter<V>, V extends View> P getPresenter(@NotNull V view);
 }

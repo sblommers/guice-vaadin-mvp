@@ -20,6 +20,10 @@ package com.google.code.vaadin.application.uiscope;
 
 import com.google.code.vaadin.mvp.MVPApplicationException;
 
+/**
+ * @author Alexey Krylov
+ * @since 23.01.13
+ */
 public class UIScopeException extends MVPApplicationException {
 
 	/*===========================================[ STATIC VARIABLES ]=============*/

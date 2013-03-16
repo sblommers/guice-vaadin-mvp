@@ -19,9 +19,10 @@
 package com.google.code.vaadin.localization;
 
 /**
+ * @see ResourceBundleProvider
  * @author Alexey Krylov
  * @since 25.02.13
  */
 public interface LocalizationConstants {
-    String DEFAULT_ENCODING = "UTF-8";
+    String DEFAULT_BUNDLE_ENCODING = "UTF-8";
 }

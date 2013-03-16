@@ -23,6 +23,7 @@ import com.google.code.vaadin.localization.TextBundle;
 import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
 import com.google.code.vaadin.mvp.eventhandling.events.LocaleChangedEvent;
+import com.google.inject.Inject;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ class LocalizableComponentsRegistry {
 
     private Logger logger;
 
-    @com.google.inject.Inject(optional = true)
+    @Inject(optional = true)
     private TextBundle textBundle;
 
     private Map<Component, String> localizedCaptions;
@@ -67,7 +68,7 @@ class LocalizableComponentsRegistry {
         if (textBundle != null) {
             localize();
         } else {
-            logger.error("ERROR: No TextBundle implementation registered!");
+            logger.error("ERROR: No TextBundle implementation found");
         }
         logger.debug("Localization finished");
     }

@@ -22,6 +22,10 @@ import com.google.code.vaadin.application.uiscope.UIKey;
 import javax.inject.Provider;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * @author Alexey Krylov
+ * @since 17.03.13
+ */
 public class UIKeyProvider implements Provider<UIKey> {
 
 	/*===========================================[ STATIC VARIABLES ]=============*/

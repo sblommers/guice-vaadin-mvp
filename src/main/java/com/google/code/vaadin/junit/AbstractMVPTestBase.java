@@ -37,7 +37,7 @@ import javax.inject.Inject;
 import static org.mockito.Mockito.mock;
 
 /**
- * Extend this class to test anything related to a Vaadin UI (or in the case of guice-vaadin-mvp, as {@link ScopedUI}.
+ * Extend this class to test anything related to UI.
  *
  * @author Alexey Krylov
  * @since 09.02.2013
@@ -62,6 +62,7 @@ public abstract class AbstractMVPTestBase {
     @Inject
     void init(ScopedUIProvider uiProvider, Injector injector) {
         logger = LoggerFactory.getLogger(getClass());
+
         this.uiProvider = uiProvider;
         this.injector = injector;
         isFirstTest = true;
@@ -87,12 +88,6 @@ public abstract class AbstractMVPTestBase {
         }
     }
 
-    /**
-     * Use this method to create TestUI instances, rather than the UIProvider It simulates the creation of a new
-     * CurrentInstance (which happens for each request)
-     *
-     * @return
-     */
     protected ScopedUI createTestUI(Class<? extends ScopedUI> uiClass) {
         return (ScopedUI) uiProvider.createInstance(uiClass);
     }

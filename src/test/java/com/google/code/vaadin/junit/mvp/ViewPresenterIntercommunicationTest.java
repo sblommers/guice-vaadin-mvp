@@ -52,7 +52,7 @@ public class ViewPresenterIntercommunicationTest extends AbstractMVPTest {
         view.open();
 
         ViewPresenterMappingRegistry mappingRegistry = injector.getInstance(ViewPresenterMappingRegistry.class);
-        TestPresenter presenter = mappingRegistry.getPresenterForView(view);
+        TestPresenter presenter = mappingRegistry.getPresenter(view);
         Assert.assertTrue("ViewOpenedEvent was not received", presenter.isViewOpened());
 
         view.openContact();
@@ -69,7 +69,7 @@ public class ViewPresenterIntercommunicationTest extends AbstractMVPTest {
         basicView.open();
 
         ViewPresenterMappingRegistry mappingRegistry = injector.getInstance(ViewPresenterMappingRegistry.class);
-        BasicPresenter presenter = mappingRegistry.getPresenterForView(basicView);
+        BasicPresenter presenter = mappingRegistry.getPresenter(basicView);
         Assert.assertTrue("ViewOpenedEvent was not received", presenter.isViewOpened());
 
         basicView.sampleButtonPressed();

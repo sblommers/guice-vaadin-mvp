@@ -21,6 +21,7 @@ import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.inject.Key;
 import com.google.inject.Provider;
 import com.google.inject.Scope;
+import com.google.inject.servlet.ServletScopes;
 import com.vaadin.ui.UI;
 import com.vaadin.util.CurrentInstance;
 import org.slf4j.Logger;
@@ -30,6 +31,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Vaadin UI visibility level. It's similar to {@link ServletScopes#SESSION}.
+ *
+ * @author Alexey Krylov
+ * @since 23.01.13
+ */
 public class UIScope implements Scope {
 
 	/*===========================================[ STATIC VARIABLES ]=============*/

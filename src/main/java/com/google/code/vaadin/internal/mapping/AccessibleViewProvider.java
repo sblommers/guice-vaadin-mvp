@@ -22,9 +22,11 @@ import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.components.mapping.ViewProvider;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
+import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -61,7 +63,8 @@ class AccessibleViewProvider implements ViewProvider {
 	/*===========================================[ INTERFACE METHODS ]============*/
 
     @Override
-    public <V extends View> V getView(AbstractPresenter<V> presenter) {
+    public <V extends View> V getView(@NotNull AbstractPresenter<V> presenter) {
+        Preconditions.checkArgument(presenter != null, "Specified Presenter is null");
         return (V) presenterViewMap.get(presenter.getClass());
     }
 }

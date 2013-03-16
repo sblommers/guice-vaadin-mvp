@@ -37,16 +37,6 @@ public class MVPTestModule extends AbstractMVPApplicationTestModule {
         binder.bind(EventBusTypes.SHARED_MODEL).withDefaultConfiguration();
     }
 
-    // todo uncomment to disable Reflections scan
-    /* protected PresenterMapperModule createPresenterMapperModule() {
-        return new PresenterMapperModule(servletContext){
-            @Override
-            protected Collection<Class<? extends AbstractPresenter<? extends  View>>> getPresenterClasses() {
-                return Arrays.asList(BasicPresenter.class, TestPresenter.class);
-            }
-        };
-    }*/
-
     @Override
     protected Class<? extends ScopedUI> getTestUIClass() {
         return TestUI.class;

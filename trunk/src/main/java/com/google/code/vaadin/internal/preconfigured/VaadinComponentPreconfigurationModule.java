@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.components;
+package com.google.code.vaadin.internal.preconfigured;
 
-import com.google.code.vaadin.components.Preconfigured;
+import com.google.code.vaadin.components.preconfigured.Preconfigured;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 

@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.components;
+package com.google.code.vaadin.internal.preconfigured;
 
-import com.google.code.vaadin.components.Preconfigured;
+import com.google.code.vaadin.components.preconfigured.Preconfigured;
 import com.google.code.vaadin.localization.TextBundle;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.ConfigurationException;
@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Field;
 
 /**
- * Injects configured Vaadin control into the {@link Field} marked with {@link Preconfigured} annotation.
+ * Injects configured Vaadin control into the {@link Field} marked with {@link com.google.code.vaadin.components.preconfigured.Preconfigured} annotation.
  *
  * @author Alexey Krylov
  * @since 24.01.13

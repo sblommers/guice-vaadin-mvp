@@ -16,9 +16,10 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.eventhandling.configuration;
+package com.google.code.vaadin.components.eventhandling.configuration;
 
 import com.google.code.vaadin.internal.eventhandling.EventBusModule;
+import com.google.code.vaadin.mvp.eventhandling.EventBusTypes;
 
 import javax.validation.constraints.NotNull;
 

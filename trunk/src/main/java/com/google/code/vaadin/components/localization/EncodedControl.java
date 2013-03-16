@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.localization;
+package com.google.code.vaadin.components.localization;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +37,6 @@ import java.util.ResourceBundle;
  * detailed description</a>
  *
  * @author Alexey Krylov
- * @see ResourceBundleInjector
  * @since 01.02.13
  */
 public class EncodedControl extends ResourceBundle.Control {
@@ -48,7 +47,7 @@ public class EncodedControl extends ResourceBundle.Control {
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    EncodedControl(String encoding) {
+    public EncodedControl(String encoding) {
         this.encoding = encoding;
     }
 

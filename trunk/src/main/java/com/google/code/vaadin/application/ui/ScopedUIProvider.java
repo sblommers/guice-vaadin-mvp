@@ -23,8 +23,8 @@ import com.google.code.vaadin.application.uiscope.UIKey;
 import com.google.code.vaadin.application.uiscope.UIScope;
 import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinder;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinder;
+import com.google.code.vaadin.mvp.eventhandling.EventBusTypes;
 import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedEventBusSubscribersRegistry;
 import com.google.code.vaadin.internal.uiscope.UIKeyProvider;
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
@@ -59,7 +59,7 @@ public class ScopedUIProvider extends UIProvider {
     private static final long serialVersionUID = -5773777009877153344L;
 
 
-	/*===========================================[ INSTANCE VARIABLES ]===========*/
+	/*===========================================[ INSTANCE VARIABLES ]====!=======*/
 
     protected Logger logger;
     protected UIKeyProvider uiKeyProvider;

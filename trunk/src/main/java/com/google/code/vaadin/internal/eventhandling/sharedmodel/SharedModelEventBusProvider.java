@@ -19,7 +19,7 @@
 package com.google.code.vaadin.internal.eventhandling.sharedmodel;
 
 import com.google.code.vaadin.internal.eventhandling.AbstractEventBusProvider;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.mvp.eventhandling.EventBusTypes;
 import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import net.engio.mbassy.bus.IMessageBus;
 

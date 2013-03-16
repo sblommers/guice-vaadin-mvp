@@ -19,7 +19,7 @@
 package com.google.code.vaadin.junit.mvp;
 
 import com.google.code.vaadin.MVPTestModuleWithTextBundle;
-import com.google.code.vaadin.components.Preconfigured;
+import com.google.code.vaadin.components.preconfigured.Preconfigured;
 import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.google.code.vaadin.mvp.Lang;
 import com.google.code.vaadin.mvp.TestView;

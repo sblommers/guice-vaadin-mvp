@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.internal.localization;
 
+import com.google.code.vaadin.components.localization.EncodedControl;
 import com.google.code.vaadin.localization.InjectBundle;
 import com.google.code.vaadin.mvp.MVPApplicationException;
 import com.google.inject.MembersInjector;

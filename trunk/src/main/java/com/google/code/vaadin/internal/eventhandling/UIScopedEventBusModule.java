@@ -19,7 +19,7 @@
 package com.google.code.vaadin.internal.eventhandling;
 
 import com.google.code.vaadin.application.uiscope.UIScope;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinding;
+import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinding;
 import com.google.inject.Scope;
 
 /**

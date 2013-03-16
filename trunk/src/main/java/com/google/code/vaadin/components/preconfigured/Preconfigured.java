@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.components;
+package com.google.code.vaadin.components.preconfigured;
 
 import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.Component;

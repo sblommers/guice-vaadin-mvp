@@ -16,21 +16,22 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.mapping;
+package com.google.code.vaadin.components.eventhandling.configuration;
 
-import com.google.code.vaadin.mvp.AbstractPresenter;
-import com.google.code.vaadin.mvp.View;
+import com.google.code.vaadin.mvp.eventhandling.EventBusType;
+import net.engio.mbassy.bus.BusConfiguration;
 
 /**
- * Provides {@link View} instance for specified {@link AbstractPresenter}.
+ * Настройки привязки конкретной шины сообщений.
  *
  * @author Alexey Krylov
- * @see AbstractPresenter#init(ViewProvider)
- * @since 14.02.13
+ * @since 20.02.13
  */
-public interface ViewProvider {
+public interface EventBusBinding {
 
-	/*===========================================[ CLASS METHODS ]================*/
+    /*===========================================[ INTERFACE METHODS ]==============*/
 
-    <V extends View> V getView(AbstractPresenter<V> presenter);
+    EventBusType getType();
+
+    BusConfiguration getConfiguration();
 }

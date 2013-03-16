@@ -23,7 +23,6 @@ import com.google.code.vaadin.application.MVPApplicationInitParameters;
 import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.code.vaadin.localization.TextBundle;
-import com.vaadin.server.UIProvider;
 
 import javax.servlet.ServletContext;
 import java.util.Collections;
@@ -63,7 +62,7 @@ public abstract class AbstractMVPApplicationTestModule extends AbstractMVPApplic
 
     @Override
     protected void bindUIProvider() {
-        bind(UIProvider.class).to(ScopedUIProvider.class);
+        super.bindUIProvider();
         bind(ScopedUIProvider.class).to(TestScopedUIProvider.class);
     }
 

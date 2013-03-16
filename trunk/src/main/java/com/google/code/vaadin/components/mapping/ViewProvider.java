@@ -21,6 +21,8 @@ package com.google.code.vaadin.components.mapping;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Provides {@link View} instance for specified {@link AbstractPresenter}.
  *
@@ -32,5 +34,5 @@ public interface ViewProvider {
 
 	/*===========================================[ CLASS METHODS ]================*/
 
-    <V extends View> V getView(AbstractPresenter<V> presenter);
+    <V extends View> V getView(@NotNull AbstractPresenter<V> presenter);
 }

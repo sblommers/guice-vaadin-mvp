@@ -19,7 +19,7 @@
 package com.google.code.vaadin.mvp.eventhandling;
 
 /**
- * Expected Event source - view event bus, model event bus or shared model event bus.
+ * Represents Event source - View event bus, Model event bus or Shared model event bus.
  *
  * @author Alexey Krylov
  * @see Observes

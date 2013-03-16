@@ -18,9 +18,6 @@
 
 package com.google.code.vaadin.internal.mapping;
 
-import com.google.code.vaadin.internal.mapping.AccessibleViewPresenterMappingRegistry;
-import com.google.code.vaadin.internal.mapping.AccessibleViewProvider;
-import com.google.code.vaadin.internal.mapping.ViewOpenedEventRedirector;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.AbstractView;
 import com.google.code.vaadin.mvp.View;

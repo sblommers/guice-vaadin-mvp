@@ -25,7 +25,7 @@ import net.engio.mbassy.bus.BusConfiguration;
 import javax.validation.constraints.NotNull;
 
 /**
- * Построитель привязки конкретной шины сообщений.
+ * todo  Построитель привязки конкретной шины сообщений.
  *
  * @author Alexey Krylov
  * @see EventBusBinder#bind(EventBusTypes)
@@ -36,7 +36,7 @@ public interface EventBusBindingBuilder {
     /**
      * Привязывает именованную шину к конкретной конфигурации.
      *
-     * @param configuration конфигурация шины сообщений
+     * @param configuration event bus configuration
      */
     void withConfiguration(@NotNull BusConfiguration configuration);
 

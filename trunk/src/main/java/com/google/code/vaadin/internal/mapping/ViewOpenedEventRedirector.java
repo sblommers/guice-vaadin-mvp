@@ -28,7 +28,7 @@ import com.google.code.vaadin.mvp.eventhandling.events.ViewOpenedEvent;
 import javax.inject.Inject;
 
 /**
- * Calls {@link AbstractPresenter#viewOpened} if appropriate event received from presenter's associated view.
+ * Invokes {@link AbstractPresenter#viewOpened} if appropriate Event received from presenter's associated View.
  *
  * @author Alexey Krylov
  * @since 25.01.13
@@ -45,7 +45,7 @@ class ViewOpenedEventRedirector {
 
     @Observes(EventType.VIEW)
     public void viewOpened(ViewOpenedEvent event) {
-        AbstractPresenter abstractPresenter = mappingRegistry.getPresenterForView(event.getView());
+        AbstractPresenter abstractPresenter = mappingRegistry.getPresenter(event.getView());
         abstractPresenter.viewOpened();
     }
 }

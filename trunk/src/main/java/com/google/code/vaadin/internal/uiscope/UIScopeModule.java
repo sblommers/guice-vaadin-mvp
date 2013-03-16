@@ -22,6 +22,12 @@ import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 
+/**
+ * {@link UIScope} support module.
+ *
+ * @author Alexey Krylov
+ * @since 17.03.13
+ */
 public class UIScopeModule extends AbstractModule {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/

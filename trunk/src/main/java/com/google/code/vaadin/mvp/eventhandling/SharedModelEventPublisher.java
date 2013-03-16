@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.mvp.eventhandling;
 
-import com.google.code.vaadin.internal.eventhandling.EventBusModule;
+import com.google.code.vaadin.application.AbstractMVPApplicationModule;
 import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinder;
 import com.google.inject.Scopes;
 
@@ -28,7 +28,7 @@ import com.google.inject.Scopes;
  * This publisher is application-scoped (singleton).
  * <p/>
  * NOTE: shared model EventBus is disabled by default. Use {@link EventBusBinder} and
- * {@link EventBusModule#bindEventBuses(EventBusBinder)} to bind EventBus with {@link EventBusTypes#SHARED_MODEL} type.
+ * {@link AbstractMVPApplicationModule#bindEventBuses(EventBusBinder)} to bind EventBus with {@link EventBusTypes#SHARED_MODEL} type.
  *
  * @author Alexey Krylov
  * @see Scopes#SINGLETON

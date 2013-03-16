@@ -21,13 +21,12 @@ package com.google.code.vaadin.application.ui;
 import com.google.code.vaadin.application.MVPApplicationInitParameters;
 import com.google.code.vaadin.application.uiscope.UIKey;
 import com.google.code.vaadin.application.uiscope.UIScope;
-import com.google.code.vaadin.application.uiscope.UIScoped;
-import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
 import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinder;
-import com.google.code.vaadin.mvp.eventhandling.EventBusTypes;
+import com.google.code.vaadin.internal.eventhandling.AbstractEventBusModule;
 import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedEventBusSubscribersRegistry;
 import com.google.code.vaadin.internal.uiscope.UIKeyProvider;
 import com.google.code.vaadin.mvp.eventhandling.EventBus;
+import com.google.code.vaadin.mvp.eventhandling.EventBusTypes;
 import com.google.common.base.Preconditions;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -46,9 +45,9 @@ import javax.inject.Named;
 import static com.vaadin.server.ClientConnector.DetachListener;
 
 /**
- * A Vaadin UI provider which supports the use of Guice scoped UI (see {@link UIScoped}).
- * <p/>
- * Subclasses should implement getUIClass(UIClassSelectionEvent event) to provide logic for selecting the UI class.
+ * A Vaadin UI provider adapted to Guice-Vaadin-MVP specifics.
+ * It always returns UI class specified in webapp descriptor with {@link MVPApplicationInitParameters#P_APPLICATION_UI_CLASS}
+ * context parameter.
  *
  * @author Alexey Krylov
  * @since 08.02.13
@@ -58,7 +57,6 @@ public class ScopedUIProvider extends UIProvider {
 	/*===========================================[ STATIC VARIABLES ]=============*/
 
     private static final long serialVersionUID = -5773777009877153344L;
-
 
 	/*===========================================[ INSTANCE VARIABLES ]====!=======*/
 

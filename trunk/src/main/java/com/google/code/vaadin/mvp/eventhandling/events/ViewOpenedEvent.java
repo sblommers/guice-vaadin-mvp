@@ -21,6 +21,8 @@ package com.google.code.vaadin.mvp.eventhandling.events;
 import com.google.code.vaadin.mvp.View;
 
 /**
+ * Represents fact of {@link View#open()} invocation.
+ *
  * @author Alexey Krylov
  * @since 24.01.13
  */
@@ -47,7 +49,6 @@ public class ViewOpenedEvent {
     public Class<? extends View> getViewInterface() {
         return viewInterface;
     }
-
 
     @Override
     public String toString() {

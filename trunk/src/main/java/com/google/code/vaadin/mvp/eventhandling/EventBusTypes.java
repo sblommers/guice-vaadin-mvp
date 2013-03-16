@@ -18,11 +18,14 @@
 
 package com.google.code.vaadin.mvp.eventhandling;
 
+import com.google.code.vaadin.application.AbstractMVPApplicationModule;
+import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinder;
+
 /**
- * Enumeration
- * EventBusType - TODO: description
+ * Represents all framework-provided types of Event Buses.
  *
  * @author Alexey Krylov
+ * @see AbstractMVPApplicationModule#bindEventBuses(EventBusBinder)
  * @since 22.02.13
  */
 public enum EventBusTypes {

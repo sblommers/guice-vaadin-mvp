@@ -19,6 +19,8 @@
 package com.google.code.vaadin.localization;
 
 
+import com.google.code.vaadin.components.localization.EncodedControl;
+
 import java.lang.annotation.*;
 import java.util.ResourceBundle;
 
@@ -28,12 +30,14 @@ import java.util.ResourceBundle;
  * bundle encoding specifics.
  *
  * @author Alexey Krylov
+ * @see EncodedControl
  * @since 07.02.13
  */
 @Documented
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InjectBundle {
+
     /**
      * @return the base name of the resource bundle
      */
@@ -42,5 +46,5 @@ public @interface InjectBundle {
     /**
      * @return encoding of the resource bundle
      */
-    String encoding() default LocalizationConstants.DEFAULT_ENCODING;
+    String encoding() default LocalizationConstants.DEFAULT_BUNDLE_ENCODING;
 }

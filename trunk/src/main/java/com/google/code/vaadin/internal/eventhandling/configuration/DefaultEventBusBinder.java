@@ -41,7 +41,6 @@ public class DefaultEventBusBinder implements EventBusBinder {
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    //todo hide
     public DefaultEventBusBinder() {
         bindings = new EnumMap<>(EventBusTypes.class);
     }

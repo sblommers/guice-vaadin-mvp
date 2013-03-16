@@ -22,9 +22,10 @@ import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import net.engio.mbassy.bus.BusConfiguration;
 
 /**
- * Настройки привязки конкретной шины сообщений.
+ * A mapping from Event Bus to its configuration.
  *
  * @author Alexey Krylov
+ * @see BusConfiguration
  * @since 20.02.13
  */
 public interface EventBusBinding {

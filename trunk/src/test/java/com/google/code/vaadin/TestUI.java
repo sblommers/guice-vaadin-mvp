@@ -22,7 +22,6 @@ import com.google.code.vaadin.application.ui.ScopedUI;
 import com.vaadin.server.VaadinRequest;
 
 /**
- * //TODO Navigator
  * @author Alexey Krylov
  * @since 08.02.13
  */

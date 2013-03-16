@@ -43,7 +43,7 @@ import java.util.*;
 
 /**
  * Base module for all guice-vaadin-mvp based applications.
- * Application module class should be specified in web.xml with {@link MVPApplicationInitParameters#P_APPLICATION_MODULE}
+ * Application module class should be specified in webapp descriptor with {@link MVPApplicationInitParameters#P_APPLICATION_MODULE}
  * context parameter.
  *
  * @author Alexey Krylov

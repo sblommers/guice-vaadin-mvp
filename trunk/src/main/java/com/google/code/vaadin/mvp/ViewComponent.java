@@ -32,7 +32,7 @@ import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 
 /**
- * Base class for views and their subcomponents.
+ * Base class for Views or their subcomponents.
  *
  * @author Alexey Krylov
  * @since 23.01.13

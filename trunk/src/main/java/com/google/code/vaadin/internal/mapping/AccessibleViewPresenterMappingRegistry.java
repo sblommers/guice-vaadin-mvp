@@ -22,7 +22,9 @@ import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.components.mapping.ViewPresenterMappingRegistry;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
+import com.google.common.base.Preconditions;
 
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -53,7 +55,8 @@ class AccessibleViewPresenterMappingRegistry implements ViewPresenterMappingRegi
     }
 
     @Override
-    public <P extends AbstractPresenter<V>, V extends View> P getPresenterForView(V view) {
+    public <P extends AbstractPresenter<V>, V extends View> P getPresenter(@NotNull V view) {
+        Preconditions.checkArgument(view != null, "Specified View is null");
         return (P) mappings.get(view);
     }
 }

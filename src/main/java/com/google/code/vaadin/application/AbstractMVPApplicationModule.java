@@ -20,15 +20,16 @@ package com.google.code.vaadin.application;
 
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinder;
-import com.google.code.vaadin.internal.eventhandling.configuration.DefaultEventBusBinder;
-import com.google.code.vaadin.internal.uiscope.UIScopeModule;
-import com.google.code.vaadin.internal.preconfigured.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.eventhandling.EventBusModule;
+import com.google.code.vaadin.internal.eventhandling.configuration.DefaultEventBusBinder;
 import com.google.code.vaadin.internal.jsr250.Jsr250Module;
 import com.google.code.vaadin.internal.localization.LocalizationModule;
-import com.google.code.vaadin.internal.logging.LoggerModule;
 import com.google.code.vaadin.internal.mapping.PresenterMapperModule;
+import com.google.code.vaadin.internal.preconfigured.VaadinComponentPreconfigurationModule;
+import com.google.code.vaadin.internal.uiscope.UIScopeModule;
+import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.MVPApplicationException;
+import com.google.code.vaadin.mvp.View;
 import com.google.common.base.Preconditions;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.ServletModule;
@@ -38,9 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Base module for all guice-vaadin-mvp based applications.
@@ -79,12 +78,12 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
 
         EventBusBinder eventBusBinder = createEventBusBinder();
         bindEventBuses(eventBusBinder);
+        bind(EventBusBinder.class).toInstance(eventBusBinder);
 
-        install(new LoggerModule());
         install(new EventBusModule(eventBusBinder));
         install(new LocalizationModule());
         install(new UIScopeModule());
-        install(createPresenterMapperModule());
+        install(new PresenterMapperModule(servletContext, getPresenterClasses()));
         // support for @Preconfigured last because it depends on TextBundle bindings in ApplicationModule
         install(new VaadinComponentPreconfigurationModule());
 
@@ -115,8 +114,8 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
     protected void bindEventBuses(EventBusBinder binder) {
     }
 
-    protected PresenterMapperModule createPresenterMapperModule() {
-        return new PresenterMapperModule(servletContext);
+    protected Collection<Class<? extends AbstractPresenter<? extends View>>> getPresenterClasses() {
+        return Collections.emptyList();
     }
 
     protected Map<String, String> extractInitParams(ServletContext servletContext) {

@@ -42,7 +42,7 @@ import java.util.*;
 
 /**
  * PresenterMappingModule - TODO: description
- * TODO manual wiring option
+ *
  * @author Alexey Krylov
  * @since 25.01.13
  */
@@ -56,12 +56,14 @@ public class PresenterMapperModule extends AbstractModule {
 
     protected Class<? extends ScopedUI> applicationClass;
     protected ServletContext servletContext;
+    protected Collection<Class<? extends AbstractPresenter<? extends View>>> presenterClasses;
 
     /*===========================================[ CONSTRUCTORS ]=================*/
 
-    public PresenterMapperModule(ServletContext servletContext) {
+    public PresenterMapperModule(ServletContext servletContext, Collection<Class<? extends AbstractPresenter<? extends View>>> presenterClasses) {
         this.servletContext = servletContext;
         applicationClass = ApplicationUIClassProvider.getApplicationClass(servletContext);
+        this.presenterClasses = new ArrayList<>(presenterClasses);
     }
 
     /*===========================================[ INTERFACE METHODS ]============*/
@@ -71,7 +73,11 @@ public class PresenterMapperModule extends AbstractModule {
         bind(ViewPresenterMappingRegistry.class).to(AccessibleViewPresenterMappingRegistry.class).in(UIScope.getCurrent());
         bind(ViewProvider.class).to(AccessibleViewProvider.class).in(UIScope.getCurrent());
         //1. find all presenters
-        Iterable<Class<? extends AbstractPresenter<? extends View>>> presenterClasses = getPresenterClasses();
+        Collection<Class<? extends AbstractPresenter<? extends View>>> presenterClasses = new ArrayList<>(this.presenterClasses);
+        if (presenterClasses.isEmpty()){
+            presenterClasses.addAll(findPresenterClasses());
+        }
+
 
         //2. create context map: View interface -> Presenter class
         Map<Class<? extends View>, Class<? extends AbstractPresenter>> viewPresenterMap = new HashMap<>();
@@ -87,10 +93,10 @@ public class PresenterMapperModule extends AbstractModule {
         bindListener(Matchers.any(), viewTypeListener);
     }
 
-    protected Collection<Class<? extends AbstractPresenter<? extends View>>> getPresenterClasses() {
+    protected Collection<Class<? extends AbstractPresenter<? extends View>>> findPresenterClasses() {
         Collection<Class<? extends AbstractPresenter<? extends View>>> result = new ArrayList<>();
         Reflections reflections = new Reflections(createReflectionsConfiguration());
-        result.addAll((Set)reflections.getSubTypesOf(AbstractPresenter.class));
+        result.addAll((Set) reflections.getSubTypesOf(AbstractPresenter.class));
         return result;
     }
 

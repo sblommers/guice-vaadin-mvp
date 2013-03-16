@@ -26,8 +26,8 @@ import com.google.code.vaadin.mvp.eventhandling.events.LocaleChangedEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +43,6 @@ class LocalizableComponentsRegistry {
 
 	/*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    @Inject
     private Logger logger;
 
     @com.google.inject.Inject(optional = true)
@@ -57,6 +56,7 @@ class LocalizableComponentsRegistry {
     LocalizableComponentsRegistry() {
         localizedCaptions = new HashMap<>();
         localizedLabelValues = new HashMap<>();
+        logger = LoggerFactory.getLogger(getClass());
     }
 
 	/*===========================================[ CLASS METHODS ]================*/

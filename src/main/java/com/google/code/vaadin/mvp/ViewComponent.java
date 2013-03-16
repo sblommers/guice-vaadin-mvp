@@ -45,7 +45,6 @@ public abstract class ViewComponent extends CustomComponent {
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    @Inject
     protected transient Logger logger;
 
     @Inject

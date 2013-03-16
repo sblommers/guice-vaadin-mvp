@@ -39,6 +39,7 @@ import com.vaadin.server.UIProvider;
 import com.vaadin.ui.UI;
 import com.vaadin.util.CurrentInstance;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Named;
 
@@ -70,13 +71,13 @@ public class ScopedUIProvider extends UIProvider {
 	/*===========================================[ CONSTRUCTORS ]=================*/
 
     @Inject
-    protected void init(Logger logger, Injector injector,
+    protected void init(Injector injector,
                         @Named(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS) Class uiClass,
                         UIKeyProvider uiKeyProvider,
                         EventBusBinder eventBusBinder) {
         Preconditions.checkArgument(ScopedUI.class.isAssignableFrom(uiClass), String.format("ERROR: %s is not subclass of ScopedUI", uiClass.getName()));
 
-        this.logger = logger;
+        logger = LoggerFactory.getLogger(getClass());
         this.injector = injector;
         this.uiClass = uiClass;
         this.uiKeyProvider = uiKeyProvider;

@@ -19,8 +19,10 @@
 package com.google.code.vaadin.application;
 
 import com.google.code.vaadin.application.ui.ScopedUIProvider;
+import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinder;
+import com.google.code.vaadin.internal.eventhandling.configuration.DefaultEventBusBinder;
 import com.google.code.vaadin.internal.uiscope.UIScopeModule;
-import com.google.code.vaadin.internal.components.VaadinComponentPreconfigurationModule;
+import com.google.code.vaadin.internal.preconfigured.VaadinComponentPreconfigurationModule;
 import com.google.code.vaadin.internal.eventhandling.EventBusModule;
 import com.google.code.vaadin.internal.jsr250.Jsr250Module;
 import com.google.code.vaadin.internal.localization.LocalizationModule;
@@ -72,16 +74,19 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
     protected void configureServlets() {
         // support of @PostConstuct and @Resource
         if (isJsr250SupportEnabled()) {
-            install(createJsr250Module());
+            install(new Jsr250Module());
         }
 
-        install(createLoggerModule());
-        install(createEventBusModule());
-        install(createLocalizationModule());
-        install(createUIScopeModule());
+        EventBusBinder eventBusBinder = createEventBusBinder();
+        bindEventBuses(eventBusBinder);
+
+        install(new LoggerModule());
+        install(new EventBusModule(eventBusBinder));
+        install(new LocalizationModule());
+        install(new UIScopeModule());
         install(createPresenterMapperModule());
         // support for @Preconfigured last because it depends on TextBundle bindings in ApplicationModule
-        install(createComponentPreconfigurationModule());
+        install(new VaadinComponentPreconfigurationModule());
 
         try {
             uiClass = Class.forName(servletContext.getInitParameter(MVPApplicationInitParameters.P_APPLICATION_UI_CLASS));
@@ -103,37 +108,15 @@ public abstract class AbstractMVPApplicationModule extends ServletModule {
         return true;
     }
 
-    /**
-     * Override to provide your custom JSR-250 support module.
-     *
-     * @return JSR-250 support module
-     */
-    protected Jsr250Module createJsr250Module() {
-        return new Jsr250Module();
+    protected EventBusBinder createEventBusBinder() {
+        return new DefaultEventBusBinder();
     }
 
-    protected LoggerModule createLoggerModule() {
-        return new LoggerModule();
-    }
-
-    protected EventBusModule createEventBusModule() {
-        return new EventBusModule();
-    }
-
-    protected LocalizationModule createLocalizationModule() {
-        return new LocalizationModule();
-    }
-
-    protected UIScopeModule createUIScopeModule() {
-        return new UIScopeModule();
+    protected void bindEventBuses(EventBusBinder binder) {
     }
 
     protected PresenterMapperModule createPresenterMapperModule() {
         return new PresenterMapperModule(servletContext);
-    }
-
-    protected VaadinComponentPreconfigurationModule createComponentPreconfigurationModule() {
-        return new VaadinComponentPreconfigurationModule();
     }
 
     protected Map<String, String> extractInitParams(ServletContext servletContext) {

@@ -16,9 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.eventhandling.configuration;
-
-import com.google.code.vaadin.mvp.eventhandling.EventType;
+package com.google.code.vaadin.mvp.eventhandling;
 
 /**
  * Enumeration

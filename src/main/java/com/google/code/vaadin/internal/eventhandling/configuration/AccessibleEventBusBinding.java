@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.internal.eventhandling.configuration;
 
+import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinding;
 import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import net.engio.mbassy.bus.BusConfiguration;
 

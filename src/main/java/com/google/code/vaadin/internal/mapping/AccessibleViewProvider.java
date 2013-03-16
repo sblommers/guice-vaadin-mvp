@@ -19,6 +19,7 @@
 package com.google.code.vaadin.internal.mapping;
 
 import com.google.code.vaadin.application.uiscope.UIScoped;
+import com.google.code.vaadin.components.mapping.ViewProvider;
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
 import org.slf4j.Logger;

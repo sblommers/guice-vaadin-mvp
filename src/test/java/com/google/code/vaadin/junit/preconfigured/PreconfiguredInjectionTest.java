@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.junit.preconfigured;
 
-import com.google.code.vaadin.components.Preconfigured;
+import com.google.code.vaadin.components.preconfigured.Preconfigured;
 import com.google.code.vaadin.junit.AbstractMVPTest;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;

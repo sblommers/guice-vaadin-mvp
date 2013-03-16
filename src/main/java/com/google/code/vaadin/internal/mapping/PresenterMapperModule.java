@@ -20,6 +20,8 @@ package com.google.code.vaadin.internal.mapping;
 
 import com.google.code.vaadin.application.ui.ScopedUI;
 import com.google.code.vaadin.application.uiscope.UIScope;
+import com.google.code.vaadin.components.mapping.ViewPresenterMappingRegistry;
+import com.google.code.vaadin.components.mapping.ViewProvider;
 import com.google.code.vaadin.internal.util.ApplicationUIClassProvider;
 import com.google.code.vaadin.internal.util.TypeUtil;
 import com.google.code.vaadin.mvp.AbstractPresenter;

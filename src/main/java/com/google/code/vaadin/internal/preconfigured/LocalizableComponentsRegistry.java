@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.components;
+package com.google.code.vaadin.internal.preconfigured;
 
 import com.google.code.vaadin.application.uiscope.UIScoped;
 import com.google.code.vaadin.localization.TextBundle;

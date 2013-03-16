@@ -16,22 +16,20 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.eventhandling.configuration;
+package com.google.code.vaadin.components.mapping;
 
-import com.google.code.vaadin.mvp.eventhandling.EventBusType;
-import net.engio.mbassy.bus.BusConfiguration;
+import com.google.code.vaadin.mvp.AbstractPresenter;
+import com.google.code.vaadin.mvp.View;
 
 /**
- * Настройки привязки конкретной шины сообщений.
+ * Registry of [View] -> [Presenter] associations.
  *
  * @author Alexey Krylov
- * @since 20.02.13
+ * @since 28.01.13
  */
-public interface EventBusBinding {
+public interface ViewPresenterMappingRegistry {
 
     /*===========================================[ INTERFACE METHODS ]==============*/
 
-    EventBusType getType();
-
-    BusConfiguration getConfiguration();
+    <P extends AbstractPresenter<V>, V extends View> P getPresenterForView(V view);
 }

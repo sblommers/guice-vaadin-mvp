@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.localization;
 
-import com.google.code.vaadin.internal.localization.EncodedControl;
+import com.google.code.vaadin.components.localization.EncodedControl;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

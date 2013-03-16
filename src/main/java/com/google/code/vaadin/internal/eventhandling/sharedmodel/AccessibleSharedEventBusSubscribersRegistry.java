@@ -23,7 +23,6 @@ import com.google.code.vaadin.application.uiscope.UIKey;
 import com.google.common.base.Preconditions;
 import com.vaadin.ui.UI;
 
-import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;

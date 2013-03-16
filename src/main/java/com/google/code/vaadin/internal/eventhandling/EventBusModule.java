@@ -18,13 +18,12 @@
 
 package com.google.code.vaadin.internal.eventhandling;
 
-import com.google.code.vaadin.internal.eventhandling.configuration.DefaultEventBusBinder;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinder;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinding;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinder;
+import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinding;
 import com.google.code.vaadin.internal.eventhandling.model.ModelEventBusModule;
 import com.google.code.vaadin.internal.eventhandling.sharedmodel.SharedModelEventBusModule;
 import com.google.code.vaadin.internal.eventhandling.view.ViewEventBusModule;
+import com.google.code.vaadin.mvp.eventhandling.EventBusTypes;
 import com.google.inject.AbstractModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,11 +39,13 @@ public class EventBusModule extends AbstractModule{
 	/*===========================================[ STATIC VARIABLES ]=============*/
 
     protected Logger logger;
+    protected EventBusBinder eventBusBinder;
 
 	/*===========================================[ INTERFACE METHODS ]============*/
 
-    public EventBusModule() {
+    public EventBusModule(EventBusBinder eventBusBinder) {
         logger = LoggerFactory.getLogger(getClass());
+        this.eventBusBinder = eventBusBinder;
     }
 
     @Override
@@ -52,11 +53,6 @@ public class EventBusModule extends AbstractModule{
         String simpleName = getClass().getSimpleName();
         String moduleName = simpleName.isEmpty() ? getClass().getName() : simpleName;
         logger.info(String.format("Configuring [%s]", moduleName));
-
-        EventBusBinder eventBusBinder = createEventBusBinder();
-        bind(EventBusBinder.class).toInstance(eventBusBinder);
-
-        bindEventBuses(eventBusBinder);
 
         EventBusBinding viewEventBusBinding = eventBusBinder.getBinding(EventBusTypes.VIEW);
         if (viewEventBusBinding == null) {
@@ -78,12 +74,5 @@ public class EventBusModule extends AbstractModule{
         }
 
         logger.info(String.format("[%s] configured", moduleName));
-    }
-
-    protected EventBusBinder createEventBusBinder() {
-        return new DefaultEventBusBinder();
-    }
-
-    protected void bindEventBuses(EventBusBinder binder) {
     }
 }

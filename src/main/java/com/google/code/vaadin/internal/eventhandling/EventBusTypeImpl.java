@@ -18,7 +18,7 @@
 
 package com.google.code.vaadin.internal.eventhandling;
 
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.mvp.eventhandling.EventBusTypes;
 import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 
 import java.lang.annotation.Annotation;

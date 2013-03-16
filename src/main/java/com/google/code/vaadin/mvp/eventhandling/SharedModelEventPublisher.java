@@ -19,8 +19,7 @@
 package com.google.code.vaadin.mvp.eventhandling;
 
 import com.google.code.vaadin.internal.eventhandling.EventBusModule;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinder;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinder;
 import com.google.inject.Scopes;
 
 /**

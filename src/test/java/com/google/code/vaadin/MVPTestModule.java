@@ -19,10 +19,9 @@
 package com.google.code.vaadin;
 
 import com.google.code.vaadin.application.ui.ScopedUI;
-import com.google.code.vaadin.internal.eventhandling.EventBusModule;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusBinder;
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
+import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinder;
 import com.google.code.vaadin.junit.AbstractMVPApplicationTestModule;
+import com.google.code.vaadin.mvp.eventhandling.EventBusTypes;
 
 /**
  * @author Alexey Krylov
@@ -33,17 +32,12 @@ public class MVPTestModule extends AbstractMVPApplicationTestModule {
     /*===========================================[ CLASS METHODS ]================*/
 
     @Override
-    protected EventBusModule createEventBusModule() {
-        return new EventBusModule() {
-            @Override
-            protected void bindEventBuses(EventBusBinder binder) {
-                binder.bind(EventBusTypes.MODEL).withDefaultConfiguration();
-                binder.bind(EventBusTypes.SHARED_MODEL).withDefaultConfiguration();
-            }
-        };
+    protected void bindEventBuses(EventBusBinder binder) {
+        binder.bind(EventBusTypes.MODEL).withDefaultConfiguration();
+        binder.bind(EventBusTypes.SHARED_MODEL).withDefaultConfiguration();
     }
 
-    // uncomment to disable Reflections scan
+    // todo uncomment to disable Reflections scan
     /* protected PresenterMapperModule createPresenterMapperModule() {
         return new PresenterMapperModule(servletContext){
             @Override

@@ -18,6 +18,7 @@
 
 package com.google.code.vaadin.internal.localization;
 
+import com.google.code.vaadin.components.localization.EncodedControl;
 import com.google.code.vaadin.localization.LocalizationConstants;
 import com.google.code.vaadin.localization.ResourceBundleProvider;
 import com.google.gwt.thirdparty.guava.common.base.Preconditions;

@@ -16,20 +16,21 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.mapping;
+package com.google.code.vaadin.components.mapping;
 
 import com.google.code.vaadin.mvp.AbstractPresenter;
 import com.google.code.vaadin.mvp.View;
 
 /**
- * Registry of [View] -> [Presenter] associations.
+ * Provides {@link View} instance for specified {@link AbstractPresenter}.
  *
  * @author Alexey Krylov
- * @since 28.01.13
+ * @see AbstractPresenter#init(ViewProvider)
+ * @since 14.02.13
  */
-public interface ViewPresenterMappingRegistry {
+public interface ViewProvider {
 
-    /*===========================================[ INTERFACE METHODS ]==============*/
+	/*===========================================[ CLASS METHODS ]================*/
 
-    <P extends AbstractPresenter<V>, V extends View> P getPresenterForView(V view);
+    <V extends View> V getView(AbstractPresenter<V> presenter);
 }

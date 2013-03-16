@@ -19,7 +19,7 @@
 package com.google.code.vaadin.mvp;
 
 import com.google.code.vaadin.application.uiscope.UIScoped;
-import com.google.code.vaadin.internal.mapping.ViewProvider;
+import com.google.code.vaadin.components.mapping.ViewProvider;
 import com.google.inject.ProvisionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

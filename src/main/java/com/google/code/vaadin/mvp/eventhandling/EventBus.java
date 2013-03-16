@@ -18,8 +18,6 @@
 
 package com.google.code.vaadin.mvp.eventhandling;
 
-import com.google.code.vaadin.internal.eventhandling.configuration.EventBusTypes;
-
 import javax.validation.constraints.NotNull;
 
 /**

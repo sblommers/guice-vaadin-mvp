@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-package com.google.code.vaadin.internal.components;
+package com.google.code.vaadin.internal.preconfigured;
 
-import com.google.code.vaadin.components.Preconfigured;
+import com.google.code.vaadin.components.preconfigured.Preconfigured;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
 import com.google.inject.TypeLiteral;
@@ -30,7 +30,7 @@ import javax.inject.Inject;
 import java.lang.reflect.Field;
 
 /**
- * Listens for injection of fields with supertype {@link Component} and marked with {@link Preconfigured} annotation.
+ * Listens for injection of fields with supertype {@link Component} and marked with {@link com.google.code.vaadin.components.preconfigured.Preconfigured} annotation.
  * For this fields {@link VaadinComponentsInjector} will be registered.
  *
  * @author Alexey Krylov

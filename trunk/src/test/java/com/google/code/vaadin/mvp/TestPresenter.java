@@ -44,7 +44,7 @@ public class TestPresenter extends AbstractPresenter<TestView> {
     private boolean viewOpened;
 
     @Inject
-    private TestDomainService domainService;
+    private DomainService domainService;
 
     /*===========================================[ CLASS METHODS ]================*/
 

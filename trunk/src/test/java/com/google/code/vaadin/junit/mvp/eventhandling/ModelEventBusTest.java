@@ -51,7 +51,6 @@ public class ModelEventBusTest extends AbstractMVPTest {
     @EventBusType(EventBusTypes.MODEL)
     private IMessageBus messageBus;
 
-
     @Inject
     @EventBusType(EventBusTypes.MODEL)
     private EventPublisher eventPublisher;

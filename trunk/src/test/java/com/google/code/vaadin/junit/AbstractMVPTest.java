@@ -25,7 +25,6 @@ import com.google.inject.Stage;
 import com.mycila.testing.plugin.guice.GuiceContext;
 
 /**
- * //TODO masstest UI
  * @author Alexey Krylov
  * @since 10.02.13
  */

@@ -37,4 +37,6 @@ public interface SharedEventBusSubscribersRegistry {
     /*===========================================[ INTERFACE METHODS ]==============*/
 
     Collection<Object> removeAndGetSubscribers(@NotNull UIKey uiKey);
+
+    Collection<Object> getSubscribers(@NotNull UIKey uiKey);
 }

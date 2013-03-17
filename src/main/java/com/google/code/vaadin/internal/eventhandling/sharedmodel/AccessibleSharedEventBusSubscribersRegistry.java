@@ -38,7 +38,7 @@ class AccessibleSharedEventBusSubscribersRegistry implements SharedEventBusSubsc
 
     /*===========================================[ INSTANCE VARIABLES ]===========*/
 
-    private Map<UIKey, Collection<Object>> subscribersMap =  new ConcurrentHashMap<>();
+    private Map<UIKey, Collection<Object>> subscribersMap = new ConcurrentHashMap<>();
 
     /*===========================================[ CLASS METHODS ]================*/
 
@@ -59,9 +59,17 @@ class AccessibleSharedEventBusSubscribersRegistry implements SharedEventBusSubsc
         Preconditions.checkArgument(uiKey != null, "UIKey can't be null");
 
         Collection<Object> removed = subscribersMap.remove(uiKey);
-        if (removed == null){
+        if (removed == null) {
             removed = new ArrayList<>();
         }
         return removed;
+    }
+
+    @Override
+    public Collection<Object> getSubscribers(@NotNull UIKey uiKey) {
+        Preconditions.checkArgument(uiKey != null, "UIKey can't be null");
+
+        return subscribersMap.containsKey(uiKey) ?
+                Collections.unmodifiableCollection(subscribersMap.get(uiKey)) : Collections.emptyList();
     }
 }

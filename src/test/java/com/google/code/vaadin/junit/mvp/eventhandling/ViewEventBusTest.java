@@ -72,6 +72,11 @@ public class ViewEventBusTest extends AbstractMVPTest {
         eventCounter++;
     }
 
+    @Observes(value = EventType.VIEW, enabled = false)
+    protected void onDisabled(ViewEvent event) {
+        eventCounter++;
+    }
+
     @Test
     public void testFireEvent() {
         publisher.publish(new ViewEvent());

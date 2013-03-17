@@ -11,7 +11,7 @@
 
     <groupId>com.google.code.guice-vaadin-mvp</groupId>
     <artifactId>guice-vaadin-mvp</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Guice Vaadin MVP</name>
@@ -40,9 +40,9 @@
     </developers>
 
     <scm>
-        <connection>scm:svn:https://guice-vaadin-mvp.googlecode.com/svn/tags/1.0.0</connection>
-        <developerConnection>scm:svn:https://guice-vaadin-mvp.googlecode.com/svn/tags/1.0.0</developerConnection>
-        <url>https://guice-vaadin-mvp.googlecode.com/svn/tags/1.0.0</url>
+        <connection>scm:svn:https://guice-vaadin-mvp.googlecode.com/svn/trunk/</connection>
+        <developerConnection>scm:svn:https://guice-vaadin-mvp.googlecode.com/svn/trunk/</developerConnection>
+        <url>https://guice-vaadin-mvp.googlecode.com/svn/trunk/</url>
     </scm>
 
     <properties>

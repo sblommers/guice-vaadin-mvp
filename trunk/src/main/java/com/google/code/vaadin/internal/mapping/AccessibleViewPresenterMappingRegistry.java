@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Default implementation of {@link com.google.code.vaadin.components.mapping.ViewPresenterMappingRegistry}.
+ * Default implementation of {@link ViewPresenterMappingRegistry}.
  *
  * @author Alexey Krylov
  * @see PresenterMapperModule

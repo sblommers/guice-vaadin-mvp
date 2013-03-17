@@ -18,14 +18,13 @@
 
 package com.google.code.vaadin.components.eventhandling.configuration;
 
-
 import com.google.code.vaadin.mvp.eventhandling.EventBusTypes;
 import net.engio.mbassy.bus.BusConfiguration;
 
 import javax.validation.constraints.NotNull;
 
 /**
- * todo  Построитель привязки конкретной шины сообщений.
+ * Each Event Bus should have binding to its configuration and this builder is an only way to do this.
  *
  * @author Alexey Krylov
  * @see EventBusBinder#bind(EventBusTypes)
@@ -33,16 +32,9 @@ import javax.validation.constraints.NotNull;
  */
 public interface EventBusBindingBuilder {
 
-    /**
-     * Привязывает именованную шину к конкретной конфигурации.
-     *
-     * @param configuration event bus configuration
-     */
     void withConfiguration(@NotNull BusConfiguration configuration);
 
     /**
-     * Привязывает именованную шину к конфигурации по-умолчанию.
-     *
      * @see BusConfiguration#Default()
      */
     void withDefaultConfiguration();

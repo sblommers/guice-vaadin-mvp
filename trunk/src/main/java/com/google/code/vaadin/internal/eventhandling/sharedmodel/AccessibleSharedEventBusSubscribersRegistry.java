@@ -31,7 +31,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * todo
  * @author Alexey Krylov
  * @since 27.01.13
  */

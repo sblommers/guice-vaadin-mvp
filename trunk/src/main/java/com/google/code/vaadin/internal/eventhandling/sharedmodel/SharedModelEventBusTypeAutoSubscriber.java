@@ -24,8 +24,6 @@ import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 
 
 /**
- * SharedModelEventBusSubscriber - TODO: description
- *
  * @author Alexey Krylov
  * @since 14.02.13
  */

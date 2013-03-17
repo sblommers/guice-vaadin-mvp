@@ -23,6 +23,8 @@ import javax.inject.Provider;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * Generates application-unique {@link UIKey}.
+ *
  * @author Alexey Krylov
  * @since 17.03.13
  */

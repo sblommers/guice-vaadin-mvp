@@ -29,8 +29,6 @@ import com.google.inject.Scopes;
 import net.engio.mbassy.bus.IMessageBus;
 
 /**
- * SharedModelEventBusModule - TODO: description
- *
  * @author Alexey Krylov
  * @since 14.02.13
  */

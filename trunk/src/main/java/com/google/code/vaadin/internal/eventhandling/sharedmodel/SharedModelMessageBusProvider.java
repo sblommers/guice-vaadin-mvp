@@ -25,8 +25,6 @@ import com.google.inject.Inject;
 import net.engio.mbassy.bus.BusConfiguration;
 
 /**
- * SharedModelMessageBusProvider - TODO: description
- *
  * @author Alexey Krylov
  * @since 25.02.13
  */

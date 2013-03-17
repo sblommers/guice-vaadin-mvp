@@ -30,7 +30,7 @@ import javax.inject.Inject;
 import java.lang.reflect.Field;
 
 /**
- * Listens for injection of fields with supertype {@link Component} and marked with {@link com.google.code.vaadin.components.preconfigured.Preconfigured} annotation.
+ * Listens for injection of fields with supertype {@link Component} and marked with {@link Preconfigured} annotation.
  * For this fields {@link VaadinComponentsInjector} will be registered.
  *
  * @author Alexey Krylov

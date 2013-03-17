@@ -27,7 +27,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Apply this to classes when you want one instance per UI.
+ * Identifies a type that the injector only instantiates once per UI.
  *
  * @author Alexey Krylov
  * @see UIScope

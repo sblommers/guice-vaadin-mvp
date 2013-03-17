@@ -29,12 +29,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * EventPublisherModule - TODO: description
+ * Configures Event subsystem components.
  *
  * @author Alexey Krylov
+ * @see EventBusBinder
  * @since 24.01.13
  */
-public class EventBusModule extends AbstractModule{
+public class EventBusModule extends AbstractModule {
 
 	/*===========================================[ STATIC VARIABLES ]=============*/
 

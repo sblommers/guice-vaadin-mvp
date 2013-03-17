@@ -26,8 +26,6 @@ import com.google.inject.Provider;
 import net.engio.mbassy.bus.IMessageBus;
 
 /**
- * ViewEventBusModule - TODO: description
- *
  * @author Alexey Krylov
  * @since 24.02.13
  */

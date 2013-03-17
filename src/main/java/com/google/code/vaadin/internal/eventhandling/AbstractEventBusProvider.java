@@ -24,9 +24,10 @@ import net.engio.mbassy.bus.IMessageBus;
 
 
 /**
- * AbstractEventBusProvider - TODO: description
+ * Provides initialized instance of {@link EventBus}.
  *
  * @author Alexey Krylov
+ * @see DefaultEventBus
  * @since 26.01.13
  */
 public abstract class AbstractEventBusProvider implements Provider<EventBus> {

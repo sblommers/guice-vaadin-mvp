@@ -21,7 +21,7 @@ package com.google.code.vaadin.application;
 import com.google.code.vaadin.application.ui.ScopedUI;
 
 /**
- * Mandatory application init parameter names. Should be in the web.xml or any other webapp deployment descriptors.
+ * Mandatory application init parameter names. Should be in the webapp descriptor.
  *
  * @author Alexey Krylov
  * @since 25.01.13

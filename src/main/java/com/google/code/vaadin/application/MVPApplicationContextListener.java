@@ -36,8 +36,7 @@ import java.util.Arrays;
 import java.util.Enumeration;
 
 /**
- * A Guice specific listener class is required to configure the Modules, i.e., the Servlet class, the Application
- * implementation, and all other Guice-managed entities.
+ * Guice-specific listener that is required for main application module instantiation and Injector creation.
  *
  * @author Alexey Krylov
  * @since 23.01.13

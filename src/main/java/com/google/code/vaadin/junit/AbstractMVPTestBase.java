@@ -37,7 +37,7 @@ import javax.inject.Inject;
 import static org.mockito.Mockito.mock;
 
 /**
- * Extend this class to test anything related to UI.
+ * Base class for all JUnit-tests related to UI.
  *
  * @author Alexey Krylov
  * @since 09.02.2013

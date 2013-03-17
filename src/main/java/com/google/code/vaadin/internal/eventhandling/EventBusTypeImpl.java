@@ -24,8 +24,6 @@ import com.google.code.vaadin.mvp.eventhandling.EventBusType;
 import java.lang.annotation.Annotation;
 
 /**
- * ObservesImpl - TODO: description
- *
  * @author Alexey Krylov
  * @since 24.02.13
  */

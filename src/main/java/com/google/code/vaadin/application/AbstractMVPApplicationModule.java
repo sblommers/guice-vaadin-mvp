@@ -42,7 +42,7 @@ import javax.servlet.ServletContext;
 import java.util.*;
 
 /**
- * Base module for all guice-vaadin-mvp based applications.
+ * Base module for all Guice-Vaadin-MVP based applications.
  * Application module class should be specified in webapp descriptor with {@link MVPApplicationInitParameters#P_APPLICATION_MODULE}
  * context parameter.
  *

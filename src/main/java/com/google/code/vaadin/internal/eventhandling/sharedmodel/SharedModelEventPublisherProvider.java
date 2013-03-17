@@ -27,8 +27,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 /**
- * ModelEventPublisherProvider - TODO: description
- *
  * @author Alexey Krylov
  * @since 26.01.13
  */

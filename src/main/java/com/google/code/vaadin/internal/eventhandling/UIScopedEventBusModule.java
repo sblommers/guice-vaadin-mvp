@@ -23,7 +23,7 @@ import com.google.code.vaadin.components.eventhandling.configuration.EventBusBin
 import com.google.inject.Scope;
 
 /**
- * Base Event-Bus configuration module.
+ * Base Event Bus configuration module.
  *
  * @author Alexey Krylov
  * @since 25.02.13

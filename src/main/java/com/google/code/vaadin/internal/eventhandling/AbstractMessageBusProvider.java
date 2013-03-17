@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * AbstractEventBusProvider - TODO: description
+ * Provides initialized instance of {@link IMessageBus}.
  *
  * @author Alexey Krylov
  * @since 26.01.13

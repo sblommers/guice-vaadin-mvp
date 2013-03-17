@@ -21,11 +21,15 @@ package com.google.code.vaadin.internal.eventhandling;
 import com.google.code.vaadin.mvp.eventhandling.EventType;
 import com.google.code.vaadin.mvp.eventhandling.Observes;
 import net.engio.mbassy.common.IPredicate;
+import net.engio.mbassy.listener.Handler;
 
 import java.lang.reflect.Method;
 
 /**
- * MethodResolutionPredicates - TODO: description
+ * MBassador extension of Event Handler resolution - it scans methods marked with {@link Observes} annotation only.
+ * Default {@link Handler} is not supported because it's too powerful for Guice-Vaadin-MVP internals and can bring
+ * complexity in event publishing/handling (for example - because there is at least three available Event Buses - view,
+ * model and shared model).
  *
  * @author Alexey Krylov
  * @since 13.02.13
@@ -39,7 +43,7 @@ public class MethodResolutionPredicates {
 
 	/*===========================================[ CLASS METHODS ]================*/
 
-    public static IPredicate<Method> getEventHandlersPredicate(final EventType eventType){
+    public static IPredicate<Method> getEventHandlersPredicate(final EventType eventType) {
         return new IPredicate<Method>() {
             @Override
             public boolean apply(Method target) {

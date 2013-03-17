@@ -18,14 +18,17 @@
 
 package com.google.code.vaadin.application;
 
+import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.vaadin.server.*;
 
 /**
- * Constructs a new Application instance for each user session.
+ * Initializes Vaadin subsystem with UI class for each user session.
  *
  * @author Alexey Krylov
+ * @see AbstractMVPApplicationModule#bindUIProvider()
+ * @see ScopedUIProvider
  * @since 23.01.13
  */
 @Singleton

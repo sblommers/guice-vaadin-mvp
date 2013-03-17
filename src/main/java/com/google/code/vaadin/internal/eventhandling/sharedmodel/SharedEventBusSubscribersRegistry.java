@@ -18,15 +18,18 @@
 
 package com.google.code.vaadin.internal.eventhandling.sharedmodel;
 
+import com.google.code.vaadin.application.ui.ScopedUIProvider;
 import com.google.code.vaadin.application.uiscope.UIKey;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 /**
- * IMVPApplicationContext - TODO: description
+ * Registry of Shared Model Event Bus subscribers. It's required to automatically unsubscribe UI-scoped subscribers
+ * when UI detaches.
  *
  * @author Alexey Krylov
+ * @see ScopedUIProvider#createScopedUIDetachListener(Class, UIKey)
  * @since 28.01.13
  */
 public interface SharedEventBusSubscribersRegistry {

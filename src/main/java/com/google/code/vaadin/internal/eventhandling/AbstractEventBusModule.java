@@ -19,11 +19,7 @@
 package com.google.code.vaadin.internal.eventhandling;
 
 import com.google.code.vaadin.components.eventhandling.configuration.EventBusBinding;
-import com.google.code.vaadin.mvp.eventhandling.EventBusTypes;
-import com.google.code.vaadin.mvp.eventhandling.EventBus;
-import com.google.code.vaadin.mvp.eventhandling.EventBusType;
-import com.google.code.vaadin.mvp.eventhandling.EventPublisher;
-import com.google.code.vaadin.mvp.eventhandling.EventType;
+import com.google.code.vaadin.mvp.eventhandling.*;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provider;
 import com.google.inject.Scope;
@@ -37,7 +33,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.annotation.Annotation;
 
 /**
- * AbstractEventBusModule - TODO: description
+ * Base class for all Event Bus configuration modules.
  *
  * @author Alexey Krylov
  * @since 24.02.13

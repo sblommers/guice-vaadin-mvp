@@ -16,7 +16,7 @@
     <packaging>jar</packaging>
 
     <name>Guice Vaadin MVP</name>
-    <description>Vaadin MVP pattern framework based on Google Guice</description>
+    <description>Lightweight MVP framework for Vaadin and Guice</description>
 
     <url>http://code.google.com/p/guice-vaadin-mvp</url>
 

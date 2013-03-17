@@ -1,7 +1,9 @@
 Overview
 
-Guice-Vaadin-MVP is ....
+Guice-Vaadin-MVP is an lightweight MVP framework for Vaadin aiming at simplifying
+application development with Vaadin and Guice.
 
+Inspired by Tomi Virkki cdiutils Vaadin addon: https://vaadin.com/en/directory#addon/cdi-utils:vaadin
 
 Project on google-code:
 http://code.google.com/p/guice-vaadin-mvp/

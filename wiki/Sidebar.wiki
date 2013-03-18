@@ -1,0 +1,8 @@
+  * [http://guice-vaadin-mvp.googlecode.com/ Home]
+  * ----
+  * [ReleaseNotes Release notes]
+  * [DevGuide Developer guide]
+     * [ImplementationDetails  Implementation Details]
+     * [Advanced Advanced Topics]
+  * ----
+  * [http://code.google.com/p/guice-vaadin-mvp/feeds Project feeds]
